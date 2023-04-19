@@ -7,19 +7,24 @@ import com.ssafy.churest.repository.BirdHouseRepository;
 import com.ssafy.churest.repository.BirdRepository;
 import com.ssafy.churest.repository.HouseRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+@Component
 public class DataLoader implements CommandLineRunner {
 
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String DDL_CONFIG;
+    @Autowired
     private BirdRepository birdRepository;
+    @Autowired
     private HouseRepository houseRepository;
+    @Autowired
     private BirdHouseRepository birdHouseRepository;
 
     @Override
