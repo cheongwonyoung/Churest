@@ -23,7 +23,8 @@ public class Bird {
 
     private int price;
 
-    @Builder private Bird(String name, String description, int price){
+    @Builder
+    private Bird(String name, String description, int price){
         this.name = name;
         this.description = description;
         this.price = price;

@@ -1,7 +1,9 @@
 package com.ssafy.churest;
 
 import com.ssafy.churest.entity.Bird;
+import com.ssafy.churest.entity.House;
 import com.ssafy.churest.repository.BirdRepository;
+import com.ssafy.churest.repository.HouseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -15,12 +17,26 @@ public class DataLoader implements CommandLineRunner {
     @Value("${spring.jpa.hibernate.ddl-auto}")
     private String DDL_CONFIG;
     private BirdRepository birdRepository;
+    private HouseRepository houseRepository;
     @Override
     public void run(String... args) throws Exception {
         // JPA DDL 설정 보고 실행 판단
         if (!DDL_CONFIG.equals("create")) return;
 
         addBirds();
+        addHouse();
+    }
+
+    private void addHouse() {
+        List<House> houseList = new ArrayList<>();
+
+        House house1 = House.builder().name("오두막").description("낮고 아늑한 느낌의 오두막").price(0).build();
+        House house2 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
+
+        houseList.add(house1);
+        houseList.add(house2);
+
+        houseRepository.saveAllAndFlush(houseList);
     }
 
     private void addBirds() {
