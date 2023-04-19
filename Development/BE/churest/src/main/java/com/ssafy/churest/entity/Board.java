@@ -1,5 +1,6 @@
 package com.ssafy.churest.entity;
 
+import com.ssafy.churest.dto.req.BoardRequestDto;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder // 추가 04.19 14:17
 public class Board {
 
     @Id
@@ -54,5 +56,6 @@ public class Board {
 
     @ColumnDefault("false")
     private boolean isDeleted;
+
 
 }
