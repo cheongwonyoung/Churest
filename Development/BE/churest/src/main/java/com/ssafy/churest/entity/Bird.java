@@ -22,4 +22,10 @@ public class Bird {
     private String description;
 
     private int price;
+
+    @Builder private Bird(String name, String description, int price){
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 }
