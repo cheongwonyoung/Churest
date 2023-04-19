@@ -2,6 +2,7 @@ package com.ssafy.churest.entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -26,4 +27,7 @@ public class MemberBirdHouse {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bird_house_id")
     private BirdHouse birdHouse;
+
+    @ColumnDefault("false")
+    private Boolean isUsed;
 }

@@ -1,7 +1,9 @@
 package com.ssafy.churest;
 
 import com.ssafy.churest.entity.Bird;
+import com.ssafy.churest.entity.BirdHouse;
 import com.ssafy.churest.entity.House;
+import com.ssafy.churest.repository.BirdHouseRepository;
 import com.ssafy.churest.repository.BirdRepository;
 import com.ssafy.churest.repository.HouseRepository;
 import lombok.AllArgsConstructor;
@@ -18,16 +20,31 @@ public class DataLoader implements CommandLineRunner {
     private String DDL_CONFIG;
     private BirdRepository birdRepository;
     private HouseRepository houseRepository;
+    private BirdHouseRepository birdHouseRepository;
+
     @Override
     public void run(String... args) throws Exception {
         // JPA DDL 설정 보고 실행 판단
         if (!DDL_CONFIG.equals("create")) return;
 
         addBirds();
-        addHouse();
+        addHouses();
+        addBirdHouses();
     }
 
-    private void addHouse() {
+    private void addBirdHouses() {
+        List<BirdHouse> birdHouseList = new ArrayList<>();
+
+        BirdHouse birdHouse1 = BirdHouse.builder().name("그린").description("싱그러운 나뭇잎들이 느껴지는 새집").price(0).build();
+        BirdHouse birdHouse2 = BirdHouse.builder().name("블루").description("넓고 푸른 하늘 느낌의 새집").price(0).build();
+
+        birdHouseList.add(birdHouse1);
+        birdHouseList.add(birdHouse2);
+
+        birdHouseRepository.saveAllAndFlush(birdHouseList);
+    }
+
+    private void addHouses() {
         List<House> houseList = new ArrayList<>();
 
         House house1 = House.builder().name("오두막").description("낮고 아늑한 느낌의 오두막").price(0).build();
