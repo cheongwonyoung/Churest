@@ -58,6 +58,17 @@ public class MemberBirdServiceImpl implements MemberBirdService{
     }
 
     @Override
+    public List<MemberBirdResponseDto.Info> getMyBirdList(int memberId) {
+        List<MemberBirdResponseDto.Info> res = new ArrayList<>();
+        List<MemberBird> memberBirdList = memberBirdRepository.findAllByMember_MemberId(memberId);
+        for(MemberBird m : memberBirdList){
+            MemberBirdResponseDto.Info info = MemberBirdResponseDto.Info.fromEntity(m);
+            res.add(info);
+        }
+        return res;
+    }
+
+    @Override
     public int availablePurchase(int memberId, int birdId) {
         int memberCoin = memberRepository.findById(memberId).get().getCoin();
         int birdCoin = birdRepository.findById(birdId).get().getPrice();
