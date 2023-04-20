@@ -2,11 +2,11 @@ package com.ssafy.churest.service;
 
 import com.ssafy.churest.dto.resp.HouseResponseDto;
 import com.ssafy.churest.entity.House;
+import com.ssafy.churest.entity.MemberBird;
 import com.ssafy.churest.entity.MemberHouse;
 import com.ssafy.churest.repository.HouseRepository;
 import com.ssafy.churest.repository.MemberHouseRepository;
 import com.ssafy.churest.repository.MemberRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Service("HouseService")
 @RequiredArgsConstructor
-public class HouseServiceImpl implements HouseService{
+public class MemberHouseServiceImpl implements MemberHouseService {
     private final MemberRepository memberRepository;
     private final HouseRepository houseRepository;
     private final MemberHouseRepository memberHouseRepository;
@@ -43,5 +43,27 @@ public class HouseServiceImpl implements HouseService{
         }
         res.put("houses", houseRespList);
         return res;
+    }
+
+    @Override
+    public int availablePurchase(int memberId, int houseId) {
+        int memberCoin = memberRepository.findById(memberId).get().getCoin();
+        int housePrice = houseRepository.findById(houseId).get().getPrice();
+
+        return memberCoin - housePrice;
+    }
+
+    @Override
+    public Map<String, Object> purchaseHouse(int memberId, int houseId, int change) {
+        MemberHouse memberHouse = memberHouseRepository.findByMember_MemberIdAndHouse_HouseId(memberId, houseId);
+
+        if(memberHouse == null){
+            memberHouseRepository.save(MemberHouse.builder()
+                    .member(memberRepository.findById(memberId).get())
+                    .house(houseRepository.findById(houseId).get()).build());
+            memberRepository.save(memberRepository.findById(memberId).get().updateCoin(change));
+        }
+
+        return getHouseList(memberId);
     }
 }

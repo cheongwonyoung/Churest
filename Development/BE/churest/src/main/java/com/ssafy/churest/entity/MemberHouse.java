@@ -31,4 +31,9 @@ public class MemberHouse {
     @ColumnDefault("false")
     private Boolean isUsed;
 
+    @Builder
+    private MemberHouse(Member member, House house) {
+        this.member = member;
+        this.house = house;
+    }
 }
