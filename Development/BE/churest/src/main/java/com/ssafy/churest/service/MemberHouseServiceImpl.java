@@ -60,10 +60,17 @@ public class MemberHouseServiceImpl implements MemberHouseService {
         if(memberHouse == null){
             memberHouseRepository.save(MemberHouse.builder()
                     .member(memberRepository.findById(memberId).get())
-                    .house(houseRepository.findById(houseId).get()).build());
+                    .house(houseRepository.findById(houseId).get())
+                    .isUsed(false).build());
             memberRepository.save(memberRepository.findById(memberId).get().updateCoin(change));
         }
 
         return getHouseList(memberId);
+    }
+
+    @Override
+    public void changeHouse(int memberId, int houseId) {
+        memberHouseRepository.save(memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).updateIsUsed(false));
+        memberHouseRepository.save(memberHouseRepository.findByMember_MemberIdAndHouse_HouseId(memberId, houseId).updateIsUsed(true));
     }
 }

@@ -36,9 +36,10 @@ public class MemberBird {
     private Boolean isUsed;
 
     @Builder
-    private MemberBird(Member member, Bird bird) {
+    private MemberBird(Member member, Bird bird, Boolean isUsed) {
         this.member = member;
         this.bird = bird;
+        this.isUsed = isUsed;
     }
 
     public MemberBird updateNickname(String nickname) {

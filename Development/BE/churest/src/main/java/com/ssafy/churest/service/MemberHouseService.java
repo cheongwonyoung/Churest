@@ -11,4 +11,6 @@ public interface MemberHouseService {
     int availablePurchase(int memberId, int houseId);
 
     Map<String, Object> purchaseHouse(int memberId, int houseId, int change);
+
+    void changeHouse(int memberId, int houseId);
 }

@@ -43,4 +43,16 @@ public class ShopHouseController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @ApiOperation(value = "집 바꾸기", notes = "다른 집으로 장착")
+    @PutMapping("")
+    public ResponseEntity<?> changeHouse(@RequestParam int memberId, @RequestParam int houseId) {
+        try {
+            memberHouseService.changeHouse(memberId, houseId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
