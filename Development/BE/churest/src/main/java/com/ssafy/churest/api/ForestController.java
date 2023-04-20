@@ -29,15 +29,15 @@ public class ForestController {
 //    }
 
     //  숲 정보 API // 나 또는 친구 숲
-    @GetMapping("/{memberId}")
-    public static ResponseEntity<?> getForest(@PathVariable int memberId){
-        try{
-
-        }catch(Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @GetMapping("/{memberId}")
+//    public static ResponseEntity<?> getForest(@PathVariable int memberId){
+//        try{
+//            return new ResponseEntity<>(, HttpStatus.OK);
+//        }catch(Exception e){
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
 
     //  추억 나무 생성 시 닉네임 조회 API
@@ -78,4 +78,5 @@ public class ForestController {
 
     //  추억 나무 조회 API
 
+    //  추억 나무 퍼가기 API
 }

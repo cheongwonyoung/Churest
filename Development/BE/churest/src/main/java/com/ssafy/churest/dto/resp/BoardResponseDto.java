@@ -1,5 +1,9 @@
 package com.ssafy.churest.dto.resp;
 
+import com.ssafy.churest.repository.BoardRepository;
+import lombok.Builder;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,6 +19,8 @@ public class BoardResponseDto {
 
     }
 
+    @Data
+    @Builder
     public static class BoardDetailInfo {
 
         private String title;
@@ -35,26 +41,21 @@ public class BoardResponseDto {
         private List<Integer> tagList;
 
         //  나무 종류
-        private TreeInfo treeInfo;
+        private TreeResponseDto.TreeInfo treeInfo;
 
         //  나무 성장 로그
-        private List<TreeLogInfo> treeLogInfoList;
-    }
+        private List<TreeLogResponseDto.TreeLogInfo> treeLogInfoList;
 
-    //  따로 빼?
-    public static class TreeInfo{
+        public static BoardDetailInfo fromEntity(com.ssafy.churest.entity.Board board) {
+            return BoardDetailInfo.builder()
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .createdTime(board.getCreatedTime())
+                    .weather(board.getWeather())
+                    .locationX(board.getLocationX())
+                    .locationY(board.getLocationY())
+                    .build();
+        }
 
-        private String name;
-
-        private String description;
-
-        private String file;
-    }
-
-    public static class TreeLogInfo{
-
-        private LocalDateTime date;
-
-        private int score;
     }
 }

@@ -14,7 +14,7 @@ public interface BoardService {
 
     void writeTree(List<MultipartFile> fileList, BoardRequestDto.Write writeInfo);
 
+    List<BoardResponseDto.BoardInfo> getBoardList(int memberId);
 
-
-    BoardResponseDto.BoardDetailInfo getBoardInfo(int boardId);
+    BoardResponseDto.BoardDetailInfo getBoardDetailInfo(int boardId);
 }
