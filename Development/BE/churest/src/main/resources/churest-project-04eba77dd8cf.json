@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "churest-project",
+  "private_key_id": "04eba77dd8cfe461df45a10b3839c58bf6d3f524",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCJ00pgDxwssX63\n0A35C8b390GjhfXBGLybyGc2ZO3radQYtOlr9XzGsRwdiDU8z0IYOoRLEboRlrQj\nspv/BtlJPBv+dnbdQBnp9855tUpNzIDOiryilbGW8XLwCZJrJkKTkJqIELDTQ+tF\nG69wmzGFkgTsqrKEzXTWuGufODah2phtasLZVEr7R5zU3eHaGSjvFlpkV5mV6G6p\nOeUu60BpppYEWJaT71B2+0RBshLPAoAw+JrGfIV3unhbD0hEfypV024F14F0ZIqH\nteDtfwYYs/kWSi6s2qWDjgNkJFSxWHEMpSJMlD4VYtEmjdkTv6LcWALRSNgkTdTn\n468kayhbAgMBAAECggEAMqkdMhDryMvXacZKlIwNL1FN6ccQTdGDZnmz4o0X3Qvx\n38ED+eBq5HfufzZ1ZyxBvbkorpVOATAVd/ermoLQdLhpC9BMocfxnowtc5Q9QzqT\n8BeT/ekrNXH7zxqdnNAb8bTZ8IC+FnHlNWpXQvtwqQnC0KFv7Bu/QjvYp1ZY0oYG\njtrMcusdmUEihwKM4yvqtJEZeve9Kgpb+UrlHcjhiufDHudeuTv0ZsjycdTTP/Bw\njj7Z4qxN7Fq4Gm5BpXI+QzRibMdtEQPO6IFnObPJHLBjjnmZNyel8qoNuF5KiCT+\nMmzqugj2tvbZg1UkTH1XN6TDFKtw3Bx0//nqBDDF2QKBgQDCAIHjBSkxLOExDPD3\nFglJzWtiXr5K5fLBOacAdIIR0AoUg0Rck7WMbBY4qZ+IEj42TXpXbHP0bcUvhVlK\n41N/2u6MTxT4e5lNOjrUoHluqaii5Po14X4ZisVuXtvjRh+GhsKuSkO7eRD3krb5\nH+dE8khgxucsBOQS5Q9z6x2qyQKBgQC13usEjFbr1Gr2CYPDfGlJ7vPPtR4zzwBB\nrRLoYGvQZiF4mNSd+T9CLtTmf1XLVhjQ7gPVOpCWFyJX9fcnaEf+0nQ3wQQ+YEE3\nYUv5H43PlPz0qLzE+Wjv0fPK+ZUeQJjWYVu2Grpj2JsxUVQSDr78vwQ3lxrCANM8\nPnKXF+zoAwKBgDDSid2FFfm/Lqj2dcno7Mt6+9RUvZUBy5bfGG0f5P/wmCjTZCfc\nMGs3ZFw8K97FoIxv8SMBMylHWsF70J3tGb1qbnA3ErL5//mUduu9uvGjlsHv2Bwp\nNF/fMZJ2IuZOZm6niWTtYaBTdnanoI6Pfdc3Fgns5I6KaI9sv/fPKrcpAoGAMSNw\npkLwvTkgSSea9TdpDzPDpiwOY/sa26PShvx+RMlDY90PHTuZrt0OYtSmrpCtlc2p\nNXRkWlkXy2JGi9wuD5h3FBVPezbwh/D+4Ol4nExp6ASrNCEbDCjS0NWMR6c2ZD3b\n1KD2GUIN9E5AA7z+NzW5AvgNn7svV4ib11z8glcCgYAEz1G4avaqPSTlzGiuBF8p\nE/pBXf+SYpvuz+rLyRa+O7uh2vHBs2oCawzUCFroQGLho5K8NmagNqQpY3mKFFPz\nqUMCx4NvxeBLUKYnFmTN2ZJyV9pF2Sl8fOcNdqARwm6ZaWd1gw9mFm8jmP7kXtZa\n4gnHN998VwDFafiUzooSgQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "churest-project@churest-project.iam.gserviceaccount.com",
+  "client_id": "116036319648964167204",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/churest-project%40churest-project.iam.gserviceaccount.com"
+}
