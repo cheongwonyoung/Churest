@@ -13,7 +13,7 @@ public class MemberBirdRequestDto {
     @Data
     @NoArgsConstructor
     @ApiModel(value = "새 구매 정보", description = "구매자, 구매하는 새 정보를 가진 Class")
-    public static class Buy{
+    public static class Purchase {
 
         @NotEmpty(message="memberId는 빈값 일 수 없습니다")
         @NotNull(message="memberId는 null 일 수 없습니다")
