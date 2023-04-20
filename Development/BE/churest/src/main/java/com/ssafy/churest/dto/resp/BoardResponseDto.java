@@ -9,13 +9,25 @@ import java.util.List;
 
 public class BoardResponseDto {
 
+    @Builder
     public static class BoardInfo {
+
+        private int boardId;
 
         private int locationX;
 
         private int locationY;
 
         private int score;
+
+        public static BoardInfo fromEntity (com.ssafy.churest.entity.Board board, com.ssafy.churest.entity.TreeLog treeLog) {
+            return BoardInfo.builder()
+                    .boardId(board.getBoardId())
+                    .locationX(board.getLocationX())
+                    .locationY(board.getLocationY())
+                    .score(treeLog.getScore())
+                    .build();
+        }
 
     }
 

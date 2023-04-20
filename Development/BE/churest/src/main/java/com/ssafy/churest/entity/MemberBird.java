@@ -4,6 +4,7 @@ package com.ssafy.churest.entity;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -31,5 +32,8 @@ public class MemberBird {
 
     @Column(length = 6)
     private String nickname;
+
+    @ColumnDefault("false")
+    private Boolean isUsed;
 
 }

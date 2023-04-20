@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TreeLogRepository extends JpaRepository<TreeLog, Integer> {
-    TreeLog findByBoard_BoardId(int boardId);
+    TreeLog findTop1ByBoard_BoardId(int boardId);
 
     List<TreeLog> findAllByBoard_BoardId(int boardId);
+
+
 }

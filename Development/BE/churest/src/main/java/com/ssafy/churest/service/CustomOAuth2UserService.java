@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    private final UserRepository userRepository;
+//    private final UserRepository userRepository;
     private final HttpSession httpSession;
 
 
