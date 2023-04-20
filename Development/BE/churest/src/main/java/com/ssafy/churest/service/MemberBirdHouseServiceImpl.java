@@ -47,4 +47,26 @@ public class MemberBirdHouseServiceImpl implements MemberBirdHouseService{
 
         return res;
     }
+
+    @Override
+    public int availablePurchase(int memberId, int birdHouseId) {
+        int memberCoin = memberRepository.findById(memberId).get().getCoin();
+        int birdHousePrice = birdHouseRepository.findById(birdHouseId).get().getPrice();
+
+        return memberCoin - birdHousePrice;
+    }
+
+    @Override
+    public Map<String, Object> purchaseBirdHouse(int memberId, int birdHouseId, int change) {
+        MemberBirdHouse memberBirdHouse = memberBirdHouseRepository.findByMember_MemberIdAndBirdHouse_BirdHouseId(memberId, birdHouseId);
+
+        if(memberBirdHouse == null){
+            memberBirdHouseRepository.save(MemberBirdHouse.builder()
+                    .member(memberRepository.findById(memberId).get())
+                    .birdHouse(birdHouseRepository.findById(birdHouseId).get())
+                    .isUsed(false).build());
+            memberRepository.save(memberRepository.findById(memberId).get().updateCoin(change));
+        }
+        return getBirdHouseList(memberId);
+    }
 }

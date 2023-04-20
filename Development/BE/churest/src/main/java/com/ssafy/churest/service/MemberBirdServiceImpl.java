@@ -71,9 +71,9 @@ public class MemberBirdServiceImpl implements MemberBirdService{
     @Override
     public int availablePurchase(int memberId, int birdId) {
         int memberCoin = memberRepository.findById(memberId).get().getCoin();
-        int birdCoin = birdRepository.findById(birdId).get().getPrice();
+        int birdPrice = birdRepository.findById(birdId).get().getPrice();
 
-        return memberCoin - birdCoin;
+        return memberCoin - birdPrice;
     }
 
     @Override

@@ -30,4 +30,16 @@ public class MemberBirdHouse {
 
     @ColumnDefault("false")
     private Boolean isUsed;
+
+    @Builder
+    private MemberBirdHouse(Member member, BirdHouse birdHouse, Boolean isUsed) {
+        this.member = member;
+        this.birdHouse = birdHouse;
+        this.isUsed = isUsed;
+    }
+
+    public MemberBirdHouse updateIsUsed(Boolean isUsed){
+        this.isUsed = isUsed;
+        return this;
+    }
 }
