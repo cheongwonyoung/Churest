@@ -32,12 +32,12 @@ public class ShopBirdController {
             "구매 가능할 때는 HttpStatus.OK와 함께 새로운 목록\n" +
             "잔액 부족으로 구매 불가능할 때는 HttpStatus.ACCEPTED")
     @PostMapping("")
-    public ResponseEntity<?> purchaseBird(@RequestBody MemberBirdRequestDto.Purchase purchaseInfo) {
+    public ResponseEntity<?> purchaseBird(@RequestBody MemberBirdRequestDto.PurchaseOrChange info) {
         try {
             // 새를 사고 남은 잔액이 0원보다 크거나 같을 때만 구매
-            int change = memberBirdService.availablePurchase(purchaseInfo.getMemberId(), purchaseInfo.getBirdId());
+            int change = memberBirdService.availablePurchase(info.getMemberId(), info.getBirdId());
             if(change >= 0)
-                return new ResponseEntity<>(memberBirdService.purchaseBird(purchaseInfo.getMemberId(), purchaseInfo.getBirdId(), change), HttpStatus.OK);
+                return new ResponseEntity<>(memberBirdService.purchaseBird(info.getMemberId(), info.getBirdId(), change), HttpStatus.OK);
             else
                 return new ResponseEntity<>("잔액 부족", HttpStatus.ACCEPTED);
         } catch (Exception e) {
@@ -48,9 +48,9 @@ public class ShopBirdController {
 
     @ApiOperation(value = "새 바꾸기", notes = "다른 새로 장착")
     @PutMapping("")
-    public ResponseEntity<?> changeBird(@RequestParam int memberId, @RequestParam int birdId) {
+    public ResponseEntity<?> changeBird(@RequestBody MemberBirdRequestDto.PurchaseOrChange info) {
         try {
-            memberBirdService.changeBird(memberId, birdId);
+            memberBirdService.changeBird(info.getMemberId(), info.getBirdId());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

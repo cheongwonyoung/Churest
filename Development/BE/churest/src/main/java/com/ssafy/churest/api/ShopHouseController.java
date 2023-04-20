@@ -26,16 +26,16 @@ public class ShopHouseController {
         }
     }
 
-    @ApiOperation(value = "집 구매", notes = "새 구매하기 \n" +
+    @ApiOperation(value = "집 구매", notes = "집 구매하기 \n" +
             "구매 가능할 때는 HttpStatus.OK와 함께 새로운 목록\n" +
             "잔액 부족으로 구매 불가능할 때는 HttpStatus.ACCEPTED")
     @PostMapping("")
-    public ResponseEntity<?> purchaseHouse(@RequestBody MemberHouseRequestDto.Purchase purchaseInfo) {
+    public ResponseEntity<?> purchaseHouse(@RequestBody MemberHouseRequestDto.PurchaseOrChange info) {
         try {
             // 집을 사고 남은 잔액이 0원보다 크거나 같을 때만 구매
-            int change = memberHouseService.availablePurchase(purchaseInfo.getMemberId(), purchaseInfo.getHouseId());
+            int change = memberHouseService.availablePurchase(info.getMemberId(), info.getHouseId());
             if(change >= 0)
-                return new ResponseEntity<>(memberHouseService.purchaseHouse(purchaseInfo.getMemberId(), purchaseInfo.getHouseId(), change), HttpStatus.OK);
+                return new ResponseEntity<>(memberHouseService.purchaseHouse(info.getMemberId(), info.getHouseId(), change), HttpStatus.OK);
             else
                 return new ResponseEntity<>("잔액 부족", HttpStatus.ACCEPTED);
         } catch (Exception e) {
@@ -46,9 +46,9 @@ public class ShopHouseController {
 
     @ApiOperation(value = "집 바꾸기", notes = "다른 집으로 장착")
     @PutMapping("")
-    public ResponseEntity<?> changeHouse(@RequestParam int memberId, @RequestParam int houseId) {
+    public ResponseEntity<?> changeHouse(@RequestBody MemberHouseRequestDto.PurchaseOrChange info) {
         try {
-            memberHouseService.changeHouse(memberId, houseId);
+            memberHouseService.changeHouse(info.getMemberId(), info.getHouseId());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

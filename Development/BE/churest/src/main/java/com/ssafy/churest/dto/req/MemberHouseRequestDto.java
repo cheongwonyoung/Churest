@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 public class MemberHouseRequestDto {
     @Data
     @NoArgsConstructor
-    @ApiModel(value = "집 구매 정보", description = "구매자, 구매하는 집 Id를 가진 Class")
-    public static class Purchase {
+    @ApiModel(value = "집 구매 혹은 바꾸는 정보", description = "사용자, 구매하거나 바꾸는 집 Id를 가진 Class")
+    public static class PurchaseOrChange {
 
         @NotEmpty(message="memberId는 빈값 일 수 없습니다")
         @NotNull(message="memberId는 null 일 수 없습니다")
