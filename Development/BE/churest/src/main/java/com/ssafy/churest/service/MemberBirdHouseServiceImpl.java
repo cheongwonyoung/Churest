@@ -69,4 +69,10 @@ public class MemberBirdHouseServiceImpl implements MemberBirdHouseService{
         }
         return getBirdHouseList(memberId);
     }
+
+    @Override
+    public void changeBirdHouse(int memberId, int houseId) {
+        memberBirdHouseRepository.save(memberBirdHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).updateIsUsed(false));
+        memberBirdHouseRepository.save(memberBirdHouseRepository.findByMember_MemberIdAndBirdHouse_BirdHouseId(memberId, houseId).updateIsUsed(true));
+    }
 }

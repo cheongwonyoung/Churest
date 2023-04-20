@@ -45,4 +45,17 @@ public class ShopBirdHouseController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @ApiOperation(value = "새집 바꾸기", notes = "다른 새집으로 장착")
+    @PutMapping("")
+    public ResponseEntity<?> changeBirdHouse(@RequestBody MemberHouseRequestDto.PurchaseOrChange info) {
+        try {
+            memberBirdHouseService.changeBirdHouse(info.getMemberId(), info.getHouseId());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

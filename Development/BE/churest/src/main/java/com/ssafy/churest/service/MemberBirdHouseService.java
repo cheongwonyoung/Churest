@@ -8,4 +8,6 @@ public interface MemberBirdHouseService {
     int availablePurchase(int memberId, int birdHouseId);
 
     Map<String, Object> purchaseBirdHouse(int memberId, int birdHouseId, int change);
+
+    void changeBirdHouse(int memberId, int houseId);
 }
