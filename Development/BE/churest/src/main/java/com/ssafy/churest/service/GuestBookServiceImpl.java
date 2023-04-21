@@ -56,6 +56,4 @@ public class GuestBookServiceImpl implements GuestBookService{
     public void deleteGuestBook(int guestBookId) {
         guestBookRepository.save(guestBookRepository.findById(guestBookId).get().updateIsDeleted(true));
     }
-
-
 }

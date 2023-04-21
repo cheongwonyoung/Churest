@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class GuestBookRequestDto {
+
     @Data
     @NoArgsConstructor
     @ApiModel(value = "방명록 작성 정보", description = "발신자, 수신자, 방명록 내용을 가진 Class")
