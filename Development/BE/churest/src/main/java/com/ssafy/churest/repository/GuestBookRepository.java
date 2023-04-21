@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface GuestBookRepository extends JpaRepository<GuestBook, Integer> {
 
-    List<GuestBook> findByToMember_MemberIdAndIsDeletedIsFalse(int memberId);
+    List<GuestBook> findAllByToMember_MemberIdAndIsDeletedIsFalse(int memberId);
 }
