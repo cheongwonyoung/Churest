@@ -4,15 +4,14 @@ package com.ssafy.churest.entity;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@DynamicInsert
 public class MemberBird {
 
     @Id
@@ -36,10 +35,8 @@ public class MemberBird {
     private Boolean isUsed;
 
     @Builder
-    private MemberBird(Member member, Bird bird, Boolean isUsed) {
+    private MemberBird(Member member, Bird bird) {
         this.member = member;
-        this.bird = bird;
-        this.isUsed = isUsed;
     }
 
     public MemberBird updateNickname(String nickname) {
