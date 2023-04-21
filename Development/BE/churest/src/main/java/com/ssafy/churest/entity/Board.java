@@ -57,5 +57,4 @@ public class Board {
     @ColumnDefault("false")
     private boolean isDeleted;
 
-
 }

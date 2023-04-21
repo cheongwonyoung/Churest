@@ -19,6 +19,7 @@ public interface BoardService {
 
     List<BoardResponseDto.BoardInfo> getBoardInfoList(int memberId);
 
-    BoardResponseDto.BoardDetailInfo getBoardDetailInfo(int boardId);
+//    BoardResponseDto.BoardDetailInfo getBoardDetailInfo(int boardId);
+    BoardResponseDto.BoardDetailInfo getBoardDetailInfo(int memberId, int boardId);
 
 }

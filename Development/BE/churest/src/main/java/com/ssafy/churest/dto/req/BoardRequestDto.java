@@ -25,6 +25,8 @@ public class BoardRequestDto {
 //    @ApiModel(value = "추억 나무 작성 정보", description = "추억 나무 작성 및 생성자 정보")
     public static class Write {
 
+        private int memberId;
+
         private String title;
 
         private String content;

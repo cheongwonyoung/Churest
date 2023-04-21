@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -26,7 +26,7 @@ public class TreeLog {
     private Board board;
 
     @CreationTimestamp
-    private LocalDateTime date;
+    private LocalDate date;
 
     private int score;
 

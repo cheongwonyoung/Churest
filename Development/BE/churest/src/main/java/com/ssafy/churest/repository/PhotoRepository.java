@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PhotoRepository extends JpaRepository<Photo, Integer> {
-//    List<Photo> findAllByBoardId(int boardId);
+    List<Photo> findAllByBoard_BoardId(int boardId);
 }

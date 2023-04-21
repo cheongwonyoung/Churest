@@ -44,4 +44,8 @@ public class Member {
 //    @OneToMany(mappedBy = "member")
 //    private List<Tag> tags = new ArrayList<>();
 
+    public Member updateCoin(int coin){
+        this.coin = coin;
+        return this;
+    }
 }

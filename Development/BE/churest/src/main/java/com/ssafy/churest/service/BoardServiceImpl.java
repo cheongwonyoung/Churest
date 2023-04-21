@@ -26,6 +26,7 @@ public class BoardServiceImpl implements BoardService {
     private static final int TREE_CRITERIA_SCORE = 16;
 
     private final GCSService gcsService;
+    private final TreeLogService treeLogService;
 
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
@@ -50,6 +51,7 @@ public class BoardServiceImpl implements BoardService {
         int treeId = (int) (Math.random() * TREE_SIZE) + 1;
 
         Board board = boardRepository.save(Board.builder()
+                        .member(memberRepository.findByMemberId(writeInfo.getMemberId()))
                         .tree(treeRepository.findByTreeId(treeId))
                         .title(writeInfo.getTitle())
                         .content(writeInfo.getContent())
@@ -72,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
                             .member(memberRepository.findByMemberId(tagMemberId))
                             .board(board)
                     .build());
-            //  알림 생성
+            //  알림 생성 ...
         }
 
         //  나무 로그 생성
@@ -114,7 +116,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardResponseDto.BoardDetailInfo getBoardDetailInfo(int boardId) {
+    public BoardResponseDto.BoardDetailInfo getBoardDetailInfo(int memberId, int boardId) {
+
+//        public BoardResponseDto.BoardDetailInfo getBoardDetailInfo(int boardId) {
 
         Board board = boardRepository.findByBoardId(boardId);
 
@@ -123,24 +127,26 @@ public class BoardServiceImpl implements BoardService {
 
         BoardResponseDto.BoardDetailInfo boardDetailInfo = BoardResponseDto.BoardDetailInfo.fromEntity(board);
 
-        TreeLog recentTreeLog = treeLogRepository.findTop1ByBoard_BoardId(board.getBoardId());
-        if(recentTreeLog.getScore() >= TREE_CRITERIA_SCORE){
+        int recentTreeLogScore = treeLogService.updateScoreByView(boardId);
+
+        if(recentTreeLogScore >= TREE_CRITERIA_SCORE){
             //  정렬?
             //  나무 성장 로그
-            List<TreeLog> treeLogList = treeLogRepository.findAllByBoard_BoardId(board.getBoardId());
-            boardDetailInfo.setTreeLogInfoList(treeLogList.stream().map(TreeLogResponseDto.TreeLogInfo::fromEntity).collect(Collectors.toList()));
+            boardDetailInfo.setTreeLogInfoList(treeLogService.getTreeLogList(boardId));
 
             //  나무
             boardDetailInfo.setTreeInfo(TreeResponseDto.TreeInfo.fromEntity(board.getTree()));
         }
 
         //  파일 리스트
-//        boardDetailInfo.setFileList(photoRepository.findAllByBoardId(boardId).stream().map(photo -> photo.getFile()).collect(Collectors.toList()));
+        boardDetailInfo.setFileList(photoRepository.findAllByBoard_BoardId(boardId).stream().map(photo -> photo.getFile()).collect(Collectors.toList()));
 
         //  태그된 사용자 id
-        List<Tag> tagList = tagRepository.findAllByBoard_BoardId(board.getBoardId());
-        boardDetailInfo.setTagList(tagList.stream().map(tag -> tag.getMember().getMemberId()).collect(Collectors.toList()));
-//        boardDetailInfo.setTagList(tagRepository.findAllByBoard_BoardId(board.getBoardId()).stream().map(tag -> tag.getMember().getMemberId()).collect(Collectors.toList()));
+        boardDetailInfo.setTagList(tagRepository.findAllByBoard_BoardId(board.getBoardId()).stream().map(tag -> tag.getMember().getMemberId()).collect(Collectors.toList()));
+
+        //  isTagged
+        boolean isTagged = (board.getMember().getMemberId() == memberId) ? true : tagRepository.existsByMember_MemberIdAndBoard_BoardId(memberId, boardId);
+        boardDetailInfo.setTagged(isTagged);
 
         return boardDetailInfo;
     }

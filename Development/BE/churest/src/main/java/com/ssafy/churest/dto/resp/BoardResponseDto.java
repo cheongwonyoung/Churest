@@ -47,6 +47,9 @@ public class BoardResponseDto {
 
         private int locationY;
 
+        //  추억 나무를 조회하는 사용자의 물주기 권한 여부
+        private boolean isTagged;
+
         private List<String> fileList;
 
         //  태그된 사용자 id
