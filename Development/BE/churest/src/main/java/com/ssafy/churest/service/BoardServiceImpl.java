@@ -4,16 +4,14 @@ import com.ssafy.churest.dto.req.BoardRequestDto;
 import com.ssafy.churest.dto.resp.BoardResponseDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
 import com.ssafy.churest.dto.resp.TreeResponseDto;
-import com.ssafy.churest.entity.Board;
-import com.ssafy.churest.entity.Member;
-import com.ssafy.churest.entity.Tag;
-import com.ssafy.churest.entity.TreeLog;
+import com.ssafy.churest.entity.*;
 import com.ssafy.churest.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +27,7 @@ public class BoardServiceImpl implements BoardService {
     private final TreeLogService treeLogService;
 
     private final MemberRepository memberRepository;
+    private final MemberBoardRepository memberBoardRepository;
     private final BoardRepository boardRepository;
     private final PhotoRepository photoRepository;
     private final TreeRepository treeRepository;
@@ -50,12 +49,20 @@ public class BoardServiceImpl implements BoardService {
         //  나무 랜덤 매칭
         int treeId = (int) (Math.random() * TREE_SIZE) + 1;
 
+        Member member = memberRepository.findByMemberId(writeInfo.getMemberId());
+
         Board board = boardRepository.save(Board.builder()
-                        .member(memberRepository.findByMemberId(writeInfo.getMemberId()))
+                        .member(member)
                         .tree(treeRepository.findByTreeId(treeId))
                         .title(writeInfo.getTitle())
                         .content(writeInfo.getContent())
                         .weather(writeInfo.getWeather())
+                        .build());
+
+        //  내 숲 속 추억 나무 위치 기록
+        memberBoardRepository.save(MemberBoard.builder()
+                        .member(member)
+                        .board(board)
                         .locationX(writeInfo.getLocationX())
                         .locationY(writeInfo.getLocationY())
                         .build());
@@ -82,37 +89,55 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void writeTreeFromFriend(int boardId, BoardRequestDto.LocationInfo locationInfo) {
+    public void writeTreeFromFriend(int memberId, int boardId, BoardRequestDto.LocationInfo locationInfo) {
 
-        Board friendBoard = boardRepository.findByBoardId(boardId);
-
-        boardRepository.save(Board.builder()
-                .tree(friendBoard.getTree())
-                .title(friendBoard.getTitle())
-                .content(friendBoard.getContent())
-                .weather(friendBoard.getWeather())
+        //  내 숲 속 추억 나무 위치 기록
+        memberBoardRepository.save(MemberBoard.builder()
+                .member(memberRepository.findByMemberId(memberId))
+                .board(boardRepository.findByBoardId(boardId))
                 .locationX(locationInfo.getLocationX())
                 .locationY(locationInfo.getLocationY())
                 .build());
 
-        // 샹 Entity 수정이 필요할 듯
     }
 
     @Override
     public List<BoardResponseDto.BoardInfo> getBoardInfoList(int memberId) {
-        //  나무 위치 조회수
-        List<Board> boardList = boardRepository.findAllByIsDeletedIsFalseAndMember_MemberId(memberId);
 
-        BoardResponseDto.BoardInfo boardInfo = BoardResponseDto.BoardInfo.builder()
-                .build();
-        return boardList.stream().map(board -> {
-            return BoardResponseDto.BoardInfo.fromEntity(board, treeLogRepository.findTop1ByBoard_BoardId(board.getBoardId()));
-//            BoardResponseDto.BoardInfo.builder()
-//                    .locationX(board.getLocationX())
-//                    .locationY(board.getLocationY())
-//                            .score(treeLogRepository.findTop1ByOrderByDateAscAndBoard_BoardId(board.getBoardId()).getScore())
-//                    .build()
-        }).collect(Collectors.toList());
+        List<MemberBoard> memberBoardList = memberBoardRepository.findAllByMember_MemberId(memberId);
+
+        List<BoardResponseDto.BoardInfo> boardInfoList = new ArrayList<>();
+
+        for (MemberBoard memberBoard:
+            memberBoardList) {
+                        Board board = memberBoard.getBoard();
+
+            if(!board.isDeleted())
+                boardInfoList.add(BoardResponseDto.BoardInfo.fromEntity(memberBoard, board, treeLogRepository.findTop1ByBoard_BoardId(board.getBoardId())));
+        }
+
+        return boardInfoList;
+
+//        memberBoardList.stream().map(memberBoard -> {
+//            Board board = memberBoard.getBoard();
+//            if(!board.isDeleted())
+//                return BoardResponseDto.BoardInfo.fromEntity(memberBoard, board, treeLogRepository.findTop1ByBoard_BoardId(board.getBoardId()));
+//            return null;
+//        }).collect(Collectors.toList());
+
+        //  나무 위치 조회수
+//        List<Board> boardList = boardRepository.findAllByIsDeletedIsFalseAndMember_MemberId(memberId);
+//
+//        BoardResponseDto.BoardInfo boardInfo = BoardResponseDto.BoardInfo.builder()
+//                .build();
+//        return boardList.stream().map(board -> {
+//            return BoardResponseDto.BoardInfo.fromEntity(board, treeLogRepository.findTop1ByBoard_BoardId(board.getBoardId()));
+////            BoardResponseDto.BoardInfo.builder()
+////                    .locationX(board.getLocationX())
+////                    .locationY(board.getLocationY())
+////                            .score(treeLogRepository.findTop1ByOrderByDateAscAndBoard_BoardId(board.getBoardId()).getScore())
+////                    .build()
+//        }).collect(Collectors.toList());
     }
 
     @Override

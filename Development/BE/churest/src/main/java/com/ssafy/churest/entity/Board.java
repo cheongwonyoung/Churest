@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Builder // 추가 04.19 14:17
+@Builder
 public class Board {
 
     @Id
@@ -49,10 +49,6 @@ public class Board {
 
     @Column(length = 5)
     private String weather;
-
-    private int locationX;
-
-    private int locationY;
 
     @ColumnDefault("false")
     private boolean isDeleted;

@@ -89,8 +89,7 @@ public class ForestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    //  샹 Entity 수정해야 함
+    
     //  추억 나무 퍼가기 API
 //    @ApiOperation(value = "추억 나무 퍼가기", notes = "boardId에 해당하는 추억 나무 내 숲으로 퍼가기")
 //    @PostMapping("/takeTree/{boardId}")

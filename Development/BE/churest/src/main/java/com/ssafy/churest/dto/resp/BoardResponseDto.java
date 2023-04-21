@@ -20,11 +20,11 @@ public class BoardResponseDto {
 
         private int score;
 
-        public static BoardInfo fromEntity (com.ssafy.churest.entity.Board board, com.ssafy.churest.entity.TreeLog treeLog) {
+        public static BoardInfo fromEntity (com.ssafy.churest.entity.MemberBoard memberBoard, com.ssafy.churest.entity.Board board, com.ssafy.churest.entity.TreeLog treeLog) {
             return BoardInfo.builder()
                     .boardId(board.getBoardId())
-                    .locationX(board.getLocationX())
-                    .locationY(board.getLocationY())
+                    .locationX(memberBoard.getLocationX())
+                    .locationY(memberBoard.getLocationY())
                     .score(treeLog.getScore())
                     .build();
         }
@@ -43,9 +43,9 @@ public class BoardResponseDto {
 
         private String weather;
 
-        private int locationX;
-
-        private int locationY;
+//        private int locationX;
+//
+//        private int locationY;
 
         //  추억 나무를 조회하는 사용자의 물주기 권한 여부
         private boolean isTagged;
@@ -67,8 +67,8 @@ public class BoardResponseDto {
                     .content(board.getContent())
                     .createdTime(board.getCreatedTime())
                     .weather(board.getWeather())
-                    .locationX(board.getLocationX())
-                    .locationY(board.getLocationY())
+//                    .locationX(memberBoard.getLocationX())
+//                    .locationY(memberBoard.getLocationY())
                     .build();
         }
 

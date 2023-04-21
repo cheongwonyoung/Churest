@@ -15,7 +15,7 @@ public interface BoardService {
 
     void writeTree(List<MultipartFile> fileList, BoardRequestDto.Write writeInfo) throws IOException;
 
-    void writeTreeFromFriend(int boardId, BoardRequestDto.LocationInfo locationInfo);
+    void writeTreeFromFriend(int memberId, int boardId, BoardRequestDto.LocationInfo locationInfo);
 
     List<BoardResponseDto.BoardInfo> getBoardInfoList(int memberId);
 
