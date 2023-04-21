@@ -82,8 +82,7 @@ public class MemberBirdServiceImpl implements MemberBirdService{
         if(memberBird == null){
             memberBirdRepository.save(MemberBird.builder()
                     .member(memberRepository.findById(memberId).get())
-                    .bird(birdRepository.findById(birdId).get())
-                    .isUsed(false).build());
+                    .bird(birdRepository.findById(birdId).get()).build());
             memberRepository.save(memberRepository.findById(memberId).get().updateCoin(change));
         }
         MemberBirdResponseDto.Info res = MemberBirdResponseDto.Info.fromEntity(memberBirdRepository.findByMember_MemberIdAndBird_BirdId(memberId, birdId));

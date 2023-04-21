@@ -63,8 +63,7 @@ public class MemberBirdHouseServiceImpl implements MemberBirdHouseService{
         if(memberBirdHouse == null){
             memberBirdHouseRepository.save(MemberBirdHouse.builder()
                     .member(memberRepository.findById(memberId).get())
-                    .birdHouse(birdHouseRepository.findById(birdHouseId).get())
-                    .isUsed(false).build());
+                    .birdHouse(birdHouseRepository.findById(birdHouseId).get()).build());
             memberRepository.save(memberRepository.findById(memberId).get().updateCoin(change));
         }
         return getBirdHouseList(memberId);

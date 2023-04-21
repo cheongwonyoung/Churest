@@ -3,15 +3,14 @@ package com.ssafy.churest.entity;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@DynamicInsert
 public class MemberBirdHouse {
 
     @Id
@@ -32,10 +31,9 @@ public class MemberBirdHouse {
     private Boolean isUsed;
 
     @Builder
-    private MemberBirdHouse(Member member, BirdHouse birdHouse, Boolean isUsed) {
+    private MemberBirdHouse(Member member, BirdHouse birdHouse) {
         this.member = member;
         this.birdHouse = birdHouse;
-        this.isUsed = isUsed;
     }
 
     public MemberBirdHouse updateIsUsed(Boolean isUsed){
