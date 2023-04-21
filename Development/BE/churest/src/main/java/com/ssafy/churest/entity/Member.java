@@ -48,4 +48,14 @@ public class Member {
         this.coin = coin;
         return this;
     }
+
+    public Member updateNickname(String nickname){
+        this.nickname = nickname;
+        return this;
+    }
+
+    public Member updateAvatar(int avatarId){
+        this.avatarId = avatarId;
+        return this;
+    }
 }
