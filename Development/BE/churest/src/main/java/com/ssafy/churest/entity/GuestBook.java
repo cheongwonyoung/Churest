@@ -4,16 +4,15 @@ import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@DynamicInsert
 public class GuestBook {
 
     @Id
@@ -39,4 +38,20 @@ public class GuestBook {
     @ColumnDefault("false")
     private Boolean isDeleted;
 
+    @Builder
+    private GuestBook(Member toMember, Member fromMember, String content) {
+        this.toMember = toMember;
+        this.fromMember = fromMember;
+        this.content = content;
+    }
+
+    public GuestBook updateContent(String content){
+        this.content = content;
+        return this;
+    }
+
+    public GuestBook updateIsDeleted(Boolean isDeleted){
+        this.isDeleted = isDeleted;
+        return this;
+    }
 }

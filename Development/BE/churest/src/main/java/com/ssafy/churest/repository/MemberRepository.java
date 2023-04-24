@@ -9,4 +9,5 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     Member findByMemberId(int memberId);
 
     List<Member> findAllByNicknameContainingAndMemberIdIsNot(String nickname, int memberId);
+    Member findByEmail(String email);
 }

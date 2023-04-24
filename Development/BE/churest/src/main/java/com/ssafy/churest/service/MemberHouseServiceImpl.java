@@ -60,8 +60,7 @@ public class MemberHouseServiceImpl implements MemberHouseService {
         if(memberHouse == null){
             memberHouseRepository.save(MemberHouse.builder()
                     .member(memberRepository.findById(memberId).get())
-                    .house(houseRepository.findById(houseId).get())
-                    .isUsed(false).build());
+                    .house(houseRepository.findById(houseId).get()).build());
             memberRepository.save(memberRepository.findById(memberId).get().updateCoin(change));
         }
 
