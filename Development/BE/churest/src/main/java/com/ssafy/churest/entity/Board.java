@@ -1,5 +1,6 @@
 package com.ssafy.churest.entity;
 
+import com.ssafy.churest.dto.req.BoardRequestDto;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class Board {
 
     @Id
@@ -47,10 +49,6 @@ public class Board {
 
     @Column(length = 5)
     private String weather;
-
-    private int locationX;
-
-    private int locationY;
 
     @ColumnDefault("false")
     private boolean isDeleted;

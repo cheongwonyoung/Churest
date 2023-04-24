@@ -36,7 +36,7 @@ public class MemberBirdHouse {
         this.birdHouse = birdHouse;
     }
 
-    public MemberBirdHouse updateIsUsed(Boolean isUsed){
+    public MemberBirdHouse updateIsUsed(Boolean isUsed) {
         this.isUsed = isUsed;
         return this;
     }

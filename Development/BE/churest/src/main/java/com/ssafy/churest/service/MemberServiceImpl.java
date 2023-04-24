@@ -30,7 +30,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service("MemberService")
 @RequiredArgsConstructor
@@ -168,4 +170,8 @@ public class MemberServiceImpl implements  MemberService{
     }
 
 
+    @Override
+    public List<MemberResponseDto.FriendSearchInfo> getSearchMemberList(String nickname, int memberId) {
+        return memberRepository.findAllByNicknameContainingAndMemberIdIsNot(nickname, memberId).stream().map(MemberResponseDto.FriendSearchInfo::fromEntity).collect(Collectors.toList());
+    }
 }
