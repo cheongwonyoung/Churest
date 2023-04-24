@@ -19,7 +19,6 @@ public class MemberResponseDto {
                     .memberId(member.getMemberId())
                     .avatarId(member.getAvatarId())
                     .nickname(member.getNickname())
-                    .file(member.getFile())
                     .build();
         }
     }
