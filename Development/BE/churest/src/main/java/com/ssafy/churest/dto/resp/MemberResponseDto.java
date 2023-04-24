@@ -10,12 +10,12 @@ public class MemberResponseDto {
     public static class LittleInfo {
         private int memberId;
         private String nickname;
-        private String file;
+        private int avatarId;
         public static LittleInfo fromEntity(Member member) {
             return LittleInfo.builder()
                     .memberId(member.getMemberId())
                     .nickname(member.getNickname())
-                    .file(member.getFile())
+                    .avatarId(member.getAvatarId())
                     .build();
         }
     }
