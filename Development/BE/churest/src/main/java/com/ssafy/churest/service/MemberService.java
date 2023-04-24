@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.ssafy.churest.dto.req.MemberRequestDto;
 import com.ssafy.churest.dto.resp.LoginResponseDto;
+import com.ssafy.churest.dto.resp.MemberResponseDto;
 import com.ssafy.churest.entity.Member;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
@@ -25,5 +27,7 @@ import java.util.Map;
     Member getMemberProfile(JsonNode tokenResponse, ClientRegistration provider);
 
     Map<String, Object> getMemberAttributes(ClientRegistration provider, JsonNode tokenResponse);
+
+    MemberResponseDto.MemberInfo join(MemberRequestDto.Join joinInfo);
 
 }

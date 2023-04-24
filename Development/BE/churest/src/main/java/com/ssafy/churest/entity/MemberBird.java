@@ -38,6 +38,14 @@ public class MemberBird {
         this.member = member;
     }
 
+    @Builder
+    public MemberBird(Member member, Bird bird, String nickname, Boolean isUsed){
+        this.member = member;
+        this.bird = bird;
+        this.nickname = nickname;
+        this.isUsed = isUsed;
+    }
+
     public MemberBird updateNickname(String nickname) {
         this.nickname = nickname;
         return this;

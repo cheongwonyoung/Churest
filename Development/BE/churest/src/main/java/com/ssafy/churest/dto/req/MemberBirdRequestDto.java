@@ -1,5 +1,6 @@
 package com.ssafy.churest.dto.req;
 
+import com.ssafy.churest.entity.MemberBird;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,4 +38,20 @@ public class MemberBirdRequestDto {
         @NotNull(message="nickname은 null 일 수 없습니다")
         private String nickname;
     }
+
+    @Data
+    @NoArgsConstructor
+    public static class Info{
+
+        private int memberId;
+
+        private int birdId;
+
+        private String nickname;
+
+        private Boolean isUsed;
+
+    }
+
+
 }
