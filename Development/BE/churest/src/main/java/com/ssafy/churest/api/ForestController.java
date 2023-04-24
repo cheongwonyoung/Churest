@@ -69,6 +69,7 @@ public class ForestController {
     @ApiOperation(value = "추억 나무 생성", notes = "")
     @PostMapping("")
     public ResponseEntity<?> writeTree(@RequestParam(required = false) List<MultipartFile> fileList, @RequestBody BoardRequestDto.Write writeInfo){
+        // 이전에 해당 위치 추억 나무 생성 가능 확인했다는 전제 하에 진행
         try {
             boardService.writeTree(fileList, writeInfo);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -80,8 +81,8 @@ public class ForestController {
 
     //  추억 나무 조회 API
     @ApiOperation(value = "추억 나무 조회", notes = "boardId에 해당하는 추억 나무 정보 조회 \n 물주기 버튼 유무(isTagged)")
-    @GetMapping("/{memberId}/{boardId}")
-    public ResponseEntity<?> getTree(@ApiParam(value = "내 memberId", required = true) @PathVariable int memberId, @PathVariable int boardId){
+    @GetMapping("/{boardId}")
+    public ResponseEntity<?> getTree(@ApiParam(value = "내 memberId", required = true) @RequestParam int memberId, @PathVariable int boardId){
         try {
             return new ResponseEntity<>(boardService.getBoardDetailInfo(memberId, boardId), HttpStatus.OK);
         } catch (Exception e){
@@ -89,25 +90,26 @@ public class ForestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     //  추억 나무 퍼가기 API
-//    @ApiOperation(value = "추억 나무 퍼가기", notes = "boardId에 해당하는 추억 나무 내 숲으로 퍼가기")
-//    @PostMapping("/takeTree/{boardId}")
-//    public ResponseEntity<?> takeTree(@PathVariable int boardId, @RequestBody BoardRequestDto.LocationInfo locationInfo){
-//        try {
-//            return new ResponseEntity<>(boardService.takeTreeFromFriend(boardId, locationInfo), HttpStatus.OK);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @ApiOperation(value = "추억 나무 퍼가기", notes = "boardId에 해당하는 추억 나무 내 숲으로 퍼가기")
+    @PostMapping("/takeTree/{boardId}")
+    public ResponseEntity<?> takeTree(@ApiParam(value = "내 memberId", required = true) @RequestParam int memberId, @PathVariable int boardId, @RequestBody BoardRequestDto.LocationInfo locationInfo){
+        // 이전에 해당 위치 추억 나무 생성 가능 확인했다는 전제 하에 진행
+        try {
+            boardService.writeTreeFromFriend(memberId, boardId, locationInfo);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     //  추억 나무 물주기 API
     @ApiOperation(value = "추억 나무 물주기", notes = "태그된 추억 나무에 물주기 \n 오늘 날짜에 해당하는 갱신된 treeLog 하나 반환")
     @GetMapping("/wateringTree/{boardId}")
     public ResponseEntity<?> wateringTree(@ApiParam(value = "추억 나무 boardId", required = true) @PathVariable int boardId){
         try {
-            //  바뀐 성장로그만 ... (오늘 날짜만 바뀐걸로 넘겨주기)
             return new ResponseEntity<>(treeLogService.updateScoreByWatering(boardId), HttpStatus.OK);
         } catch (Exception e){
             e.printStackTrace();

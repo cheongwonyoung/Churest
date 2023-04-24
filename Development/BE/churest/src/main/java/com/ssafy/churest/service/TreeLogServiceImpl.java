@@ -43,7 +43,7 @@ public class TreeLogServiceImpl implements TreeLogService {
         TreeLog recentTreeLog = treeLogRepository.findTop1ByBoard_BoardId(boardId);
 
         if(recentTreeLog.getDate().equals(LocalDate.now())) {
-            recentTreeLog.setScore(recentTreeLog.getScore() + 1);
+            recentTreeLog.setScore(recentTreeLog.getScore() + 3);
             return TreeLogResponseDto.TreeLogInfo.fromEntity(treeLogRepository.save(recentTreeLog));
         }
         else {
