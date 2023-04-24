@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
 public class Member {
@@ -21,8 +23,6 @@ public class Member {
 
     @Column(length = 6)
     private String nickname;
-
-    private String file;
 
     private String token;
 
@@ -45,6 +45,16 @@ public class Member {
 
     public Member updateCoin(int coin){
         this.coin = coin;
+        return this;
+    }
+
+    public Member updateEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public Member updateToken(String token) {
+        this.token = token;
         return this;
     }
 

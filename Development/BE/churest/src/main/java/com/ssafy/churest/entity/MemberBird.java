@@ -1,6 +1,5 @@
 package com.ssafy.churest.entity;
 
-
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -37,6 +36,14 @@ public class MemberBird {
     @Builder
     private MemberBird(Member member, Bird bird) {
         this.member = member;
+    }
+
+    @Builder
+    public MemberBird(Member member, Bird bird, String nickname, Boolean isUsed){
+        this.member = member;
+        this.bird = bird;
+        this.nickname = nickname;
+        this.isUsed = isUsed;
     }
 
     public MemberBird updateNickname(String nickname) {
