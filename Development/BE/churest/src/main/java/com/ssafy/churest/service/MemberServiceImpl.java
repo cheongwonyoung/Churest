@@ -87,6 +87,7 @@ public class MemberServiceImpl implements  MemberService{
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", provider.getClientId());
+        body.add("client_secret", provider.getClientSecret());
         body.add("redirect_uri", provider.getRedirectUri());
         body.add("code", code);
 
