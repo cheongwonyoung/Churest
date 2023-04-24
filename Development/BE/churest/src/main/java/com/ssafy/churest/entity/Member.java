@@ -48,4 +48,15 @@ public class Member {
         this.coin = coin;
         return this;
     }
+
+    public Member updateEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public Member updateToken(String token) {
+        this.token = token;
+        return this;
+    }
+
 }
