@@ -3,9 +3,15 @@ package com.ssafy.churest.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.churest.dto.req.MemberBirdRequestDto;
+import com.ssafy.churest.dto.req.MemberRequestDto;
 import com.ssafy.churest.dto.resp.KakaoMemberResponseDto;
 import com.ssafy.churest.dto.resp.LoginResponseDto;
+import com.ssafy.churest.dto.resp.MemberResponseDto;
 import com.ssafy.churest.entity.Member;
+import com.ssafy.churest.entity.MemberBird;
+import com.ssafy.churest.repository.BirdRepository;
+import com.ssafy.churest.repository.MemberBirdRepository;
 import com.ssafy.churest.repository.MemberRepository;
 import com.ssafy.churest.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +36,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements  MemberService{
+    private final BirdRepository birdRepository;
+    private final MemberBirdRepository memberBirdRepository;
 
     private final InMemoryClientRegistrationRepository inMemoryRepository;
     private final MemberRepository memberRepository;
@@ -57,7 +65,6 @@ public class MemberServiceImpl implements  MemberService{
                 .memberId(member.getMemberId())
                 .email(member.getEmail())
                 .nickname(member.getNickname())
-                .file(member.getFile())
                 .refreshToken(refreshToken)
                 .coin(member.getCoin())
                 .avatarId(member.getAvatarId())
@@ -141,6 +148,23 @@ public class MemberServiceImpl implements  MemberService{
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
                 .block();
+    }
+
+    @Override
+    public MemberResponseDto.MemberInfo join(MemberRequestDto.Join joinInfo) {
+
+        Member member = memberRepository.findByEmail(joinInfo.getEmail());
+
+        // memberBird 저장
+        MemberBird memberBird = new MemberBird(member, birdRepository.findById(joinInfo.getBirdId()).get(),joinInfo.getBirdNickname(),true);
+        memberBirdRepository.save(memberBird);
+
+        // 회원가입(아바타id, 닉네임)
+        member.setAvatarId(joinInfo.getAvatarId());
+        member.setNickname(joinInfo.getNickname());
+        MemberResponseDto.MemberInfo memberInfo = MemberResponseDto.MemberInfo.fromEntity(memberRepository.save(member));
+
+        return memberInfo;
     }
 
 
