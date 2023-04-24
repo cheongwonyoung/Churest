@@ -11,11 +11,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Tag {
+@Builder
+public class MemberBoard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tagId;
+    private int memberBoardId;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,10 +28,7 @@ public class Tag {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @Builder
-    public Tag(Member member, Board board){
-        this.member = member;
-        this.board = board;
-    }
+    private int locationX;
 
+    private int locationY;
 }

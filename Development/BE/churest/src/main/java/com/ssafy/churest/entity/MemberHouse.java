@@ -36,7 +36,7 @@ public class MemberHouse {
         this.house = house;
     }
 
-    public MemberHouse updateIsUsed(Boolean isUsed){
+    public MemberHouse updateIsUsed(Boolean isUsed) {
         this.isUsed = isUsed;
         return this;
     }
