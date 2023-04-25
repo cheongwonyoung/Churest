@@ -20,6 +20,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -77,42 +78,20 @@ public class MemberServiceImpl implements  MemberService{
 
     @Override
     public JsonNode getToken(String code, ClientRegistration provider) throws JsonProcessingException {
-        log.info(provider.getProviderDetails().getTokenUri());
 
-        // HTTP Header 생성
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-        // HTTP Body 생성
-        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-        body.add("grant_type", "authorization_code");
-        body.add("client_id", provider.getClientId());
-        body.add("redirect_uri", provider.getRedirectUri());
-        body.add("code", code);
-
-        // HTTP 요청 보내기
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
-        RestTemplate rt = new RestTemplate();
-        ResponseEntity<String> response = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
-
-        // HTTP 응답 (JSON) -> 액세스 토큰 파싱
-        String responseBody = response.getBody();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(responseBody);
-
-        log.info(jsonNode.toString());
-        log.info(jsonNode.get("access_token").asText());
-
-        return jsonNode;
+        return WebClient.create()
+                .post()
+                .uri(provider.getProviderDetails().getTokenUri())
+                .header("Content-type","application/x-www-form-urlencoded;charset=utf-8" ) //요청 헤더
+                .bodyValue(tokenRequest(code, provider))
+                .retrieve()
+                .bodyToMono(JsonNode.class)
+                .block();
     }
 
     @Override
     public MultiValueMap<String, String> tokenRequest(String code, ClientRegistration provider) {
+        // HTTP Body 생성
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("code", code);
         formData.add("grant_type", "authorization_code");
@@ -120,6 +99,7 @@ public class MemberServiceImpl implements  MemberService{
         formData.add("client_secret", provider.getClientSecret());
         formData.add("client_id", provider.getClientId());
         return formData;
+
     }
 
     @Override
