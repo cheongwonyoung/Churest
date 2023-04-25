@@ -28,13 +28,13 @@ public class MyPageController {
         }
     }
 
-    @ApiOperation(value = "마이페이지 추억 나무 정보", notes = "작성된 글의 score가 15를 넘겼을 때 나무의 정보 가져옴 \n" +
-            "score가 15가 안 되면 HttpStatus.ACCEPT 반환 \n" +
-            "score가 15가 되면 HttpStatus.OK 반환")
-    @GetMapping("tree")
+    @ApiOperation(value = "마이페이지 추억 나무 정보", notes = "작성된 글 눌렀을 때 score가 16 이상이면 나무 정보 가져옴 \n" +
+            "score가 16 미만이면 HttpStatus.ACCEPT 반환 \n" +
+            "score가 16 이상이면 HttpStatus.OK 반환")
+    @GetMapping("/tree")
     public ResponseEntity<?> getBoardTreeInfo(@RequestParam int boardId) {
         try {
-            if(myPageService.getScore(boardId) >= 15)
+            if(myPageService.getScore(boardId) >= 16)
                 return new ResponseEntity<>(myPageService.getBoardTreeInfo(boardId), HttpStatus.OK);
             else
                 return new ResponseEntity<>("socre 부족", HttpStatus.ACCEPTED);

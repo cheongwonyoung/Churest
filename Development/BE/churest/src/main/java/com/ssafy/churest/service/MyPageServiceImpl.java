@@ -3,8 +3,11 @@ package com.ssafy.churest.service;
 import com.ssafy.churest.dto.req.MyPageRequestDto;
 import com.ssafy.churest.dto.resp.BoardResponseDto;
 import com.ssafy.churest.dto.resp.MemberResponseDto;
+import com.ssafy.churest.dto.resp.TreeLogResponseDto;
+import com.ssafy.churest.dto.resp.TreeResponseDto;
 import com.ssafy.churest.entity.Board;
 import com.ssafy.churest.entity.MemberBoard;
+import com.ssafy.churest.entity.TreeLog;
 import com.ssafy.churest.repository.BoardRepository;
 import com.ssafy.churest.repository.MemberBoardRepository;
 import com.ssafy.churest.repository.MemberRepository;
@@ -57,5 +60,16 @@ public class MyPageServiceImpl implements MyPageService{
     @Override
     public void updateAvatar(MyPageRequestDto.UpdateAvatar info) {
         memberRepository.save(memberRepository.findById(info.getMemberId()).get().updateAvatar(info.getAvatarId()));
+    }
+
+    @Override
+    public int getScore(int boardId) {
+        List<TreeLog> treeLogList = boardRepository.findByBoardId(boardId).getTreeLogs();
+        return treeLogList.get(treeLogList.size() - 1).getScore();
+    }
+
+    @Override
+    public TreeResponseDto.TreeInfo getBoardTreeInfo(int boardId) {
+        return TreeResponseDto.TreeInfo.fromEntity(boardRepository.findByBoardId(boardId).getTree());
     }
 }
