@@ -29,11 +29,12 @@ public class MemberResponseDto {
     public static class LittleInfo {
         private int memberId;
         private String nickname;
-        private String file;
+        private int avatarId;
         public static LittleInfo fromEntity(Member member) {
             return LittleInfo.builder()
                     .memberId(member.getMemberId())
                     .nickname(member.getNickname())
+                    .avatarId(member.getAvatarId())
                     .build();
         }
     }
@@ -55,12 +56,8 @@ public class MemberResponseDto {
                     .email(member.getEmail())
                     .nickname(member.getNickname())
                     .token(member.getToken())
+                    .avatarId(member.getAvatarId())
                     .build();
         }
-
-
     }
-
-
 }
-
