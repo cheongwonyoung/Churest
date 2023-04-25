@@ -60,7 +60,7 @@ public class MemberBirdServiceImpl implements MemberBirdService{
     @Override
     public List<MemberBirdResponseDto.Info> getMyBirdList(int memberId) {
         List<MemberBirdResponseDto.Info> res = new ArrayList<>();
-        List<MemberBird> memberBirdList = memberBirdRepository.findAllByMember_MemberId(memberId);
+        List<MemberBird> memberBirdList = memberBirdRepository.findAllByMember_MemberIdOrderByCreatedTimeDesc(memberId);
         for(MemberBird m : memberBirdList){
             MemberBirdResponseDto.Info info = MemberBirdResponseDto.Info.fromEntity(m);
             res.add(info);

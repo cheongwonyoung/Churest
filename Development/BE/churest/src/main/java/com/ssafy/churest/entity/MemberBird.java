@@ -3,9 +3,11 @@ package com.ssafy.churest.entity;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -32,6 +34,9 @@ public class MemberBird {
 
     @ColumnDefault("false")
     private Boolean isUsed;
+
+    @CreationTimestamp
+    private LocalDateTime createdTime;
 
 //    @Builder
 //    private MemberBird(Member member, Bird bird) {

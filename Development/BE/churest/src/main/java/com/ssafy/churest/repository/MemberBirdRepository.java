@@ -11,5 +11,5 @@ public interface MemberBirdRepository extends JpaRepository<MemberBird, Integer>
 
     MemberBird findByMember_MemberIdAndIsUsedIsTrue(int memberId);
 
-    List<MemberBird> findAllByMember_MemberId(int memberId);
+    List<MemberBird> findAllByMember_MemberIdOrderByCreatedTimeDesc(int memberId);
 }
