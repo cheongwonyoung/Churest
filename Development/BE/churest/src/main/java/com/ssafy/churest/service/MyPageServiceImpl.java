@@ -1,19 +1,24 @@
 package com.ssafy.churest.service;
 
 import com.ssafy.churest.dto.req.MyPageRequestDto;
+import com.ssafy.churest.dto.resp.BoardResponseDto;
 import com.ssafy.churest.dto.resp.MemberResponseDto;
+import com.ssafy.churest.entity.Board;
+import com.ssafy.churest.entity.MemberBoard;
+import com.ssafy.churest.repository.BoardRepository;
+import com.ssafy.churest.repository.MemberBoardRepository;
 import com.ssafy.churest.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("MyPageService")
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService{
     private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
+    private final MemberBoardRepository memberBoardRepository;
     @Override
     public Map<String, Object> getMyPageInfo(int memberId) {
         Map<String, Object> res = new HashMap<>();
@@ -22,6 +27,24 @@ public class MyPageServiceImpl implements MyPageService{
         res.put("member", MemberResponseDto.LittleInfo.fromEntity(memberRepository.findById(memberId).get()));
 
         // 회원의 츄레스트에 있는 글 목록 정보
+        List<BoardResponseDto.MyPageInfo> boardInfo = new ArrayList<>();
+
+        // 내가 쓴 글 + 퍼온 글
+        List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
+        List<MemberBoard> memberBoardList = memberBoardRepository.findAllByMember_MemberId(memberId);
+        for (MemberBoard mb : memberBoardList){
+            boardList.add(boardRepository.findByBoardId(mb.getBoard().getBoardId()));
+        }
+        boardList.sort((o1, o2) -> o2.getCreatedTime().compareTo(o1.getCreatedTime()));
+
+        for (Board b : boardList){
+            BoardResponseDto.MyPageInfo info = BoardResponseDto.MyPageInfo.fromEntity(b);
+            info.setScore(b.getTreeLogs().get(b.getTreeLogs().size() - 1).getScore());
+
+            boardInfo.add(info);
+        }
+
+        res.put("boards", boardInfo);
 
         return res;
     }

@@ -9,4 +9,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     Board findByBoardId(int boardId);
 
     List<Board> findAllByIsDeletedIsFalseAndMember_MemberId(int memberId);
+
+    List<Board> findByMember_MemberId(int memberId);
 }

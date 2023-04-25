@@ -10,4 +10,6 @@ public interface MyPageService {
     void updateNickname(MyPageRequestDto.UpdateNickname info);
 
     void updateAvatar(MyPageRequestDto.UpdateAvatar info);
+
+    boolean getScore(int boardId);
 }
