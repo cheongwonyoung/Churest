@@ -41,6 +41,8 @@ public class DataLoader implements CommandLineRunner {
     private TreeRepository treeRepository;
     @Autowired
     private TreeLogRepository treeLogRepository;
+    @Autowired
+    private GuestBookRepository guestBookRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -53,6 +55,25 @@ public class DataLoader implements CommandLineRunner {
         addMember();
         addTree();
         addBoard();
+        addGuestBook();
+    }
+
+    private void addGuestBook() {
+        List<GuestBook> guestBookList = new ArrayList<>();
+
+        List<Member> memberList = memberRepository.findAll();
+        for (Member m1 : memberList) {
+            for (Member m2 : memberList) {
+                if (m1 != m2) {
+                    GuestBook guestBook = GuestBook.builder()
+                            .content("아 그만할래 그만할래 그만할래 엑스모루 아웃 엑스모루 아웃 그만 그만 그만 해줘 해줘 해줘 해줘 집에 보내줘 취업 특강 아웃 취업 특강 아웃 흐아아아아아아아아아아아ㅏㅇ아아아아아아아아아아아아앙아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ아주글래~~~~~~ 머야멍먀어먀머야 힝힝힝")
+                            .fromMember(m1).toMember(m2).build();
+                    guestBookList.add(guestBook);
+                }
+            }
+        }
+
+        guestBookRepository.saveAllAndFlush(guestBookList);
     }
 
     private void addBirdHouses() {
@@ -111,7 +132,7 @@ public class DataLoader implements CommandLineRunner {
         birdRepository.saveAllAndFlush(birdList);
     }
 
-    private void addMember(){
+    private void addMember() {
         List<Member> memberList = new ArrayList<>();
         List<MemberBird> memberBirdList = new ArrayList<>();
         List<MemberHouse> memberHouseList = new ArrayList<>();
@@ -125,8 +146,8 @@ public class DataLoader implements CommandLineRunner {
         Member member3 = Member.builder().email("jjjooooddy@gmail.com").nickname("맑눈광쿵야").coin(0).avatarId(2).build();
 
         MemberBird memberBird1 = MemberBird.builder().bird(birdRepository.findById(1).get()).member(member1).nickname("채리마루").isUsed(true).build();
-        MemberBird memberBird2 = MemberBird.builder().bird(birdRepository.findById(2).get()).member(member1).nickname("와와짹짹").isUsed(true).build();
-        MemberBird memberBird3 = MemberBird.builder().bird(birdRepository.findById(3).get()).member(member1).nickname("쿵쿵쿵").isUsed(true).build();
+        MemberBird memberBird2 = MemberBird.builder().bird(birdRepository.findById(2).get()).member(member2).nickname("와와짹짹").isUsed(true).build();
+        MemberBird memberBird3 = MemberBird.builder().bird(birdRepository.findById(3).get()).member(member3).nickname("쿵쿵쿵").isUsed(true).build();
 
         MemberHouse memberHouse1 = MemberHouse.builder().house(defaultHouse).member(member1).build();
         MemberHouse memberHouse2 = MemberHouse.builder().house(houseRepository.findById(2).get()).member(member1).build().updateIsUsed(true);
@@ -163,7 +184,7 @@ public class DataLoader implements CommandLineRunner {
 
     }
 
-    private void addBoard(){
+    private void addBoard() {
         List<Board> boardList = new ArrayList<>();
         List<Member> memberList = memberRepository.findAll();
         List<MemberBoard> memberBoardList = new ArrayList<>();
@@ -178,8 +199,8 @@ public class DataLoader implements CommandLineRunner {
         memberBoardList.add(MemberBoard.builder().member(member1).board(board1).locationX(3).locationY(4).build());
         treeLogList.add(TreeLog.builder().board(board1).score(0).build());
 
-        for (Member member:
-             memberList) {
+        for (Member member :
+                memberList) {
             if (member.getMemberId() != member1.getMemberId()) {
                 tagList.add(Tag.builder().board(board1).member(member).build());
                 //  퍼가기
@@ -204,7 +225,7 @@ public class DataLoader implements CommandLineRunner {
         treeLogRepository.saveAllAndFlush(treeLogList);
     }
 
-    public void addTree(){
+    public void addTree() {
         List<Tree> treeList = new ArrayList<>();
         Tree tree1 = Tree.builder().name("산분꽃나무").description("산지나 계곡 가장자리, 석회암 지대 등에서 높이 2~4m 정도로 자라요. 드물게 사는 낙엽성 활엽 떨기나무. 한국에서 자연적으로 살아간다는 건 최근에 알려졌어요. 원예식물로 가치가 높지만 개체수가 매우 작은 희귀식물이에요.").file("산분꽃나무.jpg").build();
         Tree tree2 = Tree.builder().name("미선나무").description("열매의 모양이 둥근 부채를 닮아 아름다운 부채라는 뜻의 미선나무라고 불려요. 한반도의 고유종이며, 경기도와 충청도의 볕이 잘 드는 산기슭에서 자라요. 전세계에서 오직 우리나라에만 있어요!").file("미선나무.jpg").build();

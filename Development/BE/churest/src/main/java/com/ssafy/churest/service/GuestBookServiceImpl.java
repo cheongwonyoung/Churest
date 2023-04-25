@@ -20,7 +20,7 @@ public class GuestBookServiceImpl implements GuestBookService{
     @Override
     public List<GuestBookResponseDto.Info> getGuestBookList(int memberId) {
         List<GuestBookResponseDto.Info> res = new ArrayList<>();
-        List<GuestBook> guestBookList = guestBookRepository.findAllByToMember_MemberIdAndIsDeletedIsFalse(memberId);
+        List<GuestBook> guestBookList = guestBookRepository.findAllByToMember_MemberIdAndIsDeletedIsFalseOrderByCreatedTimeDesc(memberId);
         for (GuestBook g : guestBookList){
             GuestBookResponseDto.Info info = GuestBookResponseDto.Info.fromEntity(g);
             res.add(info);
