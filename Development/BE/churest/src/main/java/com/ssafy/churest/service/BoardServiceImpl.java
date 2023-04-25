@@ -106,6 +106,9 @@ public class BoardServiceImpl implements BoardService {
 
         List<MemberBoard> memberBoardList = memberBoardRepository.findAllByMember_MemberId(memberId);
 
+        if(memberBoardList.isEmpty())
+            return null;
+
         List<BoardResponseDto.BoardInfo> boardInfoList = new ArrayList<>();
 
         for (MemberBoard memberBoard:
@@ -142,8 +145,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardResponseDto.BoardDetailInfo getBoardDetailInfo(int memberId, int boardId) {
-
-//        public BoardResponseDto.BoardDetailInfo getBoardDetailInfo(int boardId) {
 
         Board board = boardRepository.findByBoardId(boardId);
 
