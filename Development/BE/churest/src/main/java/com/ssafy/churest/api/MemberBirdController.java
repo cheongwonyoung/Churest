@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("my Bird Controller API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/myBird")
+@RequestMapping("/my-bird")
 public class MemberBirdController {
 
     private final MemberBirdService memberBirdService;
@@ -29,7 +29,7 @@ public class MemberBirdController {
     }
 
     @ApiOperation(value = "새 닉네임 변경", notes = "보유한 새의 닉네임 변경")
-    @PutMapping("/nickname")
+    @PutMapping("")
     public ResponseEntity<?> updateBirdNickname(@RequestBody MemberBirdRequestDto.UpdateNickname updateInfo) {
         try {
             return new ResponseEntity<>(memberBirdService.updateBirdNickname(updateInfo.getMemberBirdId(), updateInfo.getNickname()), HttpStatus.OK);

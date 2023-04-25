@@ -142,7 +142,7 @@ public class DataLoader implements CommandLineRunner {
         BirdHouse defaultBirdHouse = birdHouseRepository.findById(1).get();
 
         Member member1 = Member.builder().email("cherry@naver.com").nickname("채리밤").coin(0).avatarId(1).build();
-        Member member2 = Member.builder().email("baebae@naver.com").nickname("쯍아").coin(0).avatarId(2).build();
+        Member member2 = Member.builder().email("baebae@naver.com").nickname("쯍아").coin(500).avatarId(2).build();
         Member member3 = Member.builder().email("jjjooooddy@gmail.com").nickname("맑눈광쿵야").coin(0).avatarId(2).build();
 
         MemberBird memberBird1 = MemberBird.builder().bird(birdRepository.findById(1).get()).member(member1).nickname("채리마루").isUsed(true).build();

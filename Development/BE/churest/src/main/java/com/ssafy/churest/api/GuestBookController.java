@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("GuestBookController API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/guestBook")
+@RequestMapping("/guest-book")
 public class GuestBookController {
 
     private final GuestBookService guestBookService;

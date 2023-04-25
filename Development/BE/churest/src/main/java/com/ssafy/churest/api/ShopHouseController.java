@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("shop house Controller API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/house")
+@RequestMapping("/shop/house")
 public class ShopHouseController {
     private final MemberHouseService memberHouseService;
     @ApiOperation(value = "집 목록", notes = "상점 내에 표시할 집 목록 불러오기")
