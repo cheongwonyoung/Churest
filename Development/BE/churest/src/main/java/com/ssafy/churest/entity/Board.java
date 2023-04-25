@@ -17,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Builder
 public class Board {
 
     @Id
@@ -52,5 +51,14 @@ public class Board {
 
     @ColumnDefault("false")
     private boolean isDeleted;
+
+    @Builder
+    public Board(Member member, Tree tree, String title, String content, String weather){
+        this.member = member;
+        this.tree = tree;
+        this.title = title;
+        this.content = content;
+        this.weather = weather;
+    }
 
 }

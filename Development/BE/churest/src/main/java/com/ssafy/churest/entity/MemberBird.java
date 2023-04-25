@@ -33,10 +33,10 @@ public class MemberBird {
     @ColumnDefault("false")
     private Boolean isUsed;
 
-    @Builder
-    private MemberBird(Member member, Bird bird) {
-        this.member = member;
-    }
+//    @Builder
+//    private MemberBird(Member member, Bird bird) {
+//        this.member = member;
+//    }
 
     @Builder
     public MemberBird(Member member, Bird bird, String nickname, Boolean isUsed){

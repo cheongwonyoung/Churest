@@ -43,6 +43,14 @@ public class Member {
 //    @OneToMany(mappedBy = "member")
 //    private List<Tag> tags = new ArrayList<>();
 
+    @Builder
+    public Member(String email, String nickname, int coin, int avatarId){
+        this.email = email;
+        this.nickname = nickname;
+        this.coin = coin;
+        this.avatarId = avatarId;
+    }
+
     public Member updateCoin(int coin){
         this.coin = coin;
         return this;
