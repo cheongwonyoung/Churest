@@ -10,4 +10,6 @@ public interface MemberBoardRepository extends JpaRepository<MemberBoard, Intege
     List<MemberBoard> findAllByMember_MemberId(int memberId);
 
     MemberBoard findByMember_MemberIdAndBoard_BoardId(int memberId, int boardId);
+
+    Boolean existsByMember_MemberIdAndBoard_BoardId(int memberId, int boardId);
 }
