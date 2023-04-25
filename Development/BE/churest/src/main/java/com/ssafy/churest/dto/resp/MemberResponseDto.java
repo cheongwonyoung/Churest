@@ -19,7 +19,6 @@ public class MemberResponseDto {
                     .memberId(member.getMemberId())
                     .avatarId(member.getAvatarId())
                     .nickname(member.getNickname())
-                    .file(member.getFile())
                     .build();
         }
     }
@@ -35,7 +34,27 @@ public class MemberResponseDto {
             return LittleInfo.builder()
                     .memberId(member.getMemberId())
                     .nickname(member.getNickname())
-                    .file(member.getFile())
+                    .build();
+        }
+    }
+
+    @Data
+    @Builder
+    public static class MemberInfo{
+        private int memberId;
+        private int avatarId;
+        private int coin;
+        private String email;
+        private String nickname;
+        private String token;
+        public static MemberInfo fromEntity(Member member) {
+            return MemberInfo.builder()
+                    .memberId(member.getMemberId())
+                    .avatarId(member.getAvatarId())
+                    .coin(member.getCoin())
+                    .email(member.getEmail())
+                    .nickname(member.getNickname())
+                    .token(member.getToken())
                     .build();
         }
 

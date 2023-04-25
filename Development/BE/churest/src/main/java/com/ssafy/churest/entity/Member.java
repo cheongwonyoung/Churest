@@ -23,8 +23,6 @@ public class Member {
     @Column(length = 6)
     private String nickname;
 
-    private String file;
-
     private String token;
 
     @ColumnDefault("0")
