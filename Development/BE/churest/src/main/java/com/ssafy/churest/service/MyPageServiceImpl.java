@@ -33,7 +33,7 @@ public class MyPageServiceImpl implements MyPageService{
         List<BoardResponseDto.MyPageInfo> boardInfo = new ArrayList<>();
 
         // 내가 쓴 글 + 퍼온 글
-        List<Board> boardList = boardRepository.findByMember_MemberId(memberId);
+        List<Board> boardList = new ArrayList<>();
         List<MemberBoard> memberBoardList = memberBoardRepository.findAllByMember_MemberId(memberId);
         for (MemberBoard mb : memberBoardList){
             boardList.add(boardRepository.findByBoardId(mb.getBoard().getBoardId()));
