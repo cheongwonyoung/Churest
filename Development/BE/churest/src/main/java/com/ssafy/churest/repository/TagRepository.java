@@ -9,4 +9,6 @@ public interface TagRepository extends JpaRepository<Tag, Integer> {
     List<Tag> findAllByBoard_BoardId(int boardId);
 
     Boolean existsByMember_MemberIdAndBoard_BoardId(int memberId, int boardId);
+
+    List<Tag> findAllByMember_MemberId(int memberId);
 }

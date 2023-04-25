@@ -2,6 +2,7 @@ package com.ssafy.churest.entity;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@DynamicInsert
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,4 +58,13 @@ public class Member {
         return this;
     }
 
+    public Member updateNickname(String nickname){
+        this.nickname = nickname;
+        return this;
+    }
+
+    public Member updateAvatar(int avatarId){
+        this.avatarId = avatarId;
+        return this;
+    }
 }

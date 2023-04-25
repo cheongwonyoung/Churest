@@ -1,6 +1,7 @@
 package com.ssafy.churest.api;
 
 import com.ssafy.churest.dto.req.BoardRequestDto;
+import com.ssafy.churest.dto.resp.MemberResponseDto;
 import com.ssafy.churest.service.BoardService;
 import com.ssafy.churest.service.ForestService;
 import com.ssafy.churest.service.MemberService;
@@ -45,6 +46,9 @@ public class ForestController {
     @GetMapping("/{memberId}/{nickname}")
     public ResponseEntity<?> searchFriend(@ApiParam(value = "내 memberId", required = true) @PathVariable int memberId, @PathVariable String nickname){
         try {
+            List<MemberResponseDto.FriendSearchInfo> friendSearchList = memberService.getSearchMemberList(nickname, memberId);
+            if(friendSearchList.isEmpty())
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             return new ResponseEntity<>(memberService.getSearchMemberList(nickname, memberId), HttpStatus.OK);
         } catch (Exception e){
             e.printStackTrace();
