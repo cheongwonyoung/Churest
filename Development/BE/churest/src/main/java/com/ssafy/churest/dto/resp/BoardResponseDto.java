@@ -1,5 +1,6 @@
 package com.ssafy.churest.dto.resp;
 
+import com.ssafy.churest.entity.Board;
 import com.ssafy.churest.repository.BoardRepository;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class BoardResponseDto {
 
         private int score;
 
-        public static BoardInfo fromEntity (com.ssafy.churest.entity.MemberBoard memberBoard, com.ssafy.churest.entity.Board board, com.ssafy.churest.entity.TreeLog treeLog) {
+        public static BoardInfo fromEntity(com.ssafy.churest.entity.MemberBoard memberBoard, com.ssafy.churest.entity.Board board, com.ssafy.churest.entity.TreeLog treeLog) {
             return BoardInfo.builder()
                     .boardId(board.getBoardId())
                     .locationX(memberBoard.getLocationX())
@@ -71,6 +72,20 @@ public class BoardResponseDto {
 //                    .locationY(memberBoard.getLocationY())
                     .build();
         }
+    }
 
+    @Data
+    @Builder
+    public static class MyPageInfo {
+        private int boardId;
+        private String title;
+        private LocalDateTime createdTime;
+        private int score;
+
+        public static MyPageInfo fromEntity(Board board) {
+            return MyPageInfo.builder().boardId(board.getBoardId())
+                    .title(board.getTitle())
+                    .createdTime(board.getCreatedTime()).build();
+        }
     }
 }
