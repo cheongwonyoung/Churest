@@ -6,13 +6,12 @@ import lombok.Data;
 
 public class MemberResponseDto {
 
+    @Data
     @Builder
     public static class FriendSearchInfo {
         private int memberId;
         private int avatarId;
         private String nickname;
-
-        private String file;
 
         public static FriendSearchInfo fromEntity(com.ssafy.churest.entity.Member member) {
             return FriendSearchInfo.builder()

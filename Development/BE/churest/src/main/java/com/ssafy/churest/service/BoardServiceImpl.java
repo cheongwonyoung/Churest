@@ -68,10 +68,11 @@ public class BoardServiceImpl implements BoardService {
                         .build());
 
         //  GCS 사진 업로드
-        for (MultipartFile file :
-             fileList) {
-                if(file != null)
-                    gcsService.uploadBoardImage(file, board);
+        if(fileList != null) {
+            for (MultipartFile file :
+                    fileList) {
+                gcsService.uploadBoardImage(file, board);
+            }
         }
 
         //  태그된 사용자 알림 생성 추가해야 함
@@ -155,7 +156,17 @@ public class BoardServiceImpl implements BoardService {
 
         int recentTreeLogScore = treeLogService.updateScoreByView(boardId);
 
-        if(recentTreeLogScore >= TREE_CRITERIA_SCORE){
+        if(recentTreeLogScore >= TREE_CRITERIA_SCORE) {
+
+            if(!board.isPayed()) {
+                List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoin()).collect(Collectors.toList());
+                memberList.add(board.getMember().rewardCoin());
+                memberRepository.saveAllAndFlush(memberList);
+
+                boardRepository.save(board.updatePayed(true));
+                boardDetailInfo.setReward(true);
+            }
+
             //  정렬?
             //  나무 성장 로그
             boardDetailInfo.setTreeLogInfoList(treeLogService.getTreeLogList(boardId));

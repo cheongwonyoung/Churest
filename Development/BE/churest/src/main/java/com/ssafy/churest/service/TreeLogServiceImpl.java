@@ -1,21 +1,32 @@
 package com.ssafy.churest.service;
 
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
+import com.ssafy.churest.entity.Member;
+import com.ssafy.churest.entity.Tag;
 import com.ssafy.churest.entity.TreeLog;
+import com.ssafy.churest.repository.BoardRepository;
+import com.ssafy.churest.repository.MemberRepository;
+import com.ssafy.churest.repository.TagRepository;
 import com.ssafy.churest.repository.TreeLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service("TreeLogService")
 @RequiredArgsConstructor
 public class TreeLogServiceImpl implements TreeLogService {
 
+    private final MemberRepository memberRepository;
     private final TreeLogRepository treeLogRepository;
+    private final BoardRepository boardRepository;
+    private final TagRepository tagRepository;
+    private static final int TREE_CRITERIA_SCORE = 16;
 
     @Override
     public List<TreeLogResponseDto.TreeLogInfo> getTreeLogList(int boardId) {
@@ -38,17 +49,25 @@ public class TreeLogServiceImpl implements TreeLogService {
     }
 
     @Override
-    public TreeLogResponseDto.TreeLogInfo updateScoreByWatering(int boardId) {
+    public TreeLogResponseDto.RecentTreeLogInfo updateScoreByWatering(int boardId) {
+
+        boolean isReward = false;
 
         TreeLog recentTreeLog = treeLogRepository.findTop1ByBoard_BoardId(boardId);
+        recentTreeLog.setScore(recentTreeLog.getScore() + 3);
 
-        if(recentTreeLog.getDate().equals(LocalDate.now())) {
-            recentTreeLog.setScore(recentTreeLog.getScore() + 3);
-            return TreeLogResponseDto.TreeLogInfo.fromEntity(treeLogRepository.save(recentTreeLog));
+        if(!recentTreeLog.getBoard().isPayed() && recentTreeLog.getScore() >= TREE_CRITERIA_SCORE) {
+            List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoin()).collect(Collectors.toList());
+            memberList.add(recentTreeLog.getBoard().getMember().rewardCoin());
+            memberRepository.saveAllAndFlush(memberList);
+            boardRepository.save(recentTreeLog.getBoard().updatePayed(true));
+            isReward = true;
         }
-        else {
-            return TreeLogResponseDto.TreeLogInfo.fromEntity(treeLogRepository.save(TreeLog.builder().score(recentTreeLog.getScore() + 1).build()));
-        }
+
+        if(recentTreeLog.getDate().equals(LocalDate.now()))
+            return TreeLogResponseDto.RecentTreeLogInfo.builder().treeLogInfo(TreeLogResponseDto.TreeLogInfo.fromEntity(treeLogRepository.save(recentTreeLog))).isReward(isReward).build();
+        else
+            return TreeLogResponseDto.RecentTreeLogInfo.builder().treeLogInfo(TreeLogResponseDto.TreeLogInfo.fromEntity(treeLogRepository.save(TreeLog.builder().score(recentTreeLog.getScore()).build()))).isReward(isReward).build();
 
     }
 }

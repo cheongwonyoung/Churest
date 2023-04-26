@@ -52,6 +52,9 @@ public class Board {
     @ColumnDefault("false")
     private boolean isDeleted;
 
+    @ColumnDefault("false")
+    private boolean isPayed;
+
     @Builder
     public Board(Member member, Tree tree, String title, String content, String weather){
         this.member = member;
@@ -61,4 +64,8 @@ public class Board {
         this.weather = weather;
     }
 
+    public Board updatePayed(boolean isPayed){
+        this.isPayed = isPayed;
+        return this;
+    }
 }
