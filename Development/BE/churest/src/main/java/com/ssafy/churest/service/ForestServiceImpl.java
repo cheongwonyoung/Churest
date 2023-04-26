@@ -10,6 +10,9 @@ import com.ssafy.churest.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service("ForestService")
 @RequiredArgsConstructor
 public class ForestServiceImpl implements ForestService{
@@ -20,6 +23,11 @@ public class ForestServiceImpl implements ForestService{
     private final MemberBirdRepository memberBirdRepository;
     private final MemberBirdHouseRepository memberBirdHouseRepository;
     private final MemberHouseRepository memberHouseRepository;
+
+    @Override
+    public List<ForestResponseDto.OtherForestInfo> getOtherForestList(int memberId) {
+        return memberRepository.findAll(memberId).stream().map(member -> ForestResponseDto.OtherForestInfo.fromEntity(member, memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(member.getMemberId()))).collect(Collectors.toList());
+    }
 
     @Override
     public ForestResponseDto.ForestInfo getForestInfo(int memberId) {
