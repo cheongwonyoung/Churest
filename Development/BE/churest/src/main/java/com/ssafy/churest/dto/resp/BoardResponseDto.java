@@ -81,6 +81,7 @@ public class BoardResponseDto {
         private String title;
         private LocalDateTime createdTime;
         private int score;
+        private TreeResponseDto.TreeInfo treeInfo;
 
         public static MyPageInfo fromEntity(Board board) {
             return MyPageInfo.builder().boardId(board.getBoardId())

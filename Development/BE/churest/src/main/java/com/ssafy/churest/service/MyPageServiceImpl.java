@@ -42,7 +42,9 @@ public class MyPageServiceImpl implements MyPageService{
 
         for (Board b : boardList){
             BoardResponseDto.MyPageInfo info = BoardResponseDto.MyPageInfo.fromEntity(b);
-            info.setScore(b.getTreeLogs().get(b.getTreeLogs().size() - 1).getScore());
+            info.setScore(getScore(b.getBoardId()));
+            if(info.getScore() > 15)
+                info.setTreeInfo(getBoardTreeInfo(info.getBoardId()));
 
             boardInfo.add(info);
         }

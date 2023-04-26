@@ -17,7 +17,8 @@ public class MyPageController {
 
     private final MyPageService myPageService;
 
-    @ApiOperation(value = "마이페이지 정보", notes = "내 아바타, 닉네임 정보와 츄레스트에 작성된 글 목록 불러오기")
+    @ApiOperation(value = "마이페이지 정보", notes = "내 아바타, 닉네임 정보와 츄레스트에 작성된 글 목록 불러오기 \n" +
+            "작성된 글 눌렀을 때 score가 16 이상이면 나무 정보 가져옴")
     @GetMapping("")
     public ResponseEntity<?> getMyPageInfo(@RequestParam int memberId) {
         try {
@@ -28,21 +29,21 @@ public class MyPageController {
         }
     }
 
-    @ApiOperation(value = "마이페이지 추억 나무 정보", notes = "작성된 글 눌렀을 때 score가 16 이상이면 나무 정보 가져옴 \n" +
-            "score가 16 미만이면 HttpStatus.ACCEPT 반환 \n" +
-            "score가 16 이상이면 HttpStatus.OK 반환")
-    @GetMapping("/tree")
-    public ResponseEntity<?> getBoardTreeInfo(@RequestParam int boardId) {
-        try {
-            if(myPageService.getScore(boardId) >= 16)
-                return new ResponseEntity<>(myPageService.getBoardTreeInfo(boardId), HttpStatus.OK);
-            else
-                return new ResponseEntity<>("socre 부족", HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @ApiOperation(value = "마이페이지 추억 나무 정보", notes = "작성된 글 눌렀을 때 score가 16 이상이면 나무 정보 가져옴 \n" +
+//            "score가 16 미만이면 HttpStatus.ACCEPT 반환 \n" +
+//            "score가 16 이상이면 HttpStatus.OK 반환")
+//    @GetMapping("/tree")
+//    public ResponseEntity<?> getBoardTreeInfo(@RequestParam int boardId) {
+//        try {
+//            if(myPageService.getScore(boardId) >= 16)
+//                return new ResponseEntity<>(myPageService.getBoardTreeInfo(boardId), HttpStatus.OK);
+//            else
+//                return new ResponseEntity<>("socre 부족", HttpStatus.ACCEPTED);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @ApiOperation(value = "닉네임 바꾸기", notes = "다른 닉네임으로 변경")
     @PutMapping("/nickname")
