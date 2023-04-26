@@ -9,6 +9,7 @@ import java.util.List;
 
 public class BoardResponseDto {
 
+    @Data
     @Builder
     public static class BoardInfo {
 
@@ -49,6 +50,9 @@ public class BoardResponseDto {
 
         //  추억 나무를 조회하는 사용자의 물주기 권한 여부
         private boolean isTagged;
+
+        //  나무로 성장하여 처음으로 포인트 지급 받게 되는 경우
+        private boolean isReward;
 
         private List<String> fileList;
 

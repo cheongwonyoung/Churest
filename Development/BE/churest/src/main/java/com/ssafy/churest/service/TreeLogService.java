@@ -4,6 +4,7 @@ import com.ssafy.churest.dto.resp.TreeLogResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface TreeLogService {
@@ -12,5 +13,5 @@ public interface TreeLogService {
 
     int updateScoreByView(int boardId);
 
-    TreeLogResponseDto.TreeLogInfo updateScoreByWatering(int boardId);
+    TreeLogResponseDto.RecentTreeLogInfo updateScoreByWatering(int boardId);
 }

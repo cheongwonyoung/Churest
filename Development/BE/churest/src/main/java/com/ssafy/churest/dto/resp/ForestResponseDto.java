@@ -1,11 +1,13 @@
 package com.ssafy.churest.dto.resp;
 
 import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 
 public class ForestResponseDto {
 
+    @Data
     @Builder
     public static class ForestInfo {
 

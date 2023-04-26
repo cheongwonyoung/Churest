@@ -56,6 +56,11 @@ public class Member {
         return this;
     }
 
+    public Member rewardCoin(){
+        this.coin += 20;
+        return this;
+    }
+
     public Member updateEmail(String email) {
         this.email = email;
         return this;
@@ -75,4 +80,5 @@ public class Member {
         this.avatarId = avatarId;
         return this;
     }
+
 }
