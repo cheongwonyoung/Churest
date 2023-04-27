@@ -24,6 +24,7 @@ public class MessageController
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
             message.setMessage(message.getSender()+"님이 입장하였습니다.");
         }
-        sendingOperations.convertAndSend("/sub/chat/room", message);
+        // roomId는 태그된 상대 id로. 광장은 몇으로..?
+        sendingOperations.convertAndSend("/sub/chat/room"+message.getRoomId(), message);
     }
 }
