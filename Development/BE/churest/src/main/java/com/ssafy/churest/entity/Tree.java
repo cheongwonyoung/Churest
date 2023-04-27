@@ -23,4 +23,11 @@ public class Tree {
 
     private String file;
 
+    @Builder
+    public Tree(String name, String description, String file){
+        this.name = name;
+        this.description = description;
+        this.file = file;
+    }
+
 }
