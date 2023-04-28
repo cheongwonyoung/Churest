@@ -3,8 +3,10 @@ package com.ssafy.churest.entity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -30,6 +32,9 @@ public class Member {
     private int coin;
 
     private int avatarId;
+
+    @UpdateTimestamp
+    private LocalDateTime modifiedTime;
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Board> boards = new ArrayList<>();
