@@ -38,8 +38,7 @@ export default function login() {
             font-weight: bold;
             cursor: pointer;
             box-shadow: 3px 3px 3px;
-            transition: 1s;
-            transition-timing-function: linear;
+            transition: all 0.3s;
           }
           .btnbox:hover {
             box-shadow: 10px 10px 10px;
@@ -55,3 +54,9 @@ export default function login() {
     </div>
   );
 }
+
+// export async function getStaticProps() {
+//   return {
+//     props: { gogo: 'gogo' },
+//   };
+// }
