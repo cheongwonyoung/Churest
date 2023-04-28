@@ -16,3 +16,4 @@ COPY --from=build-stage /var/jenkins_home/workspace/Development/FE/churest/nginx
 
 EXPOSE 80  
 CMD ["nginx", "-g","daemon off;"] 
+ 
