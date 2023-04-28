@@ -2,17 +2,11 @@ import Image from 'next/image';
 import birdImg from '@/public/assets/bird_1_img.png';
 import Carousel from '../common/Carousel';
 
-export default function MyPage() {
-  const cardType = 'mypage';
+export default function MyBird() {
+  const cardType = 'mybird';
   return (
     <>
-      <div className="blue-clay container">
-        <div>
-          <div className="inside-circle center">
-            <Image src={birdImg} alt="" width={100} />
-          </div>
-          <div className="center">흑비둘기최윹애</div>
-        </div>
+      <div className="blue-clay container center">
         <div className="mine">
           <Carousel cardType={cardType}></Carousel>
         </div>
@@ -28,10 +22,7 @@ export default function MyPage() {
       <style jsx>
         {`
           .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            place-items: center;
-            width: 800px;
+            width: 400px;
             height: 400px;
           }
           .mine {

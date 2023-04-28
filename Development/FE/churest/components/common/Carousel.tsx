@@ -13,7 +13,11 @@ const slide_img = [
   'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75',
 ];
 
-const Carousel = () => {
+type Props = {
+  cardType: string;
+};
+
+const Carousel = ({ cardType }: Props) => {
   return (
     <>
       <div>
@@ -34,10 +38,15 @@ const Carousel = () => {
         >
           {slide_img.map((img, i) => {
             return (
-              <SwiperSlide key={i} className="gray-clay">
+              <SwiperSlide
+                key={i}
+                className={cardType == 'mypage' ? 'gray-clay' : 'inside-circle'}
+              >
                 <img src={img} alt="" />
                 <p>행복했던 엠지들</p>
-                <div className="date center">2023.02.21</div>
+                <div className={cardType == 'mypage' ? 'date center' : 'hide'}>
+                  2023.02.21
+                </div>
               </SwiperSlide>
             );
           })}
@@ -56,6 +65,9 @@ const Carousel = () => {
           }
           .date {
             margin-bottom: 50px;
+          }
+          .hide {
+            display: none;
           }
         `}
       </style>

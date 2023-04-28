@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
 type Props = {
@@ -24,8 +23,13 @@ export default function ItemList({ showedItem, handleItems }: Props) {
     };
 
     return structure().map((item) => (
-      <div key={item} id={item} onClick={() => handleItems(item)} className="">
-        멀바용{item}
+      <div
+        key={item}
+        id={item}
+        onClick={() => handleItems(item)}
+        style={{ margin: '30px' }}
+      >
+        {item}
         <Image
           src={images[item + '_img']}
           alt=""
@@ -40,12 +44,13 @@ export default function ItemList({ showedItem, handleItems }: Props) {
   return (
     <>
       <div className="">
-        <div className="">{itemList()}</div>
+        <div className="item-grid">{itemList()}</div>
       </div>
       <style jsx>{`
-        .tab {
-          display: flex;
-          justify-content: space-between;
+        .item-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          place-items: center;
         }
       `}</style>
     </>

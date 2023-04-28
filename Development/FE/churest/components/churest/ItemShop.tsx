@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import ItemList from './ItemList';
 
@@ -31,19 +30,21 @@ export default function ItemShop({ handleItems }: Props) {
 
   return (
     <>
-      <div className="blue-clay" style={{ width: '1000px', height: '350px' }}>
+      <div className="blue-clay" style={{ width: '1000px' }}>
         <div className="">{itemTitle}</div>
         <ItemList showedItem={showedItem} handleItems={handleItems}></ItemList>
-        <div className="center">
+        <div className="center" style={{ margin: '20px 0 20px 0' }}>
           <button className="green-btn">저장</button>
         </div>
       </div>
       <style jsx>{`
         .tab-container {
           display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
+          justify-content: space-between;
+          flex-direction: column;
+          // display: grid;
+          // grid-template-columns: 1fr 1fr 1fr;
+          // place-items: center;
         }
       `}</style>
     </>
