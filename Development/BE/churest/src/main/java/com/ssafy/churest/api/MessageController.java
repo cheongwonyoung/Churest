@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Api("chat Controller API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/chat")
 @Slf4j
 public class MessageController
 {
