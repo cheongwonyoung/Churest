@@ -12,8 +12,9 @@ FROM nginx:stable-alpine as production-stage
 COPY --from=build-stage /var/jenkins_home/workspace/Development/Development/FE/churest/.next/static /usr/share/nginx/html
 
 COPY --from=build-stage /var/jenkins_home/workspace/Development/Development/FE/churest/nginx.conf /etc/nginx/conf.d/default.conf
- 
-EXPOSE 80  
+
+EXPOSE 3000
+# EXPOSE 80  
 CMD ["npm", "run", "dev"]
-CMD ["nginx", "-g","daemon off;"] 
+# CMD ["nginx", "-g","daemon off;"] 
 
