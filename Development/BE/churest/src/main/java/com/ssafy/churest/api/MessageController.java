@@ -4,6 +4,7 @@ import com.ssafy.churest.dto.resp.ChatMessage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,13 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/chat")
+@Slf4j
 public class MessageController
 {
     private final SimpMessageSendingOperations sendingOperations;
 
     @ApiOperation(value = "채팅", notes = "채팅 메시지")
-    @MessageMapping("/message")
+    @MessageMapping("/chat/message")
     public void enter(@RequestBody ChatMessage message) {
+        log.info("오나요.?");
         if (ChatMessage.MessageType.ENTER.equals(message.getType())) {
             message.setMessage(message.getSender()+"님이 입장하였습니다.");
         }
