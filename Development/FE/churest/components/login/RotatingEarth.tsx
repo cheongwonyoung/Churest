@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { LoginEarth } from '../3DFiles/LoginEarth';
+import { OrbitControls } from '@react-three/drei';
 
 export default function RotatingEarth() {
   return (
@@ -15,6 +16,7 @@ export default function RotatingEarth() {
           castShadow={true}
           intensity={2}
         />
+        <OrbitControls autoRotate={true} minPolarAngle={0} maxPolarAngle={90} />
       </Canvas>
     </div>
   );
