@@ -1,79 +1,94 @@
 package com.ssafy.churest.util;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
 
 import io.jsonwebtoken.*;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+
 @Component
 @Slf4j
 public class JwtTokenProvider {
 
+
     @Value("${jwt.access-token.expire-length}")
-    private long accessTokenValidityInMilliseconds;
-
+    private long  accessTokenTime;
     @Value("${jwt.refresh-token.expire-length}")
-    private long refreshTokenValidityInMilliseconds;
-
+    private long  refreshTokenTime;
     @Value("${jwt.token.secret-key}")
     private String secretKey;
 
-    public String createAccessToken(String payload) {
-        return createToken(payload, accessTokenValidityInMilliseconds);
+    private final UserDetailsService userDetailsService;
+
+    public JwtTokenProvider(@Qualifier("userUserDetailsService") UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
-    public String createRefreshToken() {
-        byte[] array = new byte[7];
-        new Random().nextBytes(array);
-        String generatedString = new String(array, StandardCharsets.UTF_8);
-        return createToken(generatedString, refreshTokenValidityInMilliseconds);
+    @PostConstruct
+    protected void init() {
+        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String payload, long expireLength) {
-        Claims claims = Jwts.claims().setSubject(payload);
+    // Jwt 토큰 생성
+    public String createToken(String email, String type) {
+        Claims claims = Jwts.claims().setSubject(email);
         Date now = new Date();
-        Date validity = new Date(now.getTime() + expireLength);
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256,secretKey)
-                .compact();
-    }
-
-    public String getPayload(String token){
-        try {
-            return Jwts.parser()
-                    .setSigningKey(secretKey)
-//                    .build()
-                    .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject();
-        } catch (ExpiredJwtException e) {
-            return e.getClaims().getSubject();
-        } catch (JwtException e){
-            throw new RuntimeException("유효하지 않은 토큰 입니다");
+        long validTime = 0;
+        if(type.equals("access")){
+            validTime = accessTokenTime;
         }
+        else if(type.equals("refresh")){
+            validTime = accessTokenTime;
+        }
+        return Jwts.builder()
+                .setClaims(claims) // 데이터
+                .setIssuedAt(now)   // 토큰 발행 일자
+                .setExpiration(new Date(now.getTime() + validTime)) // 만료 기간
+                .signWith(SignatureAlgorithm.HS512, secretKey) // 암호화 알고리즘, secret 값
+                .compact(); // Token 생성
     }
 
-    public boolean validateToken(String token) {
+    // 인증 성공시 SecurityContextHolder에 저장할 Authentication 객체 생성
+    public Authentication getAuthentication(String token) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getEmail(token));
+        log.info("여기", userDetails.getUsername());
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
+    // Jwt Token에서 User Email 추출
+    public String getEmail(String token) {
+        return Jwts.parser().setSigningKey(secretKey)
+                .parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public String resolveToken(HttpServletRequest req) {
+        return req.getHeader("X-AUTH-TOKEN");
+    }
+
+    // Jwt Token의 유효성 및 만료 기간 검사
+    public boolean validateToken(String jwtToken) {
         try {
-            Jws<Claims> claimsJws = Jwts.parser()
-//                    .parserBuilder()
-                    .setSigningKey(secretKey)
-//                    .build()
-                    .parseClaimsJws(token);
-            return !claimsJws.getBody().getExpiration().before(new Date());
-        } catch (JwtException | IllegalArgumentException exception) {
+            log.info("c");
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+            log.info("f");
+            return !claims.getBody().getExpiration().before(new Date());
+        } catch (Exception e) {
+            log.info("error !!!");
             return false;
         }
     }
-
-
 
 }
