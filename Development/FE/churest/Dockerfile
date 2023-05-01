@@ -1,19 +1,23 @@
-# node.ks 로 빌드 ( base로 사용할 Image name : build-stage )
-FROM node:18.15.0 as build-stage
+# base image
+FROM node:18.15.0-alpine
 
-# package*.json에 등록되어 있는 라이브러리들을 npm install 으로 설치하고, 프로젝트 폴더를 이미지에 복사, npm run build 를 통해 build 폴더에 빌드 
-WORKDIR /var/jenkins_home/workspace/Development/Development/FE/churest
+# set working directory
+WORKDIR /app
+
+# copy package.json and package-lock.json
 COPY package*.json ./
+
+# install dependencies
 RUN npm install
+
+# copy source code
 COPY . .
+
+# build Next.js app
 RUN npm run build
-FROM nginx:stable-alpine as production-stage
 
-COPY --from=build-stage /var/jenkins_home/workspace/Development/Development/FE/churest/.next/static /usr/share/nginx/html
+# expose port 3000
+EXPOSE 3000
 
-COPY --from=build-stage /var/jenkins_home/workspace/Development/Development/FE/churest/nginx.conf /etc/nginx/conf.d/default.conf
- 
-EXPOSE 80  
-# CMD ["npm", "run", "dev"]
-CMD ["nginx", "-g","daemon off;"] 
-
+# start the app
+CMD ["npm", "run", "dev"] 
