@@ -3,21 +3,18 @@ import SwiperCore, { EffectCoverflow, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
+import moment from 'moment';
 
 SwiperCore.use([EffectCoverflow, Pagination]);
-// if you want to use array
-const slide_img = [
-  'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75',
-  'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75',
-  'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75',
-  'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75',
-];
 
 type Props = {
   cardType: string;
+  info: any;
 };
 
-const Carousel = ({ cardType }: Props) => {
+const Carousel = ({ cardType, info }: Props) => {
+  let data = [...info];
+
   return (
     <>
       <div>
@@ -36,17 +33,40 @@ const Carousel = ({ cardType }: Props) => {
           pagination={true}
           className="mySwiper"
         >
-          {slide_img.map((img, i) => {
+          {data.map((item: any, i: number) => {
             return (
               <SwiperSlide
                 key={i}
-                className={cardType == 'mypage' ? 'gray-clay' : 'inside-circle'}
+                className={
+                  cardType == 'mypage'
+                    ? 'gray-clay center'
+                    : 'inside-circle center'
+                }
               >
-                <img src={img} alt="" />
-                <p>행복했던 엠지들</p>
-                <div className={cardType == 'mypage' ? 'date center' : 'hide'}>
-                  2023.02.21
-                </div>
+                {cardType == 'mypage' ? (
+                  <div className="">
+                    <img
+                      src={
+                        'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75'
+                      }
+                      alt=""
+                    />
+                    <p>{item.title}</p>
+                    <p className="date center">
+                      {moment(item.createdTime).format('YYYY년 MM월 DD일')}
+                    </p>
+                  </div>
+                ) : (
+                  <div style={{ margin: '0 auto' }}>
+                    <img
+                      src={
+                        'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75'
+                      }
+                      alt=""
+                    />
+                    <p>{item.nickname}</p>
+                  </div>
+                )}
               </SwiperSlide>
             );
           })}

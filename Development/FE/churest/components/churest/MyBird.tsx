@@ -9,8 +9,9 @@ import { useQuery } from 'react-query';
 
 export default function MyBird() {
   const cardType = 'mybird';
-  const memberId = 1;
+  const memberId: number = 1;
   console.log(memberId + '번 멤버');
+
   // 나의 새 목록
   const [birdList, setMyBirds] = useState([{}]);
   useQuery('mybirds', () => getMyBirdsList(Number(memberId)), {
@@ -30,15 +31,8 @@ export default function MyBird() {
     <>
       <div className="blue-clay container center">
         <div className="mine">
-          <Carousel cardType={cardType}></Carousel>
+          <Carousel cardType={cardType} info={birdList}></Carousel>
         </div>
-
-        {/* <div className="gray-clay mine">
-          <Image src={treeImg} alt="" width={200} />
-
-          <p>행복했던 엠지들</p>
-          <p>2023.02.21</p>
-        </div> */}
       </div>
 
       <style jsx>
@@ -48,9 +42,7 @@ export default function MyBird() {
             height: 400px;
           }
           .mine {
-            display: grid;
-            place-items: center;
-            width: 300px;
+            width: 200px;
             height: 320px;
             padding: 10px 0 10px 0;
           }
