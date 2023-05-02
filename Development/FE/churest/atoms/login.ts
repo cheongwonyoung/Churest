@@ -11,7 +11,7 @@ interface login {
 export const loginAtom = atom<login>({
   key: 'login',
   default: {
-    id: null,
+    id: 0,
     accessToken: null,
   },
   effects_UNSTABLE: [persistAtom],

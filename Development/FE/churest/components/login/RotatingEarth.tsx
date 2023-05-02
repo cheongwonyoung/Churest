@@ -16,7 +16,6 @@ export default function RotatingEarth() {
           castShadow={true}
           intensity={2}
         />
-        <OrbitControls autoRotate={true} minPolarAngle={0} maxPolarAngle={90} />
       </Canvas>
     </div>
   );
