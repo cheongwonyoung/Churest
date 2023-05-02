@@ -1,6 +1,6 @@
 import RotatingEarth from '@/components/login/RotatingEarth';
 import { ImBubble } from 'react-icons/im';
-export default function login() {
+export default function Login() {
   const REST_API_KEY = process.env.NEXT_PUBLIC_API_KAKAO_KEY;
   const REDIRECT_URI = process.env.NEXT_PUBLIC_API_REDIRECT_URL;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
