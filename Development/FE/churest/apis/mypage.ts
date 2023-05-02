@@ -25,5 +25,5 @@ export const modifyNickname = (info: {
 
 // 태그 모아보기
 export const getTaggedTree = (memberId: number) => {
-  return instance.get(`/tag/${memberId}`);
+  return instance.get(`/tag/?memberId=${memberId}`);
 };
