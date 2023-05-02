@@ -9,10 +9,12 @@ export default function Home() {
   return (
     <>
       <p>시작페이지</p>
-      <img
+      {/* <Image
         src="https://storage.cloud.google.com/churest-bucket/%EB%B6%84%EB%B9%84%EB%82%98%EB%AC%B4.jpg"
-        alt=""
-      />
+        width={100}
+        height={100}
+        alt="enter image"
+      /> */}
     </>
   );
 }

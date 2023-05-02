@@ -29,17 +29,17 @@ type ActionName =
 type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 
 export function Man1(props: JSX.IntrinsicElements['group']) {
-  const group = useRef<THREE.Group>();
+  const group = useRef<any>();
   const { nodes, materials, animations } = useGLTF(
     '/3Dglb/Man1.glb'
   ) as GLTFResult;
-  const { actions } = useAnimations<GLTFActions>(animations, group);
+  const { actions } = useAnimations(animations, group);
   let walk: any;
   let run: any;
   useEffect(() => {
     walk = actions['Walk'];
     run = actions['Run'];
-  });
+  }, []);
 
   window.addEventListener('keydown', (e) => move(e));
   window.addEventListener('keyup', () => stop());
@@ -49,7 +49,7 @@ export function Man1(props: JSX.IntrinsicElements['group']) {
     run?.stop();
   };
 
-  const walkRun = (e) => {
+  const walkRun = (e: any) => {
     e.shiftKey ? run.play() : walk.play();
   };
 

@@ -6,8 +6,8 @@ import SquareChatInp from './SquareChatInp';
 // import { subscribe } from 'diagnostics_channel';
 
 export default memo(function SquareChat() {
-  const baseURL = 'ws://localhost:8080/api/chat/websocket';
-  // const baseURL = 'http://k8a505.p.ssafy.io:8080/api';
+  // const baseURL = 'ws://localhost:8080/api/chat/websocket';
+  const baseURL = 'https://k8a505.p.ssafy.io:8080/api/chat/websocket';
   // const baseURL = 'http://localhost:8080/api/ws/chat';
   const client: any = useRef({});
   const roomId = 1;
@@ -87,11 +87,6 @@ export default memo(function SquareChat() {
   //     JSON.stringify({ type: 'TALK', roomId, sender: userId, message })
   //   );
   // };
-
-  useEffect(() => {
-    connect();
-    // return ws.disconnect();
-  }, []);
 
   const changeMsg = useCallback((e: any) => {
     setMessage(e.target.value);

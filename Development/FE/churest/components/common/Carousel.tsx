@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import moment from 'moment';
+import Image from 'next/image';
 
 SwiperCore.use([EffectCoverflow, Pagination]);
 
@@ -45,10 +46,12 @@ const Carousel = ({ cardType, info }: Props) => {
               >
                 {cardType == 'mypage' ? (
                   <div className="">
-                    <img
+                    <Image
                       src={
                         'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75'
                       }
+                      width="100"
+                      height="100"
                       alt=""
                     />
                     <p>{item.title}</p>
@@ -58,10 +61,12 @@ const Carousel = ({ cardType, info }: Props) => {
                   </div>
                 ) : (
                   <div style={{ margin: '0 auto' }}>
-                    <img
+                    <Image
                       src={
                         'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75'
                       }
+                      width="100"
+                      height="100"
                       alt=""
                     />
                     <p>{item.nickname}</p>
