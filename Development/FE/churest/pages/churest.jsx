@@ -12,7 +12,7 @@ export default function churest() {
       <MyBird></MyBird>
       <LetterBox></LetterBox>
       <ItemShop></ItemShop>
-      <NewBird></NewBird>
+      <NewBird bird={1}></NewBird>
 
       <style jsx>{``}</style>
     </>
