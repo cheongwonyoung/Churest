@@ -46,14 +46,14 @@ const Carousel = ({ cardType, info }: Props) => {
               >
                 {cardType == 'mypage' ? (
                   <div className="">
-                    <Image
+                    {/* <Image
                       src={
                         'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75'
                       }
                       width="100"
                       height="100"
                       alt=""
-                    />
+                    /> */}
                     <p>{item.title}</p>
                     <p className="date center">
                       {moment(item.createdTime).format('YYYY년 MM월 DD일')}
@@ -61,14 +61,14 @@ const Carousel = ({ cardType, info }: Props) => {
                   </div>
                 ) : (
                   <div style={{ margin: '0 auto' }}>
-                    <Image
+                    {/* <Image
                       src={
                         'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75'
                       }
                       width="100"
                       height="100"
                       alt=""
-                    />
+                    /> */}
                     <p>{item.nickname}</p>
                   </div>
                 )}

@@ -7,7 +7,7 @@ import SquareChatInp from './SquareChatInp';
 
 export default memo(function SquareChat() {
   // const baseURL = 'ws://localhost:8080/api/chat/websocket';
-  const baseURL = 'https://k8a505.p.ssafy.io:8080/api/chat/websocket';
+  const baseURL = 'http://k8a505.p.ssafy.io:8080/api/chat/websocket';
   // const baseURL = 'http://localhost:8080/api/ws/chat';
   const client: any = useRef({});
   const roomId = 1;
