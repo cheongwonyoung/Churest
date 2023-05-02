@@ -7,12 +7,6 @@ const nextConfig = {
         protocol: "https",
         hostname: "storage.cloud.google.com",
       },
-      {
-        protocol: "http",
-        hostname: "news.samsungdisplay.com",
-      },
-
-
     ],
   },
 }
