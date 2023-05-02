@@ -99,6 +99,9 @@ type GLTFResult = GLTF & {
 };
 
 export function LoginEarth(props: JSX.IntrinsicElements['group']) {
+  // const { nodes, materials } = useGLTF(
+  //   'https://storage.cloud.google.com/churest-bucket/loginEarth.glb'
+  // ) as GLTFResult;
   const { nodes, materials } = useGLTF('/3Dglb/loginEarth.glb') as GLTFResult;
   const [angle, setAngle] = useState(0);
   useFrame(() => {
