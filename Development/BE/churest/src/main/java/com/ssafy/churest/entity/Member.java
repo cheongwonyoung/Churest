@@ -2,8 +2,11 @@ package com.ssafy.churest.entity;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -11,7 +14,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@DynamicInsert
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,14 +26,15 @@ public class Member {
     @Column(length = 6)
     private String nickname;
 
-    private String file;
-
     private String token;
 
     @ColumnDefault("0")
     private int coin;
 
     private int avatarId;
+
+    @UpdateTimestamp
+    private LocalDateTime modifiedTime;
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Board> boards = new ArrayList<>();
@@ -43,5 +47,43 @@ public class Member {
 //
 //    @OneToMany(mappedBy = "member")
 //    private List<Tag> tags = new ArrayList<>();
+
+    @Builder
+    public Member(String email, String nickname, int coin, int avatarId){
+        this.email = email;
+        this.nickname = nickname;
+        this.coin = coin;
+        this.avatarId = avatarId;
+    }
+
+    public Member updateCoin(int coin){
+        this.coin = coin;
+        return this;
+    }
+
+    public Member rewardCoin(){
+        this.coin += 20;
+        return this;
+    }
+
+    public Member updateEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public Member updateToken(String token) {
+        this.token = token;
+        return this;
+    }
+
+    public Member updateNickname(String nickname){
+        this.nickname = nickname;
+        return this;
+    }
+
+    public Member updateAvatar(int avatarId){
+        this.avatarId = avatarId;
+        return this;
+    }
 
 }
