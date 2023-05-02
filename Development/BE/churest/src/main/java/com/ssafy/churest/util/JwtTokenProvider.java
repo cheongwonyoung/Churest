@@ -42,6 +42,8 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
+
+
     // Jwt 토큰 생성
     public String createToken(String email, String type) {
         Claims claims = Jwts.claims().setSubject(email);
@@ -49,12 +51,16 @@ public class JwtTokenProvider {
         long validTime = 0;
         if(type.equals("access")){
             validTime = accessTokenTime;
+            return Jwts.builder()
+                    .setClaims(claims) // 데이터
+                    .setIssuedAt(now)   // 토큰 발행 일자
+                    .setExpiration(new Date(now.getTime() + validTime)) // 만료 기간
+                    .signWith(SignatureAlgorithm.HS512, secretKey) // 암호화 알고리즘, secret 값
+                    .compact(); // Token 생성
         }
-        else if(type.equals("refresh")){
-            validTime = accessTokenTime;
-        }
+        validTime = refreshTokenTime;
         return Jwts.builder()
-                .setClaims(claims) // 데이터
+                .setSubject(email)
                 .setIssuedAt(now)   // 토큰 발행 일자
                 .setExpiration(new Date(now.getTime() + validTime)) // 만료 기간
                 .signWith(SignatureAlgorithm.HS512, secretKey) // 암호화 알고리즘, secret 값
