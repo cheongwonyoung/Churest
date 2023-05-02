@@ -10,7 +10,7 @@ export const getForest = (memberId: number) => {
 
 // 추억 나무 조회
 export const getMyChurest = (memberId: number, boardId: number) => {
-  return instance.get(`/forest/tree/${boardId}`);
+  return instance.get(`/forest/tree/${boardId}?memberId=${memberId}`);
 };
 
 // 추억 나무 물 주기
@@ -31,8 +31,8 @@ export const checkLocation = (
 
 // 추억 나무 생성 시 태그할 친구 닉네임 조회
 export const getTagNickname = (memberId: number, nickname: string) => {
-  return instance.get(`/forest/search/${nickname}`);
-}; // ??????????
+  return instance.get(`/forest/search/${nickname}?memberId=${memberId}`);
+};
 
 // 추억 나무 퍼가기
 export const takeTree = (
@@ -43,5 +43,8 @@ export const takeTree = (
     locationY: number;
   }
 ) => {
-  return instance.post(`/forest/takeTree/${boardId}`, locationInfo);
+  return instance.post(
+    `/forest/takeTree/${boardId}?memberId=${memberId}`,
+    locationInfo
+  );
 };

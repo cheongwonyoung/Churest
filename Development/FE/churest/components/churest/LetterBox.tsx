@@ -1,33 +1,28 @@
-
-import Image from 'next/image';
-import frameImg from '@/public/assets/letter_img.png';
+import { getLetterList } from '@/apis/letterbox';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
+import LetterSlide from './LetterSlide';
 
 export default function LetterBox() {
+  const memberId: number = 1;
+
+  // 나의 우편함 편지 목록
+  const [letterList, setLetterList] = useState([{}]);
+  useQuery('myLetters', () => getLetterList(Number(memberId)), {
+    onSuccess(data) {
+      setLetterList([...data.data]);
+    },
+    onError: (error) => {
+      console.log('에러다');
+      console.log(error);
+    },
+    staleTime: 60 * 1000,
+  });
+
   return (
     <>
-      <div
-        className="letter blue-clay"
-        style={{
-          backgroundImage: 'url(@/public/assets/letter_img.png)',
-          width: '400px',
-          height: '550px',
-        }}
-      >
-        <Image src={frameImg} alt="" width={380} />
-        <div className="input">안녕하떼요 당신에게 편지를 남깁니다.</div>
-      </div>
-      <style jsx>{`
-        .letter {
-          position: relative;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        .input {
-          position: absolute;
-          width: 225px;
-        }
-      `}</style>
+      <LetterSlide letters={letterList}></LetterSlide>
+      <style jsx>{``}</style>
     </>
   );
 }
