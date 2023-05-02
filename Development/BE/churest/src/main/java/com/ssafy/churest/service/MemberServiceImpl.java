@@ -18,10 +18,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationToken;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationResponse;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -55,12 +57,14 @@ public class MemberServiceImpl implements  MemberService{
         log.info("client_id = " + provider.getClientId());
         log.info("token_uri = " + provider.getProviderDetails().getTokenUri());
 
+
+
         JsonNode tokenResponse = getToken(code, provider);
 
         Member member = getMemberProfile(tokenResponse, provider);
 
-        String accessToken = jwtTokenProvider.createAccessToken(String.valueOf(member.getMemberId()));
-        String refreshToken = jwtTokenProvider.createRefreshToken();
+        String accessToken = jwtTokenProvider.createToken(member.getEmail(), "access");
+        String refreshToken = jwtTokenProvider.createToken(member.getEmail(), "refresh");
 
         member.updateToken(refreshToken);
         memberRepository.save(member);
@@ -78,7 +82,6 @@ public class MemberServiceImpl implements  MemberService{
 
     @Override
     public JsonNode getToken(String code, ClientRegistration provider) throws JsonProcessingException {
-
         return WebClient.create()
                 .post()
                 .uri(provider.getProviderDetails().getTokenUri())
