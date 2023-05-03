@@ -1,6 +1,6 @@
-import { modifyMyBird } from '@/apis/mypage'
+import { modifyMyBird } from '@/apis/mypage';
 import Image from 'next/image';
-import birdImg from '@/public/assets/bird_1_img.png';
+import { images } from '@/public/assets/images';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function NewBird({ bird }: Props) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const handleName = (e: any) => {
     setName(e.target.value);
   };
@@ -18,19 +18,26 @@ export default function NewBird({ bird }: Props) {
     changeName.mutate();
   };
 
-  const changeName = useMutation(() => modifyMyBird({memberBirdId:bird, nickname:name}), {
-    onSuccess:(data) => {
-      console.log(data.data);
+  const changeName = useMutation(
+    () => modifyMyBird({ memberBirdId: bird, nickname: name }),
+    {
+      onSuccess: (data) => {
+        console.log(data.data);
+      },
     }
-  });
-
+  );
 
   return (
     <>
       <div className="blue-clay container">
         <div className="bird-title">New Bird</div>
         <div className="bird-img">
-          <Image src={birdImg} alt="birdImg" width={200} />
+          <Image
+            src={images.bird_1_img}
+            alt="birdImg"
+            width={200}
+            height={200}
+          />
         </div>
         <div className="inside-clay bird-input center">
           <input
@@ -39,7 +46,9 @@ export default function NewBird({ bird }: Props) {
             onChange={(e) => handleName(e)}
           ></input>
         </div>
-        <button className="green-btn" onClick={clickChangeName}>확인</button>
+        <button className="green-btn" onClick={clickChangeName}>
+          확인
+        </button>
       </div>
       <style jsx>{`
         .container {

@@ -33,8 +33,9 @@ type Props = {
 export function Man1({ isMoving }: Props) {
   const group = useRef<any>();
   const { nodes, materials, animations } = useGLTF(
-    '/3Dglb/Man1.glb'
+    'https://storage.googleapis.com/churest-bucket/project_3D/Man1.glb'
   ) as GLTFResult;
+
   const { actions } = useAnimations(animations, group);
   useEffect(() => {
     isMoving ? actions['Walk']?.play() : actions['Walk']?.stop();
