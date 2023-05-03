@@ -1,18 +1,10 @@
 package com.ssafy.churest.config;
 
-import com.fasterxml.classmate.TypeResolver;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
@@ -27,21 +19,22 @@ import java.util.List;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+public class Swagger2Config {
+
+    private static final String API_NAME = "Trade Talk API";
+    private static final String API_VERSION = "1.0";
+    private static final String API_DESCRIPTION = "Trade Talk 서버 API 문서";
 
     @Bean
     public Docket api() {
-        TypeResolver typeResolver = new TypeResolver();
 
         return new Docket(DocumentationType.SWAGGER_2)
-                .alternateTypeRules(
-                        AlternateTypeRules.newRule(typeResolver.resolve(Pageable.class), typeResolver.resolve(Page.class))
-                )
-                .apiInfo(apiInfo())
+                .apiInfo(apiInfo()) // API 문서에 대한 내용
+                .securityContexts(Arrays.asList(securityContext())) // swagger에서 jwt 토큰값 넣기위한 설정
+                .securitySchemes(Arrays.asList(apiKey())) // swagger에서 jwt 토큰값 넣기위한 설정
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.ssafy.churest"))
-//                .paths(PathSelectors.any())
-                .paths(PathSelectors.ant("/**"))
+                .apis(RequestHandlerSelectors.basePackage("com.ssafy.churest")) // Swagger를 적용할 package명 작성
+                .paths(PathSelectors.any()) // PathSelectors.any() 해당패키지 하위에 있는 모든 url에 적용, 특정 url만 선택 가능
                 .build();
     }
 
@@ -53,20 +46,6 @@ public class SwaggerConfig {
 //                .license("라이센스 작성")
 //                .licenseUrl("라이센스 URL 작성")
                 .build();
-    }
-
-    @Getter
-    @Setter
-    @ApiModel
-    static class Page {
-        @ApiModelProperty(value = "페이지 번호(0..N)")
-        private Integer page;
-
-        @ApiModelProperty(value = "페이지 크기", allowableValues="range[0, 100]")
-        private Integer size;
-
-        @ApiModelProperty(value = "정렬(사용법: 컬럼명,ASC|DESC)")
-        private List<String> sort;
     }
 
     // swagger에서 jwt 토큰값 넣기위한 설정
@@ -84,5 +63,4 @@ public class SwaggerConfig {
         authorizationScopes[0] = authorizationScope;
         return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
     }
-
 }
