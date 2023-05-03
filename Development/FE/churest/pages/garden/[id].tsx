@@ -173,7 +173,7 @@ export default function Garden() {
                 type="fixed"
                 friction={1}
               >
-                <Box position={[0, -2, 0]} args={[40, 0.5, 40]}>
+                <Box position={[0, -2, 0]} args={[40, 0.5, 40]} receiveShadow>
                   <meshStandardMaterial color={'yellow'} />
                 </Box>
               </RigidBody>
