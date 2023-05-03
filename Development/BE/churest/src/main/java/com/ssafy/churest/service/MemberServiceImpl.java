@@ -152,6 +152,28 @@ public class MemberServiceImpl implements  MemberService{
         return memberInfo;
     }
 
+    @Override
+    public String token(String refreshToken) {
+//        access token 재발급
+//                - refresh token 받기
+//        - 유효한지 확인
+//                - 유효하지 않다면 401 반환 ( 재로그인 필요 )
+//                - 유효하다면 db에 있는 값과 같은지 확인하고 같으면 access token 생성 후 발급
+
+        Member member = memberRepository.findByToken(refreshToken);
+        // 프론트가 보낸 refreshtoken이 db에 존재한다면
+        if(member != null){
+            // 프론트가 보낸 refreshtoken이 유효하다면
+            if(jwtTokenProvider.validateToken(refreshToken)){
+                // access token 재발급
+                return jwtTokenProvider.createToken(member.getEmail(), "access");
+            }
+
+        }
+        new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return null;
+    }
+
 
     @Override
     public List<MemberResponseDto.FriendSearchInfo> getSearchMemberList(String nickname, int memberId) {
