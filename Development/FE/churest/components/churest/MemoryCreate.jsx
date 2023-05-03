@@ -2,7 +2,7 @@ import Image from 'next/image';
 import images from '@/public/assets/memory_backimg.png';
 import SearchBar from '@/components/common/SearchBar';
 
-export default function memory() {
+export default function MemoryCreate() {
   let memberId = 1;
 
   return (
