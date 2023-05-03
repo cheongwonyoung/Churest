@@ -23,7 +23,15 @@ export const modifyNickname = (info: {
   return instance.put(`/my-page/nickname`, info);
 };
 
+// 새 닉네임 바꾸기
+export const modifyMyBird = (info: {
+    memberBirdId: number,
+    nickname: string;
+}) => {
+  return instance.put(`/my-bird`, info);
+};
+
 // 태그 모아보기
 export const getTaggedTree = (memberId: number) => {
-  return instance.get(`/tag/${memberId}`);
+  return instance.get(`/tag/?memberId=${memberId}`);
 };

@@ -27,63 +27,21 @@ type ActionName =
   | 'Walk'
   | 'Win';
 type GLTFActions = Record<ActionName, THREE.AnimationAction>;
-
-export function Man1(props: JSX.IntrinsicElements['group']) {
+type Props = {
+  isMoving: boolean;
+};
+export function Man1({ isMoving }: Props) {
   const group = useRef<any>();
   const { nodes, materials, animations } = useGLTF(
     '/3Dglb/Man1.glb'
   ) as GLTFResult;
   const { actions } = useAnimations(animations, group);
-  let walk: any;
-  let run: any;
   useEffect(() => {
-    walk = actions['Walk'];
-    run = actions['Run'];
-  }, []);
-
-  window.addEventListener('keydown', (e) => move(e));
-  window.addEventListener('keyup', () => stop());
-
-  const stop = () => {
-    walk?.stop();
-    run?.stop();
-  };
-
-  const walkRun = (e: any) => {
-    e.shiftKey ? run.play() : walk.play();
-  };
-
-  const move = (e: any) => {
-    const direction = e.key;
-    console.log(e);
-
-    switch (direction) {
-      case 'ArrowDown':
-        // setCharX((prev) => prev + 1);
-        // setLookAt([0, Math.PI / 2, 0]);
-
-        walkRun(e);
-        break;
-      case 'ArrowUp':
-        // setCharX((prev) => prev - 1);
-        // setLookAt([0, -Math.PI / 2, 0]);
-        walkRun(e);
-        break;
-      case 'ArrowRight':
-        // setLookAt([0, Math.PI, 0]);
-        // setCharY((prev) => prev - 1);
-        walkRun(e);
-        break;
-      case 'ArrowLeft':
-        // setLookAt([0, 0, 0]);
-        // setCharY((prev) => prev + 1);
-        walkRun(e);
-        break;
-    }
-  };
+    isMoving ? actions['Walk']?.play() : actions['Walk']?.stop();
+  });
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} dispose={null}>
       <group name="Scene">
         <group name="metarig">
           <group

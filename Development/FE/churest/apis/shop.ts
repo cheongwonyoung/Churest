@@ -2,7 +2,7 @@ import { instance } from '.';
 
 // 상점 새 목록
 export const getShopBirdList = (memberId: number) => {
-  return instance.get(`/shop/bird/${memberId}`);
+  return instance.get(`/shop/bird/?memberId=${memberId}`);
 };
 
 // 새 구매
@@ -17,7 +17,7 @@ export const modifyMyBird = (info: { birdId: number; memberId: number }) => {
 
 // 새 집 목록
 export const getBirdHouseList = (memberId: number) => {
-  return instance.get(`/shop/bird-house/${memberId}`);
+  return instance.get(`/shop/bird-house/?memberId=${memberId}`);
 };
 
 // 새 집 구매

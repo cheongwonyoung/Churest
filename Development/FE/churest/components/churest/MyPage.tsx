@@ -13,7 +13,6 @@ export default function MyPage() {
   const [nickname, setNickname] = useState('');
   useQuery('mypage', () => getMyInfo(Number(memberId)), {
     onSuccess(data) {
-      console.log('마이페이지입니다');
       setMyPage([...data.data.boards]);
       setNickname(data.data.member.nickname);
     },

@@ -1,4 +1,7 @@
 import React from 'react';
+import Image from 'next/image';
+import birdImg from '@/public/assets/bird_1_img.png';
+import treeImg from '@/public/assets/my_tree_img.png';
 import SwiperCore, { EffectCoverflow, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
@@ -14,8 +17,6 @@ type Props = {
 };
 
 const Carousel = ({ cardType, info }: Props) => {
-  let data = [...info];
-
   return (
     <>
       <div>
@@ -34,26 +35,19 @@ const Carousel = ({ cardType, info }: Props) => {
           pagination={true}
           className="mySwiper"
         >
-          {data.map((item: any, i: number) => {
+          {info.map((item: any, idx: number) => {
             return (
               <SwiperSlide
-                key={i}
+                key={idx}
                 className={
                   cardType == 'mypage'
-                    ? 'gray-clay center'
+                    ? 'gray-clay center my-tree'
                     : 'inside-circle center'
                 }
               >
                 {cardType == 'mypage' ? (
                   <div className="">
-                    {/* <Image
-                      src={
-                        'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75'
-                      }
-                      width="100"
-                      height="100"
-                      alt=""
-                    /> */}
+                    <Image src={treeImg} alt="" width={150} height={150} />
                     <p>{item.title}</p>
                     <p className="date center">
                       {moment(item.createdTime).format('YYYY년 MM월 DD일')}
@@ -61,14 +55,7 @@ const Carousel = ({ cardType, info }: Props) => {
                   </div>
                 ) : (
                   <div style={{ margin: '0 auto' }}>
-                    {/* <Image
-                      src={
-                        'http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbird_1_img.2c4c4639.png&w=256&q=75'
-                      }
-                      width="100"
-                      height="100"
-                      alt=""
-                    /> */}
+                    <Image src={birdImg} alt="" width={100} height={100} />
                     <p>{item.nickname}</p>
                   </div>
                 )}
@@ -93,6 +80,10 @@ const Carousel = ({ cardType, info }: Props) => {
           }
           .hide {
             display: none;
+          }
+          .my-tree {
+            width: 400px;
+            height: 400px;
           }
         `}
       </style>

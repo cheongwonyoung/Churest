@@ -2,7 +2,7 @@ import { instance } from '.';
 
 // 나의 방명록 목록
 export const getLetterList = (memberId: number) => {
-  return instance.get(`/guest-book/${memberId}`);
+  return instance.get(`/guest-book?memberId=${memberId}`);
 };
 
 // 편지 작성하기
