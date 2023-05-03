@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import React, { useRef, useEffect, useState } from 'react';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
+import { glbs } from '@/public/assets/glb';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -29,7 +30,7 @@ type Props = {
 export function Man1({ isMoving, charState }: Props) {
   const group = useRef<any>();
   const { nodes, materials, animations } = useGLTF(
-    'https://storage.googleapis.com/churest-bucket/project_3D/Man1.glb'
+    glbs.man_1_img
   ) as GLTFResult;
 
   const { actions } = useAnimations(animations, group);
