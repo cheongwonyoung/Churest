@@ -23,5 +23,7 @@ export const images: Images = {
   avatar_5_img: 'https://storage.googleapis.com/churest-bucket/project_image/avatar_5.png',
   avatar_6_img: 'https://storage.googleapis.com/churest-bucket/project_image/avatar_6.png',
   letter_img: 'https://storage.googleapis.com/churest-bucket/project_image/letter_img.png',
-  my_tree_img: 'https://storage.googleapis.com/churest-bucket/project_image/my_tree_img.png' 
+  my_tree_img: 'https://storage.googleapis.com/churest-bucket/project_image/my_tree_img.png',
+  chuworld_img: 'https://storage.googleapis.com/churest-bucket/project_image/chuworld_img.png',
+  cloud_img: 'https://storage.googleapis.com/churest-bucket/project_image/cloud_img.png', 
 };
