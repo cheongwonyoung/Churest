@@ -1,6 +1,6 @@
 import RotatingEarth from '@/components/login/RotatingEarth';
 import { ImBubble } from 'react-icons/im';
-export default function login() {
+export default function Login() {
   const REST_API_KEY = process.env.NEXT_PUBLIC_API_KAKAO_KEY;
   const REDIRECT_URI = process.env.NEXT_PUBLIC_API_REDIRECT_URL;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -38,8 +38,7 @@ export default function login() {
             font-weight: bold;
             cursor: pointer;
             box-shadow: 3px 3px 3px;
-            transition: 1s;
-            transition-timing-function: linear;
+            transition: all 0.3s;
           }
           .btnbox:hover {
             box-shadow: 10px 10px 10px;
@@ -55,3 +54,9 @@ export default function login() {
     </div>
   );
 }
+
+// export async function getStaticProps() {
+//   return {
+//     props: { gogo: 'gogo' },
+//   };
+// }
