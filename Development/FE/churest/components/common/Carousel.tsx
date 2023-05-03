@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import birdImg from '@/public/assets/bird_1_img.png';
 import treeImg from '@/public/assets/my_tree_img.png';
 import SwiperCore, { EffectCoverflow, Pagination } from 'swiper';
