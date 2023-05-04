@@ -26,6 +26,7 @@ public class ForestServiceImpl implements ForestService{
 
     @Override
     public List<ForestResponseDto.OtherForestInfo> getOtherForestList(int memberId) {
+
         return memberRepository.findAll(memberId).stream().map(member -> ForestResponseDto.OtherForestInfo.fromEntity(member, memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(member.getMemberId()))).collect(Collectors.toList());
     }
 
