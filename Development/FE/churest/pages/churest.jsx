@@ -3,6 +3,7 @@ import ItemShop from '../components/churest/ItemShop';
 import NewBird from '../components/churest/NewBird';
 import MyBird from '../components/churest/MyBird';
 import MyPage from '../components/churest/MyPage';
+import Notice from '../components/navbar/Notice';
 
 export default function churest() {
   return (
@@ -13,7 +14,7 @@ export default function churest() {
       <LetterBox></LetterBox>
       <ItemShop></ItemShop>
       <NewBird bird={1}></NewBird>
-
+<Notice></Notice>
       <style jsx>{``}</style>
     </>
   );
