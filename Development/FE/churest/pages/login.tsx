@@ -1,6 +1,6 @@
 import RotatingEarth from '@/components/login/RotatingEarth';
 import { ImBubble } from 'react-icons/im';
-export default function login() {
+export default function Login() {
   const REST_API_KEY = process.env.NEXT_PUBLIC_API_KAKAO_KEY;
   const REDIRECT_URI = process.env.NEXT_PUBLIC_API_REDIRECT_URL;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -11,7 +11,7 @@ export default function login() {
   return (
     <div className="login">
       <RotatingEarth />
-      <div className="btnbox" onClick={loginKakao}>
+      <div className="button-box" onClick={loginKakao}>
         <ImBubble />
         <span className="label">카카오 로그인</span>
       </div>
@@ -22,7 +22,7 @@ export default function login() {
             height: 100vh;
             position: relative;
           }
-          .btnbox {
+          .button-box {
             position: absolute;
             left: 50%;
             top: 50%;
@@ -40,10 +40,10 @@ export default function login() {
             box-shadow: 3px 3px 3px;
             transition: all 0.3s;
           }
-          .btnbox:hover {
+          .button-box:hover {
             box-shadow: 10px 10px 10px;
           }
-          .lgnbtn {
+          .login-btn {
             width: 20%;
           }
           .label {

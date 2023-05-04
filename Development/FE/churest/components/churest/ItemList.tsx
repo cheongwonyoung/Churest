@@ -6,7 +6,7 @@ type Props = {
 };
 
 export default function ItemList({ showedItem, handleItems }: Props) {
-  const birdList = ['bird_0', 'bird_1', 'bird_2', 'bird_3'];
+  const birdList = ['bird_0', 'bird_1', 'bird_2', 'bird_3', 'bird_4', 'bird_5'];
   const nestList = ['nest_0', 'nest_1', 'nest_2', 'nest_3'];
   const houseList = ['house_0', 'house_1', 'house_2', 'house_3'];
 

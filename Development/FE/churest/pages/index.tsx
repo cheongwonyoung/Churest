@@ -9,6 +9,14 @@ export default function Home() {
   return (
     <>
       <p>시작페이지</p>
+      <div style={{ width: '500px', height: '100px' }}>
+        {/* <Image
+          src="https://storage.googleapis.com/churest-bucket/gohome.jpg"
+          fill
+          alt="enter fill"
+          style={{ objectFit: 'cover' }}
+        /> */}
+      </div>
     </>
   );
 }

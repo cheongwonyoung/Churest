@@ -1,15 +1,13 @@
 package com.ssafy.churest.entity;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Bird {
 
     @Id
@@ -22,4 +20,11 @@ public class Bird {
     private String description;
 
     private int price;
+
+    @Builder
+    private Bird(String name, String description, int price){
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 }

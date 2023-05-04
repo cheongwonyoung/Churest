@@ -1,12 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
-import birdImg from '@/public/assets/bird_1_img.png';
-import treeImg from '@/public/assets/my_tree_img.png';
+import { images } from '@/public/assets/images';
 import SwiperCore, { EffectCoverflow, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import moment from 'moment';
+import Image from 'next/image';
 
 SwiperCore.use([EffectCoverflow, Pagination]);
 
@@ -46,7 +45,12 @@ const Carousel = ({ cardType, info }: Props) => {
               >
                 {cardType == 'mypage' ? (
                   <div className="">
-                    <Image src={treeImg} alt="" width={150} height={150} />
+                    <Image
+                      src={images.my_tree_img}
+                      alt=""
+                      width={150}
+                      height={150}
+                    />
                     <p>{item.title}</p>
                     <p className="date center">
                       {moment(item.createdTime).format('YYYY년 MM월 DD일')}
@@ -54,7 +58,12 @@ const Carousel = ({ cardType, info }: Props) => {
                   </div>
                 ) : (
                   <div style={{ margin: '0 auto' }}>
-                    <Image src={birdImg} alt="" width={100} height={100} />
+                    <Image
+                      src={images.bird_1_img}
+                      alt=""
+                      width={100}
+                      height={100}
+                    />
                     <p>{item.nickname}</p>
                   </div>
                 )}

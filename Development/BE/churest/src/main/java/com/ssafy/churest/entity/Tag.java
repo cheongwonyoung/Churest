@@ -27,4 +27,10 @@ public class Tag {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @Builder
+    public Tag(Member member, Board board){
+        this.member = member;
+        this.board = board;
+    }
+
 }

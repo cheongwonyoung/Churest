@@ -1,5 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { LoginEarth } from '../3DFiles/LoginEarth';
+import { OrbitControls } from '@react-three/drei';
 
 export default function RotatingEarth() {
   return (

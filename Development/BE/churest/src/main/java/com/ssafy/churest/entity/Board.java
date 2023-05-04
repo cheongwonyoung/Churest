@@ -1,5 +1,6 @@
 package com.ssafy.churest.entity;
 
+import com.ssafy.churest.dto.req.BoardRequestDto;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -48,11 +49,23 @@ public class Board {
     @Column(length = 5)
     private String weather;
 
-    private int locationX;
-
-    private int locationY;
-
     @ColumnDefault("false")
     private boolean isDeleted;
 
+    @ColumnDefault("false")
+    private boolean isPayed;
+
+    @Builder
+    public Board(Member member, Tree tree, String title, String content, String weather){
+        this.member = member;
+        this.tree = tree;
+        this.title = title;
+        this.content = content;
+        this.weather = weather;
+    }
+
+    public Board updatePayed(boolean isPayed){
+        this.isPayed = isPayed;
+        return this;
+    }
 }

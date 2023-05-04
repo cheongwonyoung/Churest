@@ -13,8 +13,7 @@ export default function Redirect() {
 
   const { refetch } = useQuery('login', () => API_login(code), {
     onSuccess(data) {
-      console.log(data.data);
-      setMyInfo({ id: data.data.id, accessToken: data.data.accessToken });
+      setMyInfo({ id: data.data.memberId, accessToken: data.data.accessToken });
       router.push('/');
     },
     onError(err) {
@@ -24,6 +23,6 @@ export default function Redirect() {
   });
   useEffect(() => {
     if (typeof code === 'string') refetch();
-  }, [code]);
+  }, [code, refetch]);
   return <div>로그인하는중학교 ㅋ</div>;
 }

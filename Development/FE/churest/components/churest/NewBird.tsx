@@ -1,26 +1,54 @@
-
+import { modifyMyBird } from '@/apis/mypage';
 import Image from 'next/image';
-import birdImg from '@/public/assets/bird_1_img.png';
+import { images } from '@/public/assets/images';
+import { useState } from 'react';
+import { useMutation } from 'react-query';
 
 type Props = {
   bird: number;
 };
 
 export default function NewBird({ bird }: Props) {
+  const [name, setName] = useState('');
+  const handleName = (e: any) => {
+    setName(e.target.value);
+  };
+
+  const clickChangeName = () => {
+    changeName.mutate();
+  };
+
+  const changeName = useMutation(
+    () => modifyMyBird({ memberBirdId: bird, nickname: name }),
+    {
+      onSuccess: (data) => {
+        console.log(data.data);
+      },
+    }
+  );
+
   return (
     <>
       <div className="blue-clay container">
         <div className="bird-title">New Bird</div>
         <div className="bird-img">
-          <Image src={birdImg} alt="birdImg" width={200} />
+          <Image
+            src={images.bird_1_img}
+            alt="birdImg"
+            width={200}
+            height={200}
+          />
         </div>
         <div className="inside-clay bird-input center">
           <input
             type="text"
             placeholder="새로운 새의 이름을 지어주세요!"
+            onChange={(e) => handleName(e)}
           ></input>
         </div>
-        <button className="green-btn">확인</button>
+        <button className="green-btn" onClick={clickChangeName}>
+          확인
+        </button>
       </div>
       <style jsx>{`
         .container {
