@@ -1,16 +1,18 @@
 import Image from 'next/image';
 import NextBtn from './NextBtn';
-import img from '@/public/assets/bird_1_img.png';
+import { images } from '@/public/assets/images';
 import { useState } from 'react';
 
 type Props = {
   handlePickedBird(i: any): void;
   pickedBird: string;
   plusPage(): void;
+  signUpSubmit(): void;
 };
 
 export default function StepBirdname({
   handlePickedBird,
+  signUpSubmit,
   pickedBird,
   plusPage,
 }: Props) {
@@ -28,7 +30,7 @@ export default function StepBirdname({
     <>
       <div>
         <div className="center">
-          <Image src={img} alt="" width={300} height={400} />
+          <Image src={images.bird_1_img} alt="" width={300} height={400} />
         </div>
         <input
           placeholder="새의 이름을 입력해주세요 (최대 6자)"
@@ -36,7 +38,9 @@ export default function StepBirdname({
           onChange={(e) => handleName(e)}
         />
         <div className="center">
-          {pickedBird && <NextBtn comment={'다음 스텝으로'} logic={plusPage} />}
+          {pickedBird && (
+            <NextBtn comment={'회원가입 완료하기'} logic={signUpSubmit} />
+          )}
         </div>
       </div>
       <style jsx>{`

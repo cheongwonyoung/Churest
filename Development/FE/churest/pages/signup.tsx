@@ -2,13 +2,13 @@ import { useState } from 'react';
 // import StepFaceResult from '../components/signUp/StepFaceResult';
 import { signUp } from '@/apis/login';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userStatus, userToken } from '../recoil/userAtom';
 import { useMutation } from 'react-query';
 import router from 'next/router';
 import StepAvatar from '@/components/signup/StepAvatar';
 import StepNickname from '@/components/signup/StepNickname';
 import StepBird from '@/components/signup/StepBird';
 import StepBirdname from '@/components/signup/StepBirdname';
+import { loginAtom } from '@/atoms/login';
 
 export default function SignUpPage() {
   // 회원가입 입력 단계
@@ -73,11 +73,13 @@ export default function SignUpPage() {
             handlePickedBird={handlePickedBird}
             pickedBird={pickedBird}
             plusPage={plusPage}
+            signUpSubmit={signUpSubmit}
           />
         );
     }
   };
-  const token: string = useRecoilValue(userToken).access_token;
+  const token: string = useRecoilValue(loginAtom).accessToken;
+  const memberId: Number = useRecoilValue(loginAtom).id;
 
   const signUpSubmit = () => {
     let joinInfo = {
@@ -85,15 +87,15 @@ export default function SignUpPage() {
       birdId: Number(pickedBird),
       nickname: nickname,
       birdNickname: birdname,
-      email: '',
+      memberId: memberId,
     };
-    goSignUp.mutate({ joinInfo, tok: token });
+    goSignUp.mutate({ joinInfo, token: token });
   };
 
-  const [userState, setUserState] = useRecoilState(userStatus);
+  // const [userState, setUserState] = useRecoilState(userStatus);
 
   const goSignUp = useMutation(
-    (inp: { joinInfo: any; tok: string }) => signUp(inp.joinInfo, inp.tok),
+    (inp: { joinInfo: any; token: string }) => signUp(inp.joinInfo, inp.token),
     {
       onSuccess(data) {
         // setUserState({

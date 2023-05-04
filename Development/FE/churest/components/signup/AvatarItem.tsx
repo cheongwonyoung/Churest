@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import img from '@/public/assets/bird_1_img.png';
+import { images } from '@/public/assets/images';
 
 type Props = {
   Avatar: string;
@@ -13,16 +13,37 @@ export default function AvatarItem({
   handlePickedAvatar,
   pickedAvatar,
 }: Props) {
-  const cn = () => {
+  const imgSrc = (i: string): string => {
+    switch (i) {
+      case '1':
+        return 'avatar_1_img';
+      case '2':
+        return 'avatar_2_img';
+      case '3':
+        return 'avatar_3_img';
+      case '4':
+        return 'avatar_4_img';
+      case '5':
+        return 'avatar_5_img';
+      default:
+        return 'avatar_6_img';
+    }
+  };
+
+  const clickStyle = () => {
     if (Avatar === pickedAvatar) return 'inside-clay';
     return 'gray-clay';
   };
 
   return (
     <>
-      <div id={Avatar} className={cn()} onClick={(e) => handlePickedAvatar(e)}>
+      <div
+        id={Avatar}
+        className={clickStyle()}
+        onClick={(e) => handlePickedAvatar(e)}
+      >
         <Image
-          src={img}
+          src={images[imgSrc(Avatar)]}
           alt=""
           width={150}
           height={100}

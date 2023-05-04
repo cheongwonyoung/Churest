@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import NextBtn from './NextBtn';
-import img from '@/public/assets/bird_1_img.png';
+import { images } from '@/public/assets/images';
 import { useState } from 'react';
 
 type Props = {
@@ -28,7 +28,7 @@ export default function StepNickname({
     <>
       <div className="">
         <div className="center">
-          <Image src={img} alt="" width={300} height={400} />
+          <Image src={images.avatar_1_img} alt="" width={300} height={400} />
         </div>
         <input
           placeholder="닉네임을 입력해주세요 (최대 6자)"

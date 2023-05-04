@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import img from '@/public/assets/bird_1_img.png';
+import { images } from '@/public/assets/images';
 
 type Props = {
   Bird: string;
@@ -13,16 +13,37 @@ export default function BirdItem({
   handlePickedBird,
   pickedBird,
 }: Props) {
-  const cn = () => {
+  const imgSrc = (i: string): string => {
+    switch (i) {
+      case '1':
+        return 'bird_1_img';
+      case '2':
+        return 'bird_2_img';
+      case '3':
+        return 'bird_3_img';
+      case '4':
+        return 'bird_4_img';
+      case '5':
+        return 'bird_5_img';
+      default:
+        return 'bird_6_img';
+    }
+  };
+
+  const clickStyle = () => {
     if (Bird === pickedBird) return 'inside-clay';
     return 'gray-clay';
   };
 
   return (
     <>
-      <div id={Bird} className={cn()} onClick={(e) => handlePickedBird(e)}>
+      <div
+        id={Bird}
+        className={clickStyle()}
+        onClick={(e) => handlePickedBird(e)}
+      >
         <Image
-          src={img}
+          src={images[imgSrc(Bird)]}
           alt=""
           width={150}
           height={100}
