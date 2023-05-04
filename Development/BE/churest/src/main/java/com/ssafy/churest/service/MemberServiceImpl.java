@@ -8,11 +8,11 @@ import com.ssafy.churest.dto.req.MemberRequestDto;
 import com.ssafy.churest.dto.resp.KakaoMemberResponseDto;
 import com.ssafy.churest.dto.resp.LoginResponseDto;
 import com.ssafy.churest.dto.resp.MemberResponseDto;
+import com.ssafy.churest.entity.House;
 import com.ssafy.churest.entity.Member;
 import com.ssafy.churest.entity.MemberBird;
-import com.ssafy.churest.repository.BirdRepository;
-import com.ssafy.churest.repository.MemberBirdRepository;
-import com.ssafy.churest.repository.MemberRepository;
+import com.ssafy.churest.entity.MemberHouse;
+import com.ssafy.churest.repository.*;
 import com.ssafy.churest.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,12 +41,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements  MemberService{
+    private final MemberHouseRepository memberHouseRepository;
     private final BirdRepository birdRepository;
     private final MemberBirdRepository memberBirdRepository;
 
     private final InMemoryClientRegistrationRepository inMemoryRepository;
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
+
+    private final HouseRepository houseRepository;
 
     @Override
     public LoginResponseDto login(String code) throws JsonProcessingException {
@@ -68,6 +71,10 @@ public class MemberServiceImpl implements  MemberService{
 
         member.updateToken(refreshToken);
         memberRepository.save(member);
+
+        House defaultHouse = houseRepository.findById(1).get();
+        memberHouseRepository.save(MemberHouse.builder().house(defaultHouse).member(member).build());
+
         return LoginResponseDto.builder()
                 .memberId(member.getMemberId())
                 .email(member.getEmail())
