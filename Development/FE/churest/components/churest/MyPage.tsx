@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import birdImg from '@/public/assets/bird_1_img.png';
+import { images } from '@/public/assets/images';
 import Carousel from '../common/Carousel';
 import { getMyInfo } from '@/apis/mypage';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ export default function MyPage() {
       <div className="blue-clay container">
         <div>
           <div className="inside-circle center">
-            <Image src={birdImg} alt="" width={100} />
+            <Image src={images.bird_1_img} alt="" width={100} height={100} />
           </div>
           <div className="center nickname">{nickname}</div>
         </div>

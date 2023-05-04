@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import frameImg from '@/public/assets/letter_img.png';
+import { images } from '@/public/assets/images';
 
 type Props = {
   letters: any;
@@ -19,7 +19,7 @@ export default function LetterBox({ letters }: Props) {
               height: '550px',
             }}
           >
-            <Image src={frameImg} alt="" width={380} />
+            <Image src={images.letter_img} alt="" width={380} height={380} />
             <div className="input">{letter.content}</div>
           </div>
         );

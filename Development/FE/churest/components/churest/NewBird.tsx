@@ -1,6 +1,6 @@
 import { modifyMyBird } from '@/apis/mypage';
 import Image from 'next/image';
-import birdImg from '@/public/assets/bird_1_img.png';
+import { images } from '@/public/assets/images';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 
@@ -32,7 +32,12 @@ export default function NewBird({ bird }: Props) {
       <div className="blue-clay container">
         <div className="bird-title">New Bird</div>
         <div className="bird-img">
-          <Image src={birdImg} alt="birdImg" width={200} />
+          <Image
+            src={images.bird_1_img}
+            alt="birdImg"
+            width={200}
+            height={200}
+          />
         </div>
         <div className="inside-clay bird-input center">
           <input
