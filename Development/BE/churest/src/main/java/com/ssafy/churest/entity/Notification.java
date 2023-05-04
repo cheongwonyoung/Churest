@@ -38,13 +38,13 @@ public class Notification {
     @CreationTimestamp
     private LocalDateTime date;
 
-//    @Builder
-//    public Notification(Member toMember, Member fromMember, Boolean isChecked, String content){
-//        this.toMember = toMember;
-//        this.fromMember = fromMember;
-//        this.isChecked = isChecked;
-//        this.content = content;
-//    }
+    @Builder
+    public Notification(Member toMember, Member fromMember, Boolean isChecked, String content){
+        this.toMember = toMember;
+        this.fromMember = fromMember;
+        this.isChecked = isChecked;
+        this.content = content;
+    }
 
 
 }
