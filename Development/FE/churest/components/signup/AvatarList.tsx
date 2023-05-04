@@ -9,7 +9,14 @@ export default function AvatarList({
   handlePickedAvatar,
   pickedAvatar,
 }: Props) {
-  const AvatarList = ['1', '2', '3', '4', '5', '6'];
+  const AvatarList = [
+    'avatar_1_img',
+    'avatar_2_img',
+    'avatar_3_img',
+    'avatar_4_img',
+    'avatar_5_img',
+    'avatar_6_img',
+  ];
 
   return (
     <>

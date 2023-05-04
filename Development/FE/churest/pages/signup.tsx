@@ -54,9 +54,10 @@ export default function SignUpPage() {
       case 1:
         return (
           <StepNickname
-            handlePickedAvatar={handlePickedAvatar}
+            getNickname={getNickname}
             pickedAvatar={pickedAvatar}
             plusPage={plusPage}
+            nickname={nickname}
           />
         );
       case 2:
@@ -70,6 +71,8 @@ export default function SignUpPage() {
       case 3:
         return (
           <StepBirdname
+            getBirdname={getBirdname}
+            birdname={birdname}
             handlePickedBird={handlePickedBird}
             pickedBird={pickedBird}
             plusPage={plusPage}
@@ -78,17 +81,24 @@ export default function SignUpPage() {
         );
     }
   };
+
   const token: string = useRecoilValue(loginAtom).accessToken;
   const memberId: Number = useRecoilValue(loginAtom).id;
 
   const signUpSubmit = () => {
+    console.log('서브밋 시작');
+    const avatarId = pickedAvatar.replace(/[^0-9]/g, '');
+    const birdId = pickedBird.replace(/[^0-9]/g, '');
+    console.log('변환 완' + avatarId + ' ' + birdId);
+    console.log(pickedAvatar + ' ' + pickedBird);
     let joinInfo = {
-      avatarId: Number(pickedAvatar),
-      birdId: Number(pickedBird),
+      avatarId: Number(avatarId),
+      birdId: Number(birdId),
       nickname: nickname,
       birdNickname: birdname,
       memberId: memberId,
     };
+    console.log(token);
     goSignUp.mutate({ joinInfo, token: token });
   };
 

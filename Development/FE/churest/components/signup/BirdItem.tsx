@@ -13,23 +13,6 @@ export default function BirdItem({
   handlePickedBird,
   pickedBird,
 }: Props) {
-  const imgSrc = (i: string): string => {
-    switch (i) {
-      case '1':
-        return 'bird_1_img';
-      case '2':
-        return 'bird_2_img';
-      case '3':
-        return 'bird_3_img';
-      case '4':
-        return 'bird_4_img';
-      case '5':
-        return 'bird_5_img';
-      default:
-        return 'bird_6_img';
-    }
-  };
-
   const clickStyle = () => {
     if (Bird === pickedBird) return 'inside-clay';
     return 'gray-clay';
@@ -43,27 +26,22 @@ export default function BirdItem({
         onClick={(e) => handlePickedBird(e)}
       >
         <Image
-          src={images[imgSrc(Bird)]}
+          src={images[Bird]}
           alt=""
-          width={150}
-          height={100}
+          width={130}
+          height={110}
           onClick={(e) => handlePickedBird(e)}
         />
       </div>
       <style jsx>{`
         div {
-          width: 250px;
-          height: 300px;
+          width: 220px;
+          height: 280px;
           margin: 30px;
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-        .red {
-          background: red;
-        }
-        .blue {
-          background: blue;
+          animation: ani 1s infinite alternate;
         }
       `}</style>
     </>

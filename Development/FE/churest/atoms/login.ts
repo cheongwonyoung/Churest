@@ -7,6 +7,7 @@ interface login {
   // id: null | number;
   id: number;
   accessToken: string;
+  nickname: string;
 }
 
 export const loginAtom = atom<login>({
@@ -14,6 +15,7 @@ export const loginAtom = atom<login>({
   default: {
     id: 0,
     accessToken: '',
+    nickname: '',
   },
   effects_UNSTABLE: [persistAtom],
 });
