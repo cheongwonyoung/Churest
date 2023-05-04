@@ -10,8 +10,13 @@ export const writeLetter = (writeInfo: {
   content: string;
   fromMemberId: number;
   toMemberId: number;
-}) => {
-  return instance.post(`/guest-book`, writeInfo);
+}) => {const config = {
+  headers: {
+    Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYWthNDkxQG5hdmVyLmNvbSIsImlhdCI6MTY4MzE4MzQ1MiwiZXhwIjoxNjg0OTgzNDUyfQ.ID5PqjeaRjM7EfNZ7ptOnmyHyFqIudPo-xVUa8Kisgk6HeIji9INCNbmvoqbxC_OX4Vhw2FxxqqnPvVM3ajGOw`,
+    'X-AUTH-TOKEN': `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrYWthNDkxQG5hdmVyLmNvbSIsImlhdCI6MTY4MzE4MzQ1MiwiZXhwIjoxNjg0OTgzNDUyfQ.ID5PqjeaRjM7EfNZ7ptOnmyHyFqIudPo-xVUa8Kisgk6HeIji9INCNbmvoqbxC_OX4Vhw2FxxqqnPvVM3ajGOw`,
+  }
+}
+  return instance.post(`/guest-book`, writeInfo,config);
 };
 
 // 편지 수정하기
