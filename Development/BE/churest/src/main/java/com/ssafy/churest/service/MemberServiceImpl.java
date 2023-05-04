@@ -138,7 +138,7 @@ public class MemberServiceImpl implements  MemberService{
     @Override
     public MemberResponseDto.MemberInfo join(MemberRequestDto.Join joinInfo) {
 
-        Member member = memberRepository.findByEmail(joinInfo.getEmail());
+        Member member = memberRepository.findByMemberId(joinInfo.getMemberId());
 
         // memberBird 저장
         MemberBird memberBird = new MemberBird(member, birdRepository.findById(joinInfo.getBirdId()).get(),joinInfo.getBirdNickname(),true);
