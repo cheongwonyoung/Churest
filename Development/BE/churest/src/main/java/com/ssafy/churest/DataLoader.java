@@ -270,25 +270,25 @@ public class DataLoader implements CommandLineRunner {
 
         treeRepository.saveAllAndFlush(treeList);
     }
-    public void addNotification() {
-        List<Notification> notificationList = new ArrayList<>();
-        Notification notification1 = Notification.builder().toMember().fromMember().
-        Tree tree1 = Tree.builder().name("산분꽃나무").description("산지나 계곡 가장자리, 석회암 지대 등에서 높이 2~4m 정도로 자라요. 드물게 사는 낙엽성 활엽 떨기나무. 한국에서 자연적으로 살아간다는 건 최근에 알려졌어요. 원예식물로 가치가 높지만 개체수가 매우 작은 희귀식물이에요.").file("산분꽃나무.jpg").build();
-        Tree tree2 = Tree.builder().name("미선나무").description("열매의 모양이 둥근 부채를 닮아 아름다운 부채라는 뜻의 미선나무라고 불려요. 한반도의 고유종이며, 경기도와 충청도의 볕이 잘 드는 산기슭에서 자라요. 전세계에서 오직 우리나라에만 있어요!").file("미선나무.jpg").build();
-        Tree tree3 = Tree.builder().name("섬개야광나무").description("울릉도 해안가에서도 절벽과 바위 지대에서 자라는 한국 고유종이에요. 5~6월에 분홍색이 섞인 흰 꽃이 피며 열매는 9~10월에 붉게 익어요. 과거 울릉도 전역에 분포했으나 무분별한 채취와 서식지가 훼손되어 위협을 받는 중이에요.").file("섬개야광나무.jpg").build();
-        Tree tree4 = Tree.builder().name("구상나무").description("제가 전세계에서 가장 아름다운 크리스마스 트리의 원조랍니다. 외국 나무라고 생각하는 분들이 많지만, 사실은 우리나라 토종 나무예요! 한라산, 지리산, 무등산, 덕유산 등 높은 곳에서 살아요. 온난화, 불규칙한 강수량 등의 기후변화로 살기 힘들어요.").file("구상나무.jpg").build();
-        Tree tree5 = Tree.builder().name("은행나무").description("저는 흔하게 볼 수 있지만 사실 멸종위기종이에요. 자주 보는 건 야생 나무가 아닌 모두 인간의 손을 거친 나무랍니다. 어린 나무가 종자를 맺기까지는 30년의 긴 시간이 걸려 야생 번식이 매우 어렵고 종자가 크고 무거워 점차 사라지고 있어요.").file("은행나무.jpg").build();
-        Tree tree6 = Tree.builder().name("초령목").description("국내에서 자연으로 자란 건 단 3그루만 알려진 희귀 나무예요. 높이가 1m 이하인 어린나무에서 21m에 이르는 큰 나무까지 다양해요. 사람들의 무분별한 채취, 국내에 분포 지역이 극소해 친구들이 사라졌어요.").file("초령목.jpg").build();
-        Tree tree7 = Tree.builder().name("분비나무").description("고산지대에서 자라는 사시사철 잎 푸른 나무예요. 높이 25m, 지름 75cm에 달해요. 기후변화에 따른 서식 환경 변화로 인해 주요 서식지인 소백산과 지리산 등에서 사라지고 있다. 소백산에서도 절반이 친구 절반이 없어졌어요.").file("분비나무.jpg").build();
-
-        treeList.add(tree1);
-        treeList.add(tree2);
-        treeList.add(tree3);
-        treeList.add(tree4);
-        treeList.add(tree5);
-        treeList.add(tree6);
-        treeList.add(tree7);
-
-        treeRepository.saveAllAndFlush(treeList);
-    }
+//    public void addNotification() {
+//        List<Notification> notificationList = new ArrayList<>();
+//        Notification notification1 = Notification.builder().toMember().fromMember().
+//        Tree tree1 = Tree.builder().name("산분꽃나무").description("산지나 계곡 가장자리, 석회암 지대 등에서 높이 2~4m 정도로 자라요. 드물게 사는 낙엽성 활엽 떨기나무. 한국에서 자연적으로 살아간다는 건 최근에 알려졌어요. 원예식물로 가치가 높지만 개체수가 매우 작은 희귀식물이에요.").file("산분꽃나무.jpg").build();
+//        Tree tree2 = Tree.builder().name("미선나무").description("열매의 모양이 둥근 부채를 닮아 아름다운 부채라는 뜻의 미선나무라고 불려요. 한반도의 고유종이며, 경기도와 충청도의 볕이 잘 드는 산기슭에서 자라요. 전세계에서 오직 우리나라에만 있어요!").file("미선나무.jpg").build();
+//        Tree tree3 = Tree.builder().name("섬개야광나무").description("울릉도 해안가에서도 절벽과 바위 지대에서 자라는 한국 고유종이에요. 5~6월에 분홍색이 섞인 흰 꽃이 피며 열매는 9~10월에 붉게 익어요. 과거 울릉도 전역에 분포했으나 무분별한 채취와 서식지가 훼손되어 위협을 받는 중이에요.").file("섬개야광나무.jpg").build();
+//        Tree tree4 = Tree.builder().name("구상나무").description("제가 전세계에서 가장 아름다운 크리스마스 트리의 원조랍니다. 외국 나무라고 생각하는 분들이 많지만, 사실은 우리나라 토종 나무예요! 한라산, 지리산, 무등산, 덕유산 등 높은 곳에서 살아요. 온난화, 불규칙한 강수량 등의 기후변화로 살기 힘들어요.").file("구상나무.jpg").build();
+//        Tree tree5 = Tree.builder().name("은행나무").description("저는 흔하게 볼 수 있지만 사실 멸종위기종이에요. 자주 보는 건 야생 나무가 아닌 모두 인간의 손을 거친 나무랍니다. 어린 나무가 종자를 맺기까지는 30년의 긴 시간이 걸려 야생 번식이 매우 어렵고 종자가 크고 무거워 점차 사라지고 있어요.").file("은행나무.jpg").build();
+//        Tree tree6 = Tree.builder().name("초령목").description("국내에서 자연으로 자란 건 단 3그루만 알려진 희귀 나무예요. 높이가 1m 이하인 어린나무에서 21m에 이르는 큰 나무까지 다양해요. 사람들의 무분별한 채취, 국내에 분포 지역이 극소해 친구들이 사라졌어요.").file("초령목.jpg").build();
+//        Tree tree7 = Tree.builder().name("분비나무").description("고산지대에서 자라는 사시사철 잎 푸른 나무예요. 높이 25m, 지름 75cm에 달해요. 기후변화에 따른 서식 환경 변화로 인해 주요 서식지인 소백산과 지리산 등에서 사라지고 있다. 소백산에서도 절반이 친구 절반이 없어졌어요.").file("분비나무.jpg").build();
+//
+//        treeList.add(tree1);
+//        treeList.add(tree2);
+//        treeList.add(tree3);
+//        treeList.add(tree4);
+//        treeList.add(tree5);
+//        treeList.add(tree6);
+//        treeList.add(tree7);
+//
+//        treeRepository.saveAllAndFlush(treeList);
+//    }
 }
