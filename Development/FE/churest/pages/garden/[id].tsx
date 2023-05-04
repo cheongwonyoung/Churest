@@ -1,13 +1,7 @@
-import { Man1 } from '@/components/3DFiles/Man1';
-import {
-  Box,
-  KeyboardControls,
-  OrbitControls,
-  useKeyboardControls,
-} from '@react-three/drei';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Suspense, useRef, useEffect, useMemo } from 'react';
-import { Physics, RigidBody, CuboidCollider } from '@react-three/rapier';
+import { Box, KeyboardControls } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
+import { Suspense, useMemo, useState } from 'react';
+import { Physics, RigidBody } from '@react-three/rapier';
 import MovingCharacter from '@/components/common/MovingCharacter';
 
 export const Controls = {
@@ -19,56 +13,6 @@ export const Controls = {
 };
 
 export default function Garden() {
-  // const walkRun = (e: any) => {
-  //   e.shiftKey ? run.play() : walk.play();
-  // };
-  // useEffect(() => {
-  //   window.addEventListener('keydown', (e) => move(e));
-  //   // man1.current?.setEnabledRotations(false, false, false);
-  //   man1.current?.setRotation({ w: 1.0, x: 0.0, y: 0.0, z: 0.0 }, true);
-  // }, []);
-
-  // const move = (e: any) => {
-  //   const direction = e.code;
-  //   // console.log(e);
-  //   man1.current.setRotation({ w: 1, x: 0, y: 0, z: 0 });
-
-  //   switch (direction) {
-  //     case 'ArrowDown':
-  //       // setCharX((prev) => prev + 1);
-  //       // setLookAt([0, Math.PI / 2, 0]);
-  //       man1.current.applyImpulse({ x: 0, y: 0, z: 0.1 });
-  //       // man1.current.addForce({ x: 0, y: 0, z: 0.2 });
-  //       // man1.current.setTranslation(0.0, 1.0, 1.0);
-
-  //       // walkRun(e);
-  //       break;
-  //     case 'ArrowUp':
-  //       // setCharX((prev) => prev - 1);
-  //       // setLookAt([0, -Math.PI / 2, 0]);
-  //       // walkRun(e);
-  //       man1.current.applyImpulse({ x: 0, y: 0, z: -0.2 });
-
-  //       break;
-  //     case 'ArrowRight':
-  //       // setLookAt([0, Math.PI, 0]);
-  //       // setCharY((prev) => prev - 1);
-  //       // walkRun(e);
-  //       man1.current.applyImpulse({ x: 0.2, y: 0, z: 0 });
-
-  //       break;
-  //     case 'ArrowLeft':
-  //       // setLookAt([0, 0, 0]);
-  //       // setCharY((prev) => prev + 1);
-  //       // walkRun(e);
-  //       man1.current.applyImpulse({ x: -0.2, y: 0, z: 0 });
-  //       break;
-  //     case 'Space':
-  //       jump();
-  //       break;
-  //   }
-  // };
-
   const map = useMemo(
     () => [
       { name: Controls.forward, keys: ['ArrowUp', 'KeyW'] },
@@ -80,28 +24,163 @@ export default function Garden() {
     []
   );
 
+  const [isModal, setIsModal] = useState(false);
+
+  const seongong = (
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'white',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        zIndex: 100,
+      }}
+      onClick={() => setIsModal(false)}
+    >
+      <p style={{ fontSize: '200px' }}>축하합니다! </p>
+      <p style={{ fontSize: '200px' }}>성공입니다!</p>
+    </div>
+  );
+
   return (
     <div className="gogo">
+      {isModal && seongong}
       <KeyboardControls map={map}>
         <Canvas>
           <Suspense>
             <Physics>
               <MovingCharacter />
 
-              <RigidBody colliders="cuboid" name="floor1">
-                <Box position={[0, -1, 0]} args={[1, 1, 1]}>
+              <RigidBody colliders="cuboid" name="floor1" type="fixed">
+                <Box
+                  position={[0, -1, 0]}
+                  args={[1, 1, 1]}
+                  receiveShadow
+                  castShadow
+                >
                   <meshStandardMaterial color={'red'} />
                 </Box>
               </RigidBody>
-              <RigidBody name="floor2" colliders="cuboid" type="fixed">
-                <Box position={[0, -2, 0]} args={[20, 0.5, 20]}>
+              <RigidBody colliders="cuboid" name="floor1">
+                <Box
+                  position={[4, -1, 7]}
+                  args={[1, 1, 1]}
+                  receiveShadow
+                  castShadow
+                >
+                  <meshStandardMaterial color={'red'} />
+                </Box>
+              </RigidBody>
+              <RigidBody colliders="cuboid" name="floor1">
+                <Box
+                  position={[4, -1, 10]}
+                  args={[1, 1, 1]}
+                  receiveShadow
+                  castShadow
+                >
+                  <meshStandardMaterial color={'red'} />
+                </Box>
+              </RigidBody>
+
+              <RigidBody colliders="cuboid" name="floor1" type="fixed">
+                <Box
+                  position={[2, -0.5, 0]}
+                  args={[1, 1, 1]}
+                  receiveShadow
+                  castShadow
+                >
+                  <meshStandardMaterial color={'red'} />
+                </Box>
+              </RigidBody>
+
+              <RigidBody colliders="cuboid" name="floor1" type="fixed">
+                <Box
+                  position={[1, 0, -1]}
+                  args={[1, 1, 1]}
+                  receiveShadow
+                  castShadow
+                >
+                  <meshStandardMaterial color={'red'} />
+                </Box>
+              </RigidBody>
+              <RigidBody colliders="cuboid" name="floor1" type="fixed">
+                <Box
+                  position={[1, 0.3, 2]}
+                  args={[1, 1, 1]}
+                  receiveShadow
+                  castShadow
+                >
+                  <meshStandardMaterial color={'red'} />
+                </Box>
+              </RigidBody>
+              <RigidBody colliders="cuboid" name="floor1" type="fixed">
+                <Box
+                  position={[-2, 0.6, 2]}
+                  args={[1, 1, 1]}
+                  receiveShadow
+                  castShadow
+                >
+                  <meshStandardMaterial color={'red'} />
+                </Box>
+              </RigidBody>
+              <RigidBody colliders="cuboid" name="floor1" type="fixed">
+                <Box
+                  position={[-3, 1, 2]}
+                  args={[1, 1, 1]}
+                  receiveShadow
+                  castShadow
+                >
+                  <meshStandardMaterial color={'red'} />
+                </Box>
+              </RigidBody>
+              <RigidBody
+                colliders="cuboid"
+                name="floor1"
+                type="fixed"
+                onCollisionEnter={() => setIsModal(true)}
+              >
+                <Box
+                  position={[-5, 1, 0]}
+                  args={[1, 1, 1]}
+                  receiveShadow
+                  castShadow
+                >
+                  <meshStandardMaterial color={'green'} />
+                </Box>
+              </RigidBody>
+
+              <RigidBody
+                colliders="cuboid"
+                name="floor1"
+                sensor
+                onIntersectionEnter={() => {
+                  // if (confirm('뭐함')) setPaused(false);
+                  // setPaused(false);
+                }}
+                type="fixed"
+              >
+                <Box position={[4, -1, 3]} args={[1, 1, 1]}>
+                  <meshStandardMaterial />
+                </Box>
+              </RigidBody>
+
+              <RigidBody
+                name="floor2"
+                colliders="cuboid"
+                type="fixed"
+                friction={1}
+              >
+                <Box position={[0, -2, 0]} args={[40, 0.5, 40]} receiveShadow>
                   <meshStandardMaterial color={'yellow'} />
                 </Box>
-                {/* <CuboidCollider position={[0, -2, 0]} args={[20, 0.5, 20]} /> */}
               </RigidBody>
             </Physics>
 
             <ambientLight intensity={0.8} />
+            <directionalLight castShadow />
           </Suspense>
         </Canvas>
       </KeyboardControls>
