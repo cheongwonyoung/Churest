@@ -43,7 +43,7 @@ export default function MovingCharacter({ logSpot, autoView }: Props) {
   );
 
   const jump = () => {
-    man1.current.applyImpulse({ x: 0, y: 4, z: 0 });
+    man1.current.applyImpulse({ x: 0, y: 2, z: 0 });
     setCharState('Song Jump');
     setIsFloor(false);
   };
@@ -51,17 +51,26 @@ export default function MovingCharacter({ logSpot, autoView }: Props) {
   const handleMovement = () => {
     let move = 0.1;
     if (rightPressed) {
-      man1.current.applyImpulse({ x: move, y: 0, z: 0 });
+      // man1.current.applyImpulse({ x: move, y: 0, z: 0 });
+      man1.current.setLinvel({ x: 2, y: 0, z: 0 });
     }
     if (leftPressed) {
       man1.current.applyImpulse({ x: -move, y: 0, z: 0 });
+      // man1.current.setTranslation(-0.1, 0, 0);
+      man1.current.setLinvel({ x: -2, y: 0, z: 0 });
     }
     if (forwardPressed) {
       man1.current.applyImpulse({ x: 0, y: 0, z: -move });
+      // man1.current.setTranslation(0, 0, -0.1);
+      man1.current.setLinvel({ x: 0, y: 0, z: -2 });
     }
     if (backPressed) {
       man1.current.applyImpulse({ x: 0, y: 0, z: move });
+      // man1.current.setTranslation(0, 0, 0.1);
+      man1.current.setLinvel({ x: 0, y: 0, z: 2 });
     }
+    console.log(man1.current);
+
     logSpot(man1.current?.translation());
   };
 
