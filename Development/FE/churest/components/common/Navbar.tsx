@@ -11,8 +11,17 @@ export default function Navbar() {
       <Link href={'/login'}>로그인</Link>
       <Link href={'/garden/' + id}>정원</Link>
       <Link href={'/churest'}>츄레스트</Link>
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+      <Link href={'/signup'}>회원가입</Link>
+=======
+      <Link href={'/memory'}> 추억생성하긔</Link>
+      <Link href={'/signup'}> 회원가입</Link>
+>>>>>>> Stashed changes
+=======
       <Link href={'/memory'}> 추억생성하긔</Link>
       <Link href={'/chuworld'}>츄월드</Link>
+>>>>>>> 640424798b2c88bc17b162fe13e70f95fdc501a9
     </div>
   );
 }

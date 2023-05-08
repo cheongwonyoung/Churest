@@ -18,9 +18,9 @@ export default function MemoryView() {
 
   return (
     <>
-      <div className="container">
-        <div className="child book-grid">
-          <div class="item item1 center">
+      <div classNameName="container">
+        <div classNameName="child book-grid">
+          <div classNameName="item item1 center">
             <div>
               <Image
                 src={images.cloudy_img}
@@ -29,12 +29,12 @@ export default function MemoryView() {
                 height={50}
               ></Image>
             </div>
-            <div>햄 엠</div>
+            0<div>햄 엠</div>
             <div>202306</div>
           </div>
-          <div class="item item2 center">태그목록</div>
-          <div class="item item2 center">사진</div>
-          <div class="item item4 center content">내용</div>
+          <div className="item item2 center">태그목록</div>
+          <div className="item item2 center">사진</div>
+          <div className="item item4 center content">내용</div>
         </div>
         <Image src={images.book_img} width={1000} height={600} alt="추억보기" />
       </div>

@@ -42,9 +42,6 @@ export default function ItemShop({ handleItems }: Props) {
           display: flex;
           justify-content: space-between;
           flex-direction: column;
-          // display: grid;
-          // grid-template-columns: 1fr 1fr 1fr;
-          // place-items: center;
         }
       `}</style>
     </>
