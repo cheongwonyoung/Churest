@@ -5,5 +5,5 @@ export const instance = axios.create({
   // baseURL: 'https://localhost:8080/api',
   headers: {
     'Content-Type': `application/json`,
-  },
+  }
 });
