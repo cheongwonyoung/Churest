@@ -42,7 +42,24 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/letter_img.png',
   my_tree_img:
     'https://storage.googleapis.com/churest-bucket/project_image/my_tree_img.png',
-  chuworld_img: 'https://storage.googleapis.com/churest-bucket/project_image/chuworld_img.png',
-  cloud_img: 'https://storage.googleapis.com/churest-bucket/project_image/cloud_img.png',
-  chuworld_bubble_img: 'https://storage.googleapis.com/churest-bucket/project_image/chuworld_bubble_img.png', 
+  chuworld_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/chuworld_img.png',
+  cloud_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/cloud_img.png',
+  chuworld_bubble_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/chuworld_bubble_img.png',
+  cloudy_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/cloudy_img.png',
+  thunder_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/thunder_img.png',
+  snowy_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/snowy_img.png',
+  rainy_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/rainy_img.png',
+  foggy_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/foggy_img.png',
+  sunny_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/sunny_img.png',
+  memory_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/memory_img.png',
 };
