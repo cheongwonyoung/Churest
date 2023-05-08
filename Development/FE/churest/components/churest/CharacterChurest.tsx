@@ -122,7 +122,7 @@ export default function CharacterChurest({ logSpot, autoView }: Props) {
     <>
       <OrbitControls ref={controlRef} />
       <RigidBody
-        position={[0, 8, 0]}
+        position={[0, 8, 4]}
         ref={man1}
         canSleep={false}
         colliders="cuboid"
