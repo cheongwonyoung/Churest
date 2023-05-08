@@ -3,13 +3,12 @@ import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 export default function Redirect() {
   const router = useRouter();
   const code = router.query.code;
 
-  const [myInfo, setMyInfo] = useRecoilState(loginAtom);
   const [myInfo, setMyInfo] = useRecoilState(loginAtom);
 
   const { refetch } = useQuery('login', () => API_login(code), {
