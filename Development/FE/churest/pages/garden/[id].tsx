@@ -2,12 +2,10 @@ import { Box, KeyboardControls, OrbitControls } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
 import { Suspense, useMemo, useState, useEffect, useRef } from 'react';
 import { Physics, RigidBody } from '@react-three/rapier';
-import MovingCharacter from '@/components/common/MovingCharacter';
 import { PerspectiveCamera, Vector3 } from 'three';
 import { Branch } from '@/components/3DFiles/Trees/Branch';
 import { Seed } from '@/components/3DFiles/Trees/Seed';
 import { Tree9 } from '@/components/3DFiles/Trees/Tree9';
-import { Test } from '@/components/3DFiles/Test';
 import CharacterChurest from '@/components/churest/CharacterChurest';
 import { ChurestMap } from '@/components/3DFiles/ChurestMap';
 import { spots } from '@/utils/spots';
@@ -24,6 +22,7 @@ import Churest3D from '@/components/churest/Churest3D';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { createArticleAtom } from '@/atoms/modal';
 import ModalBlackBg from '@/components/common/ModalBlackBg';
+import CreateArticle from '@/components/churest/CreateArticle';
 
 export default function Garden() {
   const [autoView, setAutoView] = useState(true);
@@ -39,7 +38,9 @@ export default function Garden() {
   };
   return (
     <div className="gogo">
-      {isCreate.isModal && <ModalBlackBg closeModal={closeModal} />}
+      {isCreate.isModal && (
+        <ModalBlackBg closeModal={closeModal} modal={<CreateArticle />} />
+      )}
       <div className="outside">
         <button onMouseDown={() => setAutoView((prev) => !prev)}>
           AutoFocus

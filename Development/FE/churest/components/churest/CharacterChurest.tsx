@@ -98,7 +98,7 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
     handleLookAt();
   });
 
-  const controlRef = useRef<typeof OrbitControls>();
+  const controlRef = useRef<any>();
   useEffect(() => {
     if (selectSpot) {
       camera.position.x = 0;
