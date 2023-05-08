@@ -46,17 +46,17 @@ export default function Letter() {
                 height: '550px',
               }}
             >
-              <Image src={images.letter_img} alt="" width={380} height={380} />
+              <Image src={images.letter_img} alt="" width={380} height={530} />
               <div className="input">
-              <input
-            type="text"
-            placeholder="방명록을 남겨주세요!"
-            onChange={(e) => handleLetter(e)}
-          ></input>
+                <textarea
+                    className="letter-box"
+                    placeholder="방명록을 남겨주세요!"
+                    onChange={(e) => handleLetter(e)}
+                />
         
-        <button className="green-btn" onClick={clickCreateLetter}>
-          입력
-        </button>
+                <button className="green-btn" onClick={clickCreateLetter}>
+                    입력
+                </button>
                 </div>
             </div>
 
@@ -67,10 +67,31 @@ export default function Letter() {
             justify-content: center;
             align-items: center;
           }
-          .input {
-            position: absolute;
-            width: 225px;
-          }
+          .green-btn {
+                cursor: pointer;
+                color: white;
+                width: 180px;
+                height: 35px;
+                border: none;
+                background: linear-gradient(315deg, #f0ff94 0%, #1eb0e9 100%);
+                border-radius: 12px;
+                margin: 10% 10%;
+              }
+            .input {
+                position: absolute;
+                justify-content: center;
+                align-items: center;
+                width: 225px;
+                height:300px;
+            }
+            .letter-box {
+                padding: 0 15%;
+                height: 230px;
+                border:none;
+                background-color: transparent;
+                text-align: center;
+            }
+          
         `}</style>
       </>
     );
