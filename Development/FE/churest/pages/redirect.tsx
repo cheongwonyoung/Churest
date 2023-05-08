@@ -22,7 +22,7 @@ export default function Redirect() {
     enabled: false,
   });
   useEffect(() => {
-    if (typeof code === 'string') refetch();
+    // if (typeof code === 'string') refetch();
   }, [code, refetch]);
   return <div>로그인하는중학교 ㅋ</div>;
 }
