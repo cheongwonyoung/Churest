@@ -83,7 +83,7 @@ export default function SignUpPage() {
   };
 
   const token: string = useRecoilValue(loginAtom).accessToken;
-  const memberId: Number = useRecoilValue(loginAtom).id;
+  const memberId: Number | null = useRecoilValue(loginAtom).id;
 
   const signUpSubmit = () => {
     console.log('서브밋 시작');

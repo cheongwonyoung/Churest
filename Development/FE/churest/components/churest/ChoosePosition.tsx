@@ -16,7 +16,7 @@ export default function ChoosePosition() {
     <>
       {Object.entries(points).map((point: any) => {
         return (
-          <RigidBody type="fixed">
+          <RigidBody type="fixed" key={point[0]}>
             {point[1].ok ? (
               <PlantOk
                 name={point[0]}

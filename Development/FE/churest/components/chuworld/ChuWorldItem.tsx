@@ -2,11 +2,8 @@ import * as THREE from 'three';
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
-import { House_1 } from '../3DFiles/House_1';
-import { House_2 } from '../3DFiles/House_2';
-import { House_3 } from '../3DFiles/House_3';
-import { House_4 } from '../3DFiles/House_4';
-import { House_5 } from '../3DFiles/House_5';
+import { House5 } from '../3DFiles/House/House_5';
+
 // import { images } from '@/public/assets/images';
 // import Image from 'next/image';
 // import { getChuworld } from '@/apis/chuworld';
@@ -33,7 +30,7 @@ function Box({ text, position = [0, 0, 0], ...props }: BoxProps) {
       {/* <House_2 scale={0.3} /> */}
       {/* <House_3 scale={0.3} /> */}
       {/* <House_4 scale={0.3} /> */}
-      <House_5 scale={0.3} />
+      <House5 />
       {/* 박스 안에다가 텍스트 넣기  */}
       <Html position={[0, 0, 1]} className="label" center>
         {text}
