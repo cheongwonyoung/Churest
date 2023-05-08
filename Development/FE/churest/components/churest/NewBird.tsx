@@ -91,9 +91,18 @@ export default function NewBird({ bird }: Props) {
         .bird-img {
           position: absolute;
           margin-bottom: 5%;
+          animation: flying 1s infinite alternate;
         }
         .confirm {
           poisition: static;
+        }
+        @keyframes flying {
+          0% {
+            transform: translate(0, 0);
+          }
+          100% {
+            transform: translate(0, 8px);
+          }
         }
       `}</style>
     </>
