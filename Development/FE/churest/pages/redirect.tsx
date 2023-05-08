@@ -3,12 +3,13 @@ import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilState } from 'recoil';
 
 export default function Redirect() {
   const router = useRouter();
   const code = router.query.code;
 
+  const [myInfo, setMyInfo] = useRecoilState(loginAtom);
   const [myInfo, setMyInfo] = useRecoilState(loginAtom);
 
   const { refetch } = useQuery('login', () => API_login(code), {
@@ -44,7 +45,8 @@ export default function Redirect() {
     enabled: false,
   });
   useEffect(() => {
-    if (typeof code === 'string') refetch();
+    // if (typeof code === 'string') refetch();
   }, [code, refetch]);
+
   return <div>로그인하는중학교 ㅋ</div>;
 }

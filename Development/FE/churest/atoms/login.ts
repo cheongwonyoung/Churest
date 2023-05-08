@@ -4,10 +4,11 @@ import { recoilPersist } from 'recoil-persist';
 const { persistAtom } = recoilPersist();
 
 interface login {
-  // id: null | number;
-  id: number;
+  id: null | number;
   accessToken: string;
-  nickname: string;
+  refreshToken: string;
+  avatarId: number;
+  nickname: string | null;
 }
 
 export const loginAtom = atom<login>({
@@ -15,6 +16,8 @@ export const loginAtom = atom<login>({
   default: {
     id: 0,
     accessToken: '',
+    refreshToken: '',
+    avatarId: 0,
     nickname: '',
   },
   effects_UNSTABLE: [persistAtom],
