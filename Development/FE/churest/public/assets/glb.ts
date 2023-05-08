@@ -53,4 +53,18 @@ export const glbs: glbs = {
     'https://storage.googleapis.com/churest-bucket/project_3D/Char5.glb',
   char_6_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/Char6.glb',
+  post_box_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/PostBox.glb',
+  birdhouse_1_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/BirdHouse1.glb',
+  birdhouse_2_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/BirdHouse2.glb',
+  birdhouse_3_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/BirdHouse3.glb',
+  plant_ok_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/PlantOk.glb',
+  plant_no_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/PlantNo.glb',
+  churest_map_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/ChurestMap.glb',
 };
