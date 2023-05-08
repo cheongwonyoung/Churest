@@ -225,7 +225,7 @@ public class DataLoader implements CommandLineRunner {
                 "등산도 갔고 밥도 먹었고\n" +
                 "샐러드도 먹었어 그리고 커피도\n" +
                 "마셨어").weather("맑음").build();
-        memberBoardList.add(MemberBoard.builder().member(member1).board(board1).locationX(3).locationY(4).build());
+        memberBoardList.add(MemberBoard.builder().member(member1).board(board1).spot(2).build());
         treeLogList.add(TreeLog.builder().board(board1).score(0).build());
 
         for (Member member :
@@ -234,7 +234,7 @@ public class DataLoader implements CommandLineRunner {
                 tagList.add(Tag.builder().board(board1).member(member).build());
                 notificationList.add(Notification.builder().toMember(member).fromMember(member1).isChecked(false).content("테트리스 정기 모임ㅋ").build());
                 //  퍼가기
-                memberBoardList.add(MemberBoard.builder().board(board1).member(member).locationX(4).locationY(4).build());
+                memberBoardList.add(MemberBoard.builder().board(board1).member(member).spot(3).build());
             }
         }
 
@@ -243,7 +243,7 @@ public class DataLoader implements CommandLineRunner {
                 "했어.안 .했어.?\n" +
                 "누가 막걸리 마실때만 오래\n" +
                 "윹애야").weather("맑음").build();
-        memberBoardList.add(MemberBoard.builder().member(member2).board(board2).locationX(5).locationY(5).build());
+        memberBoardList.add(MemberBoard.builder().member(member2).board(board2).spot(4).build());
         treeLogList.add(TreeLog.builder().board(board2).score(0).build());
 
         boardList.add(board1);

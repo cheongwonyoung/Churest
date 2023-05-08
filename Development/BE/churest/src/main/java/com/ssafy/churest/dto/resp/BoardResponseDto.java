@@ -5,7 +5,7 @@ import com.ssafy.churest.repository.BoardRepository;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public class BoardResponseDto {
@@ -16,17 +16,15 @@ public class BoardResponseDto {
 
         private int boardId;
 
-        private int locationX;
-
-        private int locationY;
+        //  0 ~ 224로 이루어진 나무 좌표
+        private int spot;
 
         private int score;
 
         public static BoardInfo fromEntity(com.ssafy.churest.entity.MemberBoard memberBoard, com.ssafy.churest.entity.Board board, com.ssafy.churest.entity.TreeLog treeLog) {
             return BoardInfo.builder()
                     .boardId(board.getBoardId())
-                    .locationX(memberBoard.getLocationX())
-                    .locationY(memberBoard.getLocationY())
+                    .spot(memberBoard.getSpot())
                     .score(treeLog.getScore())
                     .build();
         }
@@ -41,13 +39,9 @@ public class BoardResponseDto {
 
         private String content;
 
-        private LocalDateTime createdTime;
+        private LocalDate createdTime;
 
         private String weather;
-
-//        private int locationX;
-//
-//        private int locationY;
 
         //  추억 나무를 조회하는 사용자의 물주기 권한 여부
         private boolean isTagged;
@@ -72,8 +66,6 @@ public class BoardResponseDto {
                     .content(board.getContent())
                     .createdTime(board.getCreatedTime())
                     .weather(board.getWeather())
-//                    .locationX(memberBoard.getLocationX())
-//                    .locationY(memberBoard.getLocationY())
                     .build();
         }
     }
@@ -83,7 +75,7 @@ public class BoardResponseDto {
     public static class MyPageInfo {
         private int boardId;
         private String title;
-        private LocalDateTime createdTime;
+        private LocalDate createdTime;
         private int score;
         private TreeResponseDto.TreeInfo treeInfo;
 
