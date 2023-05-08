@@ -27,7 +27,7 @@ type GLTFResult = GLTF & {
 export function BirdHouse1(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF(glbs.birdhouse_1_glb) as GLTFResult;
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} scale={0.5}>
       <group position={[0.03, 0.88, -0.08]} scale={[0.12, 0.91, 0.09]}>
         <mesh
           geometry={nodes.큐브044.geometry}
