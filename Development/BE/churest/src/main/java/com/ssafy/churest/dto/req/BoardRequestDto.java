@@ -10,13 +10,12 @@ import java.util.List;
 
 public class BoardRequestDto {
 
-    //  ForestRequestDto로 뺄까?
-
     @Getter
     //  나의 숲에서 나무 위치
     public static class LocationInfo {
-        private int locationX;
-        private int locationY;
+
+        //  0 ~ 224로 이루어진 나무 좌표
+        private int spot;
     }
 
     @Data
@@ -33,12 +32,16 @@ public class BoardRequestDto {
 
         private String weather;
 
-        private int locationX;
+        private String date;
 
-        private int locationY;
+        //  0 ~ 224로 이루어진 나무 좌표
+        private int spot;
 
         //  태그된 사용자 id
         private List<Integer> tagList;
+
+//        만약 나무를 사용자가 선택할 수 있다면
+//        private int treeId;
 
     }
 }

@@ -43,7 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/member/login", "/member/token", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**","/swagger-ui/**").anonymous()
+//                .antMatchers("/member/login", "/member/token", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**","/swagger-ui/**")
+//                .anonymous()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
@@ -58,8 +60,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
+        configuration.addAllowedMethod("*"); 
+        // cors policy
+        configuration.addExposedHeader("Access-Control-Allow-Origin");
+
+//        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
