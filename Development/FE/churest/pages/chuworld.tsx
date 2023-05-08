@@ -1,20 +1,23 @@
-import ChuWorldItem from '@/components/chuworld/ChuWorldItem';
 import CloudMap from '@/components/chuworld/CloudMap';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import ChuWorldItem from '@/components/chuworld/ChuWorldItem';
+import { motion, AnimatePresence } from 'framer-motion';
 import ChuWorldList from '@/components/chuworld/ChuWorldList';
-export default function chuworld() {
-  // const [isShow, setIsShow] = useState(true);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsShow(false);
-  //   }, 5000);
-  // }, []);
+export default function Chuworld() {
+  const [isShow, setIsShow] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShow(false);
+    }, 5000);
+  }, []);
 
   return (
     <div className="root">
-      <ChuWorldList />
+      {/* <CloudMap /> */}
+      <ChuWorldItem />
+      {/* <ChuWorldList /> */}
       <style jsx>
         {`
           .root {
@@ -28,7 +31,7 @@ export default function chuworld() {
     // <AnimatePresence mode="wait">
     //   {/* {isShow && ( */}
     //   <motion.div>
-    //     <CloudMap />
+    //
     //   </motion.div>
     //   {/* )} */}
     //   {/* {!isShow && <ChuWorldItem />} */}

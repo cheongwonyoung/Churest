@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { House1 } from '../3DFiles/House/House_1';
+import { House2 } from '../3DFiles/House/House_2';
+import { House3 } from '../3DFiles/House/House_3';
+import { House4 } from '../3DFiles/House/House_4';
+import { House5 } from '../3DFiles/House/House_5';
 import { Html } from '@react-three/drei';
 
 interface BoxProps {
@@ -18,11 +23,8 @@ function Box({ text, position = [0, 0, 0], ...props }: BoxProps) {
       onPointerOut={(e) => set(false)}
       position={position}
     >
-      {/* <House_1 rotation={[0, Math.PI, 0]} /> */}
-      {/* <House_2 scale={0.3} /> */}
-      {/* <House_3 scale={0.3} /> */}
-      {/* <House_4 scale={0.3} /> */}
-      {/* <House_5 scale={0.3} /> */}
+      {/* <House1 /> */}
+      <House5 scale={0.3} />
       {/* 박스 안에다가 텍스트 넣기  */}
       <Html position={[0, 0, 1]} className="label" center>
         {text}
@@ -63,14 +65,27 @@ function Scene() {
   return (
     <>
       <Box text={<span>10태집</span>} />
-      <Box text={<h1>채리집</h1>} position={[0, -0.5 * viewport.height, 0]} />
-      <Box text={<span>윤두집</span>} position={[0, -1 * viewport.height, 0]} />
+      <Box
+        text={<span>채리집</span>}
+        position={[0, -0.25 * viewport.height, 0]}
+      />
+      <Box
+        text={<span>윤두집</span>}
+        position={[0, -0.5 * viewport.height, 0]}
+      />
+      <Box
+        text={<span>서니집</span>}
+        position={[0, -0.75 * viewport.height, 0]}
+      />
+      <Box
+        text={<span>서여늬집</span>}
+        position={[0, -1 * viewport.height, 0]}
+      />
     </>
   );
 }
 
-export default function ChuWorldItem(props: any) {
-  console.log(props);
+export default function ChuWorldItem() {
   const scrollRef = useRef<HTMLDivElement>(null!);
   const scroll = useRef<number>(0);
   return (

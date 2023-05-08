@@ -29,3 +29,17 @@ export const openTagAtom = atom<openAlarm>({
     isModal: false, 
   }
 })
+
+export const openMyPageAtom = atom<openAlarm>({
+  key: 'openMyPage', 
+  default: {
+    isModal: false, 
+  }, 
+})
+
+export const openSearchAtom = atom<openAlarm>({
+  key: 'openSearch',
+  default: {
+    isModal: false, 
+  }
+})
