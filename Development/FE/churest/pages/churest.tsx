@@ -17,7 +17,7 @@ export default function churest() {
       <MyPage></MyPage>
       <MyBird></MyBird>
       <LetterBox></LetterBox>
-      <ItemShop></ItemShop>
+      {/* <ItemShop></ItemShop> */}
       <NewBird bird={1}></NewBird>
 
       <style jsx>{`
