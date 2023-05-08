@@ -12,6 +12,7 @@ export default function Navbar() {
       <Link href={'/garden/' + id}>정원</Link>
       <Link href={'/churest'}>츄레스트</Link>
       <Link href={'/memory'}> 추억생성하긔</Link>
+      <Link href={'/chuworld'}>츄월드</Link>
     </div>
   );
 }
