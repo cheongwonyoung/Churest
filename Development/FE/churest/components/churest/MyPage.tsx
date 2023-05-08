@@ -11,10 +11,12 @@ export default function MyPage() {
   // 나의 새 목록
   const [treeList, setMyPage] = useState([{}]);
   const [nickname, setNickname] = useState('');
+  const [avatarId, setAvatarId] = useState(0);
   useQuery('mypage', () => getMyInfo(Number(memberId)), {
     onSuccess(data) {
       setMyPage([...data.data.boards]);
       setNickname(data.data.member.nickname);
+      setAvatarId(data.data.member.avatarId);
     },
     onError: (error) => {
       console.log('에러다');
@@ -28,7 +30,7 @@ export default function MyPage() {
       <div className="blue-clay container">
         <div>
           <div className="inside-circle center">
-            <Image src={images.bird_1_img} alt="" width={100} height={100} />
+            <Image src={images["avatar_"+avatarId+"_img"]} alt="" width={100} height={150} />
           </div>
           <div className="center nickname">{nickname}</div>
         </div>
