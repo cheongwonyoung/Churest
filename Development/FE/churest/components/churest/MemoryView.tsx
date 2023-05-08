@@ -13,14 +13,16 @@ export default function MemoryView() {
     onSuccess(data) {
       console.log('책 열기 성공');
       console.log(data.data);
+      setTree(data.data);
     },
   });
 
   const TagList = [1, 2, 3, 4, 5, 6];
 
-  const tagItems = TagList.map((item) => {
+  const tagItems = TagList.map((item, idx) => {
     return (
       <>
+        {idx}
         <Image
           src={images['avatar_' + item + '_img']}
           alt=""
@@ -38,20 +40,20 @@ export default function MemoryView() {
         <div className="child book-grid">
           <div className="top">
             <div className="center">
-              <div style={{ width: '50px', height: '50px' }}>
+              <div style={{ width: '60px', height: '50px' }}>
                 <Image
                   src={images['cloudy_img']}
                   alt=""
                   priority
-                  width={70}
-                  height={70}
+                  width={58}
+                  height={50}
                   // fill
                   // style={{ objectFit: 'fit' }}
                 ></Image>
               </div>
             </div>
-            <div className="center">햄 엠</div>
-            <div className="center">2023.00.00</div>
+            <div className="center title">햄 엠</div>
+            <div className="center date">2023.00.00</div>
           </div>
           <div className="center tag-list">{tagItems}</div>
           <div className="center picture">사진</div>
@@ -92,8 +94,15 @@ export default function MemoryView() {
         .top {
           margin: 30px 50px 30px 100px;
         }
+        .title {
+          font-size: larger;
+          margin-bottom: 5px;
+        }
         .picture {
           margin: 30px 50px 100px 100px;
+        }
+        .date {
+          color: gray;
         }
         .tag-list {
           margin: 30px 100px 30px 50px;
