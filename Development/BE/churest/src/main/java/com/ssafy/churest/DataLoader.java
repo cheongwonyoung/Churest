@@ -158,7 +158,7 @@ public class DataLoader implements CommandLineRunner {
         MemberBird memberBird5 = MemberBird.builder().bird(birdRepository.findById(2).get()).member(member5).nickname("리자몽").isUsed(true).build();
         MemberBird memberBird6 = MemberBird.builder().bird(birdRepository.findById(3).get()).member(member6).nickname("피닉스").isUsed(true).build();
 
-        MemberHouse memberHouse1 = MemberHouse.builder().house(defaultHouse).member(member1).build();
+        MemberHouse memberHouse1 = MemberHouse.builder().house(defaultHouse).member(member1).build().updateIsUsed(true);
         MemberHouse memberHouse2 = MemberHouse.builder().house(houseRepository.findById(2).get()).member(member1).build().updateIsUsed(true);
         MemberHouse memberHouse3 = MemberHouse.builder().house(defaultHouse).member(member2).build().updateIsUsed(true);
         MemberHouse memberHouse4 = MemberHouse.builder().house(defaultHouse).member(member3).build().updateIsUsed(true);

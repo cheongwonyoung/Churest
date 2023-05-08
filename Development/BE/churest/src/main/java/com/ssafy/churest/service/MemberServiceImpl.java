@@ -73,7 +73,7 @@ public class MemberServiceImpl implements  MemberService{
         memberRepository.save(member);
 
         House defaultHouse = houseRepository.findById(1).get();
-        memberHouseRepository.save(MemberHouse.builder().house(defaultHouse).member(member).build());
+        memberHouseRepository.save(MemberHouse.builder().house(defaultHouse).member(member).build().updateIsUsed(true));
         memberBirdRepository.save(MemberBird.builder().member(member).bird(null).nickname("").build());
 
         return LoginResponseDto.builder()
