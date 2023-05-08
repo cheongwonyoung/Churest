@@ -1,9 +1,7 @@
 import { useFrame, useThree } from '@react-three/fiber';
-import { Man1 } from '../3DFiles/Man1';
 import { RigidBody } from '@react-three/rapier';
 import { useRef, useEffect, useState } from 'react';
 import { OrbitControls, useKeyboardControls } from '@react-three/drei';
-import { Controls } from '@/pages/garden/[id]';
 import * as THREE from 'three';
 import { Char1 } from '../3DFiles/Character/Char1';
 import { Char4 } from '../3DFiles/Character/Char4';
@@ -11,13 +9,14 @@ import { Char2 } from '../3DFiles/Character/Char2';
 import { Char3 } from '../3DFiles/Character/Char3';
 import { Char5 } from '../3DFiles/Character/Char5';
 import { Char6 } from '../3DFiles/Character/Char6';
+import { Controls } from './Churest3D';
 
 type Props = {
-  logSpot(x: number[]): void;
   autoView: boolean;
+  selectSpot: boolean;
 };
 
-export default function CharacterChurest({ logSpot, autoView }: Props) {
+export default function CharacterChurest({ autoView, selectSpot }: Props) {
   const man1 = useRef<any>();
 
   const [isFloor, setIsFloor] = useState(false);
@@ -65,8 +64,6 @@ export default function CharacterChurest({ logSpot, autoView }: Props) {
         man1.current.setLinvel({ x: 0, y: -0.5, z: move });
       }
     }
-
-    logSpot(man1.current?.translation());
   };
 
   //캐릭터 보는 방향
@@ -96,15 +93,26 @@ export default function CharacterChurest({ logSpot, autoView }: Props) {
       man1.current.setTranslation({ x: 0, y: 0, z: 0 });
     }
 
-    autoView && updateCameraTarget();
+    autoView && !selectSpot && updateCameraTarget();
     handleMovement();
     handleLookAt();
   });
 
   const controlRef = useRef<typeof OrbitControls>();
-
+  useEffect(() => {
+    if (selectSpot) {
+      camera.position.x = 0;
+      camera.position.y = 43;
+      camera.position.z = 0;
+      cameraTarget.x = 0;
+      cameraTarget.y = 0;
+      cameraTarget.z = 0;
+      if (controlRef.current) controlRef.current.target = cameraTarget;
+    }
+  }, [selectSpot]);
   let cameraTarget = new THREE.Vector3();
   const camera = useThree((state) => state.camera);
+
   const updateCameraTarget = () => {
     camera.position.x = man1.current.translation().x;
     camera.position.z = man1.current.translation().z + 5;
@@ -173,12 +181,14 @@ export default function CharacterChurest({ logSpot, autoView }: Props) {
           }
           charState={charState}
         /> */}
-        <Char6
-          isMoving={
-            forwardPressed || backPressed || rightPressed || leftPressed
-          }
-          charState={charState}
-        />
+        {!selectSpot && (
+          <Char6
+            isMoving={
+              forwardPressed || backPressed || rightPressed || leftPressed
+            }
+            charState={charState}
+          />
+        )}
       </RigidBody>
     </>
   );
