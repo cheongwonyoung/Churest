@@ -4,12 +4,16 @@ import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import moment from 'moment';
 import Image from 'next/image';
+import ModalBlackBg from '../common/ModalBlackBg';
+import { useRecoilState } from 'recoil';
+import { openAlarmAtom } from '@/atoms/modal';
 
 type Props = {
   memberId: number;
 };
 
 export default function Notice({ memberId }: Props) {
+  const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
   const type = 'tagged';
   const [noticeList, setNoticeList] = useState<
     {
@@ -21,6 +25,9 @@ export default function Notice({ memberId }: Props) {
       // createdTime: ;
     }[]
   >([]);
+  const closeModal = () => {
+    setIsAlarmOpen({ isModal: false });
+  };
 
   // 나의 알림 목록 GET
   // useQuery('notices', () => getNotices(Number(memberId)), {
@@ -40,35 +47,37 @@ export default function Notice({ memberId }: Props) {
 
   return (
     <>
-      <div className="blue-clay container">
-        <div className="background"></div>
-        <div className="title">알림함</div>
+      <div className="gogo">
+        {isAlarmOpen.isModal && <ModalBlackBg closeModal={closeModal} />}
+        <div className="blue-clay container">
+          <div className="title">알림함</div>
 
-        {/* noticeList.map((notice)=>(어쩌저쩌)) */}
+          {/* noticeList.map((notice)=>(어쩌저쩌)) */}
 
-        <div className="notice">
-          <div className="image">
-            <div className="notice-profile center">
-              <Image
-                src={images.avatar_1_img}
-                // src={images['avatar_' + avatarId + '_img']}
-                alt=""
-                width={50}
-                height={50}
-              />
+          <div className="notice">
+            <div className="image">
+              <div className="notice-profile center">
+                <Image
+                  src={images.avatar_1_img}
+                  // src={images['avatar_' + avatarId + '_img']}
+                  alt=""
+                  width={50}
+                  height={50}
+                />
+              </div>
             </div>
-          </div>
-          <div className="content">
-            <div className="c-content">
-              {type == 'tagged' ? (
-                <p>님이 추억에 회원님을 태그했습니다.</p>
-              ) : (
-                <p>추억이 나무로 성장했습니다.</p>
-              )}
-            </div>
-            <div className="c-date">
-              2023.05.04
-              {/* {moment(item.createdTime).format('YYYY년 MM월 DD일')} */}
+            <div className="content">
+              <div className="c-content">
+                {type == 'tagged' ? (
+                  <p>님이 추억에 회원님을 태그했습니다.</p>
+                ) : (
+                  <p>추억이 나무로 성장했습니다.</p>
+                )}
+              </div>
+              <div className="c-date">
+                2023.05.04
+                {/* {moment(item.createdTime).format('YYYY년 MM월 DD일')} */}
+              </div>
             </div>
           </div>
         </div>
@@ -76,6 +85,10 @@ export default function Notice({ memberId }: Props) {
 
       <style jsx>
         {`
+          .gogo {
+            width: 100vw;
+            height: 100vh;
+          }
           .container {
             width: 500px;
             height: 400px;

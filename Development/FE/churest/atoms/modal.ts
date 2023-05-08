@@ -5,6 +5,9 @@ interface createArticle {
   spot: number;
 }
 
+interface openAlarm {
+  isModal: boolean; 
+}
 export const createArticleAtom = atom<createArticle>({
   key: 'createArticle',
   default: {
@@ -12,3 +15,31 @@ export const createArticleAtom = atom<createArticle>({
     spot: -1,
   },
 });
+
+export const openAlarmAtom = atom<openAlarm>({
+  key: 'openAlarm',
+  default: {
+    isModal: false,
+  }
+})
+
+export const openTagAtom = atom<openAlarm>({
+  key: 'openTag', 
+  default: {
+    isModal: false, 
+  }
+})
+
+export const openMyPageAtom = atom<openAlarm>({
+  key: 'openMyPage', 
+  default: {
+    isModal: false, 
+  }, 
+})
+
+export const openSearchAtom = atom<openAlarm>({
+  key: 'openSearch',
+  default: {
+    isModal: false, 
+  }
+})
