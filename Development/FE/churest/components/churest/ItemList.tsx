@@ -29,13 +29,12 @@ export default function ItemList({ showedItem, handleItems }: Props) {
         onClick={() => handleItems(item)}
         style={{ margin: '30px' }}
       >
-        {item}
         <Image
           src={images[item + '_img']}
           alt=""
           id={item}
-          width={50}
-          height={50}
+          width={100}
+          height={100}
         />
       </div>
     ));

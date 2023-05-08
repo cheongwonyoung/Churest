@@ -51,5 +51,19 @@ export const images: Images = {
   mypage_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/mypage_navbar_img.png',
   search_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/search_navbar_img.png',
   tag_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/tag_navbar_img.png',
-  chuworld_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/chuworld_navbar_img.png'
+  chuworld_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/chuworld_navbar_img.png',
+  cloudy_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/cloudy_img.png',
+  thunder_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/thunder_img.png',
+  snowy_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/snowy_img.png',
+  rainy_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/rainy_img.png',
+  foggy_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/foggy_img.png',
+  sunny_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/sunny_img.png',
+  memory_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/memory_img.png',
 };

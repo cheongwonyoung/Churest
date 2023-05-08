@@ -27,7 +27,7 @@ type GLTFResult = GLTF & {
 export function BirdHouse3(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF(glbs.birdhouse_3_glb) as GLTFResult;
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} scale={0.5}>
       <group
         position={[-0.02, 2.6, 0]}
         rotation={[0, 0, 3.14]}
@@ -36,18 +36,26 @@ export function BirdHouse3(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes.큐브008.geometry}
           material={materials['매테리얼.001']}
+          castShadow
+          receiveShadow
         />
         <mesh
           geometry={nodes.큐브008_1.geometry}
           material={materials['매테리얼.002']}
+          castShadow
+          receiveShadow
         />
         <mesh
           geometry={nodes.큐브008_2.geometry}
           material={materials['매테리얼.003']}
+          castShadow
+          receiveShadow
         />
         <mesh
           geometry={nodes.큐브008_3.geometry}
           material={materials['매테리얼.006']}
+          castShadow
+          receiveShadow
         />
       </group>
     </group>
