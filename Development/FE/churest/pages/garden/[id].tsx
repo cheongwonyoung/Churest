@@ -7,13 +7,19 @@ import { Vector3 } from 'three';
 import { Branch } from '@/components/3DFiles/Trees/Branch';
 import { Seed } from '@/components/3DFiles/Trees/Seed';
 import { Tree9 } from '@/components/3DFiles/Trees/Tree9';
+import { Test } from '@/components/3DFiles/Test';
+import CharacterChurest from '@/components/churest/CharacterChurest';
+import { ChurestMap } from '@/components/3DFiles/ChurestMap';
+import { spots } from '@/utils/spots';
+import { PlantOk } from '@/components/3DFiles/PlantOk';
+import { PlantNo } from '@/components/3DFiles/PlantNo';
 
 export const Controls = {
   forward: 'forward',
   back: 'back',
   left: 'left',
   right: 'right',
-  jump: 'jump',
+  // jump: 'jump',
 };
 
 export default function Garden() {
@@ -23,47 +29,15 @@ export default function Garden() {
       { name: Controls.back, keys: ['ArrowDown', 'KeyS'] },
       { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
       { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
-      { name: Controls.jump, keys: ['Space'] },
+      // { name: Controls.jump, keys: ['Space'] },
     ],
     []
   );
-
-  const [isModal, setIsModal] = useState(false);
-
-  // 연습 게임용
-  const seongong = (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: 'white',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        zIndex: 100,
-      }}
-      onClick={() => setIsModal(false)}
-    >
-      <p style={{ fontSize: '200px' }}>축하합니다! </p>
-      <p style={{ fontSize: '200px' }}>성공입니다!</p>
-    </div>
-  );
-  // 여기까지 연습게임용
 
   const [position, setPosition] = useState([0, 0, 0]);
   const logSpot = (x: number[]) => {
     setPosition(x);
   };
-
-  // 나무 여러개 더미 포지션 백터가 필수임
-  // const positions = [
-  //   new Vector3(2, -1.2),
-  //   new Vector3(4, -1.1),
-  //   new Vector3(7, -1.2),
-  //   new Vector3(13, -1.3),
-  //   new Vector3(-4, -1.5),
-  // ];
 
   const positions = [
     { x: 4, y: -1, z: 4 },
@@ -101,11 +75,11 @@ export default function Garden() {
 
   const [autoView, setAutoView] = useState(true);
 
-  const zzz = useRef();
+  const [points, setpoints] = useState(spots);
+  console.log(points);
 
   return (
     <div className="gogo">
-      {isModal && seongong}
       <button
         onMouseDown={(e) => {
           e.preventDefault();
@@ -117,12 +91,29 @@ export default function Garden() {
       <button onMouseDown={() => setAutoView((prev) => !prev)}>
         AutoFocus
       </button>
-      <button onClick={() => console.log(zzz.current)}>zzz</button>
       <KeyboardControls map={map}>
         <Canvas>
           <Suspense>
             <Physics>
-              <MovingCharacter logSpot={logSpot} autoView={autoView} />
+              {/* <MovingCharacter logSpot={logSpot} autoView={autoView} /> */}
+              {/* {Object.entries(points).map((point: any) => {
+                return (
+                  <RigidBody type="fixed">
+                    {point[1].ok ? (
+                      <PlantOk
+                        name={point[0]}
+                        position={[point[1].x, -6.48, point[1].z]}
+                      />
+                    ) : (
+                      <PlantNo
+                        name={point[0]}
+                        position={[point[1].x, -6.48, point[1].z]}
+                      />
+                    )}
+                  </RigidBody>
+                );
+              })} */}
+              <CharacterChurest logSpot={logSpot} autoView={autoView} />
               {positions.map((position) => {
                 return (
                   <RigidBody
@@ -159,14 +150,12 @@ export default function Garden() {
 
               <RigidBody
                 name="floor2"
-                colliders="cuboid"
+                colliders="trimesh"
                 type="fixed"
-                position={[0, -1, 0]}
+                position={[0, 0, 0]}
                 friction={1}
               >
-                <Box args={[40, 2, 40]} receiveShadow>
-                  <meshStandardMaterial color={'#111111'} />
-                </Box>
+                <ChurestMap />
               </RigidBody>
             </Physics>
 

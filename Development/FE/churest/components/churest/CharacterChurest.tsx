@@ -17,7 +17,7 @@ type Props = {
   autoView: boolean;
 };
 
-export default function MovingCharacter({ logSpot, autoView }: Props) {
+export default function CharacterChurest({ logSpot, autoView }: Props) {
   const man1 = useRef<any>();
 
   const [isFloor, setIsFloor] = useState(false);
@@ -34,7 +34,7 @@ export default function MovingCharacter({ logSpot, autoView }: Props) {
     });
   }, []);
 
-  const jumpPressed = useKeyboardControls((state) => state[Controls.jump]);
+  // const jumpPressed = useKeyboardControls((state) => state[Controls.jump]);
   const leftPressed = useKeyboardControls((state) => state[Controls.left]);
   const rightPressed = useKeyboardControls((state) => state[Controls.right]);
   const backPressed = useKeyboardControls((state) => state[Controls.back]);
@@ -42,80 +42,28 @@ export default function MovingCharacter({ logSpot, autoView }: Props) {
     (state) => state[Controls.forward]
   );
 
-  const jump = () => {
-    // man1.current.applyImpulse({ x: 0, y: 2, z: 0 });
-    if (jumpPressed && isFloor) {
-      // man1.current.resetForces(true);
-      setIsFloor(false);
-      console.log(man1.current);
-      // man1.current.setLinvel({ x: 0, y: 8, z: 0 });
-      setCharState('Song Jump');
-    }
-  };
-
-  const moving = (move: number, jump: boolean) => {
-    jump ? 8 : 0;
-    jump && setIsFloor(false);
-    if (rightPressed && forwardPressed) {
-      man1.current.setLinvel({ x: move / 2, y: jump, z: -move / 2 });
-    } else if (forwardPressed && leftPressed) {
-      man1.current.setLinvel({ x: -move / 2, y: jump, z: -move / 2 });
-    } else if (leftPressed && backPressed) {
-      man1.current.setLinvel({ x: -move / 2, y: jump, z: move / 2 });
-    } else if (rightPressed && backPressed) {
-      man1.current.setLinvel({ x: move / 2, y: jump, z: move / 2 });
-    } else if (rightPressed) {
-      // man1.current.applyImpulse({ x: move, y: 0, z: 0 });
-      man1.current.setLinvel({ x: move, y: jump, z: 0 });
-    } else if (leftPressed) {
-      // man1.current.applyImpulse({ x: -move, y: 0, z: 0 });
-      // man1.current.setTranslation(-0.1, 0, 0);
-      man1.current.setLinvel({ x: -move, y: jump, z: 0 });
-    } else if (forwardPressed) {
-      // man1.current.applyImpulse({ x: 0, y: 0, z: -move });
-      // man1.current.setTranslation(0, 0, -0.1);
-      man1.current.setLinvel({ x: 0, y: jump, z: -move });
-    } else if (backPressed) {
-      // man1.current.applyImpulse({ x: 0, y: 0, z: move });
-      // man1.current.setTranslation(0, 0, 0.1);
-      man1.current.setLinvel({ x: 0, y: jump, z: move });
-    } else if (jumpPressed) {
-      man1.current.setLinvel({ x: 0, y: jump, z: 0 });
-    }
-  };
-
   // 캐릭터 이동
   const handleMovement = () => {
-    jump();
     let move = 4;
-    console.log(isFloor);
     if (charState == 'Run') move = 8;
     if (isFloor) {
-      jumpPressed ? moving(move, true) : moving(move, false);
-      // if (rightPressed && forwardPressed) {
-      //   man1.current.setLinvel({ x: move / 2, y: 0, z: -move / 2 });
-      // } else if (forwardPressed && leftPressed) {
-      //   man1.current.setLinvel({ x: -move / 2, y: 0, z: -move / 2 });
-      // } else if (leftPressed && backPressed) {
-      //   man1.current.setLinvel({ x: -move / 2, y: 0, z: move / 2 });
-      // } else if (rightPressed && backPressed) {
-      //   man1.current.setLinvel({ x: move / 2, y: 0, z: move / 2 });
-      // } else if (rightPressed) {
-      //   // man1.current.applyImpulse({ x: move, y: 0, z: 0 });
-      //   man1.current.setLinvel({ x: move, y: 0, z: 0 });
-      // } else if (leftPressed) {
-      //   // man1.current.applyImpulse({ x: -move, y: 0, z: 0 });
-      //   // man1.current.setTranslation(-0.1, 0, 0);
-      //   man1.current.setLinvel({ x: -move, y: 0, z: 0 });
-      // } else if (forwardPressed) {
-      //   // man1.current.applyImpulse({ x: 0, y: 0, z: -move });
-      //   // man1.current.setTranslation(0, 0, -0.1);
-      //   man1.current.setLinvel({ x: 0, y: 0, z: -move });
-      // } else if (backPressed) {
-      //   // man1.current.applyImpulse({ x: 0, y: 0, z: move });
-      //   // man1.current.setTranslation(0, 0, 0.1);
-      //   man1.current.setLinvel({ x: 0, y: 0, z: move });
-      // }
+      if (rightPressed && forwardPressed) {
+        man1.current.setLinvel({ x: move / 2, y: -0.5, z: -move / 2 });
+      } else if (forwardPressed && leftPressed) {
+        man1.current.setLinvel({ x: -move / 2, y: -0.5, z: -move / 2 });
+      } else if (leftPressed && backPressed) {
+        man1.current.setLinvel({ x: -move / 2, y: -0.5, z: move / 2 });
+      } else if (rightPressed && backPressed) {
+        man1.current.setLinvel({ x: move / 2, y: -0.5, z: move / 2 });
+      } else if (rightPressed) {
+        man1.current.setLinvel({ x: move, y: -0.5, z: 0 });
+      } else if (leftPressed) {
+        man1.current.setLinvel({ x: -move, y: -0.5, z: 0 });
+      } else if (forwardPressed) {
+        man1.current.setLinvel({ x: 0, y: -0.5, z: -move });
+      } else if (backPressed) {
+        man1.current.setLinvel({ x: 0, y: -0.5, z: move });
+      }
     }
 
     logSpot(man1.current?.translation());
@@ -143,9 +91,7 @@ export default function MovingCharacter({ logSpot, autoView }: Props) {
   };
 
   const [look, setLook] = useState(0);
-  useFrame((a, b, c) => {
-    jump();
-
+  useFrame(() => {
     if (man1.current?.translation().y < -5) {
       man1.current.setTranslation({ x: 0, y: 0, z: 0 });
     }
@@ -181,15 +127,14 @@ export default function MovingCharacter({ logSpot, autoView }: Props) {
         canSleep={false}
         colliders="cuboid"
         onCollisionEnter={({ other }) => {
-          setCharState('Walk');
           setIsFloor(true);
         }}
-        onCollisionExit={({ other }) => {
-          if (other.rigidBodyObject?.name.includes('floor2')) {
-            setIsFloor(false);
-            console.log('착지');
-          }
-        }}
+        // onCollisionExit={({ other }) => {
+        //   if (other.rigidBodyObject?.name.includes('floor2')) {
+        //     setIsFloor(false);
+        //     console.log('착지');
+        //   }
+        // }}
         rotation={[0, look, 0]}
       >
         {/* <Man1
