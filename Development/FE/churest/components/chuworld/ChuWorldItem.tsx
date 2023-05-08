@@ -2,14 +2,6 @@ import * as THREE from 'three';
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
-import { House5 } from '../3DFiles/House/House_5';
-
-// import { images } from '@/public/assets/images';
-// import Image from 'next/image';
-// import { getChuworld } from '@/apis/chuworld';
-// import { useQuery } from 'react-query';
-// import { useRecoilValue } from 'recoil';
-// import loginAtom from '../../atoms/login';
 
 interface BoxProps {
   text: React.ReactNode;
@@ -30,7 +22,7 @@ function Box({ text, position = [0, 0, 0], ...props }: BoxProps) {
       {/* <House_2 scale={0.3} /> */}
       {/* <House_3 scale={0.3} /> */}
       {/* <House_4 scale={0.3} /> */}
-      <House5 />
+      {/* <House_5 scale={0.3} /> */}
       {/* 박스 안에다가 텍스트 넣기  */}
       <Html position={[0, 0, 1]} className="label" center>
         {text}
@@ -51,6 +43,7 @@ interface ScrollContainerProps {
 // 스크롤 하는 거
 function ScrollContainer({ scroll, children }: ScrollContainerProps) {
   const { viewport } = useThree();
+
   const group = useRef<THREE.Group>(null!);
   useFrame((state, delta) => {
     group.current.position.y = THREE.MathUtils.damp(
@@ -66,11 +59,7 @@ function ScrollContainer({ scroll, children }: ScrollContainerProps) {
 // 박스
 function Scene() {
   const viewport = useThree((state) => state.viewport);
-  const memberId = 1;
-  // const { data, isLoading, isError, error } = useQuery('getChuworld', () =>
-  //   getChuworld(memberId)
-  // );
-  // console.log(data);
+
   return (
     <>
       <Box text={<span>10태집</span>} />
@@ -80,8 +69,8 @@ function Scene() {
   );
 }
 
-export default function ChuWorldItem() {
-  // const memberId = useRecoilValue(loginAtom).id
+export default function ChuWorldItem(props: any) {
+  console.log(props);
   const scrollRef = useRef<HTMLDivElement>(null!);
   const scroll = useRef<number>(0);
   return (
