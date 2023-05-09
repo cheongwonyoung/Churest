@@ -11,6 +11,7 @@ export default function MyBird() {
   const [birdList, setMyBirds] = useState([{}]);
   useQuery('mybirds', () => getMyBirdsList(Number(memberId)), {
     onSuccess(data) {
+      console.log("나의 새에요")
       console.log(data.data);
       setMyBirds([...data.data]);
     },

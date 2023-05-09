@@ -1,11 +1,44 @@
+import { deleteLetter } from '@/apis/letterbox';
+import { useMutation } from 'react-query';
 import Image from 'next/image';
-import frameImg from '@/public/assets/letter_img.png';
+import { images } from '@/public/assets/images';
 
 type Props = {
   letters: any;
 };
 
 export default function LetterBox({ letters }: Props) {
+  const deleteArticleItem = useMutation(
+    (deleteInfo: 
+      {fromMemberId: number;
+        GuestBookId: number;}
+      ) => deleteLetter(deleteInfo),
+    {
+      onSuccess: (data) => {
+        console.log("성공 in mutation success");
+        console.log(data);
+        // refetch();
+        // navigate("/방명록");
+      },
+      onError:(error)=>{
+        console.log(error);
+      }
+    }
+  );
+  const goDeleteArticle = async (letter:any) => {
+    deleteArticleItem.mutate({fromMemberId:letter.fromMember.memberId,GuestBookId:letter.guestBookId});
+  };
+
+  const clickDeleteLetter = (letter:any) => {
+    if(confirm("정말 삭제하시겠습니까?")){
+      goDeleteArticle(letter);
+      console.log("삭제 완료");
+    }else{
+      console.log("삭제 취소");
+    }
+  }
+
+
   return (
     <>
       {letters.map((letter: any, idx: number) => {
@@ -19,8 +52,12 @@ export default function LetterBox({ letters }: Props) {
               height: '550px',
             }}
           >
-            <Image src={frameImg} alt="" width={380} />
-            <div className="input">{letter.content}</div>
+            <Image src={images.letter_img} alt="" width={380} height={530} />
+            <div className="input">{letter.content}
+              {/* 작성자와 사용자 확인 여부 */}
+              <button>수정</button>
+              <button onClick={()=>clickDeleteLetter(letter)}>삭제</button>
+            </div>
           </div>
         );
       })}
@@ -34,6 +71,8 @@ export default function LetterBox({ letters }: Props) {
         .input {
           position: absolute;
           width: 225px;
+          height:300px;
+          text-align: center;
         }
       `}</style>
     </>
