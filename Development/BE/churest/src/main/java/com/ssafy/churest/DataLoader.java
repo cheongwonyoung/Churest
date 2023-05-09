@@ -2,7 +2,6 @@ package com.ssafy.churest;
 
 import com.ssafy.churest.entity.*;
 import com.ssafy.churest.repository.*;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -45,7 +44,7 @@ public class DataLoader implements CommandLineRunner {
     private GuestBookRepository guestBookRepository;
 
     @Autowired
-    private NotificationRepository notificationRepository;
+    private NoticeRepository notificationRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -214,7 +213,7 @@ public class DataLoader implements CommandLineRunner {
 
     private void addBoard() {
         List<Board> boardList = new ArrayList<>();
-        List<Notification> notificationList = new ArrayList<>();
+        List<Notice> notificationList = new ArrayList<>();
         List<Member> memberList = memberRepository.findAll();
         List<MemberBoard> memberBoardList = new ArrayList<>();
         List<TreeLog> treeLogList = new ArrayList<>();
@@ -232,7 +231,7 @@ public class DataLoader implements CommandLineRunner {
                 memberList) {
             if (member.getMemberId() != member1.getMemberId()) {
                 tagList.add(Tag.builder().board(board1).member(member).build());
-                notificationList.add(Notification.builder().toMember(member).fromMember(member1).isChecked(false).content("테트리스 정기 모임ㅋ").build());
+                notificationList.add(Notice.builder().toMember(member).fromMember(member1).isChecked(false).content("테트리스 정기 모임ㅋ").build());
                 //  퍼가기
                 memberBoardList.add(MemberBoard.builder().board(board1).member(member).spot(3).build());
             }

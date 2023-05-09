@@ -1,13 +1,12 @@
 package com.ssafy.churest.service;
 
+import com.ssafy.churest.dto.req.FCMNotificationRequestDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
 import com.ssafy.churest.entity.Member;
+import com.ssafy.churest.entity.Notice;
 import com.ssafy.churest.entity.Tag;
 import com.ssafy.churest.entity.TreeLog;
-import com.ssafy.churest.repository.BoardRepository;
-import com.ssafy.churest.repository.MemberRepository;
-import com.ssafy.churest.repository.TagRepository;
-import com.ssafy.churest.repository.TreeLogRepository;
+import com.ssafy.churest.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,9 @@ public class TreeLogServiceImpl implements TreeLogService {
     private final TreeLogRepository treeLogRepository;
     private final BoardRepository boardRepository;
     private final TagRepository tagRepository;
+    private final FCMNotificationService fcmNotificationService;
     private static final int TREE_CRITERIA_SCORE = 16;
+    private final NoticeRepository noticeRepository;
 
     @Override
     public List<TreeLogResponseDto.TreeLogInfo> getTreeLogList(int boardId) {
@@ -49,7 +50,7 @@ public class TreeLogServiceImpl implements TreeLogService {
     }
 
     @Override
-    public TreeLogResponseDto.RecentTreeLogInfo updateScoreByWatering(int boardId) {
+    public TreeLogResponseDto.RecentTreeLogInfo updateScoreByWatering(int boardId, int memberId) {
 
         boolean isReward = false;
 
@@ -62,6 +63,12 @@ public class TreeLogServiceImpl implements TreeLogService {
             memberRepository.saveAllAndFlush(memberList);
             boardRepository.save(recentTreeLog.getBoard().updatePayed(true));
             isReward = true;
+
+//            알림 전송
+            FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(memberId).targetUserId(memberId).title("쥬잉님 저 다 컸떠용").build();
+            Member member = memberRepository.findByMemberId(memberId);
+            fcmNotificationService.sendNotificationByToken(requestDto);
+            noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").build());
         }
 
         if(recentTreeLog.getDate().equals(LocalDate.now()))

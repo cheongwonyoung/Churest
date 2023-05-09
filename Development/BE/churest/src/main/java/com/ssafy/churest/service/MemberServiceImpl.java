@@ -157,6 +157,7 @@ public class MemberServiceImpl implements  MemberService{
         // 회원가입(아바타id, 닉네임)
         member.setAvatarId(joinInfo.getAvatarId());
         member.setNickname(joinInfo.getNickname());
+        member.setFcmToken(joinInfo.getFcmToken());
         MemberResponseDto.MemberInfo memberInfo = MemberResponseDto.MemberInfo.fromEntity(memberRepository.save(member));
 
         return memberInfo;
