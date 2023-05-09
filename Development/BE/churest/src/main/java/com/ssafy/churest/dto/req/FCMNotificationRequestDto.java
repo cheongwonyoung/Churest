@@ -7,15 +7,17 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class FCMNotificationRequestDto {
+
+    private int fromUserId;
     private int targetUserId;
     private String title;
-    private String body;
+
 
     @Builder
-    public FCMNotificationRequestDto(int targetUserId, String title, String body){
+    public FCMNotificationRequestDto(int fromUserId, int targetUserId, String title, String body){
+        this.fromUserId = fromUserId;
         this.targetUserId = targetUserId;
         this.title = title;
-        this.body = body;
     }
 
 }
