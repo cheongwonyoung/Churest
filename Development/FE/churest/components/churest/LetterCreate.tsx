@@ -1,5 +1,5 @@
 import { writeLetter } from '@/apis/letterbox';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 
 import Image from 'next/image';

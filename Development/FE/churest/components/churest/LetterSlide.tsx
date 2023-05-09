@@ -18,7 +18,7 @@ export default function LetterBox({ letters }: Props) {
         console.log("성공 in mutation success");
         console.log(data);
         // refetch();
-        // navigate("/letter");
+        // navigate("/방명록");
       },
       onError:(error)=>{
         console.log(error);
@@ -26,7 +26,7 @@ export default function LetterBox({ letters }: Props) {
     }
   );
   const goDeleteArticle = async (letter:any) => {
-    deleteArticleItem.mutate({fromMemberId:letter.fromMember.memberId,guestBookId:letter.guestBookId});
+    deleteArticleItem.mutate({fromMemberId:letter.fromMember.memberId,GuestBookId:letter.guestBookId});
   };
 
   const clickDeleteLetter = (letter:any) => {
@@ -52,12 +52,12 @@ export default function LetterBox({ letters }: Props) {
               height: '550px',
             }}
           >
-            <Image src={images.letter_img} alt="" width={380} height={380} />
-            idx : {idx} guest_book_id : {letter.guestBookId}
-            <div className="input">{letter.content}</div>
-            {/* 작성자와 사용자 확인 여부 */}
-            <button>수정</button>
-            <button onClick={()=>clickDeleteLetter(letter)}>삭제</button>
+            <Image src={images.letter_img} alt="" width={380} height={530} />
+            <div className="input">{letter.content}
+              {/* 작성자와 사용자 확인 여부 */}
+              <button>수정</button>
+              <button onClick={()=>clickDeleteLetter(letter)}>삭제</button>
+            </div>
           </div>
         );
       })}
@@ -71,6 +71,8 @@ export default function LetterBox({ letters }: Props) {
         .input {
           position: absolute;
           width: 225px;
+          height:300px;
+          text-align: center;
         }
       `}</style>
     </>

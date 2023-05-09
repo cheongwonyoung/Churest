@@ -5,7 +5,7 @@ import MyBird from '../components/churest/MyBird';
 import MyPage from '../components/churest/MyPage';
 import ChureeCreate from '../components/churest/MemoryCreate';
 import ChureeView from '../components/churest/MemoryView';
-import Letter from '../components/churest/LetterCreate';
+
 export default function churest() {
   return (
     <>
@@ -19,7 +19,7 @@ export default function churest() {
       <LetterBox></LetterBox>
       <ItemShop></ItemShop>
       <NewBird bird={1}></NewBird>
-<Letter></Letter>
+
       <style jsx>{`
         .page-center {
           width: 100%;
