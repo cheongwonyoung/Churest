@@ -31,7 +31,7 @@ export default function StepBirdname({
         </div>
         <input
           placeholder="새의 이름을 입력해주세요 (최대 6자)"
-          className=" inside-clay"
+          className="inside-clay"
           value={birdname}
           onChange={(e) => getBirdname(e)}
         />

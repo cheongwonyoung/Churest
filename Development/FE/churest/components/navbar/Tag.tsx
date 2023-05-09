@@ -36,40 +36,22 @@ export default function Tag({ memberId }: Props) {
 
   return (
     <>
-      <div className="gogo">
-        {isTagOpen.isModal && <ModalBlackBg closeModal={closeModal} />}
-        <div className="blue-clay container">
-          <div>태그 모아보기</div>
-          <div className="mine">
-            <Carousel cardType={cardType} info={tagList}></Carousel>
-          </div>
-          <button className="green-btn" onClick={clickTakeTree}>
-            퍼가기
-          </button>
+      {/* {isTagOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
+      <div className="blue-clay modal-container">
+        <div className="modal-title">태그 모아보기</div>
+        <div className="mine center">
+          <Carousel cardType={cardType} info={tagList}></Carousel>
         </div>
+        <button className="green-btn" onClick={clickTakeTree}>
+          퍼가기
+        </button>
       </div>
       <style jsx>
         {`
-          .gogo {
-            width: 100vw;
-            height: 100vh;
-          }
-          .container {
-            width: 400px;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            overflow-y: auto;
-            position: fixed;
-            z-index: 50;
-          }
           .mine {
             width: 200px;
             height: 320px;
-            padding: 10px 0 10px 0;
+            // padding: 10px 0 10px 0;
           }
           .tree-img {
             margin: 0 auto;
