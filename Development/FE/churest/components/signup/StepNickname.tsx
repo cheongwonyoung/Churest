@@ -4,36 +4,40 @@ import { images } from '@/public/assets/images';
 import { useState } from 'react';
 
 type Props = {
-  handlePickedAvatar(i: any): void;
+  getNickname(i: any): void;
   pickedAvatar: string;
   plusPage(): void;
+  nickname: string;
 };
 
 export default function StepNickname({
-  handlePickedAvatar,
+  getNickname,
   pickedAvatar,
   plusPage,
+  nickname,
 }: Props) {
   console.log('고른 아바타는');
   console.log(pickedAvatar);
 
   // 닉네임 입력
-  const [nickname, setName] = useState('');
-  const handleName = (e: any) => {
-    setName(e.target.value);
-    console.log('내 닉넴은 ' + nickname);
-  };
+  // const [nickname, setName] = useState('');
+  // const handleName = (e: any) => {
+  //   setName(e.target.value);
+  //   console.log('내 닉넴은 ' + nickname);
+  // };
 
   return (
     <>
-      <div className="">
-        <div className="center">
-          <Image src={images.avatar_1_img} alt="" width={300} height={400} />
+      <div>
+        <div className="center img">
+          <Image src={images[pickedAvatar]} alt="" width={180} height={280} />
         </div>
         <input
           placeholder="닉네임을 입력해주세요 (최대 6자)"
           className="inside-clay"
-          onChange={(e) => handleName(e)}
+          // onChange={(e) => handleName(e)}
+          value={nickname}
+          onChange={(e) => getNickname(e)}
         />
         <div className="center">
           {pickedAvatar && (
@@ -48,6 +52,7 @@ export default function StepNickname({
           outline: 0px;
           border: none;
           text-align: center;
+          margin: 50px;
         }
         input::placeholder {
           color: rgba(169, 162, 214, 1);
@@ -58,6 +63,17 @@ export default function StepNickname({
           outline: none;
           border-color: #ff97d3;
           box-shadow: inset 0 1px 4px #c7daff, 0 0 20px 2px #c7daff;
+        }
+        .img {
+          animation: flying 1s infinite alternate;
+        }
+        @keyframes flying {
+          0% {
+            transform: translate(0, 0);
+          }
+          100% {
+            transform: translate(0, 15px);
+          }
         }
       `}</style>
     </>

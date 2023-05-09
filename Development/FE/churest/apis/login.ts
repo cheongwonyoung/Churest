@@ -6,7 +6,8 @@ export const API_login = (code: any) => {
 
 export const signUp = (joinInfo: any, token: string) => {
   const config = {
-    headers: { access_token: token, 'Content-Type': 'application/json' },
+    headers: { 'X-AUTH-TOKEN': token },
   };
+
   return instance.post('/member/update', joinInfo, config);
 };

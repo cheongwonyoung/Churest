@@ -8,34 +8,32 @@ type Props = {
   pickedBird: string;
   plusPage(): void;
   signUpSubmit(): void;
+  getBirdname(i: any): void;
+  birdname: string;
 };
 
 export default function StepBirdname({
   handlePickedBird,
+  getBirdname,
   signUpSubmit,
   pickedBird,
+  birdname,
   plusPage,
 }: Props) {
   console.log('고른 새는');
   console.log(pickedBird);
 
-  // 닉네임 입력
-  const [birdname, setName] = useState('');
-  const handleName = (e: any) => {
-    setName(e.target.value);
-    console.log('내 닉넴은 ' + birdname);
-  };
-
   return (
     <>
       <div>
-        <div className="center">
-          <Image src={images.bird_1_img} alt="" width={300} height={400} />
+        <div className="center img">
+          <Image src={images[pickedBird]} alt="" width={280} height={270} />
         </div>
         <input
           placeholder="새의 이름을 입력해주세요 (최대 6자)"
           className=" inside-clay"
-          onChange={(e) => handleName(e)}
+          value={birdname}
+          onChange={(e) => getBirdname(e)}
         />
         <div className="center">
           {pickedBird && (
@@ -50,6 +48,7 @@ export default function StepBirdname({
           outline: 0px;
           border: none;
           text-align: center;
+          margin: 30px;
         }
         input::placeholder {
           color: rgba(169, 162, 214, 1);
@@ -60,6 +59,17 @@ export default function StepBirdname({
           outline: none;
           border-color: #ff97d3;
           box-shadow: inset 0 1px 4px #c7daff, 0 0 20px 2px #c7daff;
+        }
+        .img {
+          animation: flying 1s infinite alternate;
+        }
+        @keyframes flying {
+          0% {
+            transform: translate(0, 0);
+          }
+          100% {
+            transform: translate(0, 15px);
+          }
         }
       `}</style>
     </>

@@ -3,7 +3,6 @@ import ItemShop from '../components/churest/ItemShop';
 import NewBird from '../components/churest/NewBird';
 import MyBird from '../components/churest/MyBird';
 import MyPage from '../components/churest/MyPage';
-import ChureeCreate from '../components/churest/MemoryCreate';
 import ChureeView from '../components/churest/MemoryView';
 
 export default function churest() {
@@ -13,11 +12,10 @@ export default function churest() {
       <div className="page-center">
         <ChureeView></ChureeView>
       </div>
-      <ChureeCreate></ChureeCreate>
       <MyPage></MyPage>
       <MyBird></MyBird>
       <LetterBox></LetterBox>
-      <ItemShop></ItemShop>
+      {/* <ItemShop></ItemShop> */}
       <NewBird bird={1}></NewBird>
 
       <style jsx>{`

@@ -100,7 +100,7 @@ type GLTFResult = GLTF & {
 };
 
 export function LoginEarth(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF(glbs.login_earth_img) as GLTFResult;
+  const { nodes, materials } = useGLTF(glbs.login_earth_glb) as GLTFResult;
   const [angle, setAngle] = useState(0);
   useFrame(() => {
     setAngle((prev) => prev + 1);
@@ -748,4 +748,4 @@ export function LoginEarth(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/3Dglb/loginEarth.glb');
+useGLTF.preload(glbs.login_earth_glb);

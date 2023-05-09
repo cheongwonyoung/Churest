@@ -7,7 +7,7 @@ export default function memory() {
   return (
     <>
       <div>
-        <Image src={images} width={850} height={700}></Image>
+        <Image src={images} width={850} height={700} alt=""></Image>
         <div className=""></div>
       </div>
       <style jsx>{``}</style>
