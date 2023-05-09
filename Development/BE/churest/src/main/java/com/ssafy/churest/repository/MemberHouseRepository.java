@@ -7,4 +7,6 @@ public interface MemberHouseRepository extends JpaRepository<MemberHouse, Intege
     MemberHouse findByMember_MemberIdAndHouse_HouseId(int memberId, int houseId);
 
     MemberHouse findByMember_MemberIdAndIsUsedIsTrue(int memberId);
+
+    Boolean existsByMember_MemberId(int memberId);
 }

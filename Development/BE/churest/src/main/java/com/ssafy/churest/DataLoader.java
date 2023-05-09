@@ -142,6 +142,8 @@ public class DataLoader implements CommandLineRunner {
         List<MemberBirdHouse> memberBirdHouseList = new ArrayList<>();
 
         House defaultHouse = houseRepository.findById(1).get();
+        House defaultHouse2 = houseRepository.findById(2).get();
+
         BirdHouse defaultBirdHouse = birdHouseRepository.findById(1).get();
 
         Member member1 = Member.builder().email("cherry@naver.com").nickname("채리밤").coin(0).avatarId(1).build();
@@ -158,12 +160,11 @@ public class DataLoader implements CommandLineRunner {
         MemberBird memberBird5 = MemberBird.builder().bird(birdRepository.findById(2).get()).member(member5).nickname("리자몽").isUsed(true).build();
         MemberBird memberBird6 = MemberBird.builder().bird(birdRepository.findById(3).get()).member(member6).nickname("피닉스").isUsed(true).build();
 
-        MemberHouse memberHouse1 = MemberHouse.builder().house(defaultHouse).member(member1).build();
-        MemberHouse memberHouse2 = MemberHouse.builder().house(houseRepository.findById(2).get()).member(member1).build().updateIsUsed(true);
-        MemberHouse memberHouse3 = MemberHouse.builder().house(defaultHouse).member(member2).build().updateIsUsed(true);
+        MemberHouse memberHouse1 = MemberHouse.builder().house(defaultHouse).member(member1).build().updateIsUsed(true);
+        MemberHouse memberHouse3 = MemberHouse.builder().house(defaultHouse2).member(member2).build().updateIsUsed(true);
         MemberHouse memberHouse4 = MemberHouse.builder().house(defaultHouse).member(member3).build().updateIsUsed(true);
         MemberHouse memberHouse5 = MemberHouse.builder().house(defaultHouse).member(member4).build().updateIsUsed(true);
-        MemberHouse memberHouse6 = MemberHouse.builder().house(defaultHouse).member(member5).build().updateIsUsed(true);
+        MemberHouse memberHouse6 = MemberHouse.builder().house(defaultHouse2).member(member5).build().updateIsUsed(true);
         MemberHouse memberHouse7 = MemberHouse.builder().house(defaultHouse).member(member6).build().updateIsUsed(true);
 
         MemberBirdHouse memberBirdHouse1 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member1).build().updateIsUsed(true);
@@ -190,7 +191,6 @@ public class DataLoader implements CommandLineRunner {
         memberBirdList.add(memberBird6);
 
         memberHouseList.add(memberHouse1);
-        memberHouseList.add(memberHouse2);
         memberHouseList.add(memberHouse3);
         memberHouseList.add(memberHouse4);
         memberHouseList.add(memberHouse5);
