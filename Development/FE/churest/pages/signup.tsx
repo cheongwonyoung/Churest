@@ -94,32 +94,45 @@ export default function SignUpPage() {
     let joinInfo = {
       avatarId: Number(avatarId),
       birdId: Number(birdId),
-      nickname: nickname,
       birdNickname: birdname,
       memberId: memberId,
+      nickname: nickname,
     };
-    console.log(token);
-    goSignUp.mutate({ joinInfo, token: token });
+    goSignUp.mutate(joinInfo);
   };
 
   // const [userState, setUserState] = useRecoilState(userStatus);
 
-  const goSignUp = useMutation(
-    (inp: { joinInfo: any; token: string }) => signUp(inp.joinInfo, inp.token),
-    {
-      onSuccess(data) {
-        // setUserState({
-        //   ...userState,
-        //   id: data.data.memberId,
-        //   nickname: data.data.nickname,
-        //   profile_img: data.data.file,
-        // });
-        console.log('회원가입성공');
-        console.log(data.data);
-        router.push('/churest');
-      },
-    }
-  );
+  // const goSignUp = useMutation(
+  //   (inp: { joinInfo: any; token: string }) => signUp(inp.joinInfo, inp.token),
+  //   {
+  //     onSuccess(data) {
+  //       // setUserState({
+  //       //   ...userState,
+  //       //   id: data.data.memberId,
+  //       //   nickname: data.data.nickname,
+  //       //   profile_img: data.data.file,
+  //       // });
+  //       console.log('회원가입성공');
+  //       console.log(data.data);
+  //       router.push('/churest');
+  //     },
+  //   }
+  // );
+
+  const goSignUp = useMutation((joinInfo: any) => signUp(joinInfo), {
+    onSuccess(data) {
+      // setUserState({
+      //   ...userState,
+      //   id: data.data.memberId,
+      //   nickname: data.data.nickname,
+      //   profile_img: data.data.file,
+      // });
+      console.log('회원가입성공');
+      console.log(data.data);
+      router.push('/');
+    },
+  });
 
   return (
     <>
