@@ -17,6 +17,7 @@ export default function Chuworld() {
   useEffect(() => {
     refetch();
   }, []);
+
   // console.log(data!.data);
   // console.log(data);
   // useEffect(() => {
@@ -30,7 +31,8 @@ export default function Chuworld() {
       <ChuWorldNavbar />
       {/* <CloudMap /> */}
       {/* <ChuWorldItem /> */}
-      <ChuWorldList props={data!.data} />
+      {data && <ChuWorldList props={data!.data} />}
+
       <style jsx>
         {`
           .root {
