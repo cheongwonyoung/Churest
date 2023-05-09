@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
+
 type Props = {
   showedItem: string;
   handleItems(v: any): void;
