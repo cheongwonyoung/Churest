@@ -9,7 +9,7 @@ import {
   openTagAtom,
 } from '@/atoms/modal';
 
-export default function Navbar() {
+export default function ChuWorldNavbar() {
   const id = useRecoilValue(loginAtom).id;
   const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
   const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
@@ -18,10 +18,7 @@ export default function Navbar() {
 
   return (
     <div className="navbarContainer">
-      <Link href={'/churest/' + id} style={{ textDecoration: 'none' }}>
-        <NavbarButton image="garden_navbar_img" title="광장" />
-      </Link>
-
+      {/* 1. 알림함  */}
       <div
         onClick={() => {
           setIsAlarmOpen({ isModal: true });
@@ -29,7 +26,11 @@ export default function Navbar() {
       >
         <NavbarButton image="alarm_navbar_img" title="알림함" />
       </div>
-
+      {/* 2. 광장   */}
+      <Link href={'/churest/' + id} style={{ textDecoration: 'none' }}>
+        <NavbarButton image="garden_navbar_img" title="광장" />
+      </Link>
+      {/* 3. 친구 검색  */}
       <div
         onClick={() => {
           setIsSearchOpen({ isModal: true });
@@ -37,7 +38,7 @@ export default function Navbar() {
       >
         <NavbarButton image="search_navbar_img" title="친구 검색" />
       </div>
-
+      {/* 4. 태그 모아보기  */}
       <div
         onClick={() => {
           setIsTagOpen({ isModal: true });
@@ -45,11 +46,11 @@ export default function Navbar() {
       >
         <NavbarButton image="tag_navbar_img" title="태그 모아보기" />
       </div>
-
+      {/* 5. 마이 츄레스트  */}
       <Link href={'/churest/' + id} style={{ textDecoration: 'none' }}>
         <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
       </Link>
-
+      {/* 6. 마이페이지    */}
       <div
         onClick={() => {
           setIsMyPageOpen({ isModal: true });
@@ -57,10 +58,6 @@ export default function Navbar() {
       >
         <NavbarButton image="mypage_navbar_img" title="마이페이지" />
       </div>
-
-      <Link href={'/chuworld/' + id} style={{ textDecoration: 'none' }}>
-        <NavbarButton image="chuworld_navbar_img" title="다른 집 둘러보기" />
-      </Link>
 
       <style jsx>
         {`
