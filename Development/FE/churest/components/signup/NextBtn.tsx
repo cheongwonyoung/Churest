@@ -5,9 +5,19 @@ type Props = {
 
 export default function NextBtn({ comment, logic }: Props) {
   return (
-    <div onClick={logic} className="">
-      <p>{comment} 넥스트 버튼</p>
-      {/* {icon && <p className="">{icon}</p>} */}
-    </div>
+    <>
+      <div onClick={logic} className="green-btn center">
+        <p>NEXT</p>
+        {/* {icon && <p className="">{icon}</p>} */}
+      </div>
+      <style jsx>
+        {`
+          p {
+            font-family: 'MICEGothic Bold';
+            font-weight: 100px;
+          }
+        `}
+      </style>
+    </>
   );
 }
