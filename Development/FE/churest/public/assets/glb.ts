@@ -67,4 +67,6 @@ export const glbs: glbs = {
     'https://storage.googleapis.com/churest-bucket/project_3D/PlantNo.glb',
   churest_map_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/ChurestMap.glb',
+  error_404_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Error404.glb', 
 };

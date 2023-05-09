@@ -66,4 +66,8 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/sunny_img.png',
   memory_img:
     'https://storage.googleapis.com/churest-bucket/project_image/memory_img.png',
+  shop_navbar_img:
+  'https://storage.googleapis.com/churest-bucket/project_image/shop_navbar_img.png', 
+  coin_navbar_img:
+  'https://storage.googleapis.com/churest-bucket/project_image/coin_navbar_img.png',  
 };

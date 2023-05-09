@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
+import { glbs } from '@/public/assets/glb';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -94,7 +95,7 @@ type GLTFResult = GLTF & {
 };
 
 export function Error404(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/Error404.glb') as GLTFResult;
+  const { nodes, materials } = useGLTF(glbs.error_404_glb) as GLTFResult;
   return (
     <group {...props} dispose={null}>
       <group position={[0.02, 0.17, 0]} scale={2.86}>
@@ -537,14 +538,14 @@ export function Error404(props: JSX.IntrinsicElements['group']) {
       <mesh
         geometry={nodes.큐브.geometry}
         material={materials.매테리얼}
-        position={[-4, -1.85, 3.17]}
+        position={[2, -1.85, 3.17]}
         rotation={[0.14, 0, 0.01]}
         scale={[0.92, 2.02, 0.92]}
       />
       <mesh
         geometry={nodes.큐브001.geometry}
         material={materials.매테리얼}
-        position={[-4.43, -1.76, -5.49]}
+        position={[3, -1.76, -5.49]}
         rotation={[-0.07, -0.01, 0.15]}
         scale={[0.63, 1.39, 0.63]}
       />
@@ -552,4 +553,4 @@ export function Error404(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/Error404.glb');
+useGLTF.preload(glbs.error_404_glb);
