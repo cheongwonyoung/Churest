@@ -29,7 +29,7 @@ type Props = {
 };
 
 export function Char5({ isMoving, charState }: Props) {
-  const group = useRef<THREE.Group>();
+  const group = useRef<any>();
   const { nodes, materials, animations } = useGLTF(
     glbs.char_5_glb
   ) as GLTFResult;

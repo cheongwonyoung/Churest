@@ -28,7 +28,7 @@ type Props = {
   charState: string;
 };
 export function Char6({ isMoving, charState }: Props) {
-  const group = useRef<THREE.Group>();
+  const group = useRef<any>();
   const { nodes, materials, animations } = useGLTF(
     glbs.char_6_glb
   ) as GLTFResult;

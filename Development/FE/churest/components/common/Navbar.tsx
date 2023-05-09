@@ -1,19 +1,78 @@
 import { loginAtom } from '@/atoms/login';
 import Link from 'next/link';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import NavbarButton from './NavbarButton';
+import {
+  openAlarmAtom,
+  openMyPageAtom,
+  openSearchAtom,
+  openTagAtom,
+} from '@/atoms/modal';
+import Notice from '../navbar/Notice';
+import Tag from '../navbar/Tag';
+import MyPage from '../churest/MyPage';
+import SearchFriend from './SearchFriend';
 
 export default function Navbar() {
   const id = useRecoilValue(loginAtom).id;
+  const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
+  const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
+  const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
+  const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
 
   return (
     <div>
+      <Link href={'/garden/' + id} style={{ textDecoration: 'none' }}>
+        <NavbarButton image="garden_navbar_img" title="광장" />
+      </Link>
+
+      <div
+        onClick={() => {
+          setIsAlarmOpen({ isModal: true });
+        }}
+      >
+        <NavbarButton image="alarm_navbar_img" title="알림함" />
+      </div>
+
+      <div
+        onClick={() => {
+          setIsSearchOpen({ isModal: true });
+        }}
+      >
+        <NavbarButton image="search_navbar_img" title="친구 검색" />
+      </div>
+
+      <div
+        onClick={() => {
+          setIsTagOpen({ isModal: true });
+        }}
+      >
+        <NavbarButton image="tag_navbar_img" title="태그 모아보기" />
+      </div>
+
+      <Link href="/churest" style={{ textDecoration: 'none' }}>
+        <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
+      </Link>
+
+      <div
+        onClick={() => {
+          setIsMyPageOpen({ isModal: true });
+        }}
+      >
+        <NavbarButton image="mypage_navbar_img" title="마이페이지" />
+      </div>
+
+      <Link href="/chuworld" style={{ textDecoration: 'none' }}>
+        <NavbarButton image="chuworld_navbar_img" title="다른 집 둘러보기" />
+      </Link>
+
       <Link href={'/'}>홈</Link>
       <Link href={'/login'}>로그인</Link>
-      <Link href={'/garden/' + id}>정원</Link>
-      <Link href={'/churest'}>츄레스트</Link>
-      <Link href={'/memory'}> 추억생성하긔</Link>
       <Link href={'/signup'}> 회원가입</Link>
-      <Link href={'/chuworld'}>츄월드</Link>
+      {isAlarmOpen.isModal && <Notice memberId={id} />}
+      {isTagOpen.isModal && <Tag memberId={id} />}
+      {isSearchOpen.isModal && <SearchFriend />}
+      {isMyPageOpen.isModal && <MyPage />}
     </div>
   );
 }

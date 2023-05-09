@@ -4,8 +4,15 @@ import Carousel from '../common/Carousel';
 import { getMyInfo } from '@/apis/mypage';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-
+import ModalBlackBg from '../common/ModalBlackBg';
+import { openMyPageAtom } from '@/atoms/modal';
+import { useRecoilState } from 'recoil';
 export default function MyPage() {
+  const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
+  const closeModal = () => {
+    setIsMyPageOpen({ isModal: false });
+  };
+
   const cardType = 'mypage';
   const memberId = 1;
   // 나의 새 목록
@@ -27,26 +34,36 @@ export default function MyPage() {
 
   return (
     <>
-      <div className="blue-clay container">
-        <div>
-          <div className="inside-circle center">
-            <Image src={images["avatar_"+avatarId+"_img"]} alt="" width={100} height={150} />
+      <div className="gogo">
+        {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />}
+        <div className="blue-clay container">
+          <div>
+            <div className="inside-circle center">
+              <Image src={images.bird_1_img} alt="" width={100} height={100} />
+            </div>
+            <div className="center nickname">{nickname}</div>
           </div>
-          <div className="center nickname">{nickname}</div>
-        </div>
-        <div className="mine">
-          <Carousel cardType={cardType} info={treeList}></Carousel>
+          <div className="mine">
+            <Carousel cardType={cardType} info={treeList}></Carousel>
+          </div>
         </div>
       </div>
-
       <style jsx>
         {`
+          .gogo {
+            width: 100vw;
+            height: 100vh;
+          }
           .container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             place-items: center;
             width: 800px;
             height: 400px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: fixed;
+            z-index: 50;
           }
           .mine {
             display: grid;
