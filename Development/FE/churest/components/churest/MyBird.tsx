@@ -2,16 +2,17 @@ import Carousel from '../common/Carousel';
 import { getMyBirdsList } from '@/apis/mypage';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
 
 export default function MyBird() {
   const cardType = 'mybird';
-  const memberId: number = 1;
-
+  const memberId: number = useRecoilValue(loginAtom).id;
   // 나의 새 목록
   const [birdList, setMyBirds] = useState([{}]);
   useQuery('mybirds', () => getMyBirdsList(Number(memberId)), {
     onSuccess(data) {
-      console.log("나의 새에요")
+      console.log('나의 새에요');
       console.log(data.data);
       setMyBirds([...data.data]);
     },

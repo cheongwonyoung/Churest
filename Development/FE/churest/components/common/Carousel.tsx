@@ -38,9 +38,7 @@ const Carousel = ({ cardType, info }: Props) => {
               <SwiperSlide
                 key={idx}
                 className={
-                  cardType == 'mypage'
-                    ? 'gray-clay center'
-                    : 'inside-circle'
+                  cardType == 'mypage' ? 'gray-clay center' : 'inside-circle'
                 }
               >
                 {cardType == 'mypage' ? (
@@ -94,15 +92,15 @@ const Carousel = ({ cardType, info }: Props) => {
           .hide {
             display: none;
           }
-          .mypage-box{
+          .mypage-box {
             display: flex;
             flex-direction: column;
-            width: 300px;
-            height: 350px;
+            width: 250px;
+            height: 300px;
             justify-content: center;
             align-items: center;
           }
-          .text-content{
+          .text-content {
             margin-top: 25px;
             display: flex;
             flex-direction: column;
