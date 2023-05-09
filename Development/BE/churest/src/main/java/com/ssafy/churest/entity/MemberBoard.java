@@ -28,7 +28,6 @@ public class MemberBoard {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    private int locationX;
-
-    private int locationY;
+    //  0 ~ 224로 이루어진 나무 좌표
+    private int spot;
 }

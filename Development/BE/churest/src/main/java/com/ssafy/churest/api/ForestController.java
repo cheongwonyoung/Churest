@@ -58,17 +58,17 @@ public class ForestController {
     }
 
     //  해당 위치 추억 나무 생성 가능 여부 API
-    @ApiOperation(value = "해당 위치 추억 나무 생성 가능 여부", notes = "위치 좌표로 검색 \n" +
-            "해당 위치에 추억 나무 생성 시 위치 좌표 중심 ?까지 추억 나무 생성 불가")
-    @PostMapping("/{memberId}/checkLoc")
-    public ResponseEntity<?> checkTreeLocation(@ApiParam(value = "내 memberId", required = true) @PathVariable int memberId, @RequestBody BoardRequestDto.LocationInfo locationInfo){
-        try {
-            return new ResponseEntity<>(boardService.checkTreeLocation(memberId, locationInfo), HttpStatus.OK);
-        } catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @ApiOperation(value = "해당 위치 추억 나무 생성 가능 여부", notes = "위치 좌표로 검색 \n" +
+//            "해당 위치에 추억 나무 생성 시 위치 좌표 중심 ?까지 추억 나무 생성 불가")
+//    @PostMapping("/{memberId}/checkLoc")
+//    public ResponseEntity<?> checkTreeLocation(@ApiParam(value = "내 memberId", required = true) @PathVariable int memberId, @RequestBody BoardRequestDto.LocationInfo locationInfo){
+//        try {
+//            return new ResponseEntity<>(boardService.checkTreeLocation(memberId, locationInfo), HttpStatus.OK);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     //  추억 나무 생성 API
     @ApiOperation(value = "추억 나무 생성", notes = "이전에 해당 위치 추억 나무 생성 가능 확인했다는 전제 하에 진행")

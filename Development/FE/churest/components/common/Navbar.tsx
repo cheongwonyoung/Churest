@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <div className="navbarContainer">
-      <Link href={'/garden/' + id} style={{ textDecoration: 'none' }}>
+      <Link href={'/churest/' + id} style={{ textDecoration: 'none' }}>
         <NavbarButton image="garden_navbar_img" title="광장" />
       </Link>
 
@@ -62,10 +62,10 @@ export default function Navbar() {
         <NavbarButton image="chuworld_navbar_img" title="다른 집 둘러보기" />
       </Link>
 
-      <Link href={'/'}>홈</Link>
-      <Link href={'/login'}>로그인</Link>
-      <Link href={'/signup'}> 회원가입</Link>
-
+      {isAlarmOpen.isModal && <Notice memberId={id} />}
+      {isTagOpen.isModal && <Tag memberId={id} />}
+      {isSearchOpen.isModal && <SearchFriend />}
+      {isMyPageOpen.isModal && <MyPage />}
       <style jsx>
         {`
           .navbarContainer {

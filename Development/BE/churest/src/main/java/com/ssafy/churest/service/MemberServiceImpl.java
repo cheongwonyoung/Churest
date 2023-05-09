@@ -8,20 +8,22 @@ import com.ssafy.churest.dto.req.MemberRequestDto;
 import com.ssafy.churest.dto.resp.KakaoMemberResponseDto;
 import com.ssafy.churest.dto.resp.LoginResponseDto;
 import com.ssafy.churest.dto.resp.MemberResponseDto;
+import com.ssafy.churest.entity.House;
 import com.ssafy.churest.entity.Member;
 import com.ssafy.churest.entity.MemberBird;
-import com.ssafy.churest.repository.BirdRepository;
-import com.ssafy.churest.repository.MemberBirdRepository;
-import com.ssafy.churest.repository.MemberRepository;
+import com.ssafy.churest.entity.MemberHouse;
+import com.ssafy.churest.repository.*;
 import com.ssafy.churest.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationToken;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationResponse;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -39,12 +41,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements  MemberService{
+    private final MemberHouseRepository memberHouseRepository;
     private final BirdRepository birdRepository;
     private final MemberBirdRepository memberBirdRepository;
 
     private final InMemoryClientRegistrationRepository inMemoryRepository;
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
+
+    private final HouseRepository houseRepository;
 
     @Override
     public LoginResponseDto login(String code) throws JsonProcessingException {
@@ -55,15 +60,22 @@ public class MemberServiceImpl implements  MemberService{
         log.info("client_id = " + provider.getClientId());
         log.info("token_uri = " + provider.getProviderDetails().getTokenUri());
 
+
+
         JsonNode tokenResponse = getToken(code, provider);
 
         Member member = getMemberProfile(tokenResponse, provider);
 
-        String accessToken = jwtTokenProvider.createAccessToken(String.valueOf(member.getMemberId()));
-        String refreshToken = jwtTokenProvider.createRefreshToken();
+        String accessToken = jwtTokenProvider.createToken(member.getEmail(), "access");
+        String refreshToken = jwtTokenProvider.createToken(member.getEmail(), "refresh");
 
         member.updateToken(refreshToken);
         memberRepository.save(member);
+
+        House defaultHouse = houseRepository.findById(1).get();
+        memberHouseRepository.save(MemberHouse.builder().house(defaultHouse).member(member).build().updateIsUsed(true));
+        memberBirdRepository.save(MemberBird.builder().member(member).bird(null).nickname("").build());
+
         return LoginResponseDto.builder()
                 .memberId(member.getMemberId())
                 .email(member.getEmail())
@@ -78,7 +90,6 @@ public class MemberServiceImpl implements  MemberService{
 
     @Override
     public JsonNode getToken(String code, ClientRegistration provider) throws JsonProcessingException {
-
         return WebClient.create()
                 .post()
                 .uri(provider.getProviderDetails().getTokenUri())
@@ -135,7 +146,7 @@ public class MemberServiceImpl implements  MemberService{
     @Override
     public MemberResponseDto.MemberInfo join(MemberRequestDto.Join joinInfo) {
 
-        Member member = memberRepository.findByEmail(joinInfo.getEmail());
+        Member member = memberRepository.findByMemberId(joinInfo.getMemberId());
 
         // memberBird 저장
         MemberBird memberBird = new MemberBird(member, birdRepository.findById(joinInfo.getBirdId()).get(),joinInfo.getBirdNickname(),true);
@@ -147,6 +158,28 @@ public class MemberServiceImpl implements  MemberService{
         MemberResponseDto.MemberInfo memberInfo = MemberResponseDto.MemberInfo.fromEntity(memberRepository.save(member));
 
         return memberInfo;
+    }
+
+    @Override
+    public String token(String refreshToken) {
+//        access token 재발급
+//                - refresh token 받기
+//        - 유효한지 확인
+//                - 유효하지 않다면 401 반환 ( 재로그인 필요 )
+//                - 유효하다면 db에 있는 값과 같은지 확인하고 같으면 access token 생성 후 발급
+
+        Member member = memberRepository.findByToken(refreshToken);
+        // 프론트가 보낸 refreshtoken이 db에 존재한다면
+        if(member != null){
+            // 프론트가 보낸 refreshtoken이 유효하다면
+            if(jwtTokenProvider.validateToken(refreshToken)){
+                // access token 재발급
+                return jwtTokenProvider.createToken(member.getEmail(), "access");
+            }
+
+        }
+        new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        return null;
     }
 
 
