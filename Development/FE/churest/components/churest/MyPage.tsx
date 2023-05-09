@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import ModalBlackBg from '../common/ModalBlackBg';
 import { openMyPageAtom } from '@/atoms/modal';
 import { useRecoilState } from 'recoil';
+import {BsPencil} from 'react-icons/bs';
 export default function MyPage() {
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
   const closeModal = () => {
@@ -46,7 +47,10 @@ export default function MyPage() {
                 height={120}
               />
             </div>
-            <div className="center nickname">{nickname}</div>
+            <div className="nickname-box">
+              <div className="center nickname">{nickname}</div>
+              <div className='pencil-icon'><BsPencil/></div>
+            </div>
           </div>
           <div className="mine">
             <Carousel cardType={cardType} info={treeList}></Carousel>
@@ -79,6 +83,17 @@ export default function MyPage() {
           .nickname {
             line-height: 50px;
             font-size: 20px;
+          }
+          .nickname-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem
+          }
+          .pencil-icon:hover{
+            transform:scale(1.3);
+            transition: transform .5s;
+            cursor: pointer;
           }
         `}
       </style>
