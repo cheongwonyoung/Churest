@@ -50,7 +50,7 @@ export default function Navbar() {
         <NavbarButton image="tag_navbar_img" title="태그 모아보기" />
       </div>
 
-      <Link href="/churest" style={{ textDecoration: 'none' }}>
+      <Link href={'/churest/' + id} style={{ textDecoration: 'none' }}>
         <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
       </Link>
 
