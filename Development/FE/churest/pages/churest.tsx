@@ -4,14 +4,14 @@ import NewBird from '../components/churest/NewBird';
 import MyBird from '../components/churest/MyBird';
 import MyPage from '../components/churest/MyPage';
 
-export default function churest() {
+export default function Churest() {
   return (
     <>
       <div className="">안녕하떼용 여기는 마이 츄레스트입니다</div>
       <MyPage></MyPage>
       <MyBird></MyBird>
       <LetterBox></LetterBox>
-      <ItemShop></ItemShop>
+      {/* <ItemShop></ItemShop> */}
       <NewBird bird={1}></NewBird>
 
       <style jsx>{``}</style>
