@@ -61,7 +61,6 @@ export default function Navbar() {
       <Link href={'/chuworld/' + id} style={{ textDecoration: 'none' }}>
         <NavbarButton image="chuworld_navbar_img" title="다른 집 둘러보기" />
       </Link>
-
       <style jsx>
         {`
           .navbarContainer {

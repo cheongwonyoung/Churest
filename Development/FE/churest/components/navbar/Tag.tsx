@@ -40,7 +40,13 @@ export default function Tag({ memberId }: Props) {
       <div className="blue-clay modal-container">
         <div className="modal-title">태그 모아보기</div>
         <div className="mine center">
-          <Carousel cardType={cardType} info={tagList}></Carousel>
+          {tagList.length == 0 ? (
+            <div style={{ color: 'gray' }}>태그된 추억이 아직 없습니다.</div>
+          ) : (
+            <div>
+              <Carousel cardType={cardType} info={tagList}></Carousel>
+            </div>
+          )}
         </div>
         <button className="green-btn" onClick={clickTakeTree}>
           퍼가기
@@ -51,7 +57,6 @@ export default function Tag({ memberId }: Props) {
           .mine {
             width: 200px;
             height: 320px;
-            // padding: 10px 0 10px 0;
           }
           .tree-img {
             margin: 0 auto;

@@ -10,7 +10,7 @@ export default function churest() {
     <>
       <div className="">안녕하떼용 여기는 마이 츄레스트입니다</div>
       <div className="page-center">
-        <ChureeView></ChureeView>
+        <ChureeView boardId={1}></ChureeView>
       </div>
       <MyPage></MyPage>
       <MyBird></MyBird>

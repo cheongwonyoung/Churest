@@ -3,19 +3,32 @@ import { images } from '@/public/assets/images';
 import { getMyChurest } from '@/apis/churest';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
 
-export default function MemoryView() {
-  let memberId = 1;
-  let boardId = 1;
+type Props = {
+  boardId: number;
+};
+export default function MemoryView({ boardId }: Props) {
+  let memberId = useRecoilValue(loginAtom).id;
 
-  type Tree = {title:string,content:string,createdTime:string,fileList:any,reward:boolean,treeInfo:any,weather:string,tagged:boolean};
+  // type Tree = {
+  //   title: string;
+  //   content: string;
+  //   createdTime: string;
+  //   fileList: any;
+  //   reward: boolean;
+  //   treeInfo: any;
+  //   weather: string;
+  //   tagged: boolean;
+  // };
 
   const [tree, setTree] = useState<any>([]);
   const [tagList, setTagList] = useState<any>([]);
-  // const {data} =  
+  // const {data} =
   useQuery('myTree', () => getMyChurest(Number(memberId), Number(boardId)), {
     onSuccess(data) {
-      console.log('책 열기 성공');
+      console.log(boardId + '번 책 열기 성공');
       // console.log(data?.data);
       setTree(data?.data);
       setTagList(data?.data.tagList);
@@ -25,7 +38,7 @@ export default function MemoryView() {
 
   // const TagList = data?.data.tagList;
 
-  const tagItems = tagList.map((item:any, idx:number) => {
+  const tagItems = tagList.map((item: any, idx: number) => {
     return (
       <>
         <Image
