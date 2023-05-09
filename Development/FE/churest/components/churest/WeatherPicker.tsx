@@ -5,18 +5,18 @@ import { FiChevronDown } from 'react-icons/fi';
 
 type Props = {
   handleWeather(x: '맑음' | '흐림' | '비' | '안개' | '눈' | '천둥번개'): void;
-  pickedWeather: '맑음' | '흐림' | '비' | '안개' | '눈' | '천둥번개';
+  weather: '맑음' | '흐림' | '비' | '안개' | '눈' | '천둥번개';
 };
 
-export default function WeatherPicker({ pickedWeather, handleWeather }: Props) {
+export default function WeatherPicker({ weather, handleWeather }: Props) {
   const [isSelect, setIsSelect] = useState(false);
 
   return (
     <div className="weatherContaier">
       <div className="picked" onClick={() => setIsSelect((prev) => !prev)}>
         <div className="imgName">
-          <Image src={weathers[pickedWeather]} width={30} height={30} alt="" />
-          <p>{pickedWeather}</p>
+          <Image src={weathers[weather]} width={30} height={30} alt="" />
+          <p>{weather}</p>
         </div>
 
         <FiChevronDown />
@@ -42,6 +42,9 @@ export default function WeatherPicker({ pickedWeather, handleWeather }: Props) {
       )}
       <style jsx>
         {`
+          p {
+            font-weight: 700;
+          }
           .weatherContaier {
             width: 100%;
             height: 100%;
@@ -50,10 +53,10 @@ export default function WeatherPicker({ pickedWeather, handleWeather }: Props) {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: white;
-            border: 0.5px black solid;
+            background-color: transparent;
             border-radius: 10px;
             padding: 3px;
+            box-shadow: inset 4px 4px 20px -3px rgba(0, 0, 0, 0.1);
           }
           .imgName {
             display: flex;
@@ -71,16 +74,17 @@ export default function WeatherPicker({ pickedWeather, handleWeather }: Props) {
             border-radius: 0 0 10px 10px;
           }
           .imgName:hover {
-            background-color: rgb(141, 247, 255);
+            background-color: #cab392;
           }
           .pickList {
             margin-top: 4px;
             background-color: white;
-            border: 0.5px black solid;
             border-radius: 10px;
             position: absolute;
             padding: 3px;
             width: 152.797px;
+            box-shadow: inset 4px 4px 20px -3px rgba(0, 0, 0, 0.1);
+            background-color: #fef7ed;
           }
         `}
       </style>
