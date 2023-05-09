@@ -8,6 +8,18 @@ import { PostBox } from '../3DFiles/PostBox';
 import { BirdHouse3 } from '../3DFiles/BirdHouse/BirdHouse3';
 import { ChurestMap } from '../3DFiles/ChurestMap';
 import { House1 } from '../3DFiles/House/House_1';
+import { Tree3 } from '../3DFiles/Trees/Tree3';
+import { Tree1 } from '../3DFiles/Trees/Tree1';
+import { Seed } from '../3DFiles/Trees/Seed';
+import { Tree4 } from '../3DFiles/Trees/Tree4';
+import { Tree5 } from '../3DFiles/Trees/Tree5';
+import { Tree6 } from '../3DFiles/Trees/Tree6';
+import { Tree2 } from '../3DFiles/Trees/Tree2';
+import { Tree7 } from '../3DFiles/Trees/Tree7';
+import { Tree8 } from '../3DFiles/Trees/Tree8';
+import { Tree9 } from '../3DFiles/Trees/Tree9';
+import { Sprout } from '../3DFiles/Trees/Sprout';
+import { Branch } from '../3DFiles/Trees/Branch';
 
 export const Controls = {
   forward: 'forward',
