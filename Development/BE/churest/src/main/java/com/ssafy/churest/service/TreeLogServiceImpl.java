@@ -43,7 +43,7 @@ public class TreeLogServiceImpl implements TreeLogService {
             return treeLogRepository.save(recentTreeLog).getScore();
         }
         else {
-            return treeLogRepository.save(TreeLog.builder().score(recentTreeLog.getScore() + 1).build()).getScore();
+            return treeLogRepository.save(TreeLog.builder().board(recentTreeLog.getBoard()).score(recentTreeLog.getScore() + 1).build()).getScore();
         }
 
     }
@@ -67,7 +67,7 @@ public class TreeLogServiceImpl implements TreeLogService {
         if(recentTreeLog.getDate().equals(LocalDate.now()))
             return TreeLogResponseDto.RecentTreeLogInfo.builder().treeLogInfo(TreeLogResponseDto.TreeLogInfo.fromEntity(treeLogRepository.save(recentTreeLog))).isReward(isReward).build();
         else
-            return TreeLogResponseDto.RecentTreeLogInfo.builder().treeLogInfo(TreeLogResponseDto.TreeLogInfo.fromEntity(treeLogRepository.save(TreeLog.builder().score(recentTreeLog.getScore()).build()))).isReward(isReward).build();
+            return TreeLogResponseDto.RecentTreeLogInfo.builder().treeLogInfo(TreeLogResponseDto.TreeLogInfo.fromEntity(treeLogRepository.save(TreeLog.builder().board(recentTreeLog.getBoard()).score(recentTreeLog.getScore()).build()))).isReward(isReward).build();
 
     }
 }

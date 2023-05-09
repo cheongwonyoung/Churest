@@ -51,7 +51,7 @@ export function Char6({ isMoving, charState }: Props) {
     }
   }, [isMoving, charState]);
   return (
-    <group ref={group} dispose={null}>
+    <group ref={group} dispose={null} castShadow receiveShadow>
       <group name="Scene">
         <group name="metarig">
           <group
@@ -373,6 +373,7 @@ export function Char6({ isMoving, charState }: Props) {
             geometry={nodes.f_8.geometry}
             material={materials.characters}
             skeleton={nodes.f_8.skeleton}
+            castShadow
           />
         </group>
       </group>

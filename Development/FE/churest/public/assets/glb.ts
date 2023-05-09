@@ -67,4 +67,18 @@ export const glbs: glbs = {
     'https://storage.googleapis.com/churest-bucket/project_3D/PlantNo.glb',
   churest_map_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/ChurestMap.glb',
+  mountain_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Mountain.glb',
+  rock_1_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Rock1.glb',
+  rock_2_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Rock2.glb',
+  rock_3_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Rock3.glb',
+  rock_4_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Rock4.glb',
+  rock_5_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Rock5.glb',
+  error_404_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Error404.glb', 
 };

@@ -47,14 +47,13 @@ export default function Notice({ memberId }: Props) {
 
   return (
     <>
-      <div className="gogo">
-        {isAlarmOpen.isModal && <ModalBlackBg closeModal={closeModal} />}
-        <div className="blue-clay container">
-          <div className="title">알림함</div>
-
+      <div>
+        {/* {isAlarmOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
+        <div className="blue-clay modal-container">
+          <div className="modal-title">알림함</div>
           {/* noticeList.map((notice)=>(어쩌저쩌)) */}
 
-          <div className="notice">
+          <div className="notice-item">
             <div className="image">
               <div className="notice-profile center">
                 <Image
@@ -62,19 +61,19 @@ export default function Notice({ memberId }: Props) {
                   // src={images['avatar_' + avatarId + '_img']}
                   alt=""
                   width={50}
-                  height={50}
+                  height={75}
                 />
               </div>
             </div>
-            <div className="content">
-              <div className="c-content">
+            <div className="item">
+              <div className="notice-content">
                 {type == 'tagged' ? (
                   <p>님이 추억에 회원님을 태그했습니다.</p>
                 ) : (
                   <p>추억이 나무로 성장했습니다.</p>
                 )}
               </div>
-              <div className="c-date">
+              <div className="item-date">
                 2023.05.04
                 {/* {moment(item.createdTime).format('YYYY년 MM월 DD일')} */}
               </div>
@@ -85,22 +84,6 @@ export default function Notice({ memberId }: Props) {
 
       <style jsx>
         {`
-          .gogo {
-            width: 100vw;
-            height: 100vh;
-          }
-          .container {
-            width: 500px;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            overflow-y: auto;
-            position: fixed;
-            z-index: 50;
-          }
           .background {
             position: absolute;
             opacity: 25;
@@ -113,38 +96,37 @@ export default function Notice({ memberId }: Props) {
             width: 20%;
             padding: 5% 0;
           }
+          .notice-item {
+            width: 520px;
+            background: linear-gradient(
+                317.7deg,
+                rgba(228, 228, 228, 0.104) 0%,
+                rgba(255, 255, 255, 0.4) 105.18%
+              ),
+              #f7faff;
+            background-blend-mode: soft-light, normal;
+            box-shadow: -5px -5px 10px #fafbff,
+              5px 5px 10px rgba(166, 171, 189, 0.29);
+            border-radius: 10px;
+          }
           .notice-profile {
             width: 80px;
             height: 80px;
             border-radius: 100px;
-            background: rgba(243, 247, 255, 0.62);
-            // box-shadow: inset -5px -2px 4px #ffffff,
-            //   inset 3px 3px 10px #bac3df;
+            // background: rgba(243, 247, 255, 0.62);
+            // box-shadow: inset -5px -2px 4px #ffffff, inset 3px 3px 10px #bac3df;
             margin-left: 15%;
           }
-          .notice {
-            background: #f0f0f3;
-            box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.4),
-              5px 5px 10px rgba(174, 174, 192, 0.2),
-              inset -2px -2px 4px rgba(0, 0, 0, 0.1), inset 2px 2px 4px #ffffff;
-            border-radius: 40px;
-            margin: 0 5%;
-          }
-          .title {
-            line-height: 50px;
-            font-size: 35px;
-            font-weight: bold;
-            margin-bottom: 25px;
-          }
-          .content {
+
+          .item {
             float: right;
             width: 65%;
             padding: 5%;
           }
-          .c-content {
-            font-weight: 600;
+          .notice-content {
+            font-weight: 500;
           }
-          .c-date {
+          .item-date {
             margin-top: 10px;
             font-weight: medium;
             color: #c0c0c0;

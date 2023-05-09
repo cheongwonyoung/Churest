@@ -2,8 +2,15 @@ import { searchFriend } from '@/apis/navbar';
 import { useState, useEffect } from 'react';
 import { useMutation } from 'react-query';
 import ModalBlackBg from './ModalBlackBg';
+import SearchResult from './SearchResult';
 import { useRecoilState } from 'recoil';
 import { openSearchAtom } from '@/atoms/modal';
+
+interface ResultType {
+  memberId: number;
+  avatarId: number;
+  nickname: string;
+}
 
 export default function SearchFriend() {
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
@@ -17,13 +24,7 @@ export default function SearchFriend() {
     setNickname(e.target.value);
   };
 
-  const [searchList, setSearchList] = useState<
-    {
-      memberId: number;
-      avatarId: number;
-      nickname: string;
-    }[]
-  >([]);
+  const [searchList, setSearchList] = useState<ResultType[]>([]);
 
   const goSearchFriends = useMutation(
     (search: { memberId: number; nickname: string }) =>
@@ -47,21 +48,58 @@ export default function SearchFriend() {
 
   return (
     <>
-      <div className="gogo">
-        {isSearchOpen && <ModalBlackBg closeModal={closeModal} />}
-        <div className="blue-clay container">
+      <div>
+        {/* {isSearchOpen && <ModalBlackBg closeModal={closeModal} />} */}
+        <div className="blue-clay modal-container ">
+          <div className="modal-title">친구 검색</div>
           <input
-            type="text"
-            placeholder="닉네임을 검색해주세요"
+            placeholder="닉네임을 입력해주세요"
+            className="inside-clay"
+            value={nickname}
             onChange={(e) => handleSearch(e)}
           />
+          <div className="bottom overflow-y-scroll scroll-bar">
+            <div className="result-item">
+              {searchList.length == 0 ? (
+                // <div>아무것도없다</div>
+                <p style={{ color: 'gray' }}>해당 유저를 찾을 수 없습니다.</p>
+              ) : searchActive == false ? (
+                <p>빈칸</p>
+              ) : (
+                <SearchResult list={searchList}></SearchResult>
+              )}
+            </div>
+          </div>
         </div>
       </div>
       <style jsx>
         {`
-          .gogo {
-            width: 100vw;
-            height: 100vh;
+          .bottom {
+            width: 80%;
+            height: 50%;
+            margin-top: 30px;
+            overflow-x: hidden;
+            overflow-y: auto;
+          }
+
+          .result-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+
+          input {
+            width: 500px;
+            height: 40px;
+            outline: 0px;
+            border: none;
+            text-align: center;
+          }
+          input::placeholder {
+            color: rgba(169, 162, 214, 1);
+            font-size: 16px;
+            line-height: 40px;
           }
           .container {
             width: 400px;
@@ -71,9 +109,29 @@ export default function SearchFriend() {
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            overflow-y: auto;
-            position: fixed;
+            // overflow-y: auto;
+            // position: fixed;
             z-index: 50;
+          }
+
+          /* 스크롤바 설정*/
+          .scroll-bar::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          /* 스크롤바 막대 설정*/
+          .scroll-bar::-webkit-scrollbar-thumb {
+            background: linear-gradient(
+              #fcf7ea,
+              rgba(198, 255, 124, 0.473),
+              #fcf7ea
+            );
+            border-radius: 25px;
+          }
+
+          /* 스크롤바 뒷 배경 설정*/
+          .scroll-bar::-webkit-scrollbar-track {
+            background-color: #b1b1b11f;
           }
         `}
       </style>

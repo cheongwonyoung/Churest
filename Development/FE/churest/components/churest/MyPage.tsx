@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import ModalBlackBg from '../common/ModalBlackBg';
 import { openMyPageAtom } from '@/atoms/modal';
 import { useRecoilState } from 'recoil';
+import {BsPencil} from 'react-icons/bs';
 export default function MyPage() {
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
   const closeModal = () => {
@@ -34,49 +35,92 @@ export default function MyPage() {
 
   return (
     <>
-      <div className="gogo">
-        {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />}
-        <div className="blue-clay container">
-          <div>
-            <div className="inside-circle center">
-              <Image src={images.bird_1_img} alt="" width={100} height={100} />
+      <div>
+        {/* {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
+        <div className="blue-clay mypage-container">
+          <div className="mypage-title">My Page</div>
+          <div className="mypage-content-box">
+            <div className="avatar-box">
+              {/* <div className="inside-circle center"> */}
+              <div className="center">
+                <Image
+                  src={images['avatar_' + avatarId + '_img']}
+                  alt=""
+                  width={120}
+                  height={180}
+                />
+              </div>
+              <div className="nickname-box">
+                <div className="center nickname">{nickname}</div>
+                <div className='pencil-icon'>정보 수정하기 <BsPencil/></div>
+              </div>
             </div>
-            <div className="center nickname">{nickname}</div>
-          </div>
-          <div className="mine">
-            <Carousel cardType={cardType} info={treeList}></Carousel>
+            <div className="mine">
+              <div className="memory-title">추억 모아보기</div>
+              <Carousel cardType={cardType} info={treeList}></Carousel>
+            </div>
           </div>
         </div>
       </div>
       <style jsx>
         {`
-          .gogo {
-            width: 100vw;
-            height: 100vh;
-          }
-          .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            place-items: center;
-            width: 800px;
-            height: 400px;
+          .mypage-container {
+            width: 750px;
+            height: 540px;
             overflow-x: hidden;
             overflow-y: auto;
-            position: fixed;
             z-index: 50;
           }
           .mine {
-            display: grid;
-            place-items: center;
-            width: 300px;
-            height: 320px;
-            padding: 10px 0 10px 0;
+            justify-content: center;
+            align-items: center;
           }
           .tree-img {
             margin: 0 auto;
           }
           .nickname {
             line-height: 50px;
+            font-size: 25px;
+            font-weight: bold;
+          }
+          .nickname-box{
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 40px;
+          }
+          .pencil-icon{
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+          }
+          .pencil-icon:hover{
+            transform:scale(1.1);
+            transition: transform .5s;
+            cursor: pointer;
+          }
+          .memory-title{
+            text-align: center;
+            line-height: 60px;
+            font-size: 20px;
+            font-weight: bold;
+          }
+          .mypage-title{
+            text-align: center;
+            line-height: 70px;
+            font-size: 30px;
+            font-weight: bold;
+          }
+          .mypage-content-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+          }
+          .avatar-box{
+            margin-top: 40px;
           }
         `}
       </style>

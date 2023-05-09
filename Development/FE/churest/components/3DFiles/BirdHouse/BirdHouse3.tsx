@@ -37,25 +37,21 @@ export function BirdHouse3(props: JSX.IntrinsicElements['group']) {
           geometry={nodes.큐브008.geometry}
           material={materials['매테리얼.001']}
           castShadow
-          receiveShadow
         />
         <mesh
           geometry={nodes.큐브008_1.geometry}
           material={materials['매테리얼.002']}
           castShadow
-          receiveShadow
         />
         <mesh
           geometry={nodes.큐브008_2.geometry}
           material={materials['매테리얼.003']}
           castShadow
-          receiveShadow
         />
         <mesh
           geometry={nodes.큐브008_3.geometry}
           material={materials['매테리얼.006']}
           castShadow
-          receiveShadow
         />
       </group>
     </group>

@@ -5,7 +5,7 @@ import { BiImageAdd } from 'react-icons/bi';
 
 type Props = {
   addFiles(x: File[]): void;
-  files: File[];
+  files: any[];
   deleteImage(f: File): void;
 };
 
@@ -109,6 +109,7 @@ export default function ImgUploader({ addFiles, files, deleteImage }: Props) {
           }
           .smallImgBox {
             display: flex;
+            width: 106px;
             flex-direction: column;
             align-items: center;
             justify-content: center;

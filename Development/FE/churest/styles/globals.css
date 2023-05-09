@@ -3,6 +3,14 @@
   font-family: 'MICEGothic';
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 @font-face {
   font-family: 'MICEGothic Bold';
   src: url('../public/assets/MICEGothic Bold.woff') format('woff');
@@ -16,6 +24,27 @@
   font-style: normal;
 }
 
+.gogo {
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal-container {
+  width: 700px;
+  height: 540px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 50;
+}
+.modal-title {
+  font-size: 35px;
+  font-weight: bold;
+  margin: 40px;
+}
 .blue-clay {
   padding: 3%;
   background: #ffffff;

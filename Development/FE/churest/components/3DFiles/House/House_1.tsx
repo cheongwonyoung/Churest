@@ -30,9 +30,11 @@ export function House1(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes.평면004.geometry}
           material={materials['매테리얼.002']}
+          castShadow
         />
         <mesh
           geometry={nodes.평면004_1.geometry}
+          castShadow
           material={materials['Dark Wood']}
         />
         <mesh geometry={nodes.평면004_2.geometry} material={materials.HI} />
