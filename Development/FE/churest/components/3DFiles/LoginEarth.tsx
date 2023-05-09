@@ -8,6 +8,7 @@ import React, { useRef, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { useFrame } from '@react-three/fiber';
+import { glbs } from '@/public/assets/glb';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -99,7 +100,7 @@ type GLTFResult = GLTF & {
 };
 
 export function LoginEarth(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/3Dglb/loginEarth.glb') as GLTFResult;
+  const { nodes, materials } = useGLTF(glbs.login_earth_glb) as GLTFResult;
   const [angle, setAngle] = useState(0);
   useFrame(() => {
     setAngle((prev) => prev + 1);
@@ -747,4 +748,4 @@ export function LoginEarth(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/3Dglb/loginEarth.glb');
+useGLTF.preload(glbs.login_earth_glb);

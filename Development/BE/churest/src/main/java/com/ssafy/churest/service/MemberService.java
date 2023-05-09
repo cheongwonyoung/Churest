@@ -30,4 +30,5 @@ import java.util.Map;
 
     MemberResponseDto.MemberInfo join(MemberRequestDto.Join joinInfo);
 
-}
+        String token(String refreshToken);
+    }
