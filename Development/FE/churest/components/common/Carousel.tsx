@@ -44,29 +44,28 @@ const Carousel = ({ cardType, info }: Props) => {
                 }
               >
                 {cardType == 'mypage' ? (
-                  <div className="">
+                  <div>
                     <Image
                       src={images.my_tree_img}
                       alt=""
                       width={150}
                       height={150}
                     />
-                    <p>{item.title}</p>
+                    <p className="title">{item.title}</p>
                     <p className="date center">
                       {moment(item.createdTime).format('YYYY년 MM월 DD일')}
                     </p>
                   </div>
                 ) : (
-                  <div style={{ margin: '0 auto', height:"200px"}}>
+                  <div style={{ margin: '0 auto', height: '200px' }}>
                     <div>
-
-                    <Image
-                      src={images["bird_"+item.memberBirdId+"_img"]}
-                      alt=""
-                      layout="fill"
-                      object-fit
+                      <Image
+                        src={images['bird_' + item.memberBirdId + '_img']}
+                        alt=""
+                        layout="fill"
+                        object-fit
                       />
-                      </div>
+                    </div>
                     <p>{item.nickname}</p>
                   </div>
                 )}
@@ -85,8 +84,12 @@ const Carousel = ({ cardType, info }: Props) => {
             text-align: center;
             line-height: 50px;
           }
+          .title {
+            font-size: 18px;
+          }
           .date {
             margin-bottom: 50px;
+            color: gray;
           }
           .hide {
             display: none;

@@ -8,10 +8,6 @@ import {
   openSearchAtom,
   openTagAtom,
 } from '@/atoms/modal';
-import Notice from '../navbar/Notice';
-import Tag from '../navbar/Tag';
-import MyPage from '../churest/MyPage';
-import SearchFriend from './SearchFriend';
 
 export default function Navbar() {
   const id = useRecoilValue(loginAtom).id;
@@ -69,10 +65,7 @@ export default function Navbar() {
       <Link href={'/'}>홈</Link>
       <Link href={'/login'}>로그인</Link>
       <Link href={'/signup'}> 회원가입</Link>
-      {isAlarmOpen.isModal && <Notice memberId={id} />}
-      {isTagOpen.isModal && <Tag memberId={id} />}
-      {isSearchOpen.isModal && <SearchFriend />}
-      {isMyPageOpen.isModal && <MyPage />}
+
       <style jsx>
         {`
           .navbarContainer {
