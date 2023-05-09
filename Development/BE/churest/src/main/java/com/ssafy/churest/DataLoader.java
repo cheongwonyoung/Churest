@@ -160,7 +160,6 @@ public class DataLoader implements CommandLineRunner {
         MemberBird memberBird6 = MemberBird.builder().bird(birdRepository.findById(3).get()).member(member6).nickname("피닉스").isUsed(true).build();
 
         MemberHouse memberHouse1 = MemberHouse.builder().house(defaultHouse).member(member1).build().updateIsUsed(true);
-        MemberHouse memberHouse2 = MemberHouse.builder().house(houseRepository.findById(2).get()).member(member1).build().updateIsUsed(true);
         MemberHouse memberHouse3 = MemberHouse.builder().house(defaultHouse2).member(member2).build().updateIsUsed(true);
         MemberHouse memberHouse4 = MemberHouse.builder().house(defaultHouse).member(member3).build().updateIsUsed(true);
         MemberHouse memberHouse5 = MemberHouse.builder().house(defaultHouse).member(member4).build().updateIsUsed(true);
@@ -191,7 +190,6 @@ public class DataLoader implements CommandLineRunner {
         memberBirdList.add(memberBird6);
 
         memberHouseList.add(memberHouse1);
-        memberHouseList.add(memberHouse2);
         memberHouseList.add(memberHouse3);
         memberHouseList.add(memberHouse4);
         memberHouseList.add(memberHouse5);
