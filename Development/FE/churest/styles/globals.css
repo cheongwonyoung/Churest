@@ -3,6 +3,14 @@
   font-family: 'MICEGothic';
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; 
+  overflow: hidden; 
+}
+
+
 @font-face {
   font-family: 'MICEGothic Bold';
   src: url('../public/assets/MICEGothic Bold.woff') format('woff');

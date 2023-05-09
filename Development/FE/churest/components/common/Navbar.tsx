@@ -21,7 +21,7 @@ export default function Navbar() {
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
 
   return (
-    <div>
+    <div className="navbarContainer">
       <Link href={'/garden/' + id} style={{ textDecoration: 'none' }}>
         <NavbarButton image="garden_navbar_img" title="광장" />
       </Link>
@@ -73,6 +73,15 @@ export default function Navbar() {
       {isTagOpen.isModal && <Tag memberId={id} />}
       {isSearchOpen.isModal && <SearchFriend />}
       {isMyPageOpen.isModal && <MyPage />}
+      <style jsx>
+        {`
+          .navbarContainer {
+            z-index: 100;
+            position: absolute;
+            right: 0;
+          }
+        `}
+      </style>
     </div>
   );
 }
