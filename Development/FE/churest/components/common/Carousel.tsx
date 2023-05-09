@@ -39,22 +39,24 @@ const Carousel = ({ cardType, info }: Props) => {
                 key={idx}
                 className={
                   cardType == 'mypage'
-                    ? 'gray-clay center my-tree'
+                    ? 'gray-clay center'
                     : 'inside-circle'
                 }
               >
                 {cardType == 'mypage' ? (
-                  <div>
+                  <div className="mypage-box">
                     <Image
                       src={images.my_tree_img}
                       alt=""
-                      width={150}
-                      height={150}
+                      width={200}
+                      height={200}
                     />
-                    <p className="title">{item.title}</p>
-                    <p className="date center">
-                      {moment(item.createdTime).format('YYYY년 MM월 DD일')}
-                    </p>
+                    <div className="text-content">
+                      <p className="title">{item.title}</p>
+                      <p className="date">
+                        {moment(item.createdTime).format('YYYY년 MM월 DD일')}
+                      </p>
+                    </div>
                   </div>
                 ) : (
                   <div style={{ margin: '0 auto', height: '200px' }}>
@@ -82,21 +84,29 @@ const Carousel = ({ cardType, info }: Props) => {
           }
           p {
             text-align: center;
-            line-height: 50px;
           }
           .title {
-            font-size: 18px;
+            font-size: 20px;
           }
           .date {
-            margin-bottom: 50px;
             color: gray;
           }
           .hide {
             display: none;
           }
-          .my-tree {
-            width: 400px;
-            height: 400px;
+          .mypage-box{
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            height: 350px;
+            justify-content: center;
+            align-items: center;
+          }
+          .text-content{
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
           }
         `}
       </style>
