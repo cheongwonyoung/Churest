@@ -15,7 +15,12 @@ export const createArticleAtom = atom<createArticle>({
     spot: -1,
   },
 });
-
+export const openShopAtom = atom<openAlarm>({
+  key: 'openShop',
+  default: {
+    isModal: false,
+  }
+})
 export const openAlarmAtom = atom<openAlarm>({
   key: 'openAlarm',
   default: {

@@ -1,32 +1,41 @@
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
+import internal from 'stream';
+import { getShopBirdList, getBirdHouseList, getHouseList }  from '@/apis/shop';
+
 type Props = {
   showedItem: string;
-  handleItems(v: any): void;
+  // haveItem: any;
+  // memberId: number;
+  // handleItems(v: any): void;
 };
 
-export default function ItemList({ showedItem, handleItems }: Props) {
+export default function ItemList({ showedItem }: Props) {
+console.log("ItemList " + showedItem);
   const birdList = ['bird_0', 'bird_1', 'bird_2', 'bird_3', 'bird_4', 'bird_5'];
-  const nestList = ['nest_0', 'nest_1', 'nest_2', 'nest_3'];
-  const houseList = ['house_0', 'house_1', 'house_2', 'house_3'];
+  const nestList = ['nest_0', 'nest_1'];
+  const houseList = ['house_0', 'house_1'];
 
   const itemList = () => {
     const structure = () => {
-      switch (showedItem) {
-        case '새':
-          return birdList;
-        case '새집':
+      if (showedItem == '새'){
+        return birdList;
+      }
+      else if(showedItem =='새집'){
           return nestList;
-        default:
+      }
+      else{
           return houseList;
       }
     };
 
-    return structure().map((item) => (
+    return structure().map((item:any, idx:number) => (
       <div
         key={item}
         id={item}
-        onClick={() => handleItems(item)}
+        // onClick={() => handleItems(item)}
         style={{ margin: '30px' }}
       >
         <Image
@@ -36,8 +45,12 @@ export default function ItemList({ showedItem, handleItems }: Props) {
           width={100}
           height={100}
         />
+
+        {idx} : {item}
+        {/* {haveItem[idx].isOwn ? (haveItem[idx].name) : (haveItem[idx].price)} */}
       </div>
     ));
+
   };
 
   return (
