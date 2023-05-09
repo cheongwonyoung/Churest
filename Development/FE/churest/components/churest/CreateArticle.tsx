@@ -18,10 +18,10 @@ export default function CreateArticle() {
 
   const [files, setFiles] = useState<File[]>([]);
 
-  const addFiles = (acceptedFiles: File[]) => {
+  const addFiles = (acceptedFiles: any) => {
     setFiles([
       ...files,
-      ...acceptedFiles.map((file) => {
+      ...acceptedFiles.map((file: any) => {
         return Object.assign(file, {
           preview: URL.createObjectURL(file),
         });

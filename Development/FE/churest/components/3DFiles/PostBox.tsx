@@ -62,70 +62,87 @@ export function PostBox(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes.Torus_1.geometry}
           material={materials['매테리얼.025']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_2.geometry}
           material={materials['매테리얼.007']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_3.geometry}
           material={materials['매테리얼.008']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_4.geometry}
           material={materials['매테리얼.010']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_5.geometry}
           material={materials['매테리얼.015']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_6.geometry}
           material={materials['매테리얼.017']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_7.geometry}
           material={materials['매테리얼.018']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_8.geometry}
           material={materials['매테리얼.019']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_9.geometry}
           material={materials['매테리얼.020']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_10.geometry}
           material={materials['매테리얼.021']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_11.geometry}
           material={materials['매테리얼.022']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_12.geometry}
           material={materials['매테리얼.023']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_13.geometry}
           material={materials['매테리얼.024']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_14.geometry}
           material={materials['매테리얼.026']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_15.geometry}
           material={materials['매테리얼.027']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_16.geometry}
           material={materials['매테리얼.028']}
+          castShadow
         />
         <mesh
           geometry={nodes.Torus_17.geometry}
           material={materials['매테리얼.029']}
+          castShadow
         />
       </group>
     </group>
