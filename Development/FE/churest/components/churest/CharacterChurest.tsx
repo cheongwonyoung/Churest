@@ -90,7 +90,7 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
   const [look, setLook] = useState(0);
   useFrame(() => {
     if (man1.current?.translation().y < -5) {
-      man1.current.setTranslation({ x: 0, y: 0, z: 0 });
+      man1.current.setTranslation({ x: 0, y: 8, z: 0 });
     }
 
     autoView && !selectSpot && updateCameraTarget();

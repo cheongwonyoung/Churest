@@ -28,7 +28,6 @@ import Navbar from '@/components/common/Navbar';
 export default function Garden() {
   const [autoView, setAutoView] = useState(true);
   const [selectSpot, setSelectSpot] = useState(false);
-  const selectView = useRef();
   const changeToSelect = () => {
     setSelectSpot((prev) => !prev);
   };
@@ -36,14 +35,15 @@ export default function Garden() {
   const closeModal = () => {
     setIsCreate({ ...isCreate, isModal: false });
   };
+
   return (
     <div className="gogo">
       <Navbar />
       {isCreate.isModal && (
         <ModalBlackBg closeModal={closeModal} modal={<CreateArticle />} />
       )}
+      <button onClick={() => setAutoView((prev) => !prev)}>AutoFocus</button>
       <div className="outside">
-        <button onClick={() => setAutoView((prev) => !prev)}>AutoFocus</button>
         {selectSpot ? (
           <div className="plantContainer" onClick={changeToSelect}>
             <div className="plantTree">
@@ -70,8 +70,9 @@ export default function Garden() {
           </div>
         )}
       </div>
-
-      <Churest3D autoView={autoView} selectSpot={selectSpot} />
+      <Canvas shadows>
+        <Churest3D autoView={autoView} selectSpot={selectSpot} />
+      </Canvas>
       <style jsx>
         {`
           .gogo {
