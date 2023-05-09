@@ -19,7 +19,7 @@ export default function ModalBlackBg({ closeModal, modal }: Props) {
             align-items: center;
             position: absolute;
             background-color: rgba(0, 0, 0, 0.534);
-            z-index: 50;
+            z-index: 150;
           }
         `}
       </style>

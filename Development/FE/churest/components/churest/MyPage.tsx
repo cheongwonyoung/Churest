@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import ModalBlackBg from '../common/ModalBlackBg';
 import { openMyPageAtom } from '@/atoms/modal';
 import { useRecoilState } from 'recoil';
+import {BsPencil} from 'react-icons/bs';
 export default function MyPage() {
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
   const closeModal = () => {
@@ -34,14 +35,22 @@ export default function MyPage() {
 
   return (
     <>
-      <div className="gogo">
-        {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />}
-        <div className="blue-clay container">
+      <div>
+        {/* {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
+        <div className="blue-clay mypage-container">
           <div>
             <div className="inside-circle center">
-              <Image src={images.bird_1_img} alt="" width={100} height={100} />
+              <Image
+                src={images['avatar_' + avatarId + '_img']}
+                alt=""
+                width={75}
+                height={120}
+              />
             </div>
-            <div className="center nickname">{nickname}</div>
+            <div className="nickname-box">
+              <div className="center nickname">{nickname}</div>
+              <div className='pencil-icon'><BsPencil/></div>
+            </div>
           </div>
           <div className="mine">
             <Carousel cardType={cardType} info={treeList}></Carousel>
@@ -50,19 +59,15 @@ export default function MyPage() {
       </div>
       <style jsx>
         {`
-          .gogo {
-            width: 100vw;
-            height: 100vh;
-          }
-          .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            place-items: center;
-            width: 800px;
-            height: 400px;
+          .mypage-container {
+            width: 700px;
+            height: 540px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
             overflow-x: hidden;
             overflow-y: auto;
-            position: fixed;
             z-index: 50;
           }
           .mine {
@@ -77,6 +82,18 @@ export default function MyPage() {
           }
           .nickname {
             line-height: 50px;
+            font-size: 20px;
+          }
+          .nickname-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem
+          }
+          .pencil-icon:hover{
+            transform:scale(1.3);
+            transition: transform .5s;
+            cursor: pointer;
           }
         `}
       </style>

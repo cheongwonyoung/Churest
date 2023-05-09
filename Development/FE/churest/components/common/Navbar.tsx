@@ -8,10 +8,6 @@ import {
   openSearchAtom,
   openTagAtom,
 } from '@/atoms/modal';
-import Notice from '../navbar/Notice';
-import Tag from '../navbar/Tag';
-import MyPage from '../churest/MyPage';
-import SearchFriend from './SearchFriend';
 
 export default function Navbar() {
   const id = useRecoilValue(loginAtom).id;

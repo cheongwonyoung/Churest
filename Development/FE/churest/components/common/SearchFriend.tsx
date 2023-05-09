@@ -47,21 +47,34 @@ export default function SearchFriend() {
 
   return (
     <>
-      <div className="gogo">
-        {isSearchOpen && <ModalBlackBg closeModal={closeModal} />}
-        <div className="blue-clay container">
+      <div>
+        {/* {isSearchOpen && <ModalBlackBg closeModal={closeModal} />} */}
+        <div className="blue-clay modal-container ">
+          <div className="modal-title">친구 검색</div>
           <input
-            type="text"
-            placeholder="닉네임을 검색해주세요"
+            placeholder="닉네임을 입력해주세요"
+            className="inside-clay"
+            value={nickname}
             onChange={(e) => handleSearch(e)}
           />
+          <div>
+            <p>해당 유저를 찾을 수 없습니다.</p>
+          </div>
         </div>
       </div>
       <style jsx>
         {`
-          .gogo {
-            width: 100vw;
-            height: 100vh;
+          input {
+            width: 500px;
+            height: 40px;
+            outline: 0px;
+            border: none;
+            text-align: center;
+          }
+          input::placeholder {
+            color: rgba(169, 162, 214, 1);
+            font-size: 16px;
+            line-height: 40px;
           }
           .container {
             width: 400px;
@@ -71,8 +84,8 @@ export default function SearchFriend() {
             justify-content: center;
             align-items: center;
             overflow-x: hidden;
-            overflow-y: auto;
-            position: fixed;
+            // overflow-y: auto;
+            // position: fixed;
             z-index: 50;
           }
         `}

@@ -3,7 +3,7 @@ package com.ssafy.churest.dto.resp;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class TagResponseDto {
 
@@ -16,7 +16,7 @@ public class TagResponseDto {
 
         private String title;
 
-        private LocalDateTime createdTime;
+        private LocalDate createdTime;
 
         private boolean isTaken;
 

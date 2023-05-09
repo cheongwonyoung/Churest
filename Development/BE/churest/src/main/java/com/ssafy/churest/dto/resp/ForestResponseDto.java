@@ -34,13 +34,13 @@ public class ForestResponseDto {
 
         private String nickname;
 
-        private int memberHouseId;
+        private int houseId;
 
         public static ForestResponseDto.OtherForestInfo fromEntity(com.ssafy.churest.entity.Member member, com.ssafy.churest.entity.MemberHouse memberHouse){
             return OtherForestInfo.builder()
                     .memberId(member.getMemberId())
                     .nickname(member.getNickname())
-                    .memberHouseId(memberHouse.getMemberHouseId())
+                    .houseId(memberHouse.getHouse().getHouseId())
                     .build();
         }
     }
