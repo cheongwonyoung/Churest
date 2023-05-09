@@ -13,5 +13,5 @@ public interface TreeLogService {
 
     int updateScoreByView(int boardId);
 
-    TreeLogResponseDto.RecentTreeLogInfo updateScoreByWatering(int boardId);
+    TreeLogResponseDto.RecentTreeLogInfo updateScoreByWatering(int boardId, int memberId);
 }
