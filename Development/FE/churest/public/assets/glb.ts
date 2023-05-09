@@ -79,4 +79,6 @@ export const glbs: glbs = {
     'https://storage.googleapis.com/churest-bucket/project_3D/Rock4.glb',
   rock_5_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/Rock5.glb',
+  error_404_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Error404.glb', 
 };

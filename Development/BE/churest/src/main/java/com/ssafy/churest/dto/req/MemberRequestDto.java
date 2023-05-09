@@ -14,9 +14,9 @@ public class MemberRequestDto {
     @NoArgsConstructor
     @ApiModel(value = "회원가입 관련 정보", description = "유저email, 아바타id, member_nickname, bird_id, bird_nickname")
     public static class Join{
-        @NotEmpty(message="email는 빈값 일 수 없습니다")
-        @NotNull(message="email는 null 일 수 없습니다")
-        private String email;
+        @NotEmpty(message="memberId는 빈값 일 수 없습니다")
+        @NotNull(message="memberId는 null 일 수 없습니다")
+        private int memberId;
         @NotEmpty(message="avatarId는 빈값 일 수 없습니다")
         @NotNull(message="avatarId는 null 일 수 없습니다")
         private int avatarId;

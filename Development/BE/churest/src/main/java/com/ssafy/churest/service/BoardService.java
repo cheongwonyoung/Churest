@@ -11,8 +11,6 @@ import java.util.List;
 @Service
 public interface BoardService {
 
-    boolean checkTreeLocation(int memberId, BoardRequestDto.LocationInfo locationInfo);
-
     void writeTree(List<MultipartFile> fileList, BoardRequestDto.Write writeInfo) throws IOException;
 
     void writeTreeFromFriend(int memberId, int boardId, BoardRequestDto.LocationInfo locationInfo);

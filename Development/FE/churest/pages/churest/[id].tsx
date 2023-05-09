@@ -23,6 +23,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { createArticleAtom } from '@/atoms/modal';
 import ModalBlackBg from '@/components/common/ModalBlackBg';
 import CreateArticle from '@/components/churest/CreateArticle';
+import Navbar from '@/components/common/Navbar';
 
 export default function Garden() {
   const [autoView, setAutoView] = useState(true);
@@ -37,6 +38,7 @@ export default function Garden() {
 
   return (
     <div className="gogo">
+      <Navbar />
       {isCreate.isModal && (
         <ModalBlackBg closeModal={closeModal} modal={<CreateArticle />} />
       )}
@@ -76,6 +78,11 @@ export default function Garden() {
           .gogo {
             width: 100vw;
             height: 100vh;
+            position: relative;
+          }
+          .navbarBox {
+            position: absolute;
+            right: 0;
           }
           .plantTree {
             width: 240px;

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import ChuWorldItem from '@/components/chuworld/ChuWorldItem';
 import { motion, AnimatePresence } from 'framer-motion';
 import ChuWorldList from '@/components/chuworld/ChuWorldList';
+import { images } from '@/public/assets/images';
 
 export default function Chuworld() {
   const [isShow, setIsShow] = useState(true);
@@ -21,8 +22,11 @@ export default function Chuworld() {
       <style jsx>
         {`
           .root {
-            weight: 100vw;
+            width: 100vw;
             height: 100vh;
+            background: url('https://storage.googleapis.com/churest-bucket/project_image/chuworld_img.png')
+              no-repeat center fixed;
+            background-size: cover;
           }
         `}
       </style>
