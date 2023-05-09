@@ -38,62 +38,89 @@ export default function MyPage() {
       <div>
         {/* {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
         <div className="blue-clay mypage-container">
-          <div>
-            <div className="inside-circle center">
-              <Image
-                src={images['avatar_' + avatarId + '_img']}
-                alt=""
-                width={75}
-                height={120}
-              />
+          <div className="mypage-title">My Page</div>
+          <div className="mypage-content-box">
+            <div className="avatar-box">
+              {/* <div className="inside-circle center"> */}
+              <div className="center">
+                <Image
+                  src={images['avatar_' + avatarId + '_img']}
+                  alt=""
+                  width={120}
+                  height={180}
+                />
+              </div>
+              <div className="nickname-box">
+                <div className="center nickname">{nickname}</div>
+                <div className='pencil-icon'>정보 수정하기 <BsPencil/></div>
+              </div>
             </div>
-            <div className="nickname-box">
-              <div className="center nickname">{nickname}</div>
-              <div className='pencil-icon'><BsPencil/></div>
+            <div className="mine">
+              <div className="memory-title">추억 모아보기</div>
+              <Carousel cardType={cardType} info={treeList}></Carousel>
             </div>
-          </div>
-          <div className="mine">
-            <Carousel cardType={cardType} info={treeList}></Carousel>
           </div>
         </div>
       </div>
       <style jsx>
         {`
           .mypage-container {
-            width: 700px;
+            width: 750px;
             height: 540px;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
             overflow-x: hidden;
             overflow-y: auto;
             z-index: 50;
           }
           .mine {
-            display: grid;
-            place-items: center;
-            width: 300px;
-            height: 320px;
-            padding: 10px 0 10px 0;
+            justify-content: center;
+            align-items: center;
           }
           .tree-img {
             margin: 0 auto;
           }
           .nickname {
             line-height: 50px;
-            font-size: 20px;
+            font-size: 25px;
+            font-weight: bold;
           }
           .nickname-box{
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 40px;
+          }
+          .pencil-icon{
+            font-size: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1rem
+            gap: 10px;
           }
           .pencil-icon:hover{
-            transform:scale(1.3);
+            transform:scale(1.1);
             transition: transform .5s;
             cursor: pointer;
+          }
+          .memory-title{
+            text-align: center;
+            line-height: 60px;
+            font-size: 20px;
+            font-weight: bold;
+          }
+          .mypage-title{
+            text-align: center;
+            line-height: 70px;
+            font-size: 30px;
+            font-weight: bold;
+          }
+          .mypage-content-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+          }
+          .avatar-box{
+            margin-top: 40px;
           }
         `}
       </style>
