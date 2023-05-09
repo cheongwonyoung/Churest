@@ -18,10 +18,12 @@ export default function MyPage() {
   // 나의 새 목록
   const [treeList, setMyPage] = useState([{}]);
   const [nickname, setNickname] = useState('');
+  const [avatarId, setAvatarId] = useState(0);
   useQuery('mypage', () => getMyInfo(Number(memberId)), {
     onSuccess(data) {
       setMyPage([...data.data.boards]);
       setNickname(data.data.member.nickname);
+      setAvatarId(data.data.member.avatarId);
     },
     onError: (error) => {
       console.log('에러다');

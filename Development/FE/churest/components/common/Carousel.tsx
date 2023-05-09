@@ -40,7 +40,7 @@ const Carousel = ({ cardType, info }: Props) => {
                 className={
                   cardType == 'mypage'
                     ? 'gray-clay center my-tree'
-                    : 'inside-circle center'
+                    : 'inside-circle'
                 }
               >
                 {cardType == 'mypage' ? (
@@ -57,13 +57,16 @@ const Carousel = ({ cardType, info }: Props) => {
                     </p>
                   </div>
                 ) : (
-                  <div style={{ margin: '0 auto' }}>
+                  <div style={{ margin: '0 auto', height:"200px"}}>
+                    <div>
+
                     <Image
-                      src={images.bird_1_img}
+                      src={images["bird_"+item.memberBirdId+"_img"]}
                       alt=""
-                      width={100}
-                      height={100}
-                    />
+                      layout="fill"
+                      object-fit
+                      />
+                      </div>
                     <p>{item.nickname}</p>
                   </div>
                 )}
@@ -77,7 +80,6 @@ const Carousel = ({ cardType, info }: Props) => {
           img {
             display: block;
             margin: 0 auto;
-            width: 60%;
           }
           p {
             text-align: center;
