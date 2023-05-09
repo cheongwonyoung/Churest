@@ -4,12 +4,20 @@ import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
 import ChuWorldItem from './ChuWorldItem';
 import { useEffect } from 'react';
-export default function ChuWorldList() {
-  const memberId = useRecoilValue(loginAtom).id;
-  const { data, isLoading, isError, error } = useQuery('chuworld', () =>
-    getChuworld(memberId)
+type MyInfo = {
+  memberId: number;
+  nickname: string;
+  houseId: number;
+};
+export default function ChuWorldList(props: any) {
+  console.log('props', props.props);
+  return (
+    <>
+      {props?.props.map((myInfo: MyInfo) => (
+        <div key={myInfo.memberId}>
+          <p>{myInfo.memberId}</p>
+        </div>
+      ))}
+    </>
   );
-  console.log(data);
-  useEffect(() => {}, []);
-  return <>{/* <ChuWorldItem props={data!.data} /> */}</>;
 }
