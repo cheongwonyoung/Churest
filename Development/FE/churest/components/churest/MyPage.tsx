@@ -39,7 +39,7 @@ export default function MyPage() {
       <div>
         {/* {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
         <div className="blue-clay mypage-container">
-          <div className="mypage-title">My Page</div>
+          <div className="modal-title">My Page</div>
           <div className="mypage-content-box">
             <div className="avatar-box">
               {/* <div className="inside-circle center"> */}
@@ -47,8 +47,8 @@ export default function MyPage() {
                 <Image
                   src={images['avatar_' + avatarId + '_img']}
                   alt=""
-                  width={120}
-                  height={180}
+                  width={100}
+                  height={160}
                 />
               </div>
               <div className="nickname-box">
@@ -78,8 +78,8 @@ export default function MyPage() {
       <style jsx>
         {`
           .mypage-container {
-            width: 750px;
-            height: 540px;
+            width: 600px;
+            height: 460px;
             overflow-x: hidden;
             overflow-y: auto;
             z-index: 50;
@@ -93,17 +93,17 @@ export default function MyPage() {
           }
           .nickname {
             line-height: 50px;
-            font-size: 25px;
+            font-size: 20px;
             font-weight: bold;
           }
           .nickname-box {
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-top: 40px;
+            margin-top: 30px;
           }
           .pencil-icon {
-            font-size: 20px;
+            font-size: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -116,14 +116,8 @@ export default function MyPage() {
           }
           .memory-title {
             text-align: center;
-            line-height: 60px;
-            font-size: 20px;
-            font-weight: bold;
-          }
-          .mypage-title {
-            text-align: center;
-            line-height: 70px;
-            font-size: 30px;
+            line-height: 50px;
+            font-size: 18px;
             font-weight: bold;
           }
           .mypage-content-box {
@@ -133,7 +127,7 @@ export default function MyPage() {
             gap: 100px;
           }
           .avatar-box {
-            margin-top: 40px;
+            margin-top: 30px;
           }
           .alarm-text {
             display: flex;

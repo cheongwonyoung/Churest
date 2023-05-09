@@ -38,7 +38,9 @@ const Carousel = ({ cardType, info }: Props) => {
               <SwiperSlide
                 key={idx}
                 className={
-                  cardType == 'mypage' ? 'gray-clay center' : 'inside-circle'
+                  cardType == 'mypage'
+                    ? 'gray-clay center'
+                    : 'inside-circle'
                 }
               >
                 {cardType == 'mypage' ? (
@@ -46,8 +48,8 @@ const Carousel = ({ cardType, info }: Props) => {
                     <Image
                       src={images.my_tree_img}
                       alt=""
-                      width={200}
-                      height={200}
+                      width={150}
+                      height={150}
                     />
                     <div className="text-content">
                       <p className="title">{item.title}</p>
@@ -81,12 +83,11 @@ const Carousel = ({ cardType, info }: Props) => {
             margin: 0 auto;
           }
           p {
+            font-size: 15px;
             text-align: center;
           }
-          .title {
-            font-size: 20px;
-          }
           .date {
+            font-size: 13px;
             color: gray;
           }
           .hide {
@@ -95,7 +96,7 @@ const Carousel = ({ cardType, info }: Props) => {
           .mypage-box {
             display: flex;
             flex-direction: column;
-            width: 250px;
+            width: 260px;
             height: 300px;
             justify-content: center;
             align-items: center;
