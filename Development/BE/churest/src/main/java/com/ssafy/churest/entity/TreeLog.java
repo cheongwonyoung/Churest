@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Builder
 public class TreeLog {
 
     @Id
@@ -30,4 +29,9 @@ public class TreeLog {
 
     private int score;
 
+    @Builder
+    public TreeLog(Board board, int score){
+        this.board = board;
+        this.score = score;
+    }
 }

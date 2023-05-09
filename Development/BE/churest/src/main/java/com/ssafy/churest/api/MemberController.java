@@ -48,6 +48,19 @@ public class MemberController {
         }
     }
 
+    @ApiOperation(value = "access token 재발급", notes = "refresh token을 받아 유효하면 access token 재발급")
+    @GetMapping("/token")
+    public ResponseEntity<?> token(@RequestParam String refreshToken) {
+        try {
+            String acceesToken = memberService.token(refreshToken);
+
+            return new ResponseEntity<>(acceesToken, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
     @ApiOperation(value = "test", notes = "test")
     @GetMapping("/test")
     public ResponseEntity<?> test(@RequestParam String code) {
