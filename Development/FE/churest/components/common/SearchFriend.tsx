@@ -64,7 +64,7 @@ export default function SearchFriend() {
                 // <div>아무것도없다</div>
                 <p style={{ color: 'gray' }}>해당 유저를 찾을 수 없습니다.</p>
               ) : searchActive == false ? (
-                <p>빈칸</p>
+                <p></p>
               ) : (
                 <SearchResult list={searchList}></SearchResult>
               )}
@@ -83,14 +83,15 @@ export default function SearchFriend() {
           }
 
           .result-item {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            {/* flex-direction: column; */}
             justify-content: center;
             align-items: center;
           }
 
           input {
-            width: 500px;
+            width: 400px;
             height: 40px;
             outline: 0px;
             border: none;

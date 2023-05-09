@@ -62,10 +62,6 @@ export default function Navbar() {
         <NavbarButton image="chuworld_navbar_img" title="다른 집 둘러보기" />
       </Link>
 
-      {isAlarmOpen.isModal && <Notice memberId={id} />}
-      {isTagOpen.isModal && <Tag memberId={id} />}
-      {isSearchOpen.isModal && <SearchFriend />}
-      {isMyPageOpen.isModal && <MyPage />}
       <style jsx>
         {`
           .navbarContainer {
