@@ -46,9 +46,7 @@ const Carousel = ({ cardType, info }: Props) => {
               <SwiperSlide
                 key={idx}
                 className={
-                  cardType == 'mypage' || 'myTagged'
-                    ? 'gray-clay center'
-                    : 'inside-circle'
+                  cardType == 'mypage' ? 'gray-clay center' : 'inside-circle'
                 }
               >
                 {/* 마이페이지에서 추억 리스트 조회 */}
@@ -108,7 +106,6 @@ const Carousel = ({ cardType, info }: Props) => {
                           <Image
                             src={images['bird_' + item.memberBirdId + '_img']}
                             alt=""
-                            layout="fill"
                             object-fit
                           />
                         </div>
@@ -133,12 +130,12 @@ const Carousel = ({ cardType, info }: Props) => {
             font-size: 15px;
             text-align: center;
           }
+          .title {
+            color: black;
+          }
           .date {
             font-size: 13px;
             color: gray;
-          }
-          .hide {
-            display: none;
           }
           .mypage-box {
             display: flex;
@@ -178,14 +175,8 @@ const Carousel = ({ cardType, info }: Props) => {
           .front,
           .back {
             position: absolute;
-            width: 100%;
-            height: 100%;
             backface-visibility: hidden;
             color: #fff;
-          }
-
-          .front {
-            background: tomato;
           }
 
           .back {
@@ -193,7 +184,7 @@ const Carousel = ({ cardType, info }: Props) => {
             transform: rotateY(180deg);
           }
 
-          .flip:hover .card {
+          .flip-card:hover .card {
             transform: rotateY(180deg);
           }
         `}
