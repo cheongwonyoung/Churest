@@ -61,7 +61,7 @@ public class BoardServiceImpl implements BoardService {
                         .build());
 
         //  GCS 사진 업로드
-        if(fileList != null) {
+        if(!fileList.isEmpty()) {
             for (MultipartFile file :
                     fileList) {
                 gcsService.uploadBoardImage(file, board);
