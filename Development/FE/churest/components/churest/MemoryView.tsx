@@ -11,6 +11,8 @@ import { wateringTree } from '@/apis/churest';
 import CardComp from './CardComp.jsx';
 import RoundCarousel from './RoundCarousel';
 
+import Swal from 'sweetalert2';
+
 type Props = {
   boardId: number;
 };
@@ -61,9 +63,20 @@ export default function MemoryView({ boardId }: Props) {
     {
       onSuccess: () => {
         console.log('물주기성공');
+        showAlert('추억에 물 주기 성공');
       },
     }
   );
+
+  const showAlert = (text: string) => {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: text,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
 
   const tagItems = tagList.map((item: any, idx: number) => {
     return (
