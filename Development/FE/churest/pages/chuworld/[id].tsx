@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 // import { motion, AnimatePresence } from 'framer-motion';
 import ChuWorldList from '@/components/chuworld/ChuWorldList';
 // import { images } from '@/public/assets/images';
-import ChuWorldItem from '@/components/chuworld/ChuWorldItem';
 import ChuWorldNavbar from '@/components/common/ChuWorldNavbar';
 import { useQuery } from 'react-query';
 import { getChuworld } from '@/apis/chuworld';
@@ -13,12 +12,15 @@ import { loginAtom } from '@/atoms/login';
 export default function Chuworld() {
   // const [isShow, setIsShow] = useState(true);
   const memberId = useRecoilValue(loginAtom).id;
-  const { data, refetch } = useQuery('getChu', () => getChuworld(memberId));
+  const { data, refetch } = useQuery('getChu', () => getChuworld(memberId), {
+    onSuccess(data) {
+      console.log(data);
+    },
+  });
   useEffect(() => {
     refetch();
   }, []);
 
-  // console.log(data!.data);
   // console.log(data);
   // useEffect(() => {
   //   setTimeout(() => {
@@ -30,8 +32,8 @@ export default function Chuworld() {
     <div className="root">
       <ChuWorldNavbar />
       {/* <CloudMap /> */}
-      {/* <ChuWorldItem /> */}
-      {data && <ChuWorldList props={data!.data} />}
+
+      {data && <ChuWorldList data={data.data} />}
 
       <style jsx>
         {`
