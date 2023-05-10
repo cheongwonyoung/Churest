@@ -16,6 +16,7 @@ export default function Home() {
       <Link href={'/signup'}> 회원가입</Link>
       <br />
       <Link href={'/churest/' + id}>츄레스트</Link>
+
     </>
   );
 }

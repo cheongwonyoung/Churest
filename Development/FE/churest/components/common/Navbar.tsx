@@ -7,10 +7,12 @@ import {
   openMyPageAtom,
   openSearchAtom,
   openTagAtom,
+  openShopAtom 
 } from '@/atoms/modal';
 
 export default function Navbar() {
   const id = useRecoilValue(loginAtom).id;
+  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom); 
   const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
   const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
@@ -18,6 +20,12 @@ export default function Navbar() {
 
   return (
     <div className="navbarContainer">
+      <div
+      onClick={() => {
+        setIsShopOpen({ isModal: true }) 
+      }}> 
+        <NavbarButton image="shop_navbar_img" title="상점" />   
+      </div>
       <Link href={'/churest/' + id} style={{ textDecoration: 'none' }}>
         <NavbarButton image="garden_navbar_img" title="광장" />
       </Link>

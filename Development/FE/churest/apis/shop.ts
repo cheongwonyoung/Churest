@@ -21,7 +21,7 @@ export const getBirdHouseList = (memberId: number) => {
 };
 
 // 새 집 구매
-export const getBirdHouse = (info: {
+export const getNewBirdHouse = (info: {
   birdHouseId: number;
   memberId: number;
 }) => {
@@ -29,9 +29,30 @@ export const getBirdHouse = (info: {
 };
 
 // 새 집 바꾸기
-export const modifyBirdHouse = (info: {
-  houseId: number;
+export const modifyMyBirdHouse = (info: {
+  birdHouseId: number;
   memberId: number;
 }) => {
   return instance.put(`/shop/bird-house`, info);
+};
+
+// 집 목록
+export const getHouseList = (memberId: number) => {
+  return instance.get(`/shop/house/?memberId=${memberId}`);
+};
+
+// 집 구매
+export const getNewHouse = (info: {
+  houseId: number;
+  memberId: number;
+}) => {
+  return instance.post(`/shop/house`, info);
+};
+
+// 집 바꾸기
+export const modifyMyHouse = (info: {
+  houseId: number;
+  memberId: number;
+}) => {
+  return instance.put(`/shop/house`, info);
 };
