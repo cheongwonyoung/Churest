@@ -92,7 +92,8 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
   const [look, setLook] = useState(0);
   useFrame(() => {
     if (man1.current?.translation().y < -5) {
-      man1.current.setTranslation({ x: 0, y: 8, z: 0 });
+      man1.current.setTranslation({ x: 0, y: 8, z: 4 });
+      console.log(man1.current.setLinvel({ x: 0, y: 0, z: 0 }));
       setIsFloor(false);
     }
 
@@ -200,14 +201,22 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
         canSleep={false}
         colliders="cuboid"
         onCollisionEnter={({ other }) => {
-          setIsFloor(true);
+          if (other.colliderObject?.name == 'map') setIsFloor(true);
         }}
-        // onCollisionExit={({ other }) => {
-        //   if (other.rigidBodyObject?.name.includes('floor2')) {
-        //     setIsFloor(false);
-        //     console.log('착지');
-        //   }
-        // }}
+        onCollisionExit={({ other }) => {
+          if (other.colliderObject?.name == 'rock') {
+            setIsFloor(false);
+          }
+          if (
+            other.colliderObject?.name == 'map' &&
+            (man1.current.translation().x < -30 ||
+              man1.current.translation().x > 30 ||
+              man1.current.translation().z < -30 ||
+              man1.current.translation().z > 30)
+          ) {
+            setIsFloor(false);
+          }
+        }}
         rotation={[0, look, 0]}
       >
         {!selectSpot && character()}

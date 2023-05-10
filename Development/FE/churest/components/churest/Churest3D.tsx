@@ -21,7 +21,7 @@ import { Tree9 } from '../3DFiles/Trees/Tree9';
 import { Sprout } from '../3DFiles/Trees/Sprout';
 import { Branch } from '../3DFiles/Trees/Branch';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { postBoxAtom } from '@/atoms/modal';
+import { letterBoxAtom, openMyPageAtom, postBoxAtom } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
 import { Mountain } from '../3DFiles/Rock/Mountain';
 import { Rock1 } from '../3DFiles/Rock/Rock1';
@@ -57,11 +57,10 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
     ],
     []
   );
-  const id = useRecoilValue(loginAtom).id;
-  const setIsPostBox = useSetRecoilState(postBoxAtom);
+  const setIsPostBox = useSetRecoilState(letterBoxAtom);
   const handlePostBox = () => {
     console.log('여기');
-    setIsPostBox({ isModal: true, id });
+    setIsPostBox({ isModal: true });
   };
   // useEffect(() => {
   //   if (light.current) {
@@ -89,6 +88,8 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
     gogo.scene.add(directionalLight);
   }, []);
 
+  const setIsMyPageOpen = useSetRecoilState(openMyPageAtom);
+
   return (
     <>
       <KeyboardControls map={map}>
@@ -103,8 +104,10 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               </>
             ) : (
               <>
-                <RigidBody position={[0, 0.5, 0]} type="fixed">
-                  <House1 />
+                <RigidBody position={[0, 0.5, 0]} type="fixed" name="house">
+                  <group onClick={() => setIsMyPageOpen({ isModal: true })}>
+                    <House1 />
+                  </group>
                 </RigidBody>
                 <RigidBody position={[-4.5, 0, 4.5]} type="fixed">
                   <PostBox onClick={handlePostBox} />
@@ -118,7 +121,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
             )}
 
             <RigidBody
-              name="floor2"
+              name="map"
               colliders="trimesh"
               type="fixed"
               position={[0, 0, 0]}
@@ -137,6 +140,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               colliders="trimesh"
               type="fixed"
               position={[-10, -2, -40]}
+              name="rock"
             >
               <Rock1 />
             </RigidBody>
@@ -144,6 +148,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               colliders="trimesh"
               type="fixed"
               position={[-25, -2, -40]}
+              name="rock"
             >
               <Rock2 />
             </RigidBody>
@@ -152,6 +157,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               type="fixed"
               position={[-38, -2, -25]}
               rotation={[0, Math.PI / 2, 0]}
+              name="rock"
             >
               <Rock3 />
             </RigidBody>
@@ -160,6 +166,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               type="fixed"
               position={[-40, -4, 0]}
               rotation={[0, Math.PI / 2, 0]}
+              name="rock"
             >
               <Rock2 />
             </RigidBody>
@@ -168,6 +175,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               type="fixed"
               position={[-41, -4, 20]}
               rotation={[0, (-Math.PI * 0.7) / 2, 0]}
+              name="rock"
             >
               <Rock1 />
             </RigidBody>
@@ -176,6 +184,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               type="fixed"
               position={[41, -4, -13]}
               rotation={[0, (-Math.PI * 0.7) / 2, 0]}
+              name="rock"
             >
               <Rock4 />
             </RigidBody>
@@ -184,6 +193,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               type="fixed"
               position={[45, -4, 18]}
               rotation={[0, -Math.PI / 2, 0]}
+              name="rock"
             >
               <Rock5 />
             </RigidBody>

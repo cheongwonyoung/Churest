@@ -1,9 +1,9 @@
 import { getLetterList } from '@/apis/letterbox';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import LetterSlide from './LetterSlide';
 import { loginAtom } from '@/atoms/login';
 import { useRecoilValue } from 'recoil';
+import LetterSlide from './LetterSlide';
 
 export default function LetterBox() {
   const memberId: number = useRecoilValue(loginAtom).id;

@@ -66,9 +66,11 @@ export default function CreateArticle() {
 
   const { mutate: submit } = useMutation((info: any) => goCreateArticle(info), {
     onSuccess(data, variables, context) {
+      console.log('성공');
       console.log(data);
     },
     onError(error, variables, context) {
+      console.log('넌 실패밖에 모르는 하남자야');
       console.log(error);
       console.log(variables);
     },
@@ -96,11 +98,11 @@ export default function CreateArticle() {
       weather,
       date: data.date,
     };
-
+    submit({ fileList, writeInfo });
     const dbdb = new FormData();
     dbdb.append('fileList', JSON.stringify(files));
     dbdb.append('writeInfo', JSON.stringify(writeInfo));
-    submit(dbdb);
+    // submit(dbdb);
     //   "content": "어버이",
     //   "spot": 1,
     //   "memberId": 2,

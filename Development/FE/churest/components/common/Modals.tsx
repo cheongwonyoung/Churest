@@ -1,6 +1,7 @@
 import { loginAtom } from '@/atoms/login';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
+  letterBoxAtom,
   openAlarmAtom,
   openMyPageAtom,
   openSearchAtom,
@@ -11,6 +12,7 @@ import Tag from '@/components/navbar/Tag';
 import SearchFriend from '@/components/common/SearchFriend';
 import MyPage from '@/components/churest/MyPage';
 import ModalBlackBg from './ModalBlackBg';
+import LetterBox from '../churest/LetterBox';
 
 export default function Modals() {
   const id = useRecoilValue(loginAtom).id;
@@ -18,6 +20,7 @@ export default function Modals() {
   const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
+  const [isLetterOpen, setIsLetterOpen] = useRecoilState(letterBoxAtom);
   return (
     <div>
       {/* {isAlarmOpen.isModal && <Notice memberId={id} />} */}
@@ -46,6 +49,12 @@ export default function Modals() {
         <ModalBlackBg
           modal={<MyPage />}
           closeModal={() => setIsMyPageOpen({ isModal: false })}
+        />
+      )}
+      {isLetterOpen.isModal && (
+        <ModalBlackBg
+          modal={<LetterBox />}
+          closeModal={() => setIsLetterOpen({ isModal: false })}
         />
       )}
     </div>

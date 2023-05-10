@@ -11,7 +11,6 @@ interface openAlarm {
 
 interface postBox {
   isModal: boolean;
-  id: number;
 }
 
 export const createArticleAtom = atom<createArticle>({
@@ -50,10 +49,9 @@ export const openSearchAtom = atom<openAlarm>({
   },
 });
 
-export const postBoxAtom = atom<postBox>({
-  key: 'postBox',
+export const letterBoxAtom = atom<postBox>({
+  key: 'letterBox',
   default: {
     isModal: false,
-    id: 0,
   },
 });
