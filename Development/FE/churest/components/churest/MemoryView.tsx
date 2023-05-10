@@ -1,10 +1,17 @@
 import Image from 'next/image';
+import { v4 as uuidv4 } from 'uuid';
 import { images } from '@/public/assets/images';
 import { getMyChurest } from '@/apis/churest';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { loginAtom } from '@/atoms/login';
+import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
+import { wateringTree } from '@/apis/churest';
+import CardComp from './CardComp.jsx';
+import RoundCarousel from './RoundCarousel';
+
+import Swal from 'sweetalert2';
 
 type Props = {
   boardId: number;
@@ -12,31 +19,64 @@ type Props = {
 export default function MemoryView({ boardId }: Props) {
   let memberId = useRecoilValue(loginAtom).id;
 
-  // type Tree = {
-  //   title: string;
-  //   content: string;
-  //   createdTime: string;
-  //   fileList: any;
-  //   reward: boolean;
-  //   treeInfo: any;
-  //   weather: string;
-  //   tagged: boolean;
-  // };
+  // fileList를 아래 양식에 맞게 변환해야함
+  const cards = [
+    {
+      key: uuidv4(),
+      content: <CardComp imagen={images['bird_5_img']} />,
+    },
+    {
+      key: uuidv4(),
+      content: <CardComp imagen={images['bird_2_img']} />,
+    },
+    {
+      key: uuidv4(),
+      content: <CardComp imagen={images['bird_4_img']} />,
+    },
+    {
+      key: uuidv4(),
+      content: <CardComp imagen={images['bird_3_img']} />,
+    },
+  ];
 
   const [tree, setTree] = useState<any>([]);
   const [tagList, setTagList] = useState<any>([]);
+  const [fleList, setFileList] = useState<any>([]);
   // const {data} =
   useQuery('myTree', () => getMyChurest(Number(memberId), Number(boardId)), {
     onSuccess(data) {
       console.log(boardId + '번 책 열기 성공');
-      // console.log(data?.data);
+      console.log(data.data);
       setTree(data?.data);
       setTagList(data?.data.tagList);
+      setFileList(data?.data.fileList);
     },
   });
-  // const tree = data?.data;
 
-  // const TagList = data?.data.tagList;
+  const clickWatering = () => {
+    console.log(boardId + '물줄게');
+    watering.mutate({ boardId });
+  };
+
+  const watering = useMutation(
+    (info: { boardId: number }) => wateringTree(info.boardId),
+    {
+      onSuccess: () => {
+        console.log('물주기성공');
+        showAlert('추억에 물 주기 성공');
+      },
+    }
+  );
+
+  const showAlert = (text: string) => {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: text,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
 
   const tagItems = tagList.map((item: any, idx: number) => {
     return (
@@ -71,11 +111,37 @@ export default function MemoryView({ boardId }: Props) {
               </div>
             </div>
             <div className="center title">{tree.title}</div>
-            <div className="center date">{tree.createdTime}</div>
+            <div className="center" style={{ color: 'gray' }}>
+              {tree.createdTime}
+            </div>
           </div>
-          <div className="center tag-list">{tagItems}</div>
-          <div className="center picture">사진</div>
+          <div className="center" style={{ margin: '30px 100px 30px 50px' }}>
+            {tagItems}
+          </div>
+          <div className="center carousel" style={{ margin: '0 50px 0 100px' }}>
+            <RoundCarousel
+              cards={cards}
+              height="400px"
+              width="100%"
+              margin="0 auto"
+              offset={2}
+              showArrows={false}
+            ></RoundCarousel>
+          </div>
           <div className="center content">{tree.content}</div>
+          <div></div>
+          <div className="center" onClick={clickWatering}>
+            <div className="watering-card content">
+              <Image
+                className=""
+                src={images['watering_icon_img']}
+                width={75}
+                height={85}
+                alt="물주기"
+              ></Image>
+              <div className="watering-text">물 주기</div>
+            </div>
+          </div>
         </div>
         <Image
           src={images['memory_img']}
@@ -87,27 +153,29 @@ export default function MemoryView({ boardId }: Props) {
       <style jsx>{`
         .container {
           position: relative;
-          z-index: 1;
+           {
+            /* z-index: 0; */
+          }
         }
         .child {
           position: absolute;
-          z-index: 2;
+           {
+            /* z-index: 1; */
+          }
         }
         .book-grid {
           width: 1000px;
           height: 600px;
           display: grid;
           grid-template-columns: 500px 500px;
-          grid-template-rows: 150px 450px;
+          grid-template-rows: 150px 260px;
         }
         .content {
           display: flex;
           justify-content: center;
           align-items: center;
-          margin: 30px 100px 100px 50px;
-          padding: 30px;
-          background: #fffbf2;
-          // box-shadow: inset 0px 10px 30px #1b431a, inset 10px 10px 20px #000000;
+          margin: 0 100px 0 50px;
+          padding: 15px;
           border-radius: 45px;
         }
         .top {
@@ -117,14 +185,19 @@ export default function MemoryView({ boardId }: Props) {
           font-size: larger;
           margin-bottom: 5px;
         }
-        .picture {
-          margin: 30px 50px 100px 100px;
+
+        .watering-card:hover .watering-text {
+          cursor: pointer;
+          transition: 0.3s;
+          opacity: 1;
         }
-        .date {
-          color: gray;
-        }
-        .tag-list {
-          margin: 30px 100px 30px 50px;
+
+        .watering-text {
+          cursor: pointer;
+          position: absolute;
+          opacity: 0;
+          color: white;
+          text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
         }
       `}</style>
     </>

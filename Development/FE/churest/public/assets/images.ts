@@ -42,16 +42,26 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/letter_img.png',
   my_tree_img:
     'https://storage.googleapis.com/churest-bucket/project_image/my_tree_img.png',
-  chuworld_img: 'https://storage.googleapis.com/churest-bucket/project_image/chuworld_img.png',
-  cloud_img: 'https://storage.googleapis.com/churest-bucket/project_image/cloud_img.png',
-  chuworld_bubble_img: 'https://storage.googleapis.com/churest-bucket/project_image/chuworld_bubble_img.png',
-  alarm_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/alarm_navbar_img.png',
-  churest_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/churest_navbar_img.png',
-  garden_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/garden_navbar_img.png', 
-  mypage_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/mypage_navbar_img.png',
-  search_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/search_navbar_img.png',
-  tag_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/tag_navbar_img.png',
-  chuworld_navbar_img: 'https://storage.googleapis.com/churest-bucket/project_image/chuworld_navbar_img.png',
+  chuworld_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/chuworld_img.png',
+  cloud_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/cloud_img.png',
+  chuworld_bubble_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/chuworld_bubble_img.png',
+  alarm_navbar_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/alarm_navbar_img.png',
+  churest_navbar_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/churest_navbar_img.png',
+  garden_navbar_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/garden_navbar_img.png',
+  mypage_navbar_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/mypage_navbar_img.png',
+  search_navbar_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/search_navbar_img.png',
+  tag_navbar_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/tag_navbar_img.png',
+  chuworld_navbar_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/chuworld_navbar_img.png',
   cloudy_img:
     'https://storage.googleapis.com/churest-bucket/project_image/cloudy_img.png',
   thunder_img:
@@ -67,9 +77,11 @@ export const images: Images = {
   memory_img:
     'https://storage.googleapis.com/churest-bucket/project_image/memory_img.png',
   shop_navbar_img:
-  'https://storage.googleapis.com/churest-bucket/project_image/shop_navbar_img.png', 
+    'https://storage.googleapis.com/churest-bucket/project_image/shop_navbar_img.png',
   coin_navbar_img:
-  'https://storage.googleapis.com/churest-bucket/project_image/coin_navbar_img.png',
+    'https://storage.googleapis.com/churest-bucket/project_image/coin_navbar_img.png',
   chuworld2_img:
-  'https://storage.googleapis.com/churest-bucket/project_image/chuworld2_img.png',
+    'https://storage.googleapis.com/churest-bucket/project_image/chuworld2_img.png',
+  watering_icon_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/watering_icon_img.png',
 };
