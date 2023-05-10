@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import images from '@/public/assets/memory_backimg.png';
 
-export default function memory() {
+export default function Memory() {
   let memberId = 1;
 
   return (
