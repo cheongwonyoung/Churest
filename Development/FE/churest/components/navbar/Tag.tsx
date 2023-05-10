@@ -39,7 +39,7 @@ export default function Tag({ memberId }: Props) {
           {tagList.length == 0 ? (
             <div style={{ color: 'gray' }}>태그된 추억이 아직 없습니다.</div>
           ) : (
-            <div>
+            <div style={{ width: '100%' }}>
               <Carousel cardType={cardType} info={tagList}></Carousel>
             </div>
           )}

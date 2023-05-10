@@ -8,10 +8,10 @@ export default function churest() {
   return (
     <>
       <div className="">안녕하떼용 여기는 마이 츄레스트입니다</div>
-      <div className="page-center">
-        <ChureeView boardId={1}></ChureeView>
-      </div>
-      {/* <MyBird></MyBird> */}
+      {/* <div className="page-center"> */}
+      {/* <ChureeView boardId={1}></ChureeView> */}
+      {/* </div> */}
+      <MyBird></MyBird>
       {/* <LetterBox></LetterBox> */}
       {/* <ItemShop></ItemShop> */}
       <NewBird bird={1}></NewBird>

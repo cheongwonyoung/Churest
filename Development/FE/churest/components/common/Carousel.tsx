@@ -53,18 +53,25 @@ const Carousel = ({ cardType, info }: Props) => {
               >
                 {/* 마이페이지에서 추억 리스트 조회 */}
                 {cardType == 'mypage' ? (
-                  <div className="mypage-box">
-                    <Image
-                      src={images.my_tree_img}
-                      alt=""
-                      width={150}
-                      height={150}
-                    />
-                    <div className="text-content">
-                      <p className="title">{item.title}</p>
-                      <p className="date">
-                        {moment(item.createdTime).format('YYYY년 MM월 DD일')}
-                      </p>
+                  <div className="mypage-box flip-card">
+                    <div className="card">
+                      <div className="front">
+                        <Image
+                          src={images.my_tree_img}
+                          alt=""
+                          width={150}
+                          height={150}
+                        />
+                        <div className="text-content">
+                          <p className="title">{item.title}</p>
+                          <p className="date">
+                            {moment(item.createdTime).format(
+                              'YYYY년 MM월 DD일'
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="back">뒷면이에용</div>
                     </div>
                   </div>
                 ) : cardType == 'myTagged' ? (
@@ -91,16 +98,24 @@ const Carousel = ({ cardType, info }: Props) => {
                   </div>
                 ) : (
                   // 나의 새 조회
-                  <div style={{ margin: '0 auto', height: '200px' }}>
-                    <div>
-                      <Image
-                        src={images['bird_' + item.memberBirdId + '_img']}
-                        alt=""
-                        layout="fill"
-                        object-fit
-                      />
+                  <div
+                    className="flip"
+                    style={{ margin: '0 auto', height: '200px' }}
+                  >
+                    <div className="card">
+                      <div className="front">
+                        <div>
+                          <Image
+                            src={images['bird_' + item.memberBirdId + '_img']}
+                            alt=""
+                            layout="fill"
+                            object-fit
+                          />
+                        </div>
+                        <p>{item.nickname}</p>
+                      </div>
+                      <div className="back">뒷면이양</div>
                     </div>
-                    <p>{item.nickname}</p>
                   </div>
                 )}
               </SwiperSlide>
@@ -128,9 +143,7 @@ const Carousel = ({ cardType, info }: Props) => {
           .mypage-box {
             display: flex;
             flex-direction: column;
-             {
-              /* width: 260px; */
-            }
+            width: 100%;
             height: 300px;
             justify-content: center;
             align-items: center;
@@ -144,6 +157,44 @@ const Carousel = ({ cardType, info }: Props) => {
           button {
             margin: 10px;
             height: 30px;
+          }
+
+          .flip-card {
+            width: 200px;
+            height: 250px;
+            position: relative;
+            perspective: 1100px;
+            margin: 2rem;
+          }
+
+          .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: 0.4s;
+            transform-style: preserve-3d;
+          }
+
+          .front,
+          .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            color: #fff;
+          }
+
+          .front {
+            background: tomato;
+          }
+
+          .back {
+            background: royalblue;
+            transform: rotateY(180deg);
+          }
+
+          .flip:hover .card {
+            transform: rotateY(180deg);
           }
         `}
       </style>

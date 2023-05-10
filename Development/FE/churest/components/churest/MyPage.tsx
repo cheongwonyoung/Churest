@@ -2,12 +2,13 @@ import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import Carousel from '../common/Carousel';
 import { getMyInfo } from '@/apis/mypage';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { openMyPageAtom } from '@/atoms/modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
-import { BsPencil } from 'react-icons/bs';
+import NickName from './NickName';
+
 export default function MyPage() {
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
   const closeModal = () => {
@@ -21,7 +22,7 @@ export default function MyPage() {
   const [treeList, setMyPage] = useState([{}]);
   const [nickname, setNickname] = useState('');
   const [avatarId, setAvatarId] = useState(0);
-  useQuery('mypage', () => getMyInfo(Number(memberId)), {
+  const { refetch } = useQuery('mypage', () => getMyInfo(Number(memberId)), {
     onSuccess(data) {
       setMyPage([...data.data.boards]);
       setNickname(data.data.member.nickname);
@@ -33,6 +34,16 @@ export default function MyPage() {
     },
     staleTime: 60 * 1000,
   });
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  const handleNickname = (e: any) => {
+    setNickname(e.target.value);
+    console.log('눌렀떠');
+    console.log(nickname);
+  };
 
   return (
     <>
@@ -52,10 +63,10 @@ export default function MyPage() {
                 />
               </div>
               <div className="nickname-box">
-                <div className="center nickname">{nickname}</div>
-                <div className="pencil-icon">
-                  정보 수정하기 <BsPencil />
-                </div>
+                <NickName
+                  handleNickname={handleNickname}
+                  nickname={nickname}
+                ></NickName>
               </div>
             </div>
             <div className="mine">
@@ -91,29 +102,6 @@ export default function MyPage() {
           .tree-img {
             margin: 0 auto;
           }
-          .nickname {
-            line-height: 50px;
-            font-size: 20px;
-            font-weight: bold;
-          }
-          .nickname-box {
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 30px;
-          }
-          .pencil-icon {
-            font-size: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-          }
-          .pencil-icon:hover {
-            transform: scale(1.1);
-            transition: transform 0.5s;
-            cursor: pointer;
-          }
           .memory-title {
             text-align: center;
             line-height: 50px;
@@ -125,6 +113,12 @@ export default function MyPage() {
             justify-content: center;
             align-items: center;
             gap: 100px;
+          }
+          .nickname-box {
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
           }
           .avatar-box {
             margin-top: 30px;
