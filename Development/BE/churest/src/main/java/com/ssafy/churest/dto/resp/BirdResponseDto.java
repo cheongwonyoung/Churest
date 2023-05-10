@@ -10,7 +10,7 @@ public class BirdResponseDto {
     @Data
     @Builder
     public static class Info{
-        private int birdId;
+        private int id;
         private String name;
         private String description;
         private int price;
@@ -18,7 +18,7 @@ public class BirdResponseDto {
         private Boolean isUsed;
         public static Info fromEntity(Bird bird){
             return Info.builder()
-                    .birdId(bird.getBirdId())
+                    .id(bird.getBirdId())
                     .name(bird.getName())
                     .description(bird.getDescription())
                     .price(bird.getPrice())

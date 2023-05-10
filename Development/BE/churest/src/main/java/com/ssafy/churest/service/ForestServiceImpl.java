@@ -10,6 +10,7 @@ import com.ssafy.churest.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,8 +27,13 @@ public class ForestServiceImpl implements ForestService{
 
     @Override
     public List<ForestResponseDto.OtherForestInfo> getOtherForestList(int memberId) {
-
-        return memberRepository.findAll(memberId).stream().map(member -> ForestResponseDto.OtherForestInfo.fromEntity(member, memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(member.getMemberId()))).collect(Collectors.toList());
+        List<ForestResponseDto.OtherForestInfo> res = new ArrayList<>();
+        List<Member> memberList = memberRepository.findAll(memberId);
+        for(Member m : memberList){
+            ForestResponseDto.OtherForestInfo dto = ForestResponseDto.OtherForestInfo.fromEntity(m, memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(m.getMemberId()));
+            res.add(dto);
+        }
+        return res;
     }
 
     @Override

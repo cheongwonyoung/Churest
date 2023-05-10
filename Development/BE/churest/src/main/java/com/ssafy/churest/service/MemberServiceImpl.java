@@ -72,9 +72,20 @@ public class MemberServiceImpl implements  MemberService{
         member.updateToken(refreshToken);
         memberRepository.save(member);
 
-        House defaultHouse = houseRepository.findById(1).get();
-        memberHouseRepository.save(MemberHouse.builder().house(defaultHouse).member(member).build().updateIsUsed(true));
-        memberBirdRepository.save(MemberBird.builder().member(member).bird(null).nickname("").build());
+        // memberHouse 저장
+        if(!memberHouseRepository.existsByMember_MemberId(member.getMemberId())){
+            House defaultHouse = houseRepository.findById(1).get();
+            memberHouseRepository.save(MemberHouse.builder().house(defaultHouse).member(member).build().updateIsUsed(true));
+            MemberBird memberBird = new MemberBird(member, birdRepository.findById(1).get(),"기본새",true);
+            memberBirdRepository.save(memberBird);
+//            memberBirdRepository.save(MemberBird.builder().member(member).bird(null).nickname("").build());
+        }
+
+        // memberBird 저장
+//        if(!memberBirdRepository.existsByMember_MemberId(member.getMemberId())){
+//            MemberBird memberBird = new MemberBird(member, birdRepository.findById(1).get(),"기본새",true);
+//            memberBirdRepository.save(memberBird);
+//        }
 
         return LoginResponseDto.builder()
                 .memberId(member.getMemberId())
@@ -149,12 +160,16 @@ public class MemberServiceImpl implements  MemberService{
         Member member = memberRepository.findByMemberId(joinInfo.getMemberId());
 
         // memberBird 저장
-        MemberBird memberBird = new MemberBird(member, birdRepository.findById(joinInfo.getBirdId()).get(),joinInfo.getBirdNickname(),true);
+        // memberId로 memberBird 찾아옴
+        MemberBird memberBird = memberBirdRepository.findByMember_MemberIdAndIsUsedIsTrue(joinInfo.getMemberId());
+        memberBird.setBird(birdRepository.findById(joinInfo.getBirdId()).get());
+        memberBird.setNickname(joinInfo.getBirdNickname());
         memberBirdRepository.save(memberBird);
 
         // 회원가입(아바타id, 닉네임)
         member.setAvatarId(joinInfo.getAvatarId());
         member.setNickname(joinInfo.getNickname());
+        member.setFcmToken(joinInfo.getFcmToken());
         MemberResponseDto.MemberInfo memberInfo = MemberResponseDto.MemberInfo.fromEntity(memberRepository.save(member));
 
         return memberInfo;

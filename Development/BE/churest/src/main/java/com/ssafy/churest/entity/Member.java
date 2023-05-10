@@ -28,6 +28,8 @@ public class Member {
 
     private String token;
 
+    private String fcmToken;
+
     @ColumnDefault("0")
     private int coin;
 
