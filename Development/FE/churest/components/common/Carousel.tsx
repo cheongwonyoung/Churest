@@ -15,6 +15,14 @@ type Props = {
 };
 
 const Carousel = ({ cardType, info }: Props) => {
+  // 태그된 추억 퍼가기
+  const clickTakeTree = (boardId: number) => {
+    console.log(
+      '퍼가기 버튼 누름, boardId 같이 넘겨서 본인 숲으로 가야함' + boardId
+    );
+    // redirect ?
+  };
+
   return (
     <>
       <div>
@@ -38,11 +46,12 @@ const Carousel = ({ cardType, info }: Props) => {
               <SwiperSlide
                 key={idx}
                 className={
-                  cardType == 'mypage'
+                  cardType == 'mypage' || 'myTagged'
                     ? 'gray-clay center'
                     : 'inside-circle'
                 }
               >
+                {/* 마이페이지에서 추억 리스트 조회 */}
                 {cardType == 'mypage' ? (
                   <div className="mypage-box">
                     <Image
@@ -58,7 +67,30 @@ const Carousel = ({ cardType, info }: Props) => {
                       </p>
                     </div>
                   </div>
+                ) : cardType == 'myTagged' ? (
+                  // 태그된 추억 조회
+                  <div className="mypage-box">
+                    <Image
+                      src={images.my_tree_img}
+                      alt=""
+                      width={150}
+                      height={150}
+                    />
+                    <div className="text-content">
+                      <p className="title">{item.title}</p>
+                      <p className="date">
+                        {moment(item.createdTime).format('YYYY년 MM월 DD일')}
+                      </p>
+                    </div>
+                    <button
+                      className="green-btn"
+                      onClick={() => clickTakeTree(item.boardId)}
+                    >
+                      퍼가기
+                    </button>
+                  </div>
                 ) : (
+                  // 나의 새 조회
                   <div style={{ margin: '0 auto', height: '200px' }}>
                     <div>
                       <Image
@@ -106,6 +138,10 @@ const Carousel = ({ cardType, info }: Props) => {
             display: flex;
             flex-direction: column;
             gap: 10px;
+          }
+          button {
+            margin: 10px;
+            height: 30px;
           }
         `}
       </style>

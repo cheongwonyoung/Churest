@@ -10,16 +10,12 @@ type Props = {
 };
 
 export default function Tag({ memberId }: Props) {
-  const cardType = 'mypage';
+  const cardType = 'myTagged';
   // 나의 태그 목록
   const [tagList, setMyTags] = useState([{}]);
   const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
   const closeModal = () => {
     setIsTagOpen({ isModal: false });
-  };
-  const clickTakeTree = () => {
-    console.log('퍼가기 버튼 누름, boardId 같이 넘겨서 본인 숲으로 가야함');
-    // redirect ?
   };
 
   useQuery('mytags', () => getTaggedTree(Number(memberId)), {
@@ -48,9 +44,6 @@ export default function Tag({ memberId }: Props) {
             </div>
           )}
         </div>
-        <button className="green-btn" onClick={clickTakeTree}>
-          퍼가기
-        </button>
       </div>
       <style jsx>
         {`
