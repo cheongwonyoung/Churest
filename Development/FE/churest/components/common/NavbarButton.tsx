@@ -16,13 +16,16 @@ export default function NavbarButton({ image, title }: Props) {
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      background: rgba(255, 255, 255, 0.7);
     }
     .container:hover {
-      background: #c7daff;
+      background: rgba(199, 218, 255, 0.7);
     }
     .content {
-      font-size: 10px;
+      font-size: 12px;
       text-align: center;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
   `;
 
@@ -30,7 +33,7 @@ export default function NavbarButton({ image, title }: Props) {
     <>
       <div className="container gray-clay">
         {/* <Link href={link} style={{ textDecoration: 'none' }}> */}
-        <Image src={images[image]} width={60} height={60} alt="" />
+        <Image src={images[image]} width={50} height={50} alt="" />
         <p className="content">{title}</p>
         {/* </Link> */}
       </div>
