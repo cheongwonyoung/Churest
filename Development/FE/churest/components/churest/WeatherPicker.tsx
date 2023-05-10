@@ -65,7 +65,7 @@ export default function WeatherPicker({ weather, handleWeather }: Props) {
             padding: 3px;
           }
           .picked .imgName:hover {
-            background-color: white;
+            background-color: transparent;
           }
           .imgName:first-child {
             border-radius: 10px 10px 0 0;

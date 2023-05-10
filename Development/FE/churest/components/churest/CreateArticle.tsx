@@ -3,6 +3,13 @@ import Image from 'next/image';
 import WeatherPicker from './WeatherPicker';
 import { useState } from 'react';
 import ImgUploader from './ImgUploader';
+import TagPicker from './TagPicker';
+import { useRecoilValue } from 'recoil';
+import { createArticleAtom } from '@/atoms/modal';
+import { loginAtom } from '@/atoms/login';
+import { useMutation } from 'react-query';
+import { goCreateArticle } from '@/apis/churest';
+import { log } from 'console';
 
 // 850 700
 export default function CreateArticle() {
@@ -37,6 +44,74 @@ export default function CreateArticle() {
   const handleData = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  //태그 로직
+  const [pickedTag, setPickedTag] = useState<
+    { [key: string]: number | string }[]
+  >([]);
+
+  const addPickedTag = (friend: { [key: string]: number | string }) => {
+    if (pickedTag.length == 6) {
+      alert('최대 6명까지 태그 가능합니다.');
+    } else {
+      if (pickedTag.indexOf(friend) == -1) {
+        setPickedTag((prev) => [...prev, friend]);
+      }
+    }
+  };
+
+  const deleteTag = (friend: { [key: string]: number | string }) => {
+    setPickedTag((prev) => prev.filter((f) => f != friend));
+  };
+
+  const { mutate: submit } = useMutation((info: any) => goCreateArticle(info), {
+    onSuccess(data, variables, context) {
+      console.log(data);
+    },
+    onError(error, variables, context) {
+      console.log(error);
+      console.log(variables);
+    },
+  });
+
+  const spot = useRecoilValue(createArticleAtom).spot;
+  const memberId = useRecoilValue(loginAtom).id;
+  const createArticle = () => {
+    // console.log(pickedTag);
+    // console.log(data);
+    // console.log(files);
+    // console.log(weather);
+    const fileList = new FormData();
+    const blobFile = new Blob(files);
+    fileList.append('fileList', blobFile);
+    const tagList = pickedTag.map((picked) => picked['memberId']);
+    console.log(files);
+
+    const writeInfo = {
+      content: data.content,
+      spot,
+      memberId,
+      tagList,
+      title: data.title,
+      weather,
+      date: data.date,
+    };
+
+    const dbdb = new FormData();
+    dbdb.append('fileList', JSON.stringify(files));
+    dbdb.append('writeInfo', JSON.stringify(writeInfo));
+    submit(dbdb);
+    //   "content": "어버이",
+    //   "spot": 1,
+    //   "memberId": 2,
+    //   "tagList": [
+    //     3
+    //   ],
+    //   "title": "아나바다 사행시 가겟읍니",
+    //   "weather": "발시려",
+    // "date":"2023-05-08"
+  };
+
   return (
     <div className="articleContainer">
       <div className="inputBox">
@@ -90,9 +165,15 @@ export default function CreateArticle() {
           </div>
           <div>
             <p className="tagName">태그</p>
-            <div className="tag"></div>
+            <TagPicker
+              pickedTag={pickedTag}
+              addPickedTag={addPickedTag}
+              deleteTag={deleteTag}
+            />
           </div>
-          <button className="submitBtn">추억 심기</button>
+          <button className="submitBtn" onClick={createArticle}>
+            추억 심기
+          </button>
         </div>
       </div>
       <Image src={images.memory_img} width={850} height={700} alt="" />
@@ -178,9 +259,9 @@ export default function CreateArticle() {
           }
           .content,
           .content:focus {
-            width: 325px;
+            width: 319px;
             resize: none;
-            height: 330px;
+            height: 280px;
             border: none;
             border-radius: 10px;
             box-shadow: inset 0 0 20px -3px rgba(0, 0, 0, 0.1);
@@ -197,13 +278,7 @@ export default function CreateArticle() {
             margin-top: 8px;
             margin-bottom: 8px;
           }
-          .tag {
-            box-shadow: inset 0 0 20px -3px rgba(0, 0, 0, 0.1);
-            width: 325px;
-            height: 44px;
-            border-radius: 10px;
-            padding: 8px;
-          }
+
           .submitBtn {
             margin-top: 36px;
             box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.4),

@@ -380,6 +380,7 @@ export function Char1({ isMoving, charState }: Props) {
             geometry={nodes.m_6.geometry}
             material={materials.characters}
             skeleton={nodes.m_6.skeleton}
+            castShadow
           />
         </group>
       </group>

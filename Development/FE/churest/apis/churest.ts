@@ -2,6 +2,15 @@ import { instance } from '.';
 
 // 추억 나무 생성
 // formdata
+export const goCreateArticle = (data: any) => {
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+  console.log(data);
+  return instance.post('/forest', data, config);
+};
 
 // 추억 숲 조회
 export const getForest = (memberId: number) => {
