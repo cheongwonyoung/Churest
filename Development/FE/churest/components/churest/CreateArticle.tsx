@@ -66,9 +66,11 @@ export default function CreateArticle() {
 
   const { mutate: submit } = useMutation((info: any) => goCreateArticle(info), {
     onSuccess(data, variables, context) {
+      console.log('성공');
       console.log(data);
     },
     onError(error, variables, context) {
+      console.log('넌 실패밖에 모르는 하남자야');
       console.log(error);
       console.log(variables);
     },
@@ -77,16 +79,11 @@ export default function CreateArticle() {
   const spot = useRecoilValue(createArticleAtom).spot;
   const memberId = useRecoilValue(loginAtom).id;
   const createArticle = () => {
-    // console.log(pickedTag);
-    // console.log(data);
-    // console.log(files);
-    // console.log(weather);
-    const fileList = new FormData();
-    const blobFile = new Blob(files);
-    fileList.append('fileList', blobFile);
+    const formData = new FormData();
+    Object.values(files).forEach((file) => {
+      formData.append('fileList', file);
+    });
     const tagList = pickedTag.map((picked) => picked['memberId']);
-    console.log(files);
-
     const writeInfo = {
       content: data.content,
       spot,
@@ -96,20 +93,8 @@ export default function CreateArticle() {
       weather,
       date: data.date,
     };
-
-    const dbdb = new FormData();
-    dbdb.append('fileList', JSON.stringify(files));
-    dbdb.append('writeInfo', JSON.stringify(writeInfo));
-    submit(dbdb);
-    //   "content": "어버이",
-    //   "spot": 1,
-    //   "memberId": 2,
-    //   "tagList": [
-    //     3
-    //   ],
-    //   "title": "아나바다 사행시 가겟읍니",
-    //   "weather": "발시려",
-    // "date":"2023-05-08"
+    formData.append('writeInfo', JSON.stringify(writeInfo));
+    submit({ formData });
   };
 
   return (
