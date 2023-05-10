@@ -10,6 +10,8 @@ import { Char3 } from '../3DFiles/Character/Char3';
 import { Char5 } from '../3DFiles/Character/Char5';
 import { Char6 } from '../3DFiles/Character/Char6';
 import { Controls } from './Churest3D';
+import { useRecoilValue } from 'recoil';
+import { loginAtom } from '@/atoms/login';
 
 type Props = {
   autoView: boolean;
@@ -91,6 +93,7 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
   useFrame(() => {
     if (man1.current?.translation().y < -5) {
       man1.current.setTranslation({ x: 0, y: 8, z: 0 });
+      setIsFloor(false);
     }
 
     autoView && !selectSpot && updateCameraTarget();
@@ -126,6 +129,68 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
 
   const [charState, setCharState] = useState('Walk');
 
+  const avatarId = useRecoilValue(loginAtom).avatarId;
+  console.log(avatarId);
+
+  const character = () => {
+    switch (avatarId) {
+      case 1:
+        return (
+          <Char1
+            isMoving={
+              forwardPressed || backPressed || rightPressed || leftPressed
+            }
+            charState={charState}
+          />
+        );
+      case 2:
+        return (
+          <Char2
+            isMoving={
+              forwardPressed || backPressed || rightPressed || leftPressed
+            }
+            charState={charState}
+          />
+        );
+      case 3:
+        return (
+          <Char3
+            isMoving={
+              forwardPressed || backPressed || rightPressed || leftPressed
+            }
+            charState={charState}
+          />
+        );
+      case 4:
+        return (
+          <Char4
+            isMoving={
+              forwardPressed || backPressed || rightPressed || leftPressed
+            }
+            charState={charState}
+          />
+        );
+      case 5:
+        return (
+          <Char5
+            isMoving={
+              forwardPressed || backPressed || rightPressed || leftPressed
+            }
+            charState={charState}
+          />
+        );
+      case 0:
+        return (
+          <Char6
+            isMoving={
+              forwardPressed || backPressed || rightPressed || leftPressed
+            }
+            charState={charState}
+          />
+        );
+    }
+  };
+
   return (
     <>
       <OrbitControls ref={controlRef} />
@@ -145,50 +210,7 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
         // }}
         rotation={[0, look, 0]}
       >
-        {/* <Man1
-          isMoving={
-            forwardPressed || backPressed || rightPressed || leftPressed
-          }
-          charState={charState}
-        /> */}
-        {/* <Char1
-          isMoving={
-            forwardPressed || backPressed || rightPressed || leftPressed
-          }
-          charState={charState}
-        /> */}
-        {/* <Char2
-          isMoving={
-            forwardPressed || backPressed || rightPressed || leftPressed
-          }
-          charState={charState}
-        />
-        <Char3
-          isMoving={
-            forwardPressed || backPressed || rightPressed || leftPressed
-          }
-          charState={charState}
-        />
-        <Char4
-          isMoving={
-            forwardPressed || backPressed || rightPressed || leftPressed
-          }
-          charState={charState}
-        />
-        <Char5
-          isMoving={
-            forwardPressed || backPressed || rightPressed || leftPressed
-          }
-          charState={charState}
-        /> */}
-        {!selectSpot && (
-          <Char6
-            isMoving={
-              forwardPressed || backPressed || rightPressed || leftPressed
-            }
-            charState={charState}
-          />
-        )}
+        {!selectSpot && character()}
       </RigidBody>
     </>
   );
