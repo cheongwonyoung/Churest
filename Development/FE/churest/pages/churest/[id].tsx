@@ -62,7 +62,7 @@ export default function Garden() {
               <Image
                 src={images.my_tree_img}
                 alt="나무심기"
-                width={50}
+                width={80}
                 height={80}
               />
               <p>추억심기</p>
@@ -94,8 +94,13 @@ export default function Garden() {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 24px 24px 48px rgba(131, 154, 215, 0.55),
-              inset -24px -24px 48px #bfd1ff, inset 12px 12px 24px #eff3ff;
+            box-shadow: 60px 60px 80px rgba(254, 255, 193, 0.55),
+              inset -60px -60px 80px rgb(254, 255, 193), inset 1px 1px 5px rgb(254, 255, 193);
+          }
+          .plantTree:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+            transition: transform 0.5s;
           }
           .outside {
             position: absolute;
@@ -114,6 +119,10 @@ export default function Garden() {
           }
           .canvas {
             z-index: 0;
+          }
+          p {
+            margin-top: 5px;
+            font-weight: bold;
           }
         `}
       </style>

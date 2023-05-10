@@ -1,12 +1,14 @@
 import { writeLetter } from '@/apis/letterbox';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
 
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
 
 export default function Letter() {
-  const fromMemberId = 1;
+  const fromMemberId = useRecoilValue(loginAtom).id;
   const toMemberId = 2;
 
   const [content, setContent] = useState('');
@@ -58,7 +60,7 @@ export default function Letter() {
       </div>
 
       <style jsx>{`
-      .letter {
+        .letter {
           width: 300px;
           height: 500px;
           position: relative;
@@ -78,7 +80,7 @@ export default function Letter() {
           border-radius: 12px;
           font-size: 20px;
         }
-        .green-btn:hover{
+        .green-btn:hover {
           color: black;
           font-weight: bold;
         }
@@ -102,7 +104,7 @@ export default function Letter() {
           font-size: 20px;
           outline-color: none;
         }
-        .letter-box:focus{
+        .letter-box:focus {
           outline: none;
         }
       `}</style>

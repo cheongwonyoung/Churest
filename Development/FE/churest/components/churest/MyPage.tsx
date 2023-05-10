@@ -4,10 +4,10 @@ import Carousel from '../common/Carousel';
 import { getMyInfo } from '@/apis/mypage';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import ModalBlackBg from '../common/ModalBlackBg';
 import { openMyPageAtom } from '@/atoms/modal';
-import { useRecoilState } from 'recoil';
-import {BsPencil} from 'react-icons/bs';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { loginAtom } from '@/atoms/login';
+import { BsPencil } from 'react-icons/bs';
 export default function MyPage() {
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
   const closeModal = () => {
@@ -15,7 +15,8 @@ export default function MyPage() {
   };
 
   const cardType = 'mypage';
-  const memberId = 1;
+  const memberId = useRecoilValue(loginAtom).id;
+
   // 나의 새 목록
   const [treeList, setMyPage] = useState([{}]);
   const [nickname, setNickname] = useState('');
@@ -38,7 +39,7 @@ export default function MyPage() {
       <div>
         {/* {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
         <div className="blue-clay mypage-container">
-          <div className="mypage-title">My Page</div>
+          <div className="modal-title">My Page</div>
           <div className="mypage-content-box">
             <div className="avatar-box">
               {/* <div className="inside-circle center"> */}
@@ -46,18 +47,30 @@ export default function MyPage() {
                 <Image
                   src={images['avatar_' + avatarId + '_img']}
                   alt=""
-                  width={120}
-                  height={180}
+                  width={100}
+                  height={160}
                 />
               </div>
               <div className="nickname-box">
                 <div className="center nickname">{nickname}</div>
-                <div className='pencil-icon'>정보 수정하기 <BsPencil/></div>
+                <div className="pencil-icon">
+                  정보 수정하기 <BsPencil />
+                </div>
               </div>
             </div>
             <div className="mine">
-              <div className="memory-title">추억 모아보기</div>
-              <Carousel cardType={cardType} info={treeList}></Carousel>
+              {treeList.length == 0 ? (
+                <div className="alarm-text">
+                  <p>
+                    추억이 아직 없습니다.<br></br>츄리를 심어보세요!
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  <div className="memory-title">추억 모아보기</div>
+                  <Carousel cardType={cardType} info={treeList}></Carousel>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -65,8 +78,8 @@ export default function MyPage() {
       <style jsx>
         {`
           .mypage-container {
-            width: 750px;
-            height: 540px;
+            width: 600px;
+            height: 460px;
             overflow-x: hidden;
             overflow-y: auto;
             z-index: 50;
@@ -80,47 +93,50 @@ export default function MyPage() {
           }
           .nickname {
             line-height: 50px;
-            font-size: 25px;
+            font-size: 20px;
             font-weight: bold;
           }
-          .nickname-box{
+          .nickname-box {
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-top: 40px;
+            margin-top: 30px;
           }
-          .pencil-icon{
-            font-size: 20px;
+          .pencil-icon {
+            font-size: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
           }
-          .pencil-icon:hover{
-            transform:scale(1.1);
-            transition: transform .5s;
+          .pencil-icon:hover {
+            transform: scale(1.1);
+            transition: transform 0.5s;
             cursor: pointer;
           }
-          .memory-title{
+          .memory-title {
             text-align: center;
-            line-height: 60px;
-            font-size: 20px;
+            line-height: 50px;
+            font-size: 18px;
             font-weight: bold;
           }
-          .mypage-title{
-            text-align: center;
-            line-height: 70px;
-            font-size: 30px;
-            font-weight: bold;
-          }
-          .mypage-content-box{
+          .mypage-content-box {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 100px;
           }
-          .avatar-box{
-            margin-top: 40px;
+          .avatar-box {
+            margin-top: 30px;
+          }
+          .alarm-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 20px;
+            line-height: 40px;
+            color: gray;
           }
         `}
       </style>
