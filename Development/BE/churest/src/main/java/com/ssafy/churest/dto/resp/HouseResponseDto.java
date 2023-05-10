@@ -10,7 +10,7 @@ public class HouseResponseDto {
     @Data
     @Builder
     public static class Info{
-        private int houseId;
+        private int id;
         private String name;
         private String description;
         private int price;
@@ -18,7 +18,7 @@ public class HouseResponseDto {
         private Boolean isUsed;
         public static HouseResponseDto.Info fromEntity(House house){
             return Info.builder()
-                    .houseId(house.getHouseId())
+                    .id(house.getHouseId())
                     .name(house.getName())
                     .description(house.getDescription())
                     .price(house.getPrice())
