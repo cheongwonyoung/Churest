@@ -6,7 +6,7 @@ import CharacterChurest from './CharacterChurest';
 import ChoosePosition from './ChoosePosition';
 import { PostBox } from '../3DFiles/PostBox';
 import { BirdHouse3 } from '../3DFiles/BirdHouse/BirdHouse3';
-import { ChurestMap } from '../3DFiles/ChurestMap1';
+import { ChurestMap } from '../3DFiles/ChurestMap';
 import { House1 } from '../3DFiles/House/House_1';
 import { Tree3 } from '../3DFiles/Trees/Tree3';
 import { Tree1 } from '../3DFiles/Trees/Tree1';
@@ -48,7 +48,6 @@ type Props = {
   autoView: boolean;
 };
 export default function Churest3D({ selectSpot, autoView }: Props) {
-  const light = useRef();
   const map = useMemo(
     () => [
       { name: Controls.forward, keys: ['ArrowUp', 'KeyW'] },
@@ -76,20 +75,19 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
   const directionalLight = new DirectionalLight(0xffffff, 2);
   const gogo = useThree();
   useEffect(() => {
-    directionalLight.position.set(15, 30, 8);
+    directionalLight.position.set(15, 30, 16);
     directionalLight.castShadow = true;
-    directionalLight.shadow.mapSize.x = 5 * 1024; // default
-    directionalLight.shadow.mapSize.y = 5 * 1024; // defaultw
+    directionalLight.shadow.mapSize.x = 4 * 1024; // default
+    directionalLight.shadow.mapSize.y = 4 * 1024; // defaultw
     directionalLight.shadow.camera.top = 40;
     directionalLight.shadow.camera.bottom = -40;
     directionalLight.shadow.camera.left = -40;
     directionalLight.shadow.camera.right = 40;
     directionalLight.shadow.camera.near = 0.5; // default
     directionalLight.shadow.camera.far = 500; // default
-    directionalLight.shadow.radius = 100;
+    directionalLight.shadow.bias = 0.0001;
     gogo.scene.add(directionalLight);
   }, []);
-  console.log(directionalLight);
 
   return (
     <>

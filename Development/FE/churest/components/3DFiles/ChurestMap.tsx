@@ -22,7 +22,7 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function ChurestMap1(props: JSX.IntrinsicElements['group']) {
+export function ChurestMap(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF(glbs.churest_map_glb) as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -31,13 +31,11 @@ export function ChurestMap1(props: JSX.IntrinsicElements['group']) {
           geometry={nodes.큐브003.geometry}
           material={materials['매테리얼.001']}
           receiveShadow
-          castShadow
         />
         <mesh
           geometry={nodes.큐브003_1.geometry}
           material={materials['매테리얼.004']}
           receiveShadow
-          castShadow
         />
       </group>
       <mesh
