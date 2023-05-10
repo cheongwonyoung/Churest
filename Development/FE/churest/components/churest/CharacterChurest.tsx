@@ -16,9 +16,14 @@ import { loginAtom } from '@/atoms/login';
 type Props = {
   autoView: boolean;
   selectSpot: boolean;
+  spaceModal(): void;
 };
 
-export default function CharacterChurest({ autoView, selectSpot }: Props) {
+export default function CharacterChurest({
+  autoView,
+  selectSpot,
+  spaceModal,
+}: Props) {
   const man1 = useRef<any>();
 
   const [isFloor, setIsFloor] = useState(false);
@@ -35,7 +40,7 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
     });
   }, []);
 
-  // const jumpPressed = useKeyboardControls((state) => state[Controls.jump]);
+  const jumpPressed = useKeyboardControls((state) => state[Controls.jump]);
   const leftPressed = useKeyboardControls((state) => state[Controls.left]);
   const rightPressed = useKeyboardControls((state) => state[Controls.right]);
   const backPressed = useKeyboardControls((state) => state[Controls.back]);
@@ -91,6 +96,9 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
 
   const [look, setLook] = useState(0);
   useFrame(() => {
+    if (jumpPressed) {
+      spaceModal();
+    }
     if (man1.current?.translation().y < -5) {
       man1.current.setTranslation({ x: 0, y: 8, z: 4 });
       console.log(man1.current.setLinvel({ x: 0, y: 0, z: 0 }));
@@ -131,7 +139,6 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
   const [charState, setCharState] = useState('Walk');
 
   const avatarId = useRecoilValue(loginAtom).avatarId;
-  console.log(avatarId);
 
   const character = () => {
     switch (avatarId) {
@@ -197,6 +204,7 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
       <OrbitControls ref={controlRef} />
       <RigidBody
         position={[0, 8, 4]}
+        name="character"
         ref={man1}
         canSleep={false}
         colliders="cuboid"
@@ -204,9 +212,6 @@ export default function CharacterChurest({ autoView, selectSpot }: Props) {
           if (other.colliderObject?.name == 'map') setIsFloor(true);
         }}
         onCollisionExit={({ other }) => {
-          if (other.colliderObject?.name == 'rock') {
-            setIsFloor(false);
-          }
           if (
             other.colliderObject?.name == 'map' &&
             (man1.current.translation().x < -30 ||

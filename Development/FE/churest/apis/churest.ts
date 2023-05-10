@@ -8,8 +8,7 @@ export const goCreateArticle = (data: any) => {
       'Content-Type': 'multipart/form-data',
     },
   };
-  console.log(data);
-  return instance.post('/forest', data, config);
+  return instance.post('/forest', data.formData, config);
 };
 
 // 추억 숲 조회

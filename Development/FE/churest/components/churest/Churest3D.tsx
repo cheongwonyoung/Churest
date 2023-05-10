@@ -1,7 +1,13 @@
-import { KeyboardControls, SoftShadows } from '@react-three/drei';
+import { Html, KeyboardControls, SoftShadows } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
-import { Physics, RigidBody } from '@react-three/rapier';
-import { Suspense, useEffect, useMemo, useRef } from 'react';
+import {
+  CuboidCollider,
+  CylinderCollider,
+  Physics,
+  RapierCollider,
+  RigidBody,
+} from '@react-three/rapier';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import CharacterChurest from './CharacterChurest';
 import ChoosePosition from './ChoosePosition';
 import { PostBox } from '../3DFiles/PostBox';
@@ -20,8 +26,13 @@ import { Tree8 } from '../3DFiles/Trees/Tree8';
 import { Tree9 } from '../3DFiles/Trees/Tree9';
 import { Sprout } from '../3DFiles/Trees/Sprout';
 import { Branch } from '../3DFiles/Trees/Branch';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { letterBoxAtom, openMyPageAtom, postBoxAtom } from '@/atoms/modal';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  letterBoxAtom,
+  myBirdAtom,
+  openMyPageAtom,
+  spaceModalAtom,
+} from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
 import { Mountain } from '../3DFiles/Rock/Mountain';
 import { Rock1 } from '../3DFiles/Rock/Rock1';
@@ -41,6 +52,7 @@ export const Controls = {
   back: 'back',
   left: 'left',
   right: 'right',
+  jump: 'jump',
 };
 
 type Props = {
@@ -54,14 +66,11 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
       { name: Controls.back, keys: ['ArrowDown', 'KeyS'] },
       { name: Controls.left, keys: ['ArrowLeft', 'KeyA'] },
       { name: Controls.right, keys: ['ArrowRight', 'KeyD'] },
+      { name: Controls.jump, keys: ['Space'] },
     ],
     []
   );
-  const setIsPostBox = useSetRecoilState(letterBoxAtom);
-  const handlePostBox = () => {
-    console.log('여기');
-    setIsPostBox({ isModal: true });
-  };
+
   // useEffect(() => {
   //   if (light.current) {
   //     console.log('여기');
@@ -89,7 +98,29 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
   }, []);
 
   const setIsMyPageOpen = useSetRecoilState(openMyPageAtom);
+  const setIsMyBirdOpen = useSetRecoilState(myBirdAtom);
+  const setIsPostBoxOpen = useSetRecoilState(letterBoxAtom);
+  const [readyModal, setReadyModal] = useRecoilState(spaceModalAtom);
+  const spaceModal = () => {
+    switch (readyModal) {
+      case 'postBox':
+        setIsPostBoxOpen({ isModal: true });
+        setReadyModal('');
+        return;
+      case 'myBird':
+        setIsMyBirdOpen({ isModal: true });
+        setReadyModal('');
 
+        return;
+      case 'myPage':
+        setIsMyPageOpen({ isModal: true });
+        setReadyModal('');
+
+        return;
+      default:
+        return;
+    }
+  };
   return (
     <>
       <KeyboardControls map={map}>
@@ -97,7 +128,11 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
           <Physics>
             <SoftShadows />
             {/* <MovingCharacter logSpot={logSpot} autoView={autoView} /> */}
-            <CharacterChurest autoView={autoView} selectSpot={selectSpot} />
+            <CharacterChurest
+              autoView={autoView}
+              selectSpot={selectSpot}
+              spaceModal={spaceModal}
+            />
             {selectSpot ? (
               <>
                 <ChoosePosition />
@@ -108,14 +143,54 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                   <group onClick={() => setIsMyPageOpen({ isModal: true })}>
                     <House1 />
                   </group>
+                  <CylinderCollider
+                    sensor
+                    args={[5, 2]}
+                    onIntersectionEnter={(e) => {
+                      e.colliderObject?.name == 'character' &&
+                        setReadyModal('myPage');
+                    }}
+                    onIntersectionExit={(e) => {
+                      e.colliderObject?.name == 'character' &&
+                        setReadyModal('');
+                    }}
+                  />
                 </RigidBody>
                 <RigidBody position={[-4.5, 0, 4.5]} type="fixed">
-                  <PostBox onClick={handlePostBox} />
+                  <group onClick={() => setIsPostBoxOpen({ isModal: true })}>
+                    <PostBox />
+                  </group>
+                  <CylinderCollider
+                    sensor
+                    args={[5, 2]}
+                    onIntersectionEnter={(e) => {
+                      e.colliderObject?.name == 'character' &&
+                        setReadyModal('postBox');
+                    }}
+                    onIntersectionExit={(e) => {
+                      e.colliderObject?.name == 'character' &&
+                        setReadyModal('');
+                    }}
+                  />
                 </RigidBody>
                 <RigidBody position={[4.5, 0, 4.5]} type="fixed">
-                  {/* <BirdHouse1 />
+                  <group onClick={() => setIsMyBirdOpen({ isModal: true })}>
+                    {/* <BirdHouse1 />
                 <BirdHouse2 /> */}
-                  <BirdHouse3 />
+                    <BirdHouse3 />
+                  </group>
+                  <CylinderCollider
+                    sensor
+                    args={[5, 2]}
+                    onIntersectionEnter={(e) => {
+                      e.colliderObject?.name == 'character' &&
+                        setReadyModal('myBird');
+                    }}
+                    onIntersectionExit={(e) => {
+                      e.colliderObject?.name == 'character' &&
+                        setReadyModal('');
+                    }}
+                  />
                 </RigidBody>
               </>
             )}

@@ -55,3 +55,15 @@ export const letterBoxAtom = atom<postBox>({
     isModal: false,
   },
 });
+
+export const myBirdAtom = atom<openAlarm>({
+  key: 'openMyBird',
+  default: {
+    isModal: false,
+  },
+});
+
+export const spaceModalAtom = atom({
+  key: 'spaceModal',
+  default: '',
+});
