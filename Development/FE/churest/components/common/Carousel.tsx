@@ -128,7 +128,9 @@ const Carousel = ({ cardType, info }: Props) => {
           .mypage-box {
             display: flex;
             flex-direction: column;
-            width: 260px;
+             {
+              /* width: 260px; */
+            }
             height: 300px;
             justify-content: center;
             align-items: center;
