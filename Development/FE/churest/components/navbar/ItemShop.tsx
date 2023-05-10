@@ -3,18 +3,61 @@ import { useQuery, useMutation } from 'react-query';
 import ItemList from './ItemList';
 import { getShopBirdList, getBirdHouseList, getHouseList }  from '@/apis/shop';
 
-
 // type Props = {
 //   handleItems(v: any): void;
 // };
 
 export default function ItemShop({}) {
-  const memberId = 1;
+  const memberId = 2;
   const itemNames: string[] = ['새', '새집', '집'];
+  // const itemNames: string[] = ['bird', 'nest', 'house'];
   const [showedItem, setShowedItem] = useState('새');
 
   //  누를 때마다가 아니라 맨 처음에 useQuery로 다 가져오기?
-  // const [haveItem, setHaveItem] = useState({});
+ const [haveItem, setHaveItem] = useState({});
+
+  // useQuery
+  useQuery('birds', () => getShopBirdList(Number(memberId)), {
+    onSuccess(data) {
+      console.log("나의 새에요")
+      console.log(data.data.birds);
+      setHaveItem([...data.data]);
+    },
+    onError: (error) => {
+      console.log('에러다');
+      console.log(error);
+    },
+    staleTime: 60 * 1000, // 
+  });
+
+  useQuery('birdhouses', () => getBirdHouseList(Number(memberId)), {
+    onSuccess(data) {
+      console.log("나의 새집에요")
+      console.log(data.data.birdHouses);
+      setHaveItem([...data.data]);
+    },
+    onError: (error) => {
+      console.log('에러다');
+      console.log(error);
+    },
+    staleTime: 60 * 1000, // 
+  });
+
+  useQuery('houses', () => getHouseList(Number(memberId)), {
+    onSuccess(data) {
+      console.log("나의 집에요")
+      console.log(data.data); // with coin
+      setHaveItem([...data.data]);
+    },
+    onError: (error) => {
+      console.log('에러다');
+      console.log(error);
+    },
+    staleTime: 60 * 1000, // 
+  });
+
+
+  //  useMutation
 
   // const shopBirdList = useMutation(
   //   () => getShopBirdList(memberId),
@@ -100,7 +143,7 @@ export default function ItemShop({}) {
     <>
       <div className="blue-clay" style={{ width: '1000px' }}>
         <div className="">{itemTitle}</div>
-        <ItemList showedItem={showedItem} ></ItemList>
+        <ItemList haveItem={haveItem} ></ItemList>
         <div className="center" style={{ margin: '20px 0 20px 0' }}>
           <button className="green-btn">저장</button>
         </div>

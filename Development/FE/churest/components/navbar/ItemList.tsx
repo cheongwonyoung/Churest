@@ -6,50 +6,58 @@ import internal from 'stream';
 import { getShopBirdList, getBirdHouseList, getHouseList }  from '@/apis/shop';
 
 type Props = {
-  showedItem: string;
-  // haveItem: any;
+  // showedItem: string; // 이걸 애초에 bird, nest, house로 보내면 될 듯 
+  haveItem: any;
+  // coin:number;
   // memberId: number;
   // handleItems(v: any): void;
 };
 
-export default function ItemList({ showedItem }: Props) {
-console.log("ItemList " + showedItem);
-  const birdList = ['bird_0', 'bird_1', 'bird_2', 'bird_3', 'bird_4', 'bird_5'];
-  const nestList = ['nest_0', 'nest_1'];
-  const houseList = ['house_0', 'house_1'];
+export default function ItemList({ haveItem }: Props) {
+console.log("ItemList " + haveItem); // 2번씩 출력됨
+
 
   const itemList = () => {
-    const structure = () => {
-      if (showedItem == '새'){
-        return birdList;
-      }
-      else if(showedItem =='새집'){
-          return nestList;
-      }
-      else{
-          return houseList;
-      }
-    };
+    // const structure = () => {
+    //   if (showedItem == '새'){
+    //     return birdList;
+    //   }
+    //   else if(showedItem =='새집'){
+    //       return nestList;
+    //   }
+    //   else{
+    //       return houseList;
+    //   }
+    // };
 
-    return structure().map((item:any, idx:number) => (
-      <div
-        key={item}
-        id={item}
-        // onClick={() => handleItems(item)}
-        style={{ margin: '30px' }}
-      >
-        <Image
-          src={images[item + '_img']}
-          alt=""
-          id={item}
-          width={100}
-          height={100}
-        />
+    // return haveItem.map((item:any, idx:number) => (
+    //   <div
+    //     key={item}
+    //     id={item}
+    //     // onClick={() => handleItems(item)}
+    //     style={{ margin: '30px' }}
+    //   >
+    //     <Image
+    //       src={images[item + '_img']}
+    //       alt=""
+    //       id={item}
+    //       width={100}
+    //       height={100}
+    //     />
 
-        {idx} : {item}
-        {/* {haveItem[idx].isOwn ? (haveItem[idx].name) : (haveItem[idx].price)} */}
-      </div>
-    ));
+    //     {idx} : {item}
+    //     {/* {haveItem[idx].isOwn ? (haveItem[idx].name) : (haveItem[idx].price)} */}
+    //   </div>
+    // ));
+
+    return (
+      <>
+        {haveItem.map((item:any, idx:number)  =>  (
+          
+        ))}
+      </>
+    );
+
 
   };
 
