@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import StepFaceResult from '../components/signUp/StepFaceResult';
 import { signUp } from '@/apis/login';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useMutation } from 'react-query';
 import router from 'next/router';
 import StepAvatar from '@/components/signup/StepAvatar';
@@ -116,10 +116,17 @@ export default function SignUpPage() {
     goSignUp.mutate(joinInfo);
   };
 
+  const [userInfo, setUserInfo] = useRecoilState(loginAtom);
+
   const goSignUp = useMutation((joinInfo: any) => signUp(joinInfo), {
     onSuccess(data) {
       console.log('회원가입성공');
       console.log(data.data);
+      setUserInfo({
+        ...userInfo,
+        avatarId: data.data.avatarId,
+        nickname: data.data.nickname,
+      });
       router.push('/');
     },
   });

@@ -45,10 +45,12 @@ import {
   DirectionalLight,
   DirectionalLightShadow,
   Vector2,
+  Vector3,
 } from 'three';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { getForest } from '@/apis/churest';
+import { spots } from '@/utils/spots';
 
 export const Controls = {
   forward: 'forward',
@@ -126,7 +128,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
       },
     }
   );
-
+  const spotINfo = spots;
   return (
     <>
       <KeyboardControls map={map}>
@@ -200,7 +202,22 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                 </RigidBody>
               </>
             )}
-
+            {data?.data.treeList.map((tree: any) => {
+              return (
+                <RigidBody
+                  position={
+                    new Vector3(
+                      spotINfo[tree.spot]['x'],
+                      0,
+                      spotINfo[tree.spot]['z']
+                    )
+                  }
+                  type="fixed"
+                >
+                  <Tree3 />
+                </RigidBody>
+              );
+            })}
             <RigidBody
               name="map"
               colliders="trimesh"
