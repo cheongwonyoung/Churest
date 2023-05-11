@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import internal from 'stream';
 import {
@@ -45,7 +45,6 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         console.log('에러다');
         console.log(error);
       },
-      staleTime: 0,
     }
   );
 
@@ -62,7 +61,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         console.log('에러다');
         console.log(error);
       },
-      staleTime: 60 * 1000,
+    
     }
   );
 
@@ -79,9 +78,15 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         console.log('에러다');
         console.log(error);
       },
-      staleTime: 60 * 1000,
+  
     }
   );
+  useEffect(() => {
+    refetchBird() 
+    refetchBirdHouse(); 
+    refetchHouse(); 
+  }, [])  
+
 
   const buyBird = useMutation(
     (info: { birdId: number; memberId: number }) => getNewBird(info),

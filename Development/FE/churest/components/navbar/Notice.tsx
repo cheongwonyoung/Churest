@@ -34,6 +34,7 @@ export default function Notice({ memberId }: Props) {
 
   useEffect(() => {
     refetch();
+    console.log(data) 
   }, []);
 
   return (
@@ -47,12 +48,12 @@ export default function Notice({ memberId }: Props) {
                 <div key={idx} className="notice-item">
                   <div className="image">
                     <div className="notice-profile center">
-                      <Image
+                      {/* <Image
                         src={images['avatar_' + avatarId + '_img']}
                         alt=""
                         width={50}
                         height={75}
-                      />
+                      /> */}
                     </div>
                   </div>
 

@@ -24,7 +24,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
     );
     // redirect ?
   };
-  console.log('ㅅㅂ', info);
+
   // 나무 설명 정보 받아오기
   let treeDesc: any;
   if (info) {
