@@ -2,6 +2,7 @@ import { writeLetter } from '@/apis/letterbox';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { loginAtom } from '@/atoms/login';
+import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 
 import Image from 'next/image';
@@ -9,7 +10,8 @@ import { images } from '@/public/assets/images';
 
 export default function Letter() {
   const fromMemberId = useRecoilValue(loginAtom).id;
-  const toMemberId = 2;
+  const router = useRouter();
+  const toMemberId = Number(router.query.id);
 
   const [content, setContent] = useState('');
   const handleLetter = (e: any) => {
