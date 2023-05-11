@@ -40,8 +40,8 @@ public class BoardServiceImpl implements BoardService {
     public void writeTree(List<MultipartFile> fileList, BoardRequestDto.Write writeInfo) throws IOException {
 
         //  나무 랜덤 매칭
-        int treeId = (int) (Math.random() * TREE_SIZE) + 1;
-
+//        int treeId = (int) (Math.random() * TREE_SIZE) + 1;
+        int treeId = writeInfo.getTreeId();
         Member member = memberRepository.findByMemberId(writeInfo.getMemberId());
 
         Board board = boardRepository.save(Board.builder()
