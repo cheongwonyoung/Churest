@@ -36,6 +36,8 @@ public class ForestResponseDto {
 
         private int houseId;
 
+        private int treeId;
+
         public static ForestResponseDto.OtherForestInfo fromEntity(com.ssafy.churest.entity.Member member, com.ssafy.churest.entity.MemberHouse memberHouse){
             return OtherForestInfo.builder()
                     .memberId(member.getMemberId())
