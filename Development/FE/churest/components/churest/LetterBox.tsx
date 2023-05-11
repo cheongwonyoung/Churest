@@ -26,7 +26,6 @@ export default function LetterBox() {
         console.log('에러다');
         console.log(error);
       },
-      staleTime: 60 * 1000,
     }
   );
 
