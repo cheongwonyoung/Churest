@@ -1,0 +1,16 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* width: 10rem; */
+  height: fit-content;
+  /* padding: 0 2rem 2rem 2rem; */
+  /* border-radius: 10px; */
+}
+
+.card img {
+  margin-top: -20%;
+  width: 100%;
+  border-radius: 20px;
+}

@@ -12,7 +12,7 @@ import CharacterChurest from './CharacterChurest';
 import ChoosePosition from './ChoosePosition';
 import { PostBox } from '../3DFiles/PostBox';
 import { BirdHouse3 } from '../3DFiles/BirdHouse/BirdHouse3';
-import { ChurestMap } from '../3DFiles/ChurestMap1';
+import { ChurestMap } from '../3DFiles/ChurestMap';
 import { House1 } from '../3DFiles/House/House_1';
 import { Tree3 } from '../3DFiles/Trees/Tree3';
 import { Tree1 } from '../3DFiles/Trees/Tree1';

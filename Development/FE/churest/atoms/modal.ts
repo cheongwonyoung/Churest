@@ -84,4 +84,4 @@ export const newBirdAtom = atom<newBird>({
     isModal: false,
     bird:{}
   }
-})
+});

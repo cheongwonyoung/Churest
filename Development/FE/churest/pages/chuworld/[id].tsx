@@ -1,38 +1,28 @@
 // import CloudMap from '@/components/chuworld/CloudMap';
-import { useState, useEffect } from 'react';
-// import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
 import ChuWorldList from '@/components/chuworld/ChuWorldList';
-// import { images } from '@/public/assets/images';
-import ChuWorldItem from '@/components/chuworld/ChuWorldItem';
-import ChuWorldNavbar from '@/components/common/ChuWorldNavbar';
+import ChuWorldNavbar from '@/components/chuworld/ChuWorldNavbar';
 import { useQuery } from 'react-query';
 import { getChuworld } from '@/apis/chuworld';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
 
 export default function Chuworld() {
-  // const [isShow, setIsShow] = useState(true);
   const memberId = useRecoilValue(loginAtom).id;
-  const { data, refetch } = useQuery('getChu', () => getChuworld(memberId));
+  const { data, refetch } = useQuery('getChu', () => getChuworld(memberId), {
+    onSuccess(data) {
+      console.log(data);
+    },
+  });
   useEffect(() => {
     refetch();
   }, []);
-
-  // console.log(data!.data);
-  // console.log(data);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsShow(false);
-  //   }, 5000);
-  // }, []);
 
   return (
     <div className="root">
       <ChuWorldNavbar />
       {/* <CloudMap /> */}
-      {/* <ChuWorldItem /> */}
-      {data && <ChuWorldList props={data!.data} />}
-
+      {data && <ChuWorldList data={data.data} />}
       <style jsx>
         {`
           .root {
@@ -45,14 +35,5 @@ export default function Chuworld() {
         `}
       </style>
     </div>
-
-    // <AnimatePresence mode="wait">
-    //   {/* {isShow && ( */}
-    //   <motion.div>
-    //
-    //   </motion.div>
-    //   {/* )} */}
-    //   {/* {!isShow && <ChuWorldItem />} */}
-    // </AnimatePresence>
   );
 }

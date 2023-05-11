@@ -1,58 +1,34 @@
 import { loginAtom } from '@/atoms/login';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import NavbarButton from './NavbarButton';
+import NavbarButton from '../common/NavbarButton';
 import {
   openAlarmAtom,
   openMyPageAtom,
   openSearchAtom,
   openTagAtom,
-  openShopAtom
 } from '@/atoms/modal';
 import { useRouter } from 'next/router';
 
-export default function Navbar() {
+export default function SquareNavbar() {
   const id = useRecoilValue(loginAtom).id;
-
   const router = useRouter();
-  const params = Number(router.query.id);
-
   const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
   const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
-  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom); 
 
   return (
     <div className="navbarContainer">
-
-      <div
-      onClick={() => {
-        setIsShopOpen({ isModal: true }) 
-      }}> 
-        <NavbarButton image="shop_navbar_img" title="상점" />   
-      </div>
-
-      {/* 1. 광장  */}
+      {/* 1. 마이츄레스트   */}
       <div
         onClick={() => {
-          router.push('/square');
+          router.push('/churest/' + id);
         }}
       >
-        <NavbarButton image="garden_navbar_img" title="광장" />
+        <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
       </div>
 
-      {/* 2. 마이츄레스트 , 단 내 츄레스트일 때는 안보이게  */}
-      {params !== id && (
-        <div
-          onClick={() => {
-            router.push('/churest/' + id);
-          }}
-        >
-          <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
-        </div>
-      )}
-
-      {/* 3. 친구 검색  */}
+      {/* 2. 친구 검색  */}
       <div
         onClick={() => {
           setIsSearchOpen({ isModal: true });
@@ -61,7 +37,7 @@ export default function Navbar() {
         <NavbarButton image="search_navbar_img" title="친구 검색" />
       </div>
 
-      {/* 4. 알림함  */}
+      {/* 3. 알림함  */}
       <div
         onClick={() => {
           setIsAlarmOpen({ isModal: true });
@@ -70,7 +46,7 @@ export default function Navbar() {
         <NavbarButton image="alarm_navbar_img" title="알림함" />
       </div>
 
-      {/* 5. 태그 모아보기  */}
+      {/* 4. 태그 모아보기  */}
       <div
         onClick={() => {
           setIsTagOpen({ isModal: true });
@@ -79,7 +55,7 @@ export default function Navbar() {
         <NavbarButton image="tag_navbar_img" title="태그 모아보기" />
       </div>
 
-      {/* 6. 마이페이지    */}
+      {/* 5. 마이페이지    */}
       <div
         onClick={() => {
           setIsMyPageOpen({ isModal: true });
@@ -88,7 +64,7 @@ export default function Navbar() {
         <NavbarButton image="mypage_navbar_img" title="마이페이지" />
       </div>
 
-      {/* 7. 츄월드  */}
+      {/* 6. 츄월드  */}
       <div
         onClick={() => {
           router.push('/chuworld/' + id);
@@ -103,10 +79,6 @@ export default function Navbar() {
             z-index: 100;
             position: absolute;
             right: 0;
-            padding: 7px 7px 7px 7px;
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
           }
         `}
       </style>

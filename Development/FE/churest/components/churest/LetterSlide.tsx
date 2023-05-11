@@ -7,7 +7,7 @@ type Props = {
   letters: any;
 };
 
-export default function LetterBox({ letters }: Props) {
+export default function LetterSlide({ letters }: Props) {
   const deleteArticleItem = useMutation(
     (deleteInfo: { fromMemberId: number; GuestBookId: number }) =>
       deleteLetter(deleteInfo),
@@ -75,7 +75,7 @@ export default function LetterBox({ letters }: Props) {
           font-size: 20px;
           font-weight: bold;
         }
-        .letter-buttons{
+        .letter-buttons {
           position: absolute;
           bottom: 150px;
           left: 135px;
@@ -83,14 +83,14 @@ export default function LetterBox({ letters }: Props) {
           display: flex;
           gap: 20px;
         }
-        button{
+        button {
           border: none;
           background-color: rgba(0, 0, 0, 0);
           width: 80px;
           height: 30px;
           font-size: 20px;
         }
-        button:hover{
+        button:hover {
           cursor: pointer;
           font-weight: bold;
         }

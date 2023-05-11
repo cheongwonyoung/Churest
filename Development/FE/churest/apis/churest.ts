@@ -2,11 +2,20 @@ import { instance } from '.';
 
 // 추억 나무 생성
 // formdata
+export const goCreateArticle = (data: any) => {
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+  return instance.post('/forest', data.formData, config);
+};
 
 // 추억 숲 조회
-export const getForest = (memberId:any) => {
-  if (typeof memberId == 'string')
-  return instance.get(`/forest/${memberId}`);
+export const getForest = (memberId: any) => {
+  if (typeof memberId == 'string') {
+    return instance.get(`/forest/${memberId}`);
+  }
 };
 
 // 추억 나무 조회
