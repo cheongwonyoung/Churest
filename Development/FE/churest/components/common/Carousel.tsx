@@ -14,7 +14,7 @@ type Props = {
   info: any;
 };
 
-const Carousel = ({ cardType, info }: Props) => {
+export default function Carousel({ cardType, info }: Props) {
   // 태그된 추억 퍼가기
   const clickTakeTree = (boardId: number) => {
     console.log(
@@ -22,6 +22,20 @@ const Carousel = ({ cardType, info }: Props) => {
     );
     // redirect ?
   };
+
+  // 나무 설명 정보 받아오기
+  let treeDesc: any;
+  if (info) {
+    console.log('트리성장완');
+    if (info.treeInfo != null) {
+      console.log('정보를줄게');
+      const desc = info.treeInfo.replace(/\./g, '<br>');
+      console.log(desc);
+      treeDesc = (desc: string) => {
+        return <>{desc}</>;
+      };
+    }
+  }
 
   return (
     <>
@@ -41,83 +55,93 @@ const Carousel = ({ cardType, info }: Props) => {
           pagination={true}
           className="mySwiper"
         >
-          {info.map((item: any, idx: number) => {
-            return (
-              <SwiperSlide
-                key={idx}
-                className={
-                  cardType == 'mypage' ? 'gray-clay center' : 'inside-circle'
-                }
-              >
-                {/* 마이페이지에서 추억 리스트 조회 */}
-                {cardType == 'mypage' ? (
-                  <div className="mypage-box flip-card">
-                    <div className="card">
-                      <div className="front">
-                        <Image
-                          src={images.my_tree_img}
-                          alt=""
-                          width={150}
-                          height={150}
-                        />
-                        <div className="text-content">
-                          <p className="title">{item.title}</p>
-                          <p className="date">
-                            {moment(item.createdTime).format(
-                              'YYYY년 MM월 DD일'
-                            )}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="back">뒷면이에용</div>
-                    </div>
-                  </div>
-                ) : cardType == 'myTagged' ? (
-                  // 태그된 추억 조회
-                  <div className="mypage-box">
-                    <Image
-                      src={images.my_tree_img}
-                      alt=""
-                      width={150}
-                      height={150}
-                    />
-                    <div className="text-content">
-                      <p className="title">{item.title}</p>
-                      <p className="date">
-                        {moment(item.createdTime).format('YYYY년 MM월 DD일')}
-                      </p>
-                    </div>
-                    <button
-                      className="green-btn"
-                      onClick={() => clickTakeTree(item.boardId)}
-                    >
-                      퍼가기
-                    </button>
-                  </div>
-                ) : (
-                  // 나의 새 조회
-                  <div
-                    className="flip"
-                    style={{ margin: '0 auto', height: '200px' }}
-                  >
-                    <div className="card">
-                      <div className="front">
-                        <div>
+          {info &&
+            info.map((item: any, idx: number) => {
+              return (
+                <SwiperSlide
+                  key={idx}
+                  className={cardType == 'mypage' ? 'center' : 'inside-circle'}
+                >
+                  {/* 마이페이지에서 추억 리스트 조회 */}
+                  {cardType == 'mypage' ? (
+                    <div className="mypage-box flip-card">
+                      <div className="card center">
+                        <div className="front gray-clay center-clay">
                           <Image
-                            src={images['bird_' + item.memberBirdId + '_img']}
+                            src={images.my_tree_img}
                             alt=""
-                            object-fit
+                            width={150}
+                            height={150}
                           />
+                          <div className="text-content">
+                            <p className="title">{item.title}</p>
+                            <p className="date">
+                              {moment(item.createdTime).format(
+                                'YYYY년 MM월 DD일'
+                              )}
+                            </p>
+                          </div>
                         </div>
-                        <p>{item.nickname}</p>
+                        <div className="back gray-clay center">
+                          {item.treeInfo ? (
+                            <div className="tree-info">
+                              <div>{item.treeInfo.file}</div>
+                              <div className="title">{item.treeInfo.name}</div>
+                              <div>스플릿{treeDesc}</div>
+                              {/* <div>{item.treeInfo.description}</div> */}
+                            </div>
+                          ) : (
+                            <div>나무를 더 성장시켜보셈 !</div>
+                          )}
+                        </div>
                       </div>
-                      <div className="back">뒷면이양</div>
                     </div>
-                  </div>
-                )}
-              </SwiperSlide>
-            );
-          })}
+                  ) : cardType == 'myTagged' ? (
+                    // 태그된 추억 조회
+                    <div className="mypage-box">
+                      <Image
+                        src={images.my_tree_img}
+                        alt=""
+                        width={150}
+                        height={150}
+                      />
+                      <div className="text-content">
+                        <p className="title">{item.title}</p>
+                        <p className="date">
+                          {moment(item.createdTime).format('YYYY년 MM월 DD일')}
+                        </p>
+                      </div>
+                      <button
+                        className="green-btn"
+                        onClick={() => clickTakeTree(item.boardId)}
+                      >
+                        퍼가기
+                      </button>
+                    </div>
+                  ) : (
+                    // 나의 새 조회
+                    <div
+                      className="flip"
+                      style={{ margin: '0 auto', height: '200px' }}
+                    >
+                      <div className="card">
+                        <div className="front">
+                          <div>
+                            <Image
+                              src={images['bird_' + item.memberBirdId + '_img']}
+                              alt=""
+                              object-fit
+                            />
+                          </div>
+                          <p>{item.nickname}</p>
+                        </div>
+                        <div className="back">뒷면이양</div>
+                      </div>
+                    </div>
+                  )}
+                </SwiperSlide>
+              );
+            })}
         </Swiper>
       </div>
       <style jsx>
@@ -141,7 +165,9 @@ const Carousel = ({ cardType, info }: Props) => {
             display: flex;
             flex-direction: column;
             width: 100%;
-            height: 300px;
+             {
+              /* height: 300px; */
+            }
             justify-content: center;
             align-items: center;
           }
@@ -158,13 +184,14 @@ const Carousel = ({ cardType, info }: Props) => {
 
           .flip-card {
             width: 200px;
-            height: 250px;
+            height: 200px;
             position: relative;
             perspective: 1100px;
             margin: 2rem;
           }
 
           .card {
+            margin: 50px;
             width: 100%;
             height: 100%;
             position: relative;
@@ -174,23 +201,31 @@ const Carousel = ({ cardType, info }: Props) => {
 
           .front,
           .back {
+            width: 220px;
+            height: 250px;
             position: absolute;
             backface-visibility: hidden;
-            color: #fff;
+            margin: auto;
           }
 
           .back {
-            background: royalblue;
             transform: rotateY(180deg);
           }
 
           .flip-card:hover .card {
             transform: rotateY(180deg);
           }
+          .tree-info {
+            text-align: center;
+          }
+          .center-clay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
         `}
       </style>
     </>
   );
-};
-
-export default Carousel;
+}

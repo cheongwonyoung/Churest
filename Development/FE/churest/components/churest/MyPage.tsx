@@ -24,21 +24,17 @@ export default function MyPage() {
   const cardType = 'mypage';
   const memberId = useRecoilValue(loginAtom).id;
 
-  // 나의 새 목록
-  // const [treeList, setMyPage] = useState([{}]);
   const { data, refetch } = useQuery(
     'mypage',
     () => getMyInfo(Number(memberId)),
     {
       onSuccess(data) {
-        console.log(data);
-        // setMyPage([...data.data.boards]);
+        console.log(data.data);
       },
       onError: (error) => {
         console.log('에러다');
         console.log(error);
       },
-      staleTime: 60 * 1000,
     }
   );
 
@@ -73,7 +69,7 @@ export default function MyPage() {
               <div className="nickname-box">
                 <NickName
                   handleNickname={handleNickname}
-                  nickname={data?.data.member.nickname}
+                  nickname={data?.data.member && data.data.member.nickname}
                 ></NickName>
               </div>
             </div>
@@ -89,7 +85,7 @@ export default function MyPage() {
                   <div className="memory-title">추억 모아보기</div>
                   <Carousel
                     cardType={cardType}
-                    info={data!.data.boards}
+                    info={data?.data.boards && data.data.boards}
                   ></Carousel>
                 </div>
               )}
