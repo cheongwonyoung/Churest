@@ -19,7 +19,7 @@ export const writeLetter = (
 export const deleteLetter = (
   deleteInfo: {
     fromMemberId: number;
-    GuestBookId: number;
+    guestBookId: number;
 }) => {
   return instance.delete(`/guest-book`, {data:deleteInfo});
 };
