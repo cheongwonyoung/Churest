@@ -96,10 +96,18 @@ public class DataLoader implements CommandLineRunner {
         List<House> houseList = new ArrayList<>();
 
         House house1 = House.builder().name("오두막").description("낮고 아늑한 느낌의 오두막").price(0).build();
-        House house2 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
+        House house2 = House.builder().name("마법사집").description("튼튼한 중세 마법사집").price(0).build();
+        House house3 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
+        House house4 = House.builder().name("산타집").description("앙증맞은 산타집").price(100).build();
+        House house5 = House.builder().name("2층집").description("포근한 2층집").price(0).build();
+        House house6 = House.builder().name("텐트집").description("작고 귀여운 텐트집").price(100).build();
 
         houseList.add(house1);
         houseList.add(house2);
+        houseList.add(house3);
+        houseList.add(house4);
+        houseList.add(house5);
+        houseList.add(house6);
 
         houseRepository.saveAllAndFlush(houseList);
     }
@@ -107,21 +115,19 @@ public class DataLoader implements CommandLineRunner {
     private void addBirds() {
         List<Bird> birdList = new ArrayList<>();
 
-        Bird bird1 = Bird.builder().name("고대갈매기")
-                .description("저는 제주도를 제외한 한국의 해안 전역에서 볼 수 있었어요. 하지만, 갯벌 매립으로 인해 집을 빼앗기고 있어요. 제 집을 찾아주세요.").price(50).build();
-        Bird bird2 = Bird.builder().name("흑비둘기")
-                .description("저는 동백나무 숲이나 후박나무 숲이 있는 지역에서 살아요. 산림훼손에 의해 친구들이 사라지고 저만 남았어요.").price(50).build();
-        Bird bird3 = Bird.builder().name("검은머리촉새")
-                .description("저는 주로 5월과 9월에 저를 볼 수 있었어요. 그런데, 요즘 기온변화로 가족을 다 잃었어요.").price(50).build();
-        Bird bird4 = Bird.builder().name("붉은해오라기")
-                .description("저는 제주도와 부산에서 살고 있어요. 그런데, 사람들이 작은 저를 마구 잡아가고 집을 밀어버렸어요.").price(50).build();
-        Bird bird5 = Bird.builder().name("팔색조")
-                .description("저는 울음소리가 아름답고 다양한 색이 있어 매력이 넘치는게 특징이에요. 그러나, 집이 사라지고 먹이가 줄어 국내에 단 1종만 남았어요.").price(50).build();
-        Bird bird6 = Bird.builder().name("붉은배새매")
+        Bird bird1 = Bird.builder().name("붉은배새매")
                 .description("저는 평지와 야산의 숲, 숲 주변의 논, 개활지에서 번식해요, 그러나, 집이 사라지고 먹이가 줄어서 살기 너무 힘들어요.").price(50).build();
-        Bird bird7 = Bird.builder().name("올빼미")
+        Bird bird2 = Bird.builder().name("고대갈매기")
+                .description("저는 제주도를 제외한 한국의 해안 전역에서 볼 수 있었어요. 하지만, 갯벌 매립으로 인해 집을 빼앗기고 있어요. 제 집을 찾아주세요.").price(50).build();
+        Bird bird3 = Bird.builder().name("흑비둘기")
+                .description("저는 동백나무 숲이나 후박나무 숲이 있는 지역에서 살아요. 산림훼손에 의해 친구들이 사라지고 저만 남았어요.").price(50).build();
+        Bird bird4 = Bird.builder().name("검은머리촉새")
+                .description("저는 주로 5월과 9월에 저를 볼 수 있었어요. 그런데, 요즘 기온변화로 가족을 다 잃었어요.").price(50).build();
+        Bird bird5 = Bird.builder().name("붉은해오라기")
+                .description("저는 제주도와 부산에서 살고 있어요. 그런데, 사람들이 작은 저를 마구 잡아가고 집을 밀어버렸어요.").price(50).build();
+        Bird bird6 = Bird.builder().name("올빼미")
                 .description("저는 고목나무에 둥지를 틀고 먹이를 구하고 왔는데 집이 사라졌어요. 알고보니 사람들이 제 나무를 밀었던 거예요. 저는 어디로 가야하죠?").price(50).build();
-        Bird bird8 = Bird.builder().name("뱁새")
+        Bird bird7 = Bird.builder().name("뱁새")
                 .description("저는 작고 귀여운 매력의 뱁새예요. 츄레스트의 마스코트로 친구들을 지키고 있어요.").price(50).build();
 
         birdList.add(bird1);
@@ -131,7 +137,6 @@ public class DataLoader implements CommandLineRunner {
         birdList.add(bird5);
         birdList.add(bird6);
         birdList.add(bird7);
-        birdList.add(bird8);
 
         birdRepository.saveAllAndFlush(birdList);
     }

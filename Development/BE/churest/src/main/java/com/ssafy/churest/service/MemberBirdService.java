@@ -13,4 +13,5 @@ public interface MemberBirdService {
     MemberBirdResponseDto.Info purchaseBird(int memberId, int birdId, int change);
     MemberBirdResponseDto.Info updateBirdNickname(int MemberBirdId, String nickname);
     void changeBird(int memberId, int birdId);
+    Boolean checkBird(String nickname);
 }

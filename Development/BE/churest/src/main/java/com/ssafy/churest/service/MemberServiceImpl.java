@@ -201,6 +201,12 @@ public class MemberServiceImpl implements  MemberService{
         return null;
     }
 
+    @Override
+    public Boolean checkAvatar(String nickname) {
+        // member 테이블의 nickname에서 확인
+        return memberRepository.existsByNickname(nickname);
+    }
+
 
     @Override
     public List<MemberResponseDto.FriendSearchInfo> getSearchMemberList(String nickname, int memberId) {

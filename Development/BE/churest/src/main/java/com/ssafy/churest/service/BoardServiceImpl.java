@@ -89,7 +89,8 @@ public class BoardServiceImpl implements BoardService {
             // fcm 전송
             fcmNotificationService.sendNotificationByToken(requestDto);
             // notice table 저장
-            noticeRepository.save(Notice.builder().toMember(targetMember).fromMember(member).content(message).build());
+            noticeRepository.save(new Notice(targetMember, member, false, message));
+
         }
 
         //  나무 로그 생성
