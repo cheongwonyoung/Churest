@@ -31,7 +31,7 @@ public class MemberBirdHouse {
     private Boolean isUsed;
 
     @Builder
-    private MemberBirdHouse(Member member, BirdHouse birdHouse) {
+    public MemberBirdHouse(Member member, BirdHouse birdHouse) {
         this.member = member;
         this.birdHouse = birdHouse;
     }
