@@ -18,7 +18,6 @@ export default function StepBirdname({
   signUpSubmit,
   pickedBird,
   birdname,
-  plusPage,
 }: Props) {
   console.log('고른 새는');
   console.log(pickedBird);
@@ -34,10 +33,14 @@ export default function StepBirdname({
           className="inside-clay"
           value={birdname}
           onChange={(e) => getBirdname(e)}
+          maxLength={6}
+          minLength={1}
         />
         <div className="center">
-          {pickedBird && (
-            <NextBtn comment={'회원가입 완료하기'} logic={signUpSubmit} />
+          {pickedBird && birdname.length != 0 ? (
+            <NextBtn comment={"LET'S GO "} logic={signUpSubmit} />
+          ) : (
+            <></>
           )}
         </div>
       </div>

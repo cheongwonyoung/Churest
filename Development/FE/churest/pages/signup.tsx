@@ -8,6 +8,7 @@ import StepAvatar from '@/components/signup/StepAvatar';
 import StepNickname from '@/components/signup/StepNickname';
 import StepBird from '@/components/signup/StepBird';
 import StepBirdname from '@/components/signup/StepBirdname';
+import Swal from 'sweetalert2';
 import { loginAtom } from '@/atoms/login';
 
 export default function SignUpPage() {
@@ -26,7 +27,8 @@ export default function SignUpPage() {
   // 닉네임 정보
   const [nickname, setNickname] = useState('');
   const getNickname = (e: any) => {
-    setNickname(e.target.value);
+    const nameStr = e.target.value.substr(0, 6);
+    setNickname(nameStr);
   };
 
   // 새 정보
@@ -38,7 +40,8 @@ export default function SignUpPage() {
   // 새 닉네임 정보
   const [birdname, setBirdname] = useState('');
   const getBirdname = (e: any) => {
-    setBirdname(e.target.value);
+    const nameStr = e.target.value.substr(0, 6);
+    setBirdname(nameStr);
   };
 
   const stepPage = () => {
@@ -85,12 +88,24 @@ export default function SignUpPage() {
   const token: string = useRecoilValue(loginAtom).accessToken;
   const memberId: Number | null = useRecoilValue(loginAtom).id;
 
+  const showAlert = (text: string) => {
+    Swal.fire({
+      position: 'center',
+      icon: 'question',
+      title: text,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+
   const signUpSubmit = () => {
     console.log('서브밋 시작');
+
     const avatarId = pickedAvatar.replace(/[^0-9]/g, '');
     const birdId = pickedBird.replace(/[^0-9]/g, '');
     console.log('변환 완' + avatarId + ' ' + birdId);
     console.log(pickedAvatar + ' ' + pickedBird);
+
     let joinInfo = {
       avatarId: Number(avatarId),
       birdId: Number(birdId),
@@ -101,33 +116,8 @@ export default function SignUpPage() {
     goSignUp.mutate(joinInfo);
   };
 
-  // const [userState, setUserState] = useRecoilState(userStatus);
-
-  // const goSignUp = useMutation(
-  //   (inp: { joinInfo: any; token: string }) => signUp(inp.joinInfo, inp.token),
-  //   {
-  //     onSuccess(data) {
-  //       // setUserState({
-  //       //   ...userState,
-  //       //   id: data.data.memberId,
-  //       //   nickname: data.data.nickname,
-  //       //   profile_img: data.data.file,
-  //       // });
-  //       console.log('회원가입성공');
-  //       console.log(data.data);
-  //       router.push('/churest');
-  //     },
-  //   }
-  // );
-
   const goSignUp = useMutation((joinInfo: any) => signUp(joinInfo), {
     onSuccess(data) {
-      // setUserState({
-      //   ...userState,
-      //   id: data.data.memberId,
-      //   nickname: data.data.nickname,
-      //   profile_img: data.data.file,
-      // });
       console.log('회원가입성공');
       console.log(data.data);
       router.push('/');

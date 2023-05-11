@@ -7,7 +7,7 @@ export default function NextBtn({ comment, logic }: Props) {
   return (
     <>
       <div onClick={logic} className="green-btn center">
-        <p>NEXT</p>
+        <p>{comment}</p>
         {/* {icon && <p className="">{icon}</p>} */}
       </div>
       <style jsx>
