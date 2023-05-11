@@ -26,6 +26,7 @@ export default function Modals() {
   const [isMyBirdOpen, setIsMyBirdOpen] = useRecoilState(myBirdAtom);
   return (
     <div>
+      {/* 알림함 모달 */}
       {/* {isAlarmOpen.isModal && <Notice memberId={id} />} */}
       {isAlarmOpen.isModal && (
         <ModalBlackBg
@@ -33,6 +34,7 @@ export default function Modals() {
           closeModal={() => setIsAlarmOpen({ isModal: false })}
         />
       )}
+      {/* 태그 모아보기 모달 */}
       {/* {isTagOpen.isModal && <Tag memberId={id} />} */}
       {isTagOpen.isModal && (
         <ModalBlackBg
@@ -40,6 +42,7 @@ export default function Modals() {
           closeModal={() => setIsTagOpen({ isModal: false })}
         />
       )}
+      {/* 친구 검색 모달 */}
       {/* {isSearchOpen.isModal && <SearchFriend />} */}
       {isSearchOpen.isModal && (
         <ModalBlackBg
@@ -47,6 +50,7 @@ export default function Modals() {
           closeModal={() => setIsSearchOpen({ isModal: false })}
         />
       )}
+      {/* 마이페이지 모달 */}
       {/* {isMyPageOpen.isModal && <MyPage />} */}
       {isMyPageOpen.isModal && (
         <ModalBlackBg
@@ -54,12 +58,14 @@ export default function Modals() {
           closeModal={() => setIsMyPageOpen({ isModal: false })}
         />
       )}
+      {/* 우체통 모달 */}
       {isLetterOpen.isModal && (
         <ModalBlackBg
           modal={<LetterBox />}
           closeModal={() => setIsLetterOpen({ isModal: false })}
         />
       )}
+      {/* 나의 새 모달 */}
       {isMyBirdOpen.isModal && (
         <ModalBlackBg
           modal={<MyBird />}

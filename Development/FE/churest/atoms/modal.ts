@@ -9,10 +9,7 @@ interface openAlarm {
   isModal: boolean;
 }
 
-interface postBox {
-  isModal: boolean;
-}
-
+// 추억 생성 모달
 export const createArticleAtom = atom<createArticle>({
   key: 'createArticle',
   default: {
@@ -21,6 +18,7 @@ export const createArticleAtom = atom<createArticle>({
   },
 });
 
+// 알림함 모달
 export const openAlarmAtom = atom<openAlarm>({
   key: 'openAlarm',
   default: {
@@ -28,6 +26,7 @@ export const openAlarmAtom = atom<openAlarm>({
   },
 });
 
+// 태그 모아보기 모달
 export const openTagAtom = atom<openAlarm>({
   key: 'openTag',
   default: {
@@ -35,6 +34,7 @@ export const openTagAtom = atom<openAlarm>({
   },
 });
 
+// 마이페이지 모달
 export const openMyPageAtom = atom<openAlarm>({
   key: 'openMyPage',
   default: {
@@ -42,6 +42,7 @@ export const openMyPageAtom = atom<openAlarm>({
   },
 });
 
+// 친구 검색 모달
 export const openSearchAtom = atom<openAlarm>({
   key: 'openSearch',
   default: {
@@ -49,13 +50,15 @@ export const openSearchAtom = atom<openAlarm>({
   },
 });
 
-export const letterBoxAtom = atom<postBox>({
+// 우체통 모달
+export const letterBoxAtom = atom<openAlarm>({
   key: 'letterBox',
   default: {
     isModal: false,
   },
 });
 
+// 나의 새 모달
 export const myBirdAtom = atom<openAlarm>({
   key: 'openMyBird',
   default: {
@@ -63,6 +66,7 @@ export const myBirdAtom = atom<openAlarm>({
   },
 });
 
+// 스페이스 바 모달
 export const spaceModalAtom = atom({
   key: 'spaceModal',
   default: '',
