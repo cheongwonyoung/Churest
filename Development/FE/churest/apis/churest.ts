@@ -12,8 +12,10 @@ export const goCreateArticle = (data: any) => {
 };
 
 // 추억 숲 조회
-export const getForest = (memberId: number) => {
-  return instance.get(`/forest/${memberId}`);
+export const getForest = (memberId: any) => {
+  if (typeof memberId == 'string') {
+    return instance.get(`/forest/${memberId}`);
+  }
 };
 
 // 추억 나무 조회

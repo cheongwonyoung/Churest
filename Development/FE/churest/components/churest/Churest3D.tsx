@@ -46,6 +46,9 @@ import {
   DirectionalLightShadow,
   Vector2,
 } from 'three';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import { getForest } from '@/apis/churest';
 
 export const Controls = {
   forward: 'forward',
@@ -71,15 +74,6 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
     []
   );
 
-  // useEffect(() => {
-  //   if (light.current) {
-  //     console.log('여기');
-
-  //     light.current.shadow.mapSize.left = 40;
-  //     light.current.shadow.mapSize.right = 40;
-  //   }
-  // }, [light.current]);
-  // console.log(light.current.shadow.map);
   const directionalLight = new DirectionalLight(0xffffff, 2);
   const gogo = useThree();
   useEffect(() => {
@@ -121,6 +115,18 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
         return;
     }
   };
+
+  const memberId = useRouter().query.id;
+  const { data, refetch } = useQuery(
+    ['tree', memberId],
+    () => getForest(memberId),
+    {
+      onSuccess(data) {
+        console.log(data);
+      },
+    }
+  );
+
   return (
     <>
       <KeyboardControls map={map}>
@@ -207,14 +213,15 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[32, -4, -40]}
+              position={[35, -4, -42]}
+              rotation={[0, 0, 0]}
             >
               <Mountain />
             </RigidBody>
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-10, -2, -40]}
+              position={[-10, -6, -42]}
               name="rock"
             >
               <Rock1 />
@@ -222,7 +229,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-25, -2, -40]}
+              position={[-25, -6, -43]}
               name="rock"
             >
               <Rock2 />
@@ -230,7 +237,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-38, -2, -25]}
+              position={[-42, -6, -25]}
               rotation={[0, Math.PI / 2, 0]}
               name="rock"
             >
@@ -239,7 +246,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-40, -4, 0]}
+              position={[-43, -6, 0]}
               rotation={[0, Math.PI / 2, 0]}
               name="rock"
             >
@@ -248,7 +255,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-41, -4, 20]}
+              position={[-43, -6, 20]}
               rotation={[0, (-Math.PI * 0.7) / 2, 0]}
               name="rock"
             >
@@ -257,8 +264,8 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[41, -4, -13]}
-              rotation={[0, (-Math.PI * 0.7) / 2, 0]}
+              position={[46, -6, -13]}
+              rotation={[0, Math.PI, 0]}
               name="rock"
             >
               <Rock4 />
@@ -266,7 +273,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[45, -4, 18]}
+              position={[45, -6, 18]}
               rotation={[0, -Math.PI / 2, 0]}
               name="rock"
             >
