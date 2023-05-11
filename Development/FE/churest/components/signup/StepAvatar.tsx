@@ -23,9 +23,7 @@ export default function StepAvatart({
             />
           </div>
           <div className="center">
-            {pickedAvatar && (
-              <NextBtn comment={'다음 스텝으로'} logic={plusPage} />
-            )}
+            {pickedAvatar && <NextBtn comment={'NEXT'} logic={plusPage} />}
           </div>
         </div>
       </div>

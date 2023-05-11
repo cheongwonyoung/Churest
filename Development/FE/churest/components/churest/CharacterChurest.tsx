@@ -189,7 +189,7 @@ export default function CharacterChurest({
             charState={charState}
           />
         );
-      case 0:
+      case 6:
         return (
           <Char6
             isMoving={

@@ -31,8 +31,8 @@ export default function AvatarItem({
   // };
 
   const clickStyle = () => {
-    if (Avatar === pickedAvatar) return 'inside-clay';
-    return 'gray-clay';
+    if (Avatar === pickedAvatar) return 'inside-clay signup-item';
+    return 'gray-clay signup-item';
   };
 
   return (
@@ -43,27 +43,22 @@ export default function AvatarItem({
         onClick={(e) => handlePickedAvatar(e)}
       >
         <Image
+          id={Avatar}
           src={images[Avatar]}
           alt=""
           width={120}
           height={170}
-          onClick={(e) => handlePickedAvatar(e)}
         />
       </div>
       <style jsx>{`
-        div {
+        .signup-item {
           width: 250px;
           height: 300px;
           margin: 30px;
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-        .red {
-          background: red;
-        }
-        .blue {
-          background: blue;
+          cursor: pointer;
         }
       `}</style>
     </>

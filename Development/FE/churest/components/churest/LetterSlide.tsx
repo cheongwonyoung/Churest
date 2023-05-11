@@ -1,13 +1,21 @@
 import { deleteLetter } from '@/apis/letterbox';
+import { useRecoilValue } from 'recoil';
+import { loginAtom } from '@/atoms/login';
 import { useMutation } from 'react-query';
-import Image from 'next/image';
-import { images } from '@/public/assets/images';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import { EffectCards } from 'swiper';
+import moment from 'moment';
 
 type Props = {
   letters: any;
 };
 
 export default function LetterSlide({ letters }: Props) {
+  const memberId: number = useRecoilValue(loginAtom).id;
+
+  // 방명록 삭제
   const deleteArticleItem = useMutation(
     (deleteInfo: { fromMemberId: number; GuestBookId: number }) =>
       deleteLetter(deleteInfo),
@@ -41,30 +49,61 @@ export default function LetterSlide({ letters }: Props) {
 
   return (
     <>
-      {letters.map((letter: any, idx: number) => {
-        return (
-          <div key={idx} className="letter blue-clay">
-            <div className="input">
-              {letter.content}
-              {/* 작성자와 사용자 확인 여부 */}
-              <div className="letter-buttons">
-                <button>수정</button>
-                <button onClick={() => clickDeleteLetter(letter)}>삭제</button>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+      <div>
+        <Swiper
+          effect={'cards'}
+          grabCursor={true}
+          modules={[EffectCards]}
+          centeredSlides={true}
+          slidesPerView={'auto'}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: false,
+          }}
+          pagination={true}
+          mousewheel={true}
+          className="mySwiper"
+        >
+          {letters.map((letter: any, idx: number) => {
+            return (
+              <SwiperSlide key={idx} style={{ width: '400px' }}>
+                <div key={idx} className="letter letter-clay">
+                  <div className="input">
+                    {letter.content}
+                    {/* 작성자와 사용자 확인 여부 */}
+                    내가 안썼음
+                    {letter.fromMemberId == memberId ? (
+                      <div className="letter-buttons">
+                        <button onClick={() => clickDeleteLetter(letter)}>
+                          삭제
+                        </button>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <div>
+                    {moment(letter.createdTime).format('YYYY년 MM월 DD일')} 보냄
+                  </div>
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
       <style jsx>{`
         .letter {
-          width: 300px;
           height: 500px;
           position: relative;
           display: flex;
+          flex-direction: column;
           justify-content: center;
           align-items: center;
-          background-image: url('https://storage.googleapis.com/churest-bucket/project_image/letter_img.png');
           background-size: cover;
+          background-image: url('https://storage.googleapis.com/churest-bucket/project_image/letter_img.png');
         }
         .input {
           width: 225px;
@@ -93,6 +132,9 @@ export default function LetterSlide({ letters }: Props) {
         button:hover {
           cursor: pointer;
           font-weight: bold;
+        }
+        .swiper-slide {
+          width: 20%;
         }
       `}</style>
     </>

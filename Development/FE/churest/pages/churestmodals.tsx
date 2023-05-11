@@ -9,7 +9,7 @@ export default function Churest() {
     <>
       <div className="">안녕하떼용 여기는 마이 츄레스트입니다</div>
       {/* <div className="page-center"> */}
-      {/* <ChureeView boardId={1}></ChureeView> */}
+      <ChureeView boardId={1}></ChureeView>
       {/* </div> */}
       <MyBird></MyBird>
       {/* <LetterBox></LetterBox> */}
