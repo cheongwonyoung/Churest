@@ -78,6 +78,18 @@ public class BoardServiceImpl implements BoardService {
                             .board(board)
                     .build());
             //  알림 생성 ...
+            //  알림 전송
+            String message = writeInfo.getMemberId() +"님이 '"+ writeInfo.getTitle() + "' 추억에 회원님을 태그했습니다.";
+            FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder()
+                    .fromUserId(writeInfo.getMemberId())
+                    .targetUserId(tagMemberId)
+                    .title(message)
+                    .build();
+            Member targetMember = memberRepository.findByMemberId(tagMemberId);
+            // fcm 전송
+            fcmNotificationService.sendNotificationByToken(requestDto);
+            // notice table 저장
+            noticeRepository.save(Notice.builder().toMember(targetMember).fromMember(member).content(message).build());
         }
 
         //  나무 로그 생성
