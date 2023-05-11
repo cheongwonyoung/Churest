@@ -40,14 +40,8 @@ export default function MyPage() {
 
   useEffect(() => {
     refetch();
+    console.log('처음');
   }, []);
-
-  const [nickname, setNickname] = useState([{}]);
-  const handleNickname = (e: any) => {
-    setNickname(e.target.value);
-    console.log('눌렀떠');
-    console.log(nickname);
-  };
 
   return (
     <>
@@ -68,8 +62,8 @@ export default function MyPage() {
               </div>
               <div className="nickname-box">
                 <NickName
-                  handleNickname={handleNickname}
                   nickname={data?.data.member && data.data.member.nickname}
+                  refetch={refetch}
                 ></NickName>
               </div>
             </div>
