@@ -6,15 +6,17 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import moment from 'moment';
 import Image from 'next/image';
+import BirdNickname from '../churest/BirdNickname';
 
 SwiperCore.use([EffectCoverflow, Pagination]);
 
 type Props = {
   cardType: string;
   info: any;
+  refetch?: any;
 };
 
-export default function Carousel({ cardType, info }: Props) {
+export default function Carousel({ cardType, info, refetch }: Props) {
   // 태그된 추억 퍼가기
   const clickTakeTree = (boardId: number) => {
     console.log(
@@ -22,7 +24,7 @@ export default function Carousel({ cardType, info }: Props) {
     );
     // redirect ?
   };
-
+  console.log('ㅅㅂ', info);
   // 나무 설명 정보 받아오기
   let treeDesc: any;
   if (info) {
@@ -60,7 +62,13 @@ export default function Carousel({ cardType, info }: Props) {
               return (
                 <SwiperSlide
                   key={idx}
-                  className={cardType == 'mypage' ? 'center' : 'inside-circle'}
+                  className={
+                    cardType == 'mypage'
+                      ? 'center'
+                      : cardType == 'myTagged'
+                      ? 'inside-circle'
+                      : ''
+                  }
                 >
                   {/* 마이페이지에서 추억 리스트 조회 */}
                   {cardType == 'mypage' ? (
@@ -120,22 +128,27 @@ export default function Carousel({ cardType, info }: Props) {
                     </div>
                   ) : (
                     // 나의 새 조회
-                    <div
-                      className="flip"
-                      style={{ margin: '0 auto', height: '200px' }}
-                    >
-                      <div className="card">
+                    <div className="mypage-box flip-card ">
+                      <div className="card center">
                         <div className="front">
-                          <div>
+                          <div className="gray-clay center-clay">
                             <Image
-                              src={images['bird_' + item.memberBirdId + '_img']}
+                              src={images['bird_' + item.bird?.birdId + '_img']}
                               alt=""
-                              object-fit
+                              width={150}
+                              height={150}
                             />
                           </div>
-                          <p>{item.nickname}</p>
                         </div>
+
                         <div className="back">뒷면이양</div>
+                      </div>
+                      <div className="text-content">
+                        <BirdNickname
+                          nickname={item.nickname}
+                          memberBirdId={item.memberBirdId}
+                          refetch={refetch}
+                        ></BirdNickname>
                       </div>
                     </div>
                   )}

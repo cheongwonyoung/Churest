@@ -14,8 +14,8 @@ export default function BirdItem({
   pickedBird,
 }: Props) {
   const clickStyle = () => {
-    if (Bird === pickedBird) return 'inside-clay';
-    return 'gray-clay';
+    if (Bird === pickedBird) return 'inside-clay signup-item';
+    return 'gray-clay signup-item';
   };
 
   return (
@@ -25,23 +25,17 @@ export default function BirdItem({
         className={clickStyle()}
         onClick={(e) => handlePickedBird(e)}
       >
-        <Image
-          src={images[Bird]}
-          alt=""
-          width={130}
-          height={110}
-          onClick={(e) => handlePickedBird(e)}
-        />
+        <Image id={Bird} src={images[Bird]} alt="" width={130} height={110} />
       </div>
       <style jsx>{`
-        div {
+        .signup-item {
           width: 220px;
           height: 280px;
           margin: 30px;
           display: flex;
           justify-content: center;
           align-items: center;
-          animation: ani 1s infinite alternate;
+          cursor: pointer;
         }
       `}</style>
     </>

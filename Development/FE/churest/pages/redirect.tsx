@@ -29,6 +29,7 @@ export default function Redirect() {
           ...myInfo,
           id: data.data.memberId,
           accessToken: data.data.accessToken,
+          avatarId: data.data.avatarId,
           nickname: data.data.nickname,
         });
         console.log('당신은 가입자');

@@ -1,18 +1,22 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { modifyNickname } from '@/apis/mypage';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
 import { BsPencil } from 'react-icons/bs';
 import Swal from 'sweetalert2';
+import { modifyMyBird } from '@/apis/mypage';
 
 type Props = {
   nickname: string;
+  memberBirdId: number;
   refetch: any;
 };
 
-export default function NickName({ nickname, refetch }: Props) {
-  const memberId = useRecoilValue(loginAtom).id;
+export default function BirdNickname({
+  nickname,
+  memberBirdId,
+  refetch,
+}: Props) {
   const [canInput, setInput] = useState(true);
   const [whatNickname, setWhatNickname] = useState(nickname);
 
@@ -28,7 +32,7 @@ export default function NickName({ nickname, refetch }: Props) {
   };
 
   const canInputMessage = useMutation(
-    (info: { memberId: number; nickname: string }) => modifyNickname(info),
+    (info: { memberBirdId: number; nickname: string }) => modifyMyBird(info),
     {
       onSuccess() {
         refetch();
@@ -39,7 +43,7 @@ export default function NickName({ nickname, refetch }: Props) {
 
   const submitForm = () => {
     const info = {
-      memberId: memberId,
+      memberBirdId: memberBirdId,
       nickname: whatNickname,
     };
     canInputMessage.mutate(info);

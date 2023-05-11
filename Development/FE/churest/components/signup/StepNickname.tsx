@@ -19,13 +19,6 @@ export default function StepNickname({
   console.log('고른 아바타는');
   console.log(pickedAvatar);
 
-  // 닉네임 입력
-  // const [nickname, setName] = useState('');
-  // const handleName = (e: any) => {
-  //   setName(e.target.value);
-  //   console.log('내 닉넴은 ' + nickname);
-  // };
-
   return (
     <>
       <div>
@@ -35,13 +28,17 @@ export default function StepNickname({
         <input
           placeholder="닉네임을 입력해주세요 (최대 6자)"
           className="inside-clay"
+          maxLength={6}
+          minLength={1}
           // onChange={(e) => handleName(e)}
           value={nickname}
           onChange={(e) => getNickname(e)}
         />
         <div className="center">
-          {pickedAvatar && (
-            <NextBtn comment={'다음 스텝으로'} logic={plusPage} />
+          {pickedAvatar && nickname.length != 0 ? (
+            <NextBtn comment={'NEXT'} logic={plusPage} />
+          ) : (
+            <></>
           )}
         </div>
       </div>
