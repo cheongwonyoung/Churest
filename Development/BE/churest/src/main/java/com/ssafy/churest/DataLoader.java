@@ -169,12 +169,12 @@ public class DataLoader implements CommandLineRunner {
         MemberHouse memberHouse7 = MemberHouse.builder().house(defaultHouse).member(member6).build().updateIsUsed(true);
 
         MemberBirdHouse memberBirdHouse1 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member1).build().updateIsUsed(true);
-        MemberBirdHouse memberBirdHouse2 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member2).build();
+        MemberBirdHouse memberBirdHouse2 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member2).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse3 = MemberBirdHouse.builder().birdHouse(birdHouseRepository.findById(2).get()).member(member2).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse4 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member3).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse5 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member4).build().updateIsUsed(true);
-        MemberBirdHouse memberBirdHouse6 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member5).build();
-        MemberBirdHouse memberBirdHouse7 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member6).build();
+        MemberBirdHouse memberBirdHouse6 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member5).build().updateIsUsed(true);
+        MemberBirdHouse memberBirdHouse7 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member6).build().updateIsUsed(true);
 
         memberList.add(member1);
         memberList.add(member2);
