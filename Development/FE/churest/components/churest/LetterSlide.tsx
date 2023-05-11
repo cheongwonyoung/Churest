@@ -19,7 +19,7 @@ export default function LetterSlide({ letters, refetch }: Props) {
 
   // 방명록 삭제
   const deleteArticleItem = useMutation(
-    (deleteInfo: { fromMemberId: number; GuestBookId: number }) =>
+    (deleteInfo: { fromMemberId: number; guestBookId: number }) =>
       deleteLetter(deleteInfo),
     {
       onSuccess: (data) => {
@@ -36,7 +36,7 @@ export default function LetterSlide({ letters, refetch }: Props) {
   const goDeleteArticle = async (letter: any) => {
     deleteArticleItem.mutate({
       fromMemberId: letter.fromMember.memberId,
-      GuestBookId: letter.guestBookId,
+      guestBookId: letter.guestBookId,
     });
   };
 
