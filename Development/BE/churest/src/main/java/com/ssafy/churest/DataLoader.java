@@ -96,14 +96,18 @@ public class DataLoader implements CommandLineRunner {
         List<House> houseList = new ArrayList<>();
 
         House house1 = House.builder().name("오두막").description("낮고 아늑한 느낌의 오두막").price(0).build();
-        House house2 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
-        House house3 = House.builder().name("오두막").description("낮고 아늑한 느낌의 오두막").price(0).build();
-        House house4 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
-        House house5 = House.builder().name("오두막").description("낮고 아늑한 느낌의 오두막").price(0).build();
-        House house6 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
+        House house2 = House.builder().name("마법사집").description("튼튼한 중세 마법사집").price(0).build();
+        House house3 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
+        House house4 = House.builder().name("산타집").description("앙증맞은 산타집").price(100).build();
+        House house5 = House.builder().name("2층집").description("포근한 2층집").price(0).build();
+        House house6 = House.builder().name("텐트집").description("작고 귀여운 텐트집").price(100).build();
 
         houseList.add(house1);
         houseList.add(house2);
+        houseList.add(house3);
+        houseList.add(house4);
+        houseList.add(house5);
+        houseList.add(house6);
 
         houseRepository.saveAllAndFlush(houseList);
     }
