@@ -3,16 +3,20 @@ import { letterBoxAtom } from '@/atoms/modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 import { loginAtom } from '@/atoms/login';
 import Swal from 'sweetalert2';
 import LetterSlide from './LetterSlide';
 
 export default function LetterBox() {
+  const router = useRouter();
+  const churestId = Number(router.query.id);
   const memberId: number = useRecoilValue(loginAtom).id;
+
   // 나의 우편함 편지 목록
   const { data, refetch } = useQuery(
     'myLetters',
-    () => getLetterList(Number(memberId)),
+    () => getLetterList(Number(churestId)),
     {
       onSuccess(data) {
         console.log('편지목록');

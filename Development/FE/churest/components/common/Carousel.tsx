@@ -100,7 +100,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                               {/* <div>{item.treeInfo.description}</div> */}
                             </div>
                           ) : (
-                            <div>나무를 더 성장시켜보셈 !</div>
+                            <div>나무가 아직 성장 중이에요</div>
                           )}
                         </div>
                       </div>
