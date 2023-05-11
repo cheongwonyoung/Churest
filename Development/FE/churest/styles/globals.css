@@ -40,7 +40,7 @@ body {
   overflow-y: auto;
   z-index: 50;
 }
-.modal-title{
+.modal-title {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,4 +101,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.letter-clay {
+  padding: 3%;
+  background: #ffffff;
+  box-shadow: 24px 24px 48px rgba(131, 154, 215, 0.55),
+    inset -24px -24px 48px #bfd1ff, inset 12px 12px 24px #eff3ff;
+  border-radius: 5px;
 }
