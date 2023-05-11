@@ -27,6 +27,7 @@ export function Tree3(props: JSX.IntrinsicElements['group']) {
         material={materials['Material.001']}
         position={[0, 1.76, -0.01]}
         scale={0.19}
+        castShadow
       />
     </group>
   );
