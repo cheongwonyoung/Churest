@@ -2,7 +2,6 @@ package com.ssafy.churest;
 
 import com.ssafy.churest.entity.*;
 import com.ssafy.churest.repository.*;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -43,6 +42,9 @@ public class DataLoader implements CommandLineRunner {
     private TreeLogRepository treeLogRepository;
     @Autowired
     private GuestBookRepository guestBookRepository;
+
+    @Autowired
+    private NoticeRepository notificationRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -141,43 +143,68 @@ public class DataLoader implements CommandLineRunner {
         List<MemberBirdHouse> memberBirdHouseList = new ArrayList<>();
 
         House defaultHouse = houseRepository.findById(1).get();
+        House defaultHouse2 = houseRepository.findById(2).get();
+
         BirdHouse defaultBirdHouse = birdHouseRepository.findById(1).get();
 
         Member member1 = Member.builder().email("cherry@naver.com").nickname("채리밤").coin(0).avatarId(1).build();
         Member member2 = Member.builder().email("baebae@naver.com").nickname("쯍아").coin(500).avatarId(2).build();
         Member member3 = Member.builder().email("jjjooooddy@gmail.com").nickname("맑눈광쿵야").coin(0).avatarId(2).build();
+        Member member4 = Member.builder().email("sbs@naver.com").nickname("윾태").coin(0).avatarId(1).build();
+        Member member5 = Member.builder().email("sun@naver.com").nickname("서니").coin(500).avatarId(2).build();
+        Member member6 = Member.builder().email("won@gmail.com").nickname("워녕").coin(0).avatarId(2).build();
 
         MemberBird memberBird1 = MemberBird.builder().bird(birdRepository.findById(1).get()).member(member1).nickname("채리마루").isUsed(true).build();
         MemberBird memberBird2 = MemberBird.builder().bird(birdRepository.findById(2).get()).member(member2).nickname("와와짹짹").isUsed(true).build();
         MemberBird memberBird3 = MemberBird.builder().bird(birdRepository.findById(3).get()).member(member3).nickname("쿵쿵쿵").isUsed(true).build();
+        MemberBird memberBird4 = MemberBird.builder().bird(birdRepository.findById(1).get()).member(member4).nickname("피죤투").isUsed(true).build();
+        MemberBird memberBird5 = MemberBird.builder().bird(birdRepository.findById(2).get()).member(member5).nickname("리자몽").isUsed(true).build();
+        MemberBird memberBird6 = MemberBird.builder().bird(birdRepository.findById(3).get()).member(member6).nickname("피닉스").isUsed(true).build();
 
-        MemberHouse memberHouse1 = MemberHouse.builder().house(defaultHouse).member(member1).build();
-        MemberHouse memberHouse2 = MemberHouse.builder().house(houseRepository.findById(2).get()).member(member1).build().updateIsUsed(true);
-        MemberHouse memberHouse3 = MemberHouse.builder().house(defaultHouse).member(member2).build().updateIsUsed(true);
+        MemberHouse memberHouse1 = MemberHouse.builder().house(defaultHouse).member(member1).build().updateIsUsed(true);
+        MemberHouse memberHouse3 = MemberHouse.builder().house(defaultHouse2).member(member2).build().updateIsUsed(true);
         MemberHouse memberHouse4 = MemberHouse.builder().house(defaultHouse).member(member3).build().updateIsUsed(true);
+        MemberHouse memberHouse5 = MemberHouse.builder().house(defaultHouse).member(member4).build().updateIsUsed(true);
+        MemberHouse memberHouse6 = MemberHouse.builder().house(defaultHouse2).member(member5).build().updateIsUsed(true);
+        MemberHouse memberHouse7 = MemberHouse.builder().house(defaultHouse).member(member6).build().updateIsUsed(true);
 
         MemberBirdHouse memberBirdHouse1 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member1).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse2 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member2).build();
         MemberBirdHouse memberBirdHouse3 = MemberBirdHouse.builder().birdHouse(birdHouseRepository.findById(2).get()).member(member2).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse4 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member3).build().updateIsUsed(true);
+        MemberBirdHouse memberBirdHouse5 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member4).build().updateIsUsed(true);
+        MemberBirdHouse memberBirdHouse6 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member5).build();
+        MemberBirdHouse memberBirdHouse7 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member6).build();
 
         memberList.add(member1);
         memberList.add(member2);
         memberList.add(member3);
+        memberList.add(member4);
+        memberList.add(member5);
+        memberList.add(member6);
+
 
         memberBirdList.add(memberBird1);
         memberBirdList.add(memberBird2);
         memberBirdList.add(memberBird3);
+        memberBirdList.add(memberBird4);
+        memberBirdList.add(memberBird5);
+        memberBirdList.add(memberBird6);
 
         memberHouseList.add(memberHouse1);
-        memberHouseList.add(memberHouse2);
         memberHouseList.add(memberHouse3);
         memberHouseList.add(memberHouse4);
+        memberHouseList.add(memberHouse5);
+        memberHouseList.add(memberHouse6);
+        memberHouseList.add(memberHouse7);
 
         memberBirdHouseList.add(memberBirdHouse1);
         memberBirdHouseList.add(memberBirdHouse2);
         memberBirdHouseList.add(memberBirdHouse3);
         memberBirdHouseList.add(memberBirdHouse4);
+        memberBirdHouseList.add(memberBirdHouse5);
+        memberBirdHouseList.add(memberBirdHouse6);
+        memberBirdHouseList.add(memberBirdHouse7);
 
         memberRepository.saveAllAndFlush(memberList);
         memberBirdRepository.saveAllAndFlush(memberBirdList);
@@ -188,6 +215,7 @@ public class DataLoader implements CommandLineRunner {
 
     private void addBoard() {
         List<Board> boardList = new ArrayList<>();
+        List<Notice> notificationList = new ArrayList<>();
         List<Member> memberList = memberRepository.findAll();
         List<MemberBoard> memberBoardList = new ArrayList<>();
         List<TreeLog> treeLogList = new ArrayList<>();
@@ -198,15 +226,16 @@ public class DataLoader implements CommandLineRunner {
                 "등산도 갔고 밥도 먹었고\n" +
                 "샐러드도 먹었어 그리고 커피도\n" +
                 "마셨어").weather("맑음").build();
-        memberBoardList.add(MemberBoard.builder().member(member1).board(board1).locationX(3).locationY(4).build());
+        memberBoardList.add(MemberBoard.builder().member(member1).board(board1).spot(2).build());
         treeLogList.add(TreeLog.builder().board(board1).score(0).build());
 
         for (Member member :
                 memberList) {
             if (member.getMemberId() != member1.getMemberId()) {
                 tagList.add(Tag.builder().board(board1).member(member).build());
+                notificationList.add(Notice.builder().toMember(member).fromMember(member1).isChecked(false).content("테트리스 정기 모임ㅋ").build());
                 //  퍼가기
-                memberBoardList.add(MemberBoard.builder().board(board1).member(member).locationX(4).locationY(4).build());
+                memberBoardList.add(MemberBoard.builder().board(board1).member(member).spot(3).build());
             }
         }
 
@@ -215,7 +244,7 @@ public class DataLoader implements CommandLineRunner {
                 "했어.안 .했어.?\n" +
                 "누가 막걸리 마실때만 오래\n" +
                 "윹애야").weather("맑음").build();
-        memberBoardList.add(MemberBoard.builder().member(member2).board(board2).locationX(5).locationY(5).build());
+        memberBoardList.add(MemberBoard.builder().member(member2).board(board2).spot(4).build());
         treeLogList.add(TreeLog.builder().board(board2).score(0).build());
 
         boardList.add(board1);
@@ -225,6 +254,7 @@ public class DataLoader implements CommandLineRunner {
         memberBoardRepository.saveAllAndFlush(memberBoardList);
         tagRepository.saveAllAndFlush(tagList);
         treeLogRepository.saveAllAndFlush(treeLogList);
+        notificationRepository.saveAllAndFlush(notificationList);
     }
 
     public void addTree() {

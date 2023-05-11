@@ -1,5 +1,6 @@
 package com.ssafy.churest.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.churest.dto.req.BoardRequestDto;
 import com.ssafy.churest.dto.resp.MemberResponseDto;
 import com.ssafy.churest.service.BoardService;
@@ -58,24 +59,26 @@ public class ForestController {
     }
 
     //  해당 위치 추억 나무 생성 가능 여부 API
-    @ApiOperation(value = "해당 위치 추억 나무 생성 가능 여부", notes = "위치 좌표로 검색 \n" +
-            "해당 위치에 추억 나무 생성 시 위치 좌표 중심 ?까지 추억 나무 생성 불가")
-    @PostMapping("/{memberId}/checkLoc")
-    public ResponseEntity<?> checkTreeLocation(@ApiParam(value = "내 memberId", required = true) @PathVariable int memberId, @RequestBody BoardRequestDto.LocationInfo locationInfo){
-        try {
-            return new ResponseEntity<>(boardService.checkTreeLocation(memberId, locationInfo), HttpStatus.OK);
-        } catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @ApiOperation(value = "해당 위치 추억 나무 생성 가능 여부", notes = "위치 좌표로 검색 \n" +
+//            "해당 위치에 추억 나무 생성 시 위치 좌표 중심 ?까지 추억 나무 생성 불가")
+//    @PostMapping("/{memberId}/checkLoc")
+//    public ResponseEntity<?> checkTreeLocation(@ApiParam(value = "내 memberId", required = true) @PathVariable int memberId, @RequestBody BoardRequestDto.LocationInfo locationInfo){
+//        try {
+//            return new ResponseEntity<>(boardService.checkTreeLocation(memberId, locationInfo), HttpStatus.OK);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     //  추억 나무 생성 API
     @ApiOperation(value = "추억 나무 생성", notes = "이전에 해당 위치 추억 나무 생성 가능 확인했다는 전제 하에 진행")
-    @PostMapping("")
-    public ResponseEntity<?> writeTree(@RequestParam(required = false) List<MultipartFile> fileList, @RequestPart BoardRequestDto.Write writeInfo){
+    @PostMapping(value = "") // 뒤에 객체 requestpart로 하면 the request doesn't contain a multipart/form-data or multipart/mixed stream, content type header is application/json
+    public ResponseEntity<?> writeTree(@RequestParam(value = "fileList", required=false) List<MultipartFile> fileList, @RequestParam("writeInfo") String inputDto){
         // 이전에 해당 위치 추억 나무 생성 가능 확인했다는 전제 하에 진행
         try {
+            ObjectMapper mapper = new ObjectMapper();
+            BoardRequestDto.Write writeInfo = mapper.readValue(inputDto, BoardRequestDto.Write.class);
             boardService.writeTree(fileList, writeInfo);
             return new ResponseEntity<>(HttpStatus.OK);
         }  catch (Exception e){
@@ -112,10 +115,10 @@ public class ForestController {
 
     //  추억 나무 물주기 API
     @ApiOperation(value = "추억 나무 물주기", notes = "태그된 추억 나무에 물주기 \n 오늘 날짜에 해당하는 갱신된 treeLog 하나 반환 \n isReward가 true일 경우 물주기로 인해 나무로 성장해서 포인트 받았다는 의미 ")
-    @GetMapping("/wateringTree/{boardId}")
-    public ResponseEntity<?> wateringTree(@ApiParam(value = "추억 나무 boardId", required = true) @PathVariable int boardId){
+    @GetMapping("/wateringTree/{boardId}/{memberId}")
+    public ResponseEntity<?> wateringTree(@ApiParam(value = "추억 나무 boardId", required = true) @PathVariable int boardId, @ApiParam(value = "memberId", required = true) @PathVariable int memberId){
         try {
-            return new ResponseEntity<>(treeLogService.updateScoreByWatering(boardId), HttpStatus.OK);
+            return new ResponseEntity<>(treeLogService.updateScoreByWatering(boardId, memberId), HttpStatus.OK);
         } catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class Board {
     private String content;
 
     @CreationTimestamp
-    private LocalDateTime createdTime;
+    private LocalDate createdTime;
 
     @Column(length = 5)
     private String weather;
@@ -56,12 +57,13 @@ public class Board {
     private boolean isPayed;
 
     @Builder
-    public Board(Member member, Tree tree, String title, String content, String weather){
+    public Board(Member member, Tree tree, String title, String content, String weather, LocalDate createdTime){
         this.member = member;
         this.tree = tree;
         this.title = title;
         this.content = content;
         this.weather = weather;
+        this.createdTime = createdTime;
     }
 
     public Board updatePayed(boolean isPayed){

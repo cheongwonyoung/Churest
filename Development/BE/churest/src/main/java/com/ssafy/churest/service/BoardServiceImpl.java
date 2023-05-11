@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,16 +37,7 @@ public class BoardServiceImpl implements BoardService {
     private final TagRepository tagRepository;
 
     @Override
-    public boolean checkTreeLocation(int memberId, BoardRequestDto.LocationInfo locationInfo) {
-        //  해당 위치에서 어느 영역까지 안되는건지 ㅜ
-        //  ㅁㅊ 기록에서 x,y 다 뒤져야하는?;;;
-        return false;
-    }
-
-    @Override
     public void writeTree(List<MultipartFile> fileList, BoardRequestDto.Write writeInfo) throws IOException {
-
-        //  먼저 위치 확인 해주기...? FE에서 먼저 해주나?
 
         //  나무 랜덤 매칭
         int treeId = (int) (Math.random() * TREE_SIZE) + 1;
@@ -57,18 +50,18 @@ public class BoardServiceImpl implements BoardService {
                         .title(writeInfo.getTitle())
                         .content(writeInfo.getContent())
                         .weather(writeInfo.getWeather())
+                        .createdTime(LocalDate.parse(writeInfo.getDate(), DateTimeFormatter.ISO_DATE))
                         .build());
 
         //  내 숲 속 추억 나무 위치 기록
         memberBoardRepository.save(MemberBoard.builder()
                         .member(member)
                         .board(board)
-                        .locationX(writeInfo.getLocationX())
-                        .locationY(writeInfo.getLocationY())
+                        .spot(writeInfo.getSpot())
                         .build());
 
         //  GCS 사진 업로드
-        if(fileList != null) {
+        if(!fileList.isEmpty()) {
             for (MultipartFile file :
                     fileList) {
                 gcsService.uploadBoardImage(file, board);
@@ -96,8 +89,7 @@ public class BoardServiceImpl implements BoardService {
         memberBoardRepository.save(MemberBoard.builder()
                 .member(memberRepository.findByMemberId(memberId))
                 .board(boardRepository.findByBoardId(boardId))
-                .locationX(locationInfo.getLocationX())
-                .locationY(locationInfo.getLocationY())
+                .spot(locationInfo.getSpot())
                 .build());
 
     }
