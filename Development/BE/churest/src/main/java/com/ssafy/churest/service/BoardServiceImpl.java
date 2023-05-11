@@ -1,6 +1,7 @@
 package com.ssafy.churest.service;
 
 import com.ssafy.churest.dto.req.BoardRequestDto;
+import com.ssafy.churest.dto.req.FCMNotificationRequestDto;
 import com.ssafy.churest.dto.resp.BoardResponseDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
 import com.ssafy.churest.dto.resp.TreeResponseDto;
@@ -35,7 +36,8 @@ public class BoardServiceImpl implements BoardService {
     private final TreeRepository treeRepository;
     private final TreeLogRepository treeLogRepository;
     private final TagRepository tagRepository;
-
+    private final FCMNotificationService fcmNotificationService;
+    private final NoticeRepository noticeRepository;
     @Override
     public void writeTree(List<MultipartFile> fileList, BoardRequestDto.Write writeInfo) throws IOException {
 
@@ -157,6 +159,13 @@ public class BoardServiceImpl implements BoardService {
 
                 boardRepository.save(board.updatePayed(true));
                 boardDetailInfo.setReward(true);
+
+                // 알림 전송
+                FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(memberId).targetUserId(memberId).title("쥬잉님 저 다 컸떠용").build();
+                Member member = memberRepository.findByMemberId(memberId);
+                fcmNotificationService.sendNotificationByToken(requestDto);
+                noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").build());
+
             }
 
             //  정렬?
