@@ -2,12 +2,19 @@ import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import Carousel from '../common/Carousel';
 import { getMyInfo } from '@/apis/mypage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { openMyPageAtom } from '@/atoms/modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
 import { BsPencil } from 'react-icons/bs';
+import NickName from './NickName';
+
+type MyPageInfo = {
+  member: { memberId: number; nickname: string; avatarId: number };
+  boards: [];
+};
+
 export default function MyPage() {
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
   const closeModal = () => {
@@ -18,21 +25,33 @@ export default function MyPage() {
   const memberId = useRecoilValue(loginAtom).id;
 
   // 나의 새 목록
-  const [treeList, setMyPage] = useState([{}]);
-  const [nickname, setNickname] = useState('');
-  const [avatarId, setAvatarId] = useState(0);
-  useQuery('mypage', () => getMyInfo(Number(memberId)), {
-    onSuccess(data) {
-      setMyPage([...data.data.boards]);
-      setNickname(data.data.member.nickname);
-      setAvatarId(data.data.member.avatarId);
-    },
-    onError: (error) => {
-      console.log('에러다');
-      console.log(error);
-    },
-    staleTime: 60 * 1000,
-  });
+  // const [treeList, setMyPage] = useState([{}]);
+  const { data, refetch } = useQuery(
+    'mypage',
+    () => getMyInfo(Number(memberId)),
+    {
+      onSuccess(data) {
+        console.log(data);
+        // setMyPage([...data.data.boards]);
+      },
+      onError: (error) => {
+        console.log('에러다');
+        console.log(error);
+      },
+      staleTime: 60 * 1000,
+    }
+  );
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  const [nickname, setNickname] = useState([{}]);
+  const handleNickname = (e: any) => {
+    setNickname(e.target.value);
+    console.log('눌렀떠');
+    console.log(nickname);
+  };
 
   return (
     <>
@@ -45,21 +64,21 @@ export default function MyPage() {
               {/* <div className="inside-circle center"> */}
               <div className="center">
                 <Image
-                  src={images['avatar_' + avatarId + '_img']}
+                  src={images['avatar_' + data?.data.member.avatarId + '_img']}
                   alt=""
                   width={100}
                   height={160}
                 />
               </div>
               <div className="nickname-box">
-                <div className="center nickname">{nickname}</div>
-                <div className="pencil-icon">
-                  정보 수정하기 <BsPencil />
-                </div>
+                <NickName
+                  handleNickname={handleNickname}
+                  nickname={data?.data.member.nickname}
+                ></NickName>
               </div>
             </div>
             <div className="mine">
-              {treeList.length == 0 ? (
+              {data?.data.boards.length == 0 ? (
                 <div className="alarm-text">
                   <p>
                     추억이 아직 없습니다.<br></br>츄리를 심어보세요!
@@ -68,7 +87,10 @@ export default function MyPage() {
               ) : (
                 <div>
                   <div className="memory-title">추억 모아보기</div>
-                  <Carousel cardType={cardType} info={treeList}></Carousel>
+                  <Carousel
+                    cardType={cardType}
+                    info={data!.data.boards}
+                  ></Carousel>
                 </div>
               )}
             </div>
@@ -91,29 +113,6 @@ export default function MyPage() {
           .tree-img {
             margin: 0 auto;
           }
-          .nickname {
-            line-height: 50px;
-            font-size: 20px;
-            font-weight: bold;
-          }
-          .nickname-box {
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-top: 30px;
-          }
-          .pencil-icon {
-            font-size: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-          }
-          .pencil-icon:hover {
-            transform: scale(1.1);
-            transition: transform 0.5s;
-            cursor: pointer;
-          }
           .memory-title {
             text-align: center;
             line-height: 50px;
@@ -125,6 +124,12 @@ export default function MyPage() {
             justify-content: center;
             align-items: center;
             gap: 100px;
+          }
+          .nickname-box {
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
           }
           .avatar-box {
             margin-top: 30px;
