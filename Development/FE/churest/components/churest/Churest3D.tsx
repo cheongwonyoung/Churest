@@ -202,22 +202,25 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                 </RigidBody>
               </>
             )}
-            {data?.data.treeList.map((tree: any) => {
-              return (
-                <RigidBody
-                  position={
-                    new Vector3(
-                      spotINfo[tree.spot]['x'],
-                      0,
-                      spotINfo[tree.spot]['z']
-                    )
-                  }
-                  type="fixed"
-                >
-                  <Tree3 />
-                </RigidBody>
-              );
-            })}
+            {data?.data.treeList?.map(
+              (tree: { boardId: number; spot: number; score: number }) => {
+                return (
+                  <RigidBody
+                    position={
+                      new Vector3(
+                        spotINfo[tree.spot]['x'],
+                        0,
+                        spotINfo[tree.spot]['z']
+                      )
+                    }
+                    type="fixed"
+                    colliders="trimesh"
+                  >
+                    <Tree3 />
+                  </RigidBody>
+                );
+              }
+            )}
             <RigidBody
               name="map"
               colliders="trimesh"
