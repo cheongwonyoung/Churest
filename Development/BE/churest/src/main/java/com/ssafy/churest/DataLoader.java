@@ -81,9 +81,11 @@ public class DataLoader implements CommandLineRunner {
 
         BirdHouse birdHouse1 = BirdHouse.builder().name("그린").description("싱그러운 나뭇잎들이 느껴지는 새집").price(0).build();
         BirdHouse birdHouse2 = BirdHouse.builder().name("블루").description("넓고 푸른 하늘 느낌의 새집").price(100).build();
+        BirdHouse birdHouse3 = BirdHouse.builder().name("레드").description("강렬하고 정열적인 느낌의 새집").price(100).build();
 
         birdHouseList.add(birdHouse1);
         birdHouseList.add(birdHouse2);
+        birdHouseList.add(birdHouse3);
 
         birdHouseRepository.saveAllAndFlush(birdHouseList);
     }
