@@ -61,6 +61,19 @@ public class MemberController {
         }
     }
 
+    @ApiOperation(value = "avatarNickname 중복체크", notes = "사용중인 닉네임이면 true 반환")
+    @GetMapping("/avatarNickname")
+    public ResponseEntity<?> avatarNickname(@RequestParam String nickname) {
+        try {
+            Boolean result = memberService.checkAvatar(nickname);
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
     @ApiOperation(value = "test", notes = "test")
     @GetMapping("/test")
     public ResponseEntity<?> test(@RequestParam String code) {
