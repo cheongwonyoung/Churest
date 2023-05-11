@@ -1,16 +1,25 @@
 import { useState } from 'react';
+import { openShopAtom } from '@/atoms/modal';
+import { useRecoilState } from 'recoil';
 import { BsHouseDoorFill } from 'react-icons/bs';
 import { FaKiwiBird } from 'react-icons/fa';
 import { GiNestBirds } from 'react-icons/gi';
 import ItemList from './ItemList';
 
-export default function ItemShop({}) {
-  const memberId = 1;
+type Props = {
+  memberId: number
+};
+
+export default function ItemShop({memberId}: Props) {
+
   const itemNames: string[] = ['bird', 'nest', 'house'];
   const [itemCategoryName, setItemCategoryName] = useState('bird');
 
+  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
+
+
   const clickSaveButton = () => {
-    console.log("저장 버튼 클릭");
+    setIsShopOpen({ isModal: false });
   }
 
   const handleShowedItem = (item: any) => {
@@ -62,7 +71,7 @@ export default function ItemShop({}) {
         <div className="item-container">{itemTitle}</div>
         <ItemList itemCategoryName={itemCategoryName} memberId={memberId} ></ItemList>
         <div className="center" style={{ margin: '20px 0 20px 0' }}>
-          <button className="green-btn" onClick={clickSaveButton}>저장</button>
+          <button className="green-btn" onClick={clickSaveButton}>닫기</button>
         </div>
       </div>
       <style jsx>{`

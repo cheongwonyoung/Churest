@@ -11,7 +11,11 @@ interface openAlarm {
 
 interface postBox {
   isModal: boolean;
-  id: number;
+}
+
+interface newBird{
+  isModal: boolean;
+  bird:any;
 }
 
 export const createArticleAtom = atom<createArticle>({
@@ -55,10 +59,29 @@ export const openSearchAtom = atom<openAlarm>({
   },
 });
 
-export const postBoxAtom = atom<postBox>({
-  key: 'postBox',
+export const letterBoxAtom = atom<postBox>({
+  key: 'letterBox',
   default: {
     isModal: false,
-    id: 0,
   },
 });
+
+export const myBirdAtom = atom<openAlarm>({
+  key: 'openMyBird',
+  default: {
+    isModal: false,
+  },
+});
+
+export const spaceModalAtom = atom({
+  key: 'spaceModal',
+  default: '',
+});
+
+export const newBirdAtom = atom<newBird>({
+  key: 'newBird',
+  default: {
+    isModal: false,
+    bird:{}
+  }
+})

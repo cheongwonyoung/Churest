@@ -3,12 +3,16 @@ import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { openShopAtom, newBirdAtom } from '@/atoms/modal';
 
-type Props = {
-  bird: number;
-};
+export default function NewBird() {
+  const bird = useRecoilValue(newBirdAtom).bird;
 
-export default function NewBird({ bird }: Props) {
+  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
+  const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
+
+  console.log(bird.bird);
   const [name, setName] = useState('');
   const handleName = (e: any) => {
     setName(e.target.value);
@@ -19,10 +23,13 @@ export default function NewBird({ bird }: Props) {
   };
 
   const changeName = useMutation(
-    () => modifyMyBird({ memberBirdId: bird, nickname: name }),
+    () => modifyMyBird({ memberBirdId: bird.memberBirdId, nickname: name }),
     {
       onSuccess: (data) => {
         console.log(data.data);
+        alert(data.data.bird.name + '야! 너의 이름은 ' + data.data.nickname + '란다!');
+        setIsNewBirdOpen({isModal: false, bird:{}});
+        setIsShopOpen({ isModal: true });
       },
     }
   );
@@ -30,15 +37,16 @@ export default function NewBird({ bird }: Props) {
   return (
     <>
       <div className="blue-clay container">
-        <div className="bird-title">New Bird</div>
+        <div className="bird-title">{bird.bird.name}</div>
         <div className="bird-img">
           <Image
-            src={images.bird_1_img}
+            src={images['bird_' + bird.bird.birdId + '_img']}
             alt="birdImg"
             width={200}
             height={200}
           />
         </div>
+        {/* {bird.bird.description} */}
         <div className="inside-clay bird-input center">
           <input
             type="text"
@@ -56,7 +64,7 @@ export default function NewBird({ bird }: Props) {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 400px;
+          width: 500px;
           height: 450px;
         }
         input {

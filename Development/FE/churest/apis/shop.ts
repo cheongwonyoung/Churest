@@ -30,7 +30,7 @@ export const getNewBirdHouse = (info: {
 
 // 새 집 바꾸기
 export const modifyMyBirdHouse = (info: {
-  birdHouseId: number;
+  houseId: number;
   memberId: number;
 }) => {
   return instance.put(`/shop/bird-house`, info);

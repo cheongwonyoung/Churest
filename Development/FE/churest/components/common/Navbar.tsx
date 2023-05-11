@@ -7,7 +7,7 @@ import {
   openMyPageAtom,
   openSearchAtom,
   openTagAtom,
-  openShopAtom 
+  openShopAtom
 } from '@/atoms/modal';
 
 export default function Navbar() {
@@ -26,7 +26,8 @@ export default function Navbar() {
       }}> 
         <NavbarButton image="shop_navbar_img" title="상점" />   
       </div>
-      <Link href={'/churest/' + id} style={{ textDecoration: 'none' }}>
+
+      <Link href={'/churest/' + id} style={{ color: 'black', textDecoration: 'none' }}>
         <NavbarButton image="garden_navbar_img" title="광장" />
       </Link>
 
@@ -54,7 +55,7 @@ export default function Navbar() {
         <NavbarButton image="tag_navbar_img" title="태그 모아보기" />
       </div>
 
-      <Link href={'/churest/' + id} style={{ textDecoration: 'none' }}>
+      <Link href={'/churest/' + id} style={{ color: 'black', textDecoration: 'none' }}>
         <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
       </Link>
 
@@ -66,8 +67,8 @@ export default function Navbar() {
         <NavbarButton image="mypage_navbar_img" title="마이페이지" />
       </div>
 
-      <Link href={'/chuworld/' + id} style={{ textDecoration: 'none' }}>
-        <NavbarButton image="chuworld_navbar_img" title="다른 집 둘러보기" />
+      <Link href={'/chuworld/' + id} style={{ color: 'black', textDecoration: 'none' }}>
+        <NavbarButton image="chuworld_navbar_img" title="츄월드" />
       </Link>
       <style jsx>
         {`
@@ -75,6 +76,10 @@ export default function Navbar() {
             z-index: 100;
             position: absolute;
             right: 0;
+            padding: 7px 7px 7px 7px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
           }
         `}
       </style>

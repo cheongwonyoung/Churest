@@ -3,9 +3,9 @@ import { images } from '@/public/assets/images';
 import { useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import internal from 'stream';
-import { getShopBirdList, getBirdHouseList, getHouseList } from '@/apis/shop';
-import { getNewBird, getNewBirdHouse, getNewHouse } from '@/apis/shop';
-import { modifyMyBird, modifyMyBirdHouse, modifyMyHouse } from '@/apis/shop';
+import { getShopBirdList, getBirdHouseList, getHouseList, getNewBird, getNewBirdHouse, getNewHouse, modifyMyBird, modifyMyBirdHouse, modifyMyHouse } from '@/apis/shop';
+import { useRecoilState } from 'recoil';
+import { openShopAtom, newBirdAtom } from '@/atoms/modal';
 
 type Props = {
   itemCategoryName: string;
@@ -20,7 +20,10 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   const [haveBirdHouseItem, setHaveBirdHouseItem] = useState(Array);
   const [haveHouseItem, setHaveHouseItem] = useState(Array);
 
-  useQuery('birds', () => getShopBirdList(Number(memberId)), {
+  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
+  const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
+
+  const {refetch:refetchBird} = useQuery('birds', () => getShopBirdList(Number(memberId)), {
     onSuccess(data) {
       console.log(data.data.birds);
       setHaveBirdItem(data.data.birds);
@@ -30,10 +33,10 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
       console.log('에러다');
       console.log(error);
     },
-    staleTime: 60 * 1000,
+    staleTime: 0,
   });
 
-  useQuery('birdhouses', () => getBirdHouseList(Number(memberId)), {
+  const {refetch:refetchBirdHouse} = useQuery('birdhouses', () => getBirdHouseList(Number(memberId)), {
     onSuccess(data) {
       console.log(data.data.birdHouses);
       setHaveBirdHouseItem(data.data.birdHouses);
@@ -46,9 +49,9 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     staleTime: 60 * 1000,
   });
 
-  useQuery('houses', () => getHouseList(Number(memberId)), {
+  const {refetch:refetchHouse} = useQuery('houses', () => getHouseList(Number(memberId)), {
     onSuccess(data) {
-      console.log(data.data); // with coin
+      console.log(data.data);
       setHaveHouseItem(data.data.houses);
       setCoin(data.data.coin);
     },
@@ -65,8 +68,9 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
       onSuccess: (data) => {
         console.log('새 구입 성공');
         console.log(data.data);
-        setHaveBirdItem(data.data.birds);
-        setCoin(data.data.coin);
+
+        setIsShopOpen({ isModal: false }); // 상점 창 닫기
+        setIsNewBirdOpen({isModal: true, bird:data.data});
       },
       onError: (error) => {
         console.log('에러다');
@@ -81,8 +85,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
       onSuccess: (data) => {
         console.log('새 집 구입 성공');
         console.log(data.data);
-        setHaveBirdItem(data.data.birdHouses);
-        setCoin(data.data.coin);
+        refetchBirdHouse();
       },
       onError: (error) => {
         console.log('에러다');
@@ -97,8 +100,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
       onSuccess: (data) => {
         console.log('집 구입 성공');
         console.log(data.data);
-        setHaveBirdItem(data.data.houses);
-        setCoin(data.data.coin);
+        refetchHouse();
       },
       onError: (error) => {
         console.log('에러다');
@@ -113,8 +115,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
       onSuccess: (data) => {
         console.log('새 변경 성공');
         console.log(data.data);
-        setHaveBirdItem(data.data.birds);
-        setCoin(data.data.coin);
+        refetchBird();
       },
       onError: (error) => {
         console.log('에러다');
@@ -124,14 +125,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   );
 
   const modifyBirdHouse = useMutation(
-    (info: { birdHouseId: number; memberId: number }) =>
+    (info: { houseId: number; memberId: number }) =>
       modifyMyBirdHouse(info),
     {
       onSuccess: (data) => {
-        console.log('새 집 구입 성공');
+        console.log('새 집 변경 성공');
         console.log(data.data);
-        setHaveBirdItem(data.data.birdHouses);
-        setCoin(data.data.coin);
+        refetchBirdHouse();
       },
       onError: (error) => {
         console.log('에러다');
@@ -144,10 +144,9 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { houseId: number; memberId: number }) => modifyMyHouse(info),
     {
       onSuccess: (data) => {
-        console.log('집 구입 성공');
+        console.log('집 변경 성공');
         console.log(data.data);
-        setHaveBirdItem(data.data.houses);
-        setCoin(data.data.coin);
+        refetchHouse();
       },
       onError: (error) => {
         console.log('에러다');
@@ -157,37 +156,29 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   );
 
   const handleItem = (e: any) => {
-    console.log('아이템 클릭');
-    console.log(e.name + '아이디 값 : ' + e.id);
 
     if (e.isOwn) {
       if (!e.isUsed) {
-        console.log('바꿀거임');
         if (confirm(e.name + '으로 변경하시겠습니까?')) {
           switch (itemCategoryName) {
             case 'bird':
               modifyBird.mutate({ birdId: e.id, memberId: memberId });
               break;
             case 'nest':
-              modifyBirdHouse.mutate({ birdHouseId: e.id, memberId: memberId });
+              modifyBirdHouse.mutate({ houseId: e.id, memberId: memberId });
               break;
-
             default:
               modifyHouse.mutate({ houseId: e.id, memberId: memberId });
-
               break;
           }
-          console.log('변경 오나료');
         } else {
           console.log('변경 취소');
         }
-        // useMutation
       }
     } else {
     if (coin >= e.price) {
       console.log('살거고 살 수 있음');
       if (confirm(e.name + '를 구매하시겠습니까?')) {
-        //  useMutation
         switch (itemCategoryName) {
           case 'bird':
             buyBird.mutate({ birdId: e.id, memberId: memberId });
