@@ -55,7 +55,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             slideShadows: false,
           }}
           pagination={true}
-          className="mySwiper"
+          className="mySwiper center"
         >
           {info &&
             info.map((item: any, idx: number) => {
@@ -67,8 +67,9 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                       ? 'center'
                       : cardType == 'myTagged'
                       ? 'inside-circle'
-                      : ''
+                      : 'bird-swiper center'
                   }
+                  style={{ width: '200px' }}
                 >
                   {/* 마이페이지에서 추억 리스트 조회 */}
                   {cardType == 'mypage' ? (
@@ -128,22 +129,27 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                     </div>
                   ) : (
                     // 나의 새 조회
-                    <div className="mypage-box flip-card ">
+                    <div className="flip-card mypage-box">
                       <div className="card center">
                         <div className="front">
                           <div className="gray-clay center-clay">
                             <Image
                               src={images['bird_' + item.bird?.birdId + '_img']}
                               alt=""
-                              width={150}
-                              height={150}
+                              width={200}
+                              height={230}
                             />
                           </div>
                         </div>
-
-                        <div className="back">뒷면이양</div>
+                        <div className="back">
+                          <p className="bird-title">{item.bird?.name}</p>
+                          <p className="bird-description">
+                            {item.bird?.description}
+                          </p>
+                        </div>
                       </div>
-                      <div className="text-content">
+
+                      <div>
                         <BirdNickname
                           nickname={item.nickname}
                           memberBirdId={item.memberBirdId}
@@ -167,6 +173,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             font-size: 15px;
             text-align: center;
           }
+
           .title {
             color: black;
           }
@@ -190,6 +197,12 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             flex-direction: column;
             gap: 10px;
           }
+          .text-content-two {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
           button {
             margin: 10px;
             height: 30px;
@@ -197,7 +210,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
 
           .flip-card {
             width: 200px;
-            height: 200px;
+            height: 280px;
             position: relative;
             perspective: 1100px;
             margin: 2rem;
@@ -214,7 +227,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
 
           .front,
           .back {
-            width: 220px;
+            width: 200px;
             height: 250px;
             position: absolute;
             backface-visibility: hidden;
@@ -236,6 +249,14 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             flex-direction: column;
             justify-content: center;
             align-items: center;
+          }
+          .bird-title {
+            font-weight: bold;
+            font-size: 25px;
+            margin-bottom: 20px;
+          }
+          .bird-description {
+            font-size: 17px;
           }
         `}
       </style>

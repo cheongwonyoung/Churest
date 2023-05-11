@@ -32,7 +32,7 @@ export default function MyBird() {
   return (
     <>
       <div className="blue-clay container center">
-        <div className="mine">
+        <div>
           <Carousel
             cardType={cardType}
             info={birdList}
@@ -44,18 +44,8 @@ export default function MyBird() {
       <style jsx>
         {`
           .container {
-            width: 400px;
+            width: 600px;
             height: 400px;
-          }
-           {
-            /* .mine {
-            width: 200px;
-            height: 320px;
-            padding: 10px 0 10px 0;
-          } */
-          }
-          .tree-img {
-            margin: 0 auto;
           }
         `}
       </style>
