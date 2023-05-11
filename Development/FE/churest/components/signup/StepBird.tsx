@@ -23,9 +23,7 @@ export default function StepBirdt({
             />
           </div>
           <div className="center">
-            {pickedBird && (
-              <NextBtn comment={'다음 스텝으로'} logic={plusPage} />
-            )}
+            {pickedBird && <NextBtn comment={'NEXT'} logic={plusPage} />}
           </div>
         </div>
       </div>

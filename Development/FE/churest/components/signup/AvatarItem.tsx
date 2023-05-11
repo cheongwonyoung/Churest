@@ -42,13 +42,9 @@ export default function AvatarItem({
         className={clickStyle()}
         onClick={(e) => handlePickedAvatar(e)}
       >
-        <Image
-          src={images[Avatar]}
-          alt=""
-          width={120}
-          height={170}
-          onClick={(e) => handlePickedAvatar(e)}
-        />
+        <a onClick={(e) => handlePickedAvatar(e)}>
+          <Image src={images[Avatar]} alt="" width={120} height={170} />
+        </a>
       </div>
       <style jsx>{`
         div {
@@ -58,12 +54,6 @@ export default function AvatarItem({
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-        .red {
-          background: red;
-        }
-        .blue {
-          background: blue;
         }
       `}</style>
     </>
