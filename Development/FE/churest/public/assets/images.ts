@@ -4,8 +4,6 @@ type Images = {
 
 export const images: Images = {
   // bird~house까지 다 이미지 루트 고쳐야 함
-  bird_0_img:
-    'https://storage.googleapis.com/churest-bucket/project_image/bird_1_img.png',
   bird_1_img:
     'https://storage.googleapis.com/churest-bucket/project_image/bird_1_img.png',
   bird_2_img:
@@ -18,8 +16,6 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/bird_5_img.png',
   bird_6_img:
     'https://storage.googleapis.com/churest-bucket/project_image/bird_6_img.png',
-  house_0_img:
-    'https://storage.googleapis.com/churest-bucket/project_image/bird_1_img.png',
   house_1_img:
     'https://storage.googleapis.com/churest-bucket/project_image/bird_1_img.png',
   house_2_img:

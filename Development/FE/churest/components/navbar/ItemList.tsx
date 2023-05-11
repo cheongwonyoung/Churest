@@ -3,7 +3,17 @@ import { images } from '@/public/assets/images';
 import { useState } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import internal from 'stream';
-import { getShopBirdList, getBirdHouseList, getHouseList, getNewBird, getNewBirdHouse, getNewHouse, modifyMyBird, modifyMyBirdHouse, modifyMyHouse } from '@/apis/shop';
+import {
+  getShopBirdList,
+  getBirdHouseList,
+  getHouseList,
+  getNewBird,
+  getNewBirdHouse,
+  getNewHouse,
+  modifyMyBird,
+  modifyMyBirdHouse,
+  modifyMyHouse,
+} from '@/apis/shop';
 import { useRecoilState } from 'recoil';
 import { openShopAtom, newBirdAtom } from '@/atoms/modal';
 
@@ -13,7 +23,6 @@ type Props = {
 };
 
 export default function ItemList({ itemCategoryName, memberId }: Props) {
-
   const [coin, setCoin] = useState(0);
 
   const [haveBirdItem, setHaveBirdItem] = useState(Array);
@@ -23,44 +32,56 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
   const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
 
-  const {refetch:refetchBird} = useQuery('birds', () => getShopBirdList(Number(memberId)), {
-    onSuccess(data) {
-      console.log(data.data.birds);
-      setHaveBirdItem(data.data.birds);
-      setCoin(data.data.coin);
-    },
-    onError: (error) => {
-      console.log('에러다');
-      console.log(error);
-    },
-    staleTime: 0,
-  });
+  const { refetch: refetchBird } = useQuery(
+    'birds',
+    () => getShopBirdList(Number(memberId)),
+    {
+      onSuccess(data) {
+        console.log(data.data.birds);
+        setHaveBirdItem(data.data.birds);
+        setCoin(data.data.coin);
+      },
+      onError: (error) => {
+        console.log('에러다');
+        console.log(error);
+      },
+      staleTime: 0,
+    }
+  );
 
-  const {refetch:refetchBirdHouse} = useQuery('birdhouses', () => getBirdHouseList(Number(memberId)), {
-    onSuccess(data) {
-      console.log(data.data.birdHouses);
-      setHaveBirdHouseItem(data.data.birdHouses);
-      setCoin(data.data.coin);
-    },
-    onError: (error) => {
-      console.log('에러다');
-      console.log(error);
-    },
-    staleTime: 60 * 1000,
-  });
+  const { refetch: refetchBirdHouse } = useQuery(
+    'birdhouses',
+    () => getBirdHouseList(Number(memberId)),
+    {
+      onSuccess(data) {
+        console.log(data.data.birdHouses);
+        setHaveBirdHouseItem(data.data.birdHouses);
+        setCoin(data.data.coin);
+      },
+      onError: (error) => {
+        console.log('에러다');
+        console.log(error);
+      },
+      staleTime: 60 * 1000,
+    }
+  );
 
-  const {refetch:refetchHouse} = useQuery('houses', () => getHouseList(Number(memberId)), {
-    onSuccess(data) {
-      console.log(data.data);
-      setHaveHouseItem(data.data.houses);
-      setCoin(data.data.coin);
-    },
-    onError: (error) => {
-      console.log('에러다');
-      console.log(error);
-    },
-    staleTime: 60 * 1000,
-  });
+  const { refetch: refetchHouse } = useQuery(
+    'houses',
+    () => getHouseList(Number(memberId)),
+    {
+      onSuccess(data) {
+        console.log(data.data);
+        setHaveHouseItem(data.data.houses);
+        setCoin(data.data.coin);
+      },
+      onError: (error) => {
+        console.log('에러다');
+        console.log(error);
+      },
+      staleTime: 60 * 1000,
+    }
+  );
 
   const buyBird = useMutation(
     (info: { birdId: number; memberId: number }) => getNewBird(info),
@@ -70,7 +91,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         console.log(data.data);
 
         setIsShopOpen({ isModal: false }); // 상점 창 닫기
-        setIsNewBirdOpen({isModal: true, bird:data.data});
+        setIsNewBirdOpen({ isModal: true, bird: data.data });
       },
       onError: (error) => {
         console.log('에러다');
@@ -125,8 +146,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   );
 
   const modifyBirdHouse = useMutation(
-    (info: { houseId: number; memberId: number }) =>
-      modifyMyBirdHouse(info),
+    (info: { houseId: number; memberId: number }) => modifyMyBirdHouse(info),
     {
       onSuccess: (data) => {
         console.log('새 집 변경 성공');
@@ -156,7 +176,6 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   );
 
   const handleItem = (e: any) => {
-
     if (e.isOwn) {
       if (!e.isUsed) {
         if (confirm(e.name + '으로 변경하시겠습니까?')) {
@@ -176,29 +195,28 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         }
       }
     } else {
-    if (coin >= e.price) {
-      console.log('살거고 살 수 있음');
-      if (confirm(e.name + '를 구매하시겠습니까?')) {
-        switch (itemCategoryName) {
-          case 'bird':
-            buyBird.mutate({ birdId: e.id, memberId: memberId });
-            break;
-          case 'nest':
-            buyBirdHouse.mutate({ birdHouseId: e.id, memberId: memberId });
-            break;
-          default:
-            buyHouse.mutate({ houseId: e.id, memberId: memberId });
-            break;
+      if (coin >= e.price) {
+        console.log('살거고 살 수 있음');
+        if (confirm(e.name + '를 구매하시겠습니까?')) {
+          switch (itemCategoryName) {
+            case 'bird':
+              buyBird.mutate({ birdId: e.id, memberId: memberId });
+              break;
+            case 'nest':
+              buyBirdHouse.mutate({ birdHouseId: e.id, memberId: memberId });
+              break;
+            default:
+              buyHouse.mutate({ houseId: e.id, memberId: memberId });
+              break;
+          }
+          console.log('구매 완료');
+        } else {
+          console.log('구매 취소');
         }
-        console.log('구매 완료');
       } else {
-        console.log('구매 취소');
+        alert('잔액이 부족하여 구매할 수 없습니다.');
       }
     }
-    else{
-      alert('잔액이 부족하여 구매할 수 없습니다.');
-    }
-  }
   };
 
   const structure = () => {
@@ -248,7 +266,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         <style jsx>{`
           .price {
             text-align: center;
-            font-weight: bolder;
+            font-weight: bold;
             align-items: center;
             justify-content: center;
             display: flex;
@@ -276,6 +294,17 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   return (
     <>
       <div className="">
+        <div className="price">
+          <Image
+            src={images['coin_navbar_img']}
+            alt=""
+            width={30}
+            height={30}
+            style={{ margin: '0 10px 0 0' }}
+          />
+          {coin}
+        </div>
+
         <div className="item-grid">{itemList()}</div>
       </div>
       <style jsx>{`
@@ -283,6 +312,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
           display: grid;
           grid-template-columns: 1fr 1fr 1fr 1fr;
           place-items: center;
+        }
+        .price {
+          text-align: center;
+          font-weight: bold;
+          align-items: center;
+          justify-content: center;
+          display: flex;
         }
       `}</style>
     </>

@@ -40,6 +40,8 @@ export default function ChuWorldHouse({
         return <House4 position={position} rotation={[0, -0.3, 0]} />;
       case 5:
         return <House5 position={position} rotation={[0, -0.3, 0]} />;
+      case 6:
+        return <House5 position={position} rotation={[0, -0.3, 0]} />;
     }
   };
 
