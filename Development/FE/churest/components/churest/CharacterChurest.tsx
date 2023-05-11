@@ -12,6 +12,9 @@ import { Char6 } from '../3DFiles/Character/Char6';
 import { Controls } from './Churest3D';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
+import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
+import { getForest } from '@/apis/churest';
 
 type Props = {
   autoView: boolean;
@@ -99,9 +102,9 @@ export default function CharacterChurest({
     if (jumpPressed) {
       spaceModal();
     }
-    if (man1.current?.translation().y < -5) {
+    if (man1.current?.translation().y < -15) {
       man1.current.setTranslation({ x: 0, y: 8, z: 4 });
-      console.log(man1.current.setLinvel({ x: 0, y: 0, z: 0 }));
+      man1.current.setLinvel({ x: 0, y: 0, z: 0 });
       setIsFloor(false);
     }
 
@@ -137,7 +140,6 @@ export default function CharacterChurest({
   };
 
   const [charState, setCharState] = useState('Walk');
-
   const avatarId = useRecoilValue(loginAtom).avatarId;
 
   const character = () => {

@@ -73,6 +73,8 @@ export default function Garden() {
             width: 100vw;
             height: 100vh;
             position: relative;
+            background-image: url('https://images.pexels.com/photos/896673/pexels-photo-896673.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
           }
           .navbarBox {
             position: absolute;
@@ -147,6 +149,12 @@ export default function Garden() {
             color: rgb(155, 155, 155);
             margin: 0;
             font-size: 40px;
+          }
+          .gogo button {
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            z-index: 100;
           }
         `}
       </style>
