@@ -25,7 +25,7 @@ public class BoardRequestDto {
     public static class Write {
 
         private int memberId;
-
+        private int treeId;
         private String title;
 
         private String content;
