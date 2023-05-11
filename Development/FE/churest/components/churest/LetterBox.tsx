@@ -53,7 +53,7 @@ export default function LetterBox() {
   return (
     <>
       {data?.data ? (
-        <LetterSlide letters={data!.data}></LetterSlide>
+        <LetterSlide letters={data!.data} refetch={refetch}></LetterSlide>
       ) : (
         <div></div>
       )}
