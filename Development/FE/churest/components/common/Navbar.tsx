@@ -6,11 +6,13 @@ import {
   openMyPageAtom,
   openSearchAtom,
   openTagAtom,
+  openShopAtom
 } from '@/atoms/modal';
 import { useRouter } from 'next/router';
 
 export default function Navbar() {
   const id = useRecoilValue(loginAtom).id;
+
   const router = useRouter();
   const params = Number(router.query.id);
 
@@ -18,9 +20,18 @@ export default function Navbar() {
   const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
+  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom); 
 
   return (
     <div className="navbarContainer">
+
+      <div
+      onClick={() => {
+        setIsShopOpen({ isModal: true }) 
+      }}> 
+        <NavbarButton image="shop_navbar_img" title="상점" />   
+      </div>
+
       {/* 1. 광장  */}
       <div
         onClick={() => {
