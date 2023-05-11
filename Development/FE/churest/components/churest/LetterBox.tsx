@@ -26,7 +26,6 @@ export default function LetterBox() {
         console.log('에러다');
         console.log(error);
       },
-      staleTime: 60 * 1000,
     }
   );
 
@@ -53,7 +52,7 @@ export default function LetterBox() {
   return (
     <>
       {data?.data ? (
-        <LetterSlide letters={data!.data}></LetterSlide>
+        <LetterSlide letters={data!.data} refetch={refetch}></LetterSlide>
       ) : (
         <div></div>
       )}

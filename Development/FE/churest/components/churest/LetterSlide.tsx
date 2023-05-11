@@ -6,13 +6,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import { EffectCards } from 'swiper';
+import Swal from 'sweetalert2';
 import moment from 'moment';
 
 type Props = {
   letters: any;
+  refetch: any;
 };
 
-export default function LetterSlide({ letters }: Props) {
+export default function LetterSlide({ letters, refetch }: Props) {
   const memberId: number = useRecoilValue(loginAtom).id;
 
   // 방명록 삭제
@@ -39,12 +41,22 @@ export default function LetterSlide({ letters }: Props) {
   };
 
   const clickDeleteLetter = (letter: any) => {
-    if (confirm('정말 삭제하시겠습니까?')) {
-      goDeleteArticle(letter);
-      console.log('삭제 완료');
-    } else {
-      console.log('삭제 취소');
-    }
+    Swal.fire({
+      title: '정말 삭제하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#51da93',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        goDeleteArticle(letter);
+        refetch();
+        Swal.fire('삭제 성공!', '', 'success');
+      } else {
+        console.log('삭제 취소');
+      }
+    });
   };
 
   return (
@@ -71,23 +83,20 @@ export default function LetterSlide({ letters }: Props) {
             return (
               <SwiperSlide key={idx} style={{ width: '400px' }}>
                 <div key={idx} className="letter letter-clay">
-                  <div className="input">
-                    {letter.content}
-                    {/* 작성자와 사용자 확인 여부 */}
-                    내가 안썼음
-                    {letter.fromMemberId == memberId ? (
-                      <div className="letter-buttons">
-                        <button onClick={() => clickDeleteLetter(letter)}>
-                          삭제
-                        </button>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                  <div className="input">{letter.content}</div>
                   <div>
                     {moment(letter.createdTime).format('YYYY년 MM월 DD일')} 보냄
                   </div>
+                  {/* 작성자와 사용자 확인 여부 */}
+                  {letter.fromMember.memberId == memberId ? (
+                    <div className="letter-buttons">
+                      <button onClick={() => clickDeleteLetter(letter)}>
+                        삭제
+                      </button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </SwiperSlide>
             );
@@ -116,10 +125,7 @@ export default function LetterSlide({ letters }: Props) {
         }
         .letter-buttons {
           position: absolute;
-          bottom: 150px;
-          left: 135px;
-          justify-content: center;
-          display: flex;
+          bottom: 40px;
           gap: 20px;
         }
         button {
@@ -128,6 +134,10 @@ export default function LetterSlide({ letters }: Props) {
           width: 80px;
           height: 30px;
           font-size: 20px;
+          border-radius: 5px;
+          background: #fffff2;
+          box-shadow: 0px 20px 40px rgba(199, 218, 255, 0.872),
+            inset 0px -3px 10px rgba(220, 220, 220, 0.37);
         }
         button:hover {
           cursor: pointer;
