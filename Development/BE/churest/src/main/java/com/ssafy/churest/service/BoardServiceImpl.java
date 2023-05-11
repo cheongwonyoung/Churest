@@ -1,6 +1,7 @@
 package com.ssafy.churest.service;
 
 import com.ssafy.churest.dto.req.BoardRequestDto;
+import com.ssafy.churest.dto.req.FCMNotificationRequestDto;
 import com.ssafy.churest.dto.resp.BoardResponseDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
 import com.ssafy.churest.dto.resp.TreeResponseDto;
@@ -35,7 +36,8 @@ public class BoardServiceImpl implements BoardService {
     private final TreeRepository treeRepository;
     private final TreeLogRepository treeLogRepository;
     private final TagRepository tagRepository;
-
+    private final FCMNotificationService fcmNotificationService;
+    private final NoticeRepository noticeRepository;
     @Override
     public void writeTree(List<MultipartFile> fileList, BoardRequestDto.Write writeInfo) throws IOException {
 
@@ -76,6 +78,18 @@ public class BoardServiceImpl implements BoardService {
                             .board(board)
                     .build());
             //  알림 생성 ...
+            //  알림 전송
+            String message = writeInfo.getMemberId() +"님이 '"+ writeInfo.getTitle() + "' 추억에 회원님을 태그했습니다.";
+            FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder()
+                    .fromUserId(writeInfo.getMemberId())
+                    .targetUserId(tagMemberId)
+                    .title(message)
+                    .build();
+            Member targetMember = memberRepository.findByMemberId(tagMemberId);
+            // fcm 전송
+            fcmNotificationService.sendNotificationByToken(requestDto);
+            // notice table 저장
+            noticeRepository.save(Notice.builder().toMember(targetMember).fromMember(member).content(message).build());
         }
 
         //  나무 로그 생성
@@ -157,6 +171,13 @@ public class BoardServiceImpl implements BoardService {
 
                 boardRepository.save(board.updatePayed(true));
                 boardDetailInfo.setReward(true);
+
+                // 알림 전송
+                FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(memberId).targetUserId(memberId).title("쥬잉님 저 다 컸떠용").build();
+                Member member = memberRepository.findByMemberId(memberId);
+                fcmNotificationService.sendNotificationByToken(requestDto);
+                noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").build());
+
             }
 
             //  정렬?

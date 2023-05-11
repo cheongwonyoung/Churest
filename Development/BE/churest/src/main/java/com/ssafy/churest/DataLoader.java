@@ -83,9 +83,11 @@ public class DataLoader implements CommandLineRunner {
 
         BirdHouse birdHouse1 = BirdHouse.builder().name("그린").description("싱그러운 나뭇잎들이 느껴지는 새집").price(0).build();
         BirdHouse birdHouse2 = BirdHouse.builder().name("블루").description("넓고 푸른 하늘 느낌의 새집").price(100).build();
+        BirdHouse birdHouse3 = BirdHouse.builder().name("레드").description("강렬하고 정열적인 느낌의 새집").price(100).build();
 
         birdHouseList.add(birdHouse1);
         birdHouseList.add(birdHouse2);
+        birdHouseList.add(birdHouse3);
 
         birdHouseRepository.saveAllAndFlush(birdHouseList);
     }
@@ -167,12 +169,12 @@ public class DataLoader implements CommandLineRunner {
         MemberHouse memberHouse7 = MemberHouse.builder().house(defaultHouse).member(member6).build().updateIsUsed(true);
 
         MemberBirdHouse memberBirdHouse1 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member1).build().updateIsUsed(true);
-        MemberBirdHouse memberBirdHouse2 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member2).build();
+        MemberBirdHouse memberBirdHouse2 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member2).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse3 = MemberBirdHouse.builder().birdHouse(birdHouseRepository.findById(2).get()).member(member2).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse4 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member3).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse5 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member4).build().updateIsUsed(true);
-        MemberBirdHouse memberBirdHouse6 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member5).build();
-        MemberBirdHouse memberBirdHouse7 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member6).build();
+        MemberBirdHouse memberBirdHouse6 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member5).build().updateIsUsed(true);
+        MemberBirdHouse memberBirdHouse7 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member6).build().updateIsUsed(true);
 
         memberList.add(member1);
         memberList.add(member2);
