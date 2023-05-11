@@ -1,4 +1,4 @@
-export const spots = {
+export const spots: { [key: number]: { x: number; z: number; ok: boolean } } = {
   0: { x: -28, z: -28, ok: true },
   1: { x: -24, z: -28, ok: true },
   2: { x: -20, z: -28, ok: true },
