@@ -1,11 +1,12 @@
 import { getLetterList } from '@/apis/letterbox';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
 import LetterSlide from './LetterSlide';
 
 export default function LetterBox() {
-  const memberId: number = 1;
-
+  const memberId: number = useRecoilValue(loginAtom).id;
   // 나의 우편함 편지 목록
   const [letterList, setLetterList] = useState([{}]);
   useQuery('myLetters', () => getLetterList(Number(memberId)), {

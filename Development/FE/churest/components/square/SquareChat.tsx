@@ -3,15 +3,17 @@ import { useEffect, useState, useRef, useCallback, memo } from 'react';
 import SockJS from 'sockjs-client';
 import * as StompJS from '@stomp/stompjs';
 import SquareChatInp from './SquareChatInp';
+import { useRecoilValue } from 'recoil';
+import { loginAtom } from '@/atoms/login';
+import SquareChatList from './SquareChatList';
 // import { subscribe } from 'diagnostics_channel';
 
 export default memo(function SquareChat() {
   // const baseURL = 'ws://localhost:8080/api/chat/websocket';
-  const baseURL = 'http://k8a505.p.ssafy.io:8080/api/chat/websocket';
+  const baseURL = 'ws://k8a505.p.ssafy.io/api/chat/websocket';
   // const baseURL = 'http://localhost:8080/api/ws/chat';
   const client: any = useRef({});
   const roomId = 1;
-  const [userId, setUserId] = useState('1');
   const [message, setMessage] = useState('');
 
   const connect = () => {
@@ -47,6 +49,8 @@ export default memo(function SquareChat() {
     connect();
   }, []);
 
+  const userId = useRecoilValue(loginAtom).id;
+
   const sendMessage = (message: string) => {
     client.current.publish({
       destination: '/pub/chat/message',
@@ -59,62 +63,32 @@ export default memo(function SquareChat() {
     });
   };
 
-  // const sock = new SockJS(baseURL);
-  // const ws = Stomp.over(() => {
-  //   return sock;
-  // });
-  // ws.activate();
-  // // ws.reconnect_delay = 5000;
-
-  // const connect = () => {
-  //   ws.connect({}, () => {
-  //     console.log('연결됨');
-  //     ws.subscribe(baseURL + '/sub/chat/room/' + roomId, (message) => {
-  //       const msg = JSON.parse(message.body);
-  //       console.log(msg);
-  //     });
-  //     ws.send(
-  //       baseURL + '/pub/chat/message',
-  //       {},
-  //       JSON.stringify({ type: 'ENTER', roomId, sender: userId })
-  //     );
-  //   });
-  // };
-  // const sendMessage = (message: string) => {
-  //   ws.send(
-  //     baseURL + '/pub/chat/message',
-  //     {},
-  //     JSON.stringify({ type: 'TALK', roomId, sender: userId, message })
-  //   );
-  // };
-
   const changeMsg = useCallback((e: any) => {
     setMessage(e.target.value);
   }, []);
 
   return (
     <div>
-      <p>유저ID</p>
-      <input
-        type="text"
-        name=""
-        id=""
-        value={userId}
-        onChange={(e) => {
-          setUserId(e.target.value);
-        }}
-      />
       <p>메시지</p>
-      {/* <input type="text" name="" id="" value={message} onChange={changeMsg} />
-      <button onClick={sendMessage}>메시지 보냉</button> */}
-      <SquareChatInp
-        message={message}
-        changeMsg={changeMsg}
-        sendMessage={sendMessage}
-      />
+      <div className="chat-box">
+        <SquareChatList />
+        <SquareChatInp
+          message={message}
+          changeMsg={changeMsg}
+          sendMessage={sendMessage}
+        />
+      </div>
       <button onClick={() => console.log(client.current.connected)}>
         소켓소켓
       </button>
+      <style jsx>{`
+        .chat-box {
+          position: absolute;
+          bottom: 24px;
+          left: 24px;
+          z-index: 100px;
+        }
+      `}</style>
     </div>
   );
 });

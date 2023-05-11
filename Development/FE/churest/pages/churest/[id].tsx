@@ -1,26 +1,10 @@
-import { Box, KeyboardControls, OrbitControls } from '@react-three/drei';
-import { Canvas, useThree } from '@react-three/fiber';
-import { Suspense, useMemo, useState, useEffect, useRef } from 'react';
-import { Physics, RigidBody } from '@react-three/rapier';
-import { PerspectiveCamera, Vector3 } from 'three';
-import { Branch } from '@/components/3DFiles/Trees/Branch';
-import { Seed } from '@/components/3DFiles/Trees/Seed';
-import { Tree9 } from '@/components/3DFiles/Trees/Tree9';
-import CharacterChurest from '@/components/churest/CharacterChurest';
-import { ChurestMap } from '@/components/3DFiles/ChurestMap';
-import { spots } from '@/utils/spots';
-import { PlantOk } from '@/components/3DFiles/PlantOk';
-import { PlantNo } from '@/components/3DFiles/PlantNo';
-import { PostBox } from '@/components/3DFiles/PostBox';
-import { BirdHouse1 } from '@/components/3DFiles/BirdHouse/BirdHouse1';
-import { BirdHouse2 } from '@/components/3DFiles/BirdHouse/BirdHouse2';
-import { BirdHouse3 } from '@/components/3DFiles/BirdHouse/BirdHouse3';
+import { Canvas } from '@react-three/fiber';
+import { useState } from 'react';
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
-import ChoosePosition from '@/components/churest/ChoosePosition';
 import Churest3D from '@/components/churest/Churest3D';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { createArticleAtom } from '@/atoms/modal';
+import { createArticleAtom, spaceModalAtom } from '@/atoms/modal';
 import ModalBlackBg from '@/components/common/ModalBlackBg';
 import CreateArticle from '@/components/churest/CreateArticle';
 import Navbar from '@/components/common/Navbar';
@@ -36,9 +20,19 @@ export default function Garden() {
     setIsCreate({ ...isCreate, isModal: false });
   };
 
+  const isSpace = useRecoilValue(spaceModalAtom);
+
   return (
     <div className="gogo">
       <Navbar />
+      {isSpace.length > 0 && (
+        <div className="spacebar">
+          <div>
+            <p>SpaceBar</p>
+          </div>
+        </div>
+      )}
+
       {isCreate.isModal && (
         <ModalBlackBg closeModal={closeModal} modal={<CreateArticle />} />
       )}
@@ -62,7 +56,7 @@ export default function Garden() {
               <Image
                 src={images.my_tree_img}
                 alt="나무심기"
-                width={50}
+                width={80}
                 height={80}
               />
               <p>추억심기</p>
@@ -79,6 +73,8 @@ export default function Garden() {
             width: 100vw;
             height: 100vh;
             position: relative;
+            background-image: url('https://images.pexels.com/photos/896673/pexels-photo-896673.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-size: cover;
           }
           .navbarBox {
             position: absolute;
@@ -94,8 +90,14 @@ export default function Garden() {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 24px 24px 48px rgba(131, 154, 215, 0.55),
-              inset -24px -24px 48px #bfd1ff, inset 12px 12px 24px #eff3ff;
+            box-shadow: 60px 60px 80px rgba(254, 255, 193, 0.55),
+              inset -60px -60px 80px rgb(254, 255, 193),
+              inset 1px 1px 5px rgb(254, 255, 193);
+          }
+          .plantTree:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+            transition: transform 0.5s;
           }
           .outside {
             position: absolute;
@@ -114,6 +116,45 @@ export default function Garden() {
           }
           .canvas {
             z-index: 0;
+          }
+          p {
+            margin-top: 5px;
+            font-weight: bold;
+          }
+          .spacebar {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            width: 100vw;
+            height: 80vh;
+          }
+          .spacebar div {
+            width: 300px;
+            height: 80px;
+            z-index: 200;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            background-color: #ebebeb8c;
+            border-radius: 10px;
+            box-shadow: 0px 3px 3px 0px rgba(209, 209, 209, 0.7),
+              inset 0px -1px 8px 0px rgba(145, 145, 145, 0.9),
+              inset 0px 11px 28px 0px rgb(255, 255, 255, 0.4);
+            padding-left: 12px;
+          }
+          .spacebar div p {
+            font-weight: 900;
+            color: rgb(155, 155, 155);
+            margin: 0;
+            font-size: 40px;
+          }
+          .gogo button {
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            z-index: 100;
           }
         `}
       </style>

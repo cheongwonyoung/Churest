@@ -1,6 +1,6 @@
 import { loginAtom } from '@/atoms/login';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import NavbarButton from './NavbarButton';
+import NavbarButton from '../common/NavbarButton';
 import {
   openAlarmAtom,
   openMyPageAtom,
@@ -9,11 +9,9 @@ import {
 } from '@/atoms/modal';
 import { useRouter } from 'next/router';
 
-export default function Navbar() {
+export default function ChuWorldNavbar() {
   const id = useRecoilValue(loginAtom).id;
   const router = useRouter();
-  const params = Number(router.query.id);
-
   const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
   const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
@@ -30,16 +28,14 @@ export default function Navbar() {
         <NavbarButton image="garden_navbar_img" title="광장" />
       </div>
 
-      {/* 2. 마이츄레스트 , 단 내 츄레스트일 때는 안보이게  */}
-      {params !== id && (
-        <div
-          onClick={() => {
-            router.push('/churest/' + id);
-          }}
-        >
-          <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
-        </div>
-      )}
+      {/* 2. 마이츄레스트   */}
+      <div
+        onClick={() => {
+          router.push('/churest/' + id);
+        }}
+      >
+        <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
+      </div>
 
       {/* 3. 친구 검색  */}
       <div
@@ -77,25 +73,12 @@ export default function Navbar() {
         <NavbarButton image="mypage_navbar_img" title="마이페이지" />
       </div>
 
-      {/* 7. 츄월드  */}
-      <div
-        onClick={() => {
-          router.push('/chuworld/' + id);
-        }}
-      >
-        <NavbarButton image="chuworld_navbar_img" title="츄월드" />
-      </div>
-
       <style jsx>
         {`
           .navbarContainer {
             z-index: 100;
             position: absolute;
             right: 0;
-            padding: 7px 7px 7px 7px;
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
           }
         `}
       </style>
