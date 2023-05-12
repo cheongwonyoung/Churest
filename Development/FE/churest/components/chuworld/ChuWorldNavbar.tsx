@@ -6,6 +6,7 @@ import {
   openMyPageAtom,
   openSearchAtom,
   openTagAtom,
+  openShopAtom,
 } from '@/atoms/modal';
 import { useRouter } from 'next/router';
 
@@ -16,9 +17,19 @@ export default function ChuWorldNavbar() {
   const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
+  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
 
   return (
     <div className="navbarContainer">
+      {/* 0. 상점  */}
+      <div
+        onClick={() => {
+          setIsShopOpen({ isModal: true });
+        }}
+      >
+        <NavbarButton image="shop_navbar_img" title="상점" />
+      </div>
+
       {/* 1. 광장  */}
       <div
         onClick={() => {
@@ -79,6 +90,10 @@ export default function ChuWorldNavbar() {
             z-index: 100;
             position: absolute;
             right: 0;
+            padding: 7px 7px 7px 7px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
           }
         `}
       </style>

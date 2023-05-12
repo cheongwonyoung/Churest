@@ -3,8 +3,9 @@ import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
 import { BsPencil } from 'react-icons/bs';
-import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 import { modifyMyBird } from '@/apis/mypage';
+import Swal from 'sweetalert2';
 
 type Props = {
   nickname: string;
@@ -17,6 +18,9 @@ export default function BirdNickname({
   memberBirdId,
   refetch,
 }: Props) {
+  const router = useRouter();
+  const memberId = useRecoilValue(loginAtom).id;
+  const churestId = Number(router.query.id);
   const [canInput, setInput] = useState(true);
   const [whatNickname, setWhatNickname] = useState(nickname);
 
@@ -59,14 +63,17 @@ export default function BirdNickname({
     });
   };
 
-  const modifyButton = canInput ? (
-    <div className="center">
-      정보 수정하기&nbsp;
-      <BsPencil />
-    </div>
-  ) : (
-    <p onClick={submitForm}>수정</p>
-  );
+  const modifyButton =
+    canInput && memberId == churestId ? (
+      <div className="center">
+        이름 수정하기&nbsp;
+        <BsPencil />
+      </div>
+    ) : memberId == churestId ? (
+      <p onClick={submitForm}>수정</p>
+    ) : (
+      <></>
+    );
 
   return (
     <>

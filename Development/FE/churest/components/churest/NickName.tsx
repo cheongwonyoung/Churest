@@ -3,6 +3,7 @@ import { useMutation } from 'react-query';
 import { modifyNickname } from '@/apis/mypage';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
+import { useRouter } from 'next/router';
 import { BsPencil } from 'react-icons/bs';
 import Swal from 'sweetalert2';
 
@@ -12,7 +13,9 @@ type Props = {
 };
 
 export default function NickName({ nickname, refetch }: Props) {
+  const router = useRouter();
   const memberId = useRecoilValue(loginAtom).id;
+  const churestId = Number(router.query.id);
   const [canInput, setInput] = useState(true);
   const [whatNickname, setWhatNickname] = useState(nickname);
 
@@ -55,14 +58,17 @@ export default function NickName({ nickname, refetch }: Props) {
     });
   };
 
-  const modifyButton = canInput ? (
-    <div className="center">
-      정보 수정하기&nbsp;
-      <BsPencil />
-    </div>
-  ) : (
-    <p onClick={submitForm}>수정</p>
-  );
+  const modifyButton =
+    canInput && memberId == churestId ? (
+      <div className="center">
+        정보 수정하기&nbsp;
+        <BsPencil />
+      </div>
+    ) : memberId == churestId ? (
+      <p onClick={submitForm}>수정</p>
+    ) : (
+      <></>
+    );
 
   return (
     <>

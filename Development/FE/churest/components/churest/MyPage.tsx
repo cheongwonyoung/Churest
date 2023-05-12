@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 import { openMyPageAtom } from '@/atoms/modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
-import { BsPencil } from 'react-icons/bs';
+import { useRouter } from 'next/router';
 import NickName from './NickName';
 
 type MyPageInfo = {
@@ -22,7 +22,15 @@ export default function MyPage() {
   };
 
   const cardType = 'mypage';
-  const memberId = useRecoilValue(loginAtom).id;
+  let memberId = useRecoilValue(loginAtom).id;
+
+  // 방문 츄레스트 id
+  const router = useRouter();
+  const churestId: number = Number(router.query.id);
+
+  if (churestId == useRecoilValue(loginAtom).id) {
+    memberId = churestId;
+  }
 
   const { data, refetch } = useQuery(
     'mypage',

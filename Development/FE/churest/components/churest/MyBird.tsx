@@ -4,11 +4,14 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { loginAtom } from '@/atoms/login';
 import { useRecoilValue } from 'recoil';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 export default function MyBird() {
   const cardType = 'mybird';
-  const memberId: number = useRecoilValue(loginAtom).id;
+  const router = useRouter();
+  const memberId: number = Number(router.query.id);
+
   // 나의 새 목록
   const [birdList, setMyBirds] = useState([{}]);
   const { data, isLoading, isError, refetch } = useQuery(
