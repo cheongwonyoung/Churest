@@ -19,18 +19,12 @@ export default function StepNickname({
   plusPage,
   nickname,
 }: Props) {
-  // console.log('고른 아바타는');
-  // console.log(pickedAvatar);
-
-  // const [checkName, setCheckName] = useState(false);
+  // 닉네임 중복체크
   const { data, refetch } = useQuery(
     'checkNickName',
     () => isCheckedNickname(nickname),
     {
-      onSuccess() {
-        // console.log();
-        // setCheckName(data.data);
-      },
+      onSuccess() {},
     }
   );
 
@@ -40,8 +34,8 @@ export default function StepNickname({
 
   // 엔터 감지
   const onKeyPress = (e: any) => {
-    if (e.key == 'Enter') {
-      if (nickname.length == 0 || data?.data)
+    if (e.key == 'Enter' || e.key == 13) {
+      if (nickname.length == 0 || data?.data) {
         Swal.fire({
           position: 'top',
           icon: 'warning',
@@ -49,6 +43,7 @@ export default function StepNickname({
           showConfirmButton: false,
           timer: 500,
         });
+      } else plusPage();
     }
   };
 
@@ -63,10 +58,9 @@ export default function StepNickname({
           className="inside-clay"
           maxLength={6}
           minLength={1}
-          // onChange={(e) => handleName(e)}
           value={nickname}
           onChange={(e) => getNickname(e)}
-          onKeyPress={onKeyPress}
+          onKeyUp={onKeyPress}
         />
 
         <div
@@ -78,19 +72,15 @@ export default function StepNickname({
         >
           중복된 닉네임입니다
         </div>
-        {pickedAvatar && !data?.data && nickname.length != 0 ? (
-          <div className="center hidden">
-            <NextBtn comment={'NEXT'} logic={plusPage} />
-          </div>
-        ) : data?.data || nickname.length == 0 ? (
-          <div className="center">
-            <div className="disable-btn center">
-              <p>NEXT</p>
-            </div>
-          </div>
-        ) : (
-          <></>
-        )}
+        <div className="center">
+          {pickedAvatar && !data?.data && nickname.length != 0 ? (
+            <NextBtn comment={'NEXT'} type={'show'} logic={plusPage} />
+          ) : data?.data || nickname.length == 0 ? (
+            <NextBtn comment={'NEXT'} type={'disalbe'} logic={plusPage} />
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
       <style jsx>{`
         input {

@@ -23,7 +23,11 @@ export default function StepAvatart({
             />
           </div>
           <div className="center">
-            {pickedAvatar && <NextBtn comment={'NEXT'} logic={plusPage} />}
+            <NextBtn
+              comment={'NEXT'}
+              type={pickedAvatar ? 'show' : 'hidden'}
+              logic={plusPage}
+            />
           </div>
         </div>
       </div>
