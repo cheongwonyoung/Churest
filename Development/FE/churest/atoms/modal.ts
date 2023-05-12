@@ -19,6 +19,11 @@ interface newBird {
   bird: any;
 }
 
+interface myTree {
+  isModal: boolean;
+  boardId: number;
+}
+
 export const createArticleAtom = atom<createArticle>({
   key: 'createArticle',
   default: {
@@ -86,10 +91,28 @@ export const spaceModalAtom = atom({
   default: '',
 });
 
+// 새 구입 모달
 export const newBirdAtom = atom<newBird>({
   key: 'newBird',
   default: {
     isModal: false,
     bird: {},
+  },
+});
+
+// 광장 세계수 기부 모달
+export const squareModalAtom = atom({
+  key: 'squareModal',
+  default: {
+    isModal: false,
+  },
+});
+
+// 추억 조회 모달
+export const myTreeAtom = atom<myTree>({
+  key: 'myTree',
+  default: {
+    isModal: false,
+    boardId: 0,
   },
 });

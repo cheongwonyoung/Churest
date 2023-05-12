@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil';
 import { wateringTree } from '@/apis/churest';
 import CardComp from './CardComp.jsx';
 import RoundCarousel from './RoundCarousel';
+import { imageUrl } from '@/apis/index';
 
 import Swal from 'sweetalert2';
 
@@ -20,28 +21,46 @@ export default function MemoryView({ boardId }: Props) {
   let memberId = useRecoilValue(loginAtom).id;
 
   // fileList를 아래 양식에 맞게 변환해야함
-  const cards = [
-    {
-      key: uuidv4(),
-      content: <CardComp imagen={images['bird_5_img']} />,
-    },
-    {
-      key: uuidv4(),
-      content: <CardComp imagen={images['bird_2_img']} />,
-    },
-    {
-      key: uuidv4(),
-      content: <CardComp imagen={images['bird_4_img']} />,
-    },
-    {
-      key: uuidv4(),
-      content: <CardComp imagen={images['bird_3_img']} />,
-    },
-  ];
+  // const cards = [
+  //   {
+  //     key: uuidv4(),
+  //     content: <CardComp imagen={images['bird_5_img']} />,
+  //   },
+  //   {
+  //     key: uuidv4(),
+  //     content: <CardComp imagen={images['bird_2_img']} />,
+  //   },
+  //   {
+  //     key: uuidv4(),
+  //     content: <CardComp imagen={images['bird_2_img']} />,
+  //   },
+  // ];
+
+  const [cards, setCards] = useState([{}]);
+
+  const makeCards = (list: []) => {
+    console.log('원본은');
+    console.log(...cards);
+
+    const pictures: any = [];
+    list.forEach((el: String) => {
+      const srcStr = imageUrl + el;
+      console.log('출처:', srcStr);
+      const item = {
+        key: uuidv4(),
+        content: <CardComp imagen={srcStr} />,
+      };
+      pictures.push(item);
+    });
+
+    setCards([...pictures]);
+    console.log('푸시해쥼!');
+    console.log(...cards);
+  };
 
   const [tree, setTree] = useState<any>([]);
   const [tagList, setTagList] = useState<any>([]);
-  const [fleList, setFileList] = useState<any>([]);
+  const [fileList, setFileList] = useState<any>([]);
   // const {data} =
   useQuery('myTree', () => getMyChurest(Number(memberId), Number(boardId)), {
     onSuccess(data) {
@@ -50,27 +69,33 @@ export default function MemoryView({ boardId }: Props) {
       setTree(data?.data);
       setTagList(data?.data.tagList);
       setFileList(data?.data.fileList);
+      makeCards(data.data.fileList);
+    },
+    onError(error) {
+      console.log('에러다! ');
+      console.log(error);
     },
   });
 
   const clickWatering = () => {
-    console.log(boardId + '물줄게');
-    watering.mutate({ boardId });
+    // console.log(boardId + '물줄게');
+    watering.mutate({ boardId, memberId });
   };
 
   const watering = useMutation(
-    (info: { boardId: number }) => wateringTree(info.boardId),
+    (info: { boardId: number; memberId: number }) =>
+      wateringTree(info.boardId, info.memberId),
     {
       onSuccess: () => {
-        console.log('물주기성공');
-        showAlert('추억에 물 주기 성공');
+        // console.log('물주기성공');
+        showAlert('물 주기 성공');
       },
     }
   );
 
   const showAlert = (text: string) => {
     Swal.fire({
-      position: 'center',
+      position: 'top',
       icon: 'success',
       title: text,
       showConfirmButton: false,
@@ -86,7 +111,7 @@ export default function MemoryView({ boardId }: Props) {
           alt=""
           width={33}
           height={48}
-          style={{ margin: '5px' }}
+          style={{ margin: '10px' }}
         ></Image>
       </>
     );

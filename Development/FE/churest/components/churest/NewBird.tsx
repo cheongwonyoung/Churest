@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { openShopAtom, newBirdAtom } from '@/atoms/modal';
+import Swal from 'sweetalert2';
 
 export default function NewBird() {
   const bird = useRecoilValue(newBirdAtom).bird;
@@ -27,8 +28,21 @@ export default function NewBird() {
     {
       onSuccess: (data) => {
         console.log(data.data);
-        alert(data.data.bird.name + '야! 너의 이름은 ' + data.data.nickname + '란다!');
-        setIsNewBirdOpen({isModal: false, bird:{}});
+        const alertMsg =
+          data.data.bird.name +
+          '야! 너의 이름은 ' +
+          data.data.nickname +
+          '란다!';
+
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: alertMsg,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+
+        setIsNewBirdOpen({ isModal: false, bird: {} });
         setIsShopOpen({ isModal: true });
       },
     }

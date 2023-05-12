@@ -24,8 +24,8 @@ export const getMyChurest = (memberId: number, boardId: number) => {
 };
 
 // 추억 나무 물 주기
-export const wateringTree = (boardId: number) => {
-  return instance.get(`/forest/wateringTree/${boardId}`);
+export const wateringTree = (boardId: number, memberId: number) => {
+  return instance.get(`/forest/wateringTree/${boardId}/${memberId}`);
 };
 
 // 해당 위치 추억 나무 생성 가능 여부
