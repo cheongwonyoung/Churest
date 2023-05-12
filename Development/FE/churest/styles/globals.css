@@ -112,6 +112,7 @@ body {
   border: none;
   background: linear-gradient(315deg, #f0ff94 0%, #1eb0e9 100%);
   border-radius: 12px;
+  visibility: visible;
 }
 .disable-btn {
   cursor: not-allowed;

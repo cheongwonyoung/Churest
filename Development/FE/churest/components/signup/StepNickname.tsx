@@ -4,6 +4,7 @@ import { images } from '@/public/assets/images';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { isCheckedNickname } from '@/apis/mypage';
+import Swal from 'sweetalert2';
 
 type Props = {
   getNickname(i: any): void;
@@ -21,15 +22,14 @@ export default function StepNickname({
   // console.log('고른 아바타는');
   // console.log(pickedAvatar);
 
-  const [checkName, setCheckName] = useState(false);
+  // const [checkName, setCheckName] = useState(false);
   const { data, refetch } = useQuery(
     'checkNickName',
     () => isCheckedNickname(nickname),
     {
-      onSuccess(data) {
-        console.log('중복이냐');
-        console.log(data.data);
-        setCheckName(data.data);
+      onSuccess() {
+        // console.log();
+        // setCheckName(data.data);
       },
     }
   );
@@ -39,6 +39,18 @@ export default function StepNickname({
   }, [nickname]);
 
   // 엔터 감지
+  const onKeyPress = (e: any) => {
+    if (e.key == 'Enter') {
+      if (nickname.length == 0 || data?.data)
+        Swal.fire({
+          position: 'top',
+          icon: 'warning',
+          title: '닉네임을 확인해주세요',
+          showConfirmButton: false,
+          timer: 500,
+        });
+    }
+  };
 
   return (
     <>
@@ -54,6 +66,7 @@ export default function StepNickname({
           // onChange={(e) => handleName(e)}
           value={nickname}
           onChange={(e) => getNickname(e)}
+          onKeyPress={onKeyPress}
         />
 
         <div
@@ -66,18 +79,10 @@ export default function StepNickname({
           중복된 닉네임입니다
         </div>
         {pickedAvatar && !data?.data && nickname.length != 0 ? (
-          <div
-            className={
-              !data?.data && nickname.length != 0
-                ? 'center show-div'
-                : nickname.length == 0
-                ? 'center hidden'
-                : 'center'
-            }
-          >
+          <div className="center hidden">
             <NextBtn comment={'NEXT'} logic={plusPage} />
           </div>
-        ) : data?.data ? (
+        ) : data?.data || nickname.length == 0 ? (
           <div className="center">
             <div className="disable-btn center">
               <p>NEXT</p>
