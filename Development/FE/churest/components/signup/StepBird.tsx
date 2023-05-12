@@ -23,7 +23,11 @@ export default function StepBirdt({
             />
           </div>
           <div className="center">
-            {pickedBird && <NextBtn comment={'NEXT'} logic={plusPage} />}
+            <NextBtn
+              comment={'NEXT'}
+              type={pickedBird ? 'show' : 'hidden'}
+              logic={plusPage}
+            />
           </div>
         </div>
       </div>

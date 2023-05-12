@@ -1,12 +1,13 @@
 import { getLetterList } from '@/apis/letterbox';
 import { letterBoxAtom } from '@/atoms/modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import { loginAtom } from '@/atoms/login';
 import Swal from 'sweetalert2';
 import LetterSlide from './LetterSlide';
+import LetterCreate from './LetterCreate';
 
 export default function LetterBox() {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function LetterBox() {
   const memberId: number = useRecoilValue(loginAtom).id;
 
   // 나의 우편함 편지 목록
+  const [showInputModal, setInputModal] = useState(false);
   const { data, refetch } = useQuery(
     'myLetters',
     () => getLetterList(Number(churestId)),
@@ -21,9 +23,15 @@ export default function LetterBox() {
       onSuccess(data) {
         console.log('편지목록');
         console.log(...data.data);
+        console.log('편지갯수는');
+        console.log(data.data.length);
         if (data.data.length == 0) {
-          showAlert('받은 편지가 아직 없어요');
-          closeModal();
+          showAlert('편지가 아직 없어요');
+          if (memberId == churestId) {
+            closeModal();
+          } else {
+            setInputModal(true);
+          }
         }
       },
       onError: (error) => {
@@ -55,14 +63,14 @@ export default function LetterBox() {
 
   return (
     <>
-      {data?.data ? (
+      {data?.data && data?.data.length == 0 ? (
+        <LetterCreate closeModal={closeModal} refetch={refetch}></LetterCreate>
+      ) : (
         <LetterSlide
-          letters={data!.data}
+          letters={data.data}
           refetch={refetch}
           closeModal={closeModal}
         ></LetterSlide>
-      ) : (
-        <div></div>
       )}
       <style jsx>{``}</style>
     </>

@@ -1,12 +1,16 @@
 type Props = {
   comment: string;
+  type: string;
   logic(): void;
 };
 
-export default function NextBtn({ comment, logic }: Props) {
+export default function NextBtn({ comment, type, logic }: Props) {
   return (
     <>
-      <div onClick={logic} className="green-btn center">
+      <div
+        onClick={logic}
+        className={type == 'show' ? 'green-btn center' : 'disable-btn center'}
+      >
         <p>{comment}</p>
         {/* {icon && <p className="">{icon}</p>} */}
       </div>
@@ -14,7 +18,7 @@ export default function NextBtn({ comment, logic }: Props) {
         {`
           p {
             font-family: 'MICEGothic Bold';
-            font-weight: 100px;
+            font-weight: 600;
           }
         `}
       </style>
