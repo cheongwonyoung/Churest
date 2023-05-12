@@ -30,6 +30,7 @@ public class Notice {
     @JoinColumn(name = "from_member_id")
     private Member fromMember;
 
+    @NotNull
     @ColumnDefault("false")
     private Boolean isChecked;
 

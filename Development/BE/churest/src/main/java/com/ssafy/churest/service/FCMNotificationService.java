@@ -30,7 +30,6 @@ public class FCMNotificationService {
                 .toMember(toMember)
                 .content(requestDto.getTitle())
                 .build();
-        noticeRepository.save(notice);
 
         // 유저가 존재하는지
         if(toMember==null){
