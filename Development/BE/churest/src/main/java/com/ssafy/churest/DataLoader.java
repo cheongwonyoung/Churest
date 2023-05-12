@@ -238,7 +238,7 @@ public class DataLoader implements CommandLineRunner {
                 memberList) {
             if (member.getMemberId() != member1.getMemberId()) {
                 tagList.add(Tag.builder().board(board1).member(member).build());
-                notificationList.add(Notice.builder().toMember(member).fromMember(member1).isChecked(false).content("테트리스 정기 모임ㅋ").build());
+                notificationList.add(Notice.builder().toMember(member).fromMember(member1).isChecked(false).board(board1).content("테트리스 정기 모임ㅋ").build());
                 //  퍼가기
                 memberBoardList.add(MemberBoard.builder().board(board1).member(member).spot(3).build());
             }

@@ -1,7 +1,10 @@
 package com.ssafy.churest.service;
 
 import com.ssafy.churest.dto.resp.NoticeResponseDto;
+import com.ssafy.churest.entity.Board;
 import com.ssafy.churest.entity.Notice;
+import com.ssafy.churest.repository.BoardRepository;
+import com.ssafy.churest.repository.MemberRepository;
 import com.ssafy.churest.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ import java.util.Optional;
 public class NoticeServiceImpl implements NoticeService{
 
     private final NoticeRepository noticeRepository;
+    private final MemberRepository memberRepository;
+    private final BoardRepository boardRepository;
 
     @Override
     public List<NoticeResponseDto.tagInfo> saerch(int memberId) {

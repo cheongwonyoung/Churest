@@ -55,6 +55,7 @@ public class BoardServiceImpl implements BoardService {
                         .createdTime(LocalDate.parse(writeInfo.getDate(), DateTimeFormatter.ISO_DATE))
                         .build());
 
+
         //  내 숲 속 추억 나무 위치 기록
         memberBoardRepository.save(MemberBoard.builder()
                         .member(member)
@@ -99,7 +100,7 @@ public class BoardServiceImpl implements BoardService {
 
             // notice table 저장
             Member targetMember = memberRepository.findByMemberId(tagMemberId);
-            noticeRepository.save(new Notice(targetMember, member, false, message));
+            noticeRepository.save(new Notice(targetMember, member, board,  false, message));
 
         }
 
@@ -176,6 +177,7 @@ public class BoardServiceImpl implements BoardService {
         if(recentTreeLogScore >= TREE_CRITERIA_SCORE) {
 
             if(!board.isPayed()) {
+                // 나를 제외한 사람들
                 List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
                 memberList.add(board.getMember().rewardCoinAndTree());
                 memberRepository.saveAllAndFlush(memberList);
@@ -183,11 +185,16 @@ public class BoardServiceImpl implements BoardService {
                 boardRepository.save(board.updatePayed(true));
                 boardDetailInfo.setReward(true);
 
-                // 알림 전송
-                FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(memberId).targetUserId(memberId).title("쥬잉님 저 다 컸떠용").build();
-                Member member = memberRepository.findByMemberId(memberId);
-                fcmNotificationService.sendNotificationByToken(requestDto);
-                noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").build());
+
+//            알림 전송
+                for(int i=0; i<memberList.size(); i++){
+                    Member member = memberList.get(i);
+                    int target = member.getMemberId();
+                    FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).title("쥬잉님 저 다 컸떠용").build();
+                    fcmNotificationService.sendNotificationByToken(requestDto);
+                    noticeRepository.save(Notice.builder().toMember(member).fromMember(member).board(board).content("쥬잉님 저 다 컸떠용").isChecked(false).build());
+                }
+
             }
 
             //  정렬?
