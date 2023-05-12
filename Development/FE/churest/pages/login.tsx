@@ -11,7 +11,7 @@ export default function Login() {
   return (
     <div className="login">
       <RotatingEarth />
-      <div className="btnbox" onClick={loginKakao}>
+      <div className="button-box" onClick={loginKakao}>
         <ImBubble />
         <span className="label">카카오 로그인</span>
       </div>
@@ -22,7 +22,7 @@ export default function Login() {
             height: 100vh;
             position: relative;
           }
-          .btnbox {
+          .button-box {
             position: absolute;
             left: 50%;
             top: 50%;
@@ -40,10 +40,10 @@ export default function Login() {
             box-shadow: 3px 3px 3px;
             transition: all 0.3s;
           }
-          .btnbox:hover {
+          .button-box:hover {
             box-shadow: 10px 10px 10px;
           }
-          .lgnbtn {
+          .login-btn {
             width: 20%;
           }
           .label {
