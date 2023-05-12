@@ -84,8 +84,8 @@ public class BoardServiceImpl implements BoardService {
                     .build());
             //  알림 생성 ...
             //  알림 전송
-            String senderName = memberRepository.findByMemberId(writeInfo.getMemberId()).getNickname();
-            String message = senderName +"님이 '"+ writeInfo.getTitle() + "' 추억에 회원님을 태그했습니다.";
+//            String senderName = memberRepository.findByMemberId(writeInfo.getMemberId()).getNickname();
+            String message = "님이 '"+ writeInfo.getTitle() + "' 추억에 회원님을 태그했습니다.";
 
 
 
