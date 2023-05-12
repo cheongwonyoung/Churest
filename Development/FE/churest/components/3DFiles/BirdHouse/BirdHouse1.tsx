@@ -32,18 +32,22 @@ export function BirdHouse1(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes.큐브044.geometry}
           material={materials['매테리얼.011']}
+          castShadow
         />
         <mesh
           geometry={nodes.큐브044_1.geometry}
           material={materials['매테리얼.012']}
+          castShadow
         />
         <mesh
           geometry={nodes.큐브044_2.geometry}
           material={materials['매테리얼.005']}
+          castShadow
         />
         <mesh
           geometry={nodes.큐브044_3.geometry}
           material={materials['매테리얼.016']}
+          castShadow
         />
       </group>
     </group>

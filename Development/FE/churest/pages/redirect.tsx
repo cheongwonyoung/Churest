@@ -12,7 +12,7 @@ export default function Redirect() {
 
   const [myInfo, setMyInfo] = useRecoilState(loginAtom);
 
-  const { isLoading, refetch } = useQuery('login', () => API_login(code), {
+  const { refetch } = useQuery('login', () => API_login(code), {
     onSuccess(data) {
       // 미가입자일 때
       if (data.data.nickname == '' || data.data.nickname == null) {
@@ -45,6 +45,6 @@ export default function Redirect() {
   useEffect(() => {
     if (typeof code === 'string') refetch();
   }, [code, refetch]);
-  if (isLoading) return <CloudMap />;
+
   return <div>로그인중</div>;
 }

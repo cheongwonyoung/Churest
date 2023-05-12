@@ -17,6 +17,9 @@ type Notice = {
   noticeId: number;
   fromMember: number;
   toMember: number;
+  board: number;
+  avatar: number;
+  treeId: number;
   content: string;
   isChecked: boolean;
   createdTime: string;
@@ -44,28 +47,54 @@ export default function Notice({ memberId }: Props) {
   // 읽은 알람 checked
   const isChecked = useMutation((noticeId: number) => checkedAlarm(noticeId), {
     onSuccess: (data) => {
-      console.log('hi');
       refetch();
     },
   });
-  // TODO: api 나오면 바꾸기
-  const avatarId = 3;
-  const boardId = 6;
 
   return (
     <>
       <div>
-        <div className="blue-clay modal-container">
-          <div className="modal-title">알림함</div>
+        <div className="blue-clay modal-container-scroll">
+          <div className="modal-title">
+            <Image
+              src={images.alarm_navbar_img}
+              width={35}
+              height={35}
+              alt=""
+            />
+            <div>알림함</div>
+          </div>
 
           {data ? (
             data.data.map((notice: Notice, idx: number) => {
               return notice.toMember === notice.fromMember ? (
                 // 나무 다 자랐을 때
-                <div key={idx} className="notice-item">
+                <div
+                  key={idx}
+                  className="notice-item"
+                  onClick={() => {
+                    setIsAlarmOpen({ isModal: false });
+                    // router.push('/churest/' + notice.fromMember);
+                    setIsMyTreeOpen({
+                      isModal: true,
+                      boardId: notice.board,
+                    });
+                    isChecked.mutate(notice.noticeId);
+                  }}
+                >
+                  <div className="image">
+                    <div className="notice-profile center">
+                      <Image
+                        src={images['tree_' + notice.treeId + '_img']}
+                        alt=""
+                        width={50}
+                        height={75}
+                      />
+                    </div>
+                  </div>
                   <div className="item">
                     <div className="notice-content">
-                      <p>{notice.content}</p>
+                      <p>추억{notice.content}</p>
                     </div>
                     <div className="item-date">
                       {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
@@ -82,7 +111,7 @@ export default function Notice({ memberId }: Props) {
                     // router.push('/churest/' + notice.fromMember);
                     setIsMyTreeOpen({
                       isModal: true,
-                      boardId: boardId,
+                      boardId: notice.board,
                     });
                     isChecked.mutate(notice.noticeId);
                   }}
@@ -90,7 +119,7 @@ export default function Notice({ memberId }: Props) {
                   <div className="image">
                     <div className="notice-profile center">
                       <Image
-                        src={images['avatar_' + avatarId + '_img']}
+                        src={images['avatar_' + notice.avatar + '_img']}
                         alt=""
                         width={50}
                         height={75}
@@ -100,7 +129,10 @@ export default function Notice({ memberId }: Props) {
 
                   <div className="item">
                     <div className="notice-content">
-                      <p>{notice.content}</p>
+                      <p>
+                        {notice.fromMemberName}
+                        {notice.content}
+                      </p>
                     </div>
                     <div className="item-date">
                       {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
@@ -110,7 +142,7 @@ export default function Notice({ memberId }: Props) {
               );
             })
           ) : (
-            <div>알림이 없어용!</div>
+            <div>알림이 없어요!</div>
           )}
         </div>
       </div>
@@ -136,16 +168,14 @@ export default function Notice({ memberId }: Props) {
             border-radius: 10px;
           }
           .notice-item:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
             transition: transform 0.5s;
             cursor: pointer;
           }
           .notice-profile {
             width: 80px;
-            height: 80px;
+            height: 70px;
             border-radius: 100px;
-            // background: rgba(243, 247, 255, 0.62);
-            // box-shadow: inset -5px -2px 4px #ffffff, inset 3px 3px 10px #bac3df;
             margin-left: 15%;
           }
 

@@ -35,3 +35,13 @@ export const modifyMyBird = (info: {
 export const getTaggedTree = (memberId: number) => {
   return instance.get(`/tag/?memberId=${memberId}`);
 };
+
+// avatarNickname 중복체크
+export const isCheckedNickname = (nickname: string) => {
+  return instance.get(`/member/avatarNickname?nickname=${nickname}`) 
+}
+
+// birdNickname 중복체크 
+export const isCheckedBirdNickname = (nickname: string) => { 
+  return instance.get(`/my-bird/birdNickname?nickname=${nickname}`) 
+} 

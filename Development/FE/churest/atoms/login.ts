@@ -22,3 +22,12 @@ export const loginAtom = atom<login>({
   },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const gardenAtom = atom<{ gogo(): void }>({
+  key: 'aaaa',
+  default: {
+    gogo: () => {
+      return;
+    },
+  },
+});

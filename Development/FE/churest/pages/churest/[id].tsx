@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import Churest3D from '@/components/churest/Churest3D';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { createArticleAtom, spaceModalAtom } from '@/atoms/modal';
-import Navbar from '@/components/common/Navbar';
+import  Navbar from '@/components/common/Navbar';
 import MemoryButton from '@/components/churest/MemoryButton';
 import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
+import { images } from '@/public/assets/images';
+import Image from 'next/image';
 
 export default function Garden() {
   const memberId = useRecoilValue(loginAtom).id;
@@ -31,6 +33,8 @@ export default function Garden() {
     }
   }, [isSelect]);
 
+  const [resetPosition, setResetPosition] = useState(true);
+
   return (
     <div className="gogo">
       <Navbar />
@@ -41,15 +45,26 @@ export default function Garden() {
           </div>
         </div>
       )}
-
-      <button onClick={() => setAutoView((prev) => !prev)}>AutoFocus</button>
-
+      <div className="btn-box">
+        <div onClick={() => setAutoView((prev) => !prev)}>
+        <Image src={images["pin_focus_img"]} width={80} height={80} alt="" />
+          AutoFocus
+        </div>
+        <div onClick={() => setResetPosition((prev) => !prev)}>
+        <Image src={images["pin_home_img"]} width={80} height={80} alt="" />
+          집으로 가기
+        </div>
+      </div>
       {churestId === memberId && (
         <MemoryButton selectSpot={selectSpot} changeToSelect={changeToSelect} />
       )}
 
       <Canvas shadows>
-        <Churest3D autoView={autoView} selectSpot={selectSpot} />
+        <Churest3D
+          autoView={autoView}
+          selectSpot={selectSpot}
+          resetPosition={resetPosition}
+        />
       </Canvas>
       <style jsx>
         {`
@@ -100,11 +115,21 @@ export default function Garden() {
             margin: 0;
             font-size: 40px;
           }
-          .gogo button {
+          .btn-box {
             position: absolute;
             left: 40px;
             top: 40px;
             z-index: 100;
+            display: flex;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+          }
+          .btn-box div {
+            display:flex;
+            flex-direction:column;
+            margin-right:20px;
+            gap: 10px;
           }
         `}
       </style>

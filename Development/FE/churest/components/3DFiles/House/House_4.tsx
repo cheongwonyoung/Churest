@@ -11,10 +11,10 @@ import { glbs } from '@/public/assets/glb';
 
 type GLTFResult = GLTF & {
   nodes: {
-    building005: THREE.Mesh;
+    house4: THREE.Mesh;
   };
   materials: {
-    ['Material.004']: THREE.MeshStandardMaterial;
+    ['Material.007']: THREE.MeshStandardMaterial;
   };
 };
 
@@ -23,10 +23,11 @@ export function House4(props: JSX.IntrinsicElements['group']) {
   return (
     <group {...props} dispose={null}>
       <mesh
-        geometry={nodes.building005.geometry}
-        material={materials['Material.004']}
-        position={[0, 2.1, 0]}
-        scale={[0.56, 0.44, 0.56]}
+        geometry={nodes.house4.geometry}
+        material={materials['Material.007']}
+        position={[0.23, 1.54, 0]}
+        scale={0.3}
+        castShadow
       />
     </group>
   );

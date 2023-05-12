@@ -52,6 +52,10 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { getForest } from '@/apis/churest';
 import { spots } from '@/utils/spots';
+import { BirdHouses, Birds, Houses } from './Options';
+import { House2 } from '../3DFiles/House/House_2';
+import { House3 } from '../3DFiles/House/House_3';
+import Bird from './Bird';
 
 export const Controls = {
   forward: 'forward',
@@ -64,8 +68,13 @@ export const Controls = {
 type Props = {
   selectSpot: boolean;
   autoView: boolean;
+  resetPosition: boolean;
 };
-export default function Churest3D({ selectSpot, autoView }: Props) {
+export default function Churest3D({
+  selectSpot,
+  autoView,
+  resetPosition,
+}: Props) {
   const map = useMemo(
     () => [
       { name: Controls.forward, keys: ['ArrowUp', 'KeyW'] },
@@ -80,7 +89,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
   const directionalLight = new DirectionalLight(0xffffff, 2);
   const gogo = useThree();
   useEffect(() => {
-    directionalLight.position.set(15, 30, 16);
+    directionalLight.position.set(20, 30, 16);
     directionalLight.castShadow = true;
     directionalLight.shadow.mapSize.x = 4 * 1024; // default
     directionalLight.shadow.mapSize.y = 4 * 1024; // defaultw
@@ -139,17 +148,23 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
     }
   );
   const spotINfo = spots;
+
+  // const trees = ()=>{
+  //   switch ()
+  // }
+
   return (
     <>
       <KeyboardControls map={map}>
         <Suspense>
-          <Physics>
+          <Physics debug>
             <SoftShadows />
             {/* <MovingCharacter logSpot={logSpot} autoView={autoView} /> */}
             <CharacterChurest
               autoView={autoView}
               selectSpot={selectSpot}
               spaceModal={spaceModal}
+              resetPosition={resetPosition}
             />
             {selectSpot ? (
               <>
@@ -160,7 +175,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                 {/* 나의 집 3D start */}
                 <RigidBody position={[0, 0.5, 0]} type="fixed" name="house">
                   <group onClick={() => setIsMyPageOpen({ isModal: true })}>
-                    <House1 />
+                    {Houses(data?.data.houseId)}
                   </group>
                   <CylinderCollider
                     sensor
@@ -200,9 +215,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                 {/* 새집 3D start */}
                 <RigidBody position={[4.5, 0, 4.5]} type="fixed">
                   <group onClick={() => setIsMyBirdOpen({ isModal: true })}>
-                    {/* <BirdHouse1 />
-                <BirdHouse2 /> */}
-                    <BirdHouse3 />
+                    {BirdHouses(data?.data.birdhouseId)}
                   </group>
                   <CylinderCollider
                     sensor
@@ -218,6 +231,8 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                   />
                 </RigidBody>
                 {/* 새집 3D end */}
+                {/* 새 3D */}
+                <Bird id={data?.data.birdId} />
               </>
             )}
             {/* 추억 나무 리스트 start */}
