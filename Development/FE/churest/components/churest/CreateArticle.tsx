@@ -161,7 +161,7 @@ export default function CreateArticle() {
           </button>
         </div>
       </div>
-      <Image src={images.memory_img} width={850} height={700} alt="" />
+      <Image src={images.memory_img} priority width={850} height={700} alt="" />
       <style jsx>
         {`
           .articleContainer {

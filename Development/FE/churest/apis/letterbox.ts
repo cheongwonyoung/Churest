@@ -14,10 +14,11 @@ export const writeLetter = (writeInfo: {
   return instance.post(`/guest-book`, writeInfo);
 };
 
-// 방명록 삭제
-export const deleteLetter = (deleteInfo: {
-  fromMemberId: number;
-  guestBookId: number;
+// 방명록 삭제 
+export const deleteLetter = (
+  deleteInfo: {
+    fromMemberId: number;
+    guestBookId: number;
 }) => {
   return instance.delete(`/guest-book`, { data: deleteInfo });
 };

@@ -16,11 +16,6 @@ interface ResultType {
 export default function SearchFriend({ list }: Props) {
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
   const router = useRouter();
-  const handleClick = (id: number) => {
-    router.push('churest' + id);
-    setIsSearchOpen({ isModal: false });
-    location.reload();
-  };
 
   return (
     <>
@@ -29,7 +24,8 @@ export default function SearchFriend({ list }: Props) {
           <div
             className="container"
             onClick={() => {
-              handleClick(item.memberId);
+              setIsSearchOpen({ isModal: false });
+              router.push('/churest/' + item.memberId) 
             }}
           >
             <div className="gray-clay search-avatar">
