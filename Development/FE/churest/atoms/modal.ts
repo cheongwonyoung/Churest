@@ -3,6 +3,7 @@ import { atom } from 'recoil';
 interface createArticle {
   isModal: boolean;
   spot: number;
+  isSelect: boolean;
 }
 
 interface openAlarm {
@@ -13,9 +14,9 @@ interface postBox {
   isModal: boolean;
 }
 
-interface newBird{
+interface newBird {
   isModal: boolean;
-  bird:any;
+  bird: any;
 }
 
 export const createArticleAtom = atom<createArticle>({
@@ -23,14 +24,15 @@ export const createArticleAtom = atom<createArticle>({
   default: {
     isModal: false,
     spot: -1,
+    isSelect: false,
   },
 });
 export const openShopAtom = atom<openAlarm>({
   key: 'openShop',
   default: {
     isModal: false,
-  }
-})
+  },
+});
 export const openAlarmAtom = atom<openAlarm>({
   key: 'openAlarm',
   default: {
@@ -88,6 +90,6 @@ export const newBirdAtom = atom<newBird>({
   key: 'newBird',
   default: {
     isModal: false,
-    bird:{}
-  }
+    bird: {},
+  },
 });

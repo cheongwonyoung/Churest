@@ -1,8 +1,8 @@
 import { Canvas } from '@react-three/fiber';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Churest3D from '@/components/churest/Churest3D';
-import { useRecoilValue } from 'recoil';
-import { spaceModalAtom } from '@/atoms/modal';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { createArticleAtom, spaceModalAtom } from '@/atoms/modal';
 import Navbar from '@/components/common/Navbar';
 import MemoryButton from '@/components/churest/MemoryButton';
 import { loginAtom } from '@/atoms/login';
@@ -17,9 +17,19 @@ export default function Garden() {
   const [autoView, setAutoView] = useState(true);
 
   const [selectSpot, setSelectSpot] = useState(false);
+  const setIsSelect = useSetRecoilState(createArticleAtom);
   const changeToSelect = () => {
     setSelectSpot((prev) => !prev);
+    setIsSelect((prev) => {
+      return { ...prev, isSelect: true };
+    });
   };
+  const isSelect = useRecoilValue(createArticleAtom).isSelect;
+  useEffect(() => {
+    if (isSelect == false) {
+      setSelectSpot(false);
+    }
+  }, [isSelect]);
 
   return (
     <div className="gogo">
@@ -30,18 +40,6 @@ export default function Garden() {
             <p>SpaceBar</p>
           </div>
         </div>
-      )}
-
-      {isCreate.isModal && (
-        <ModalBlackBg
-          closeModal={closeModal}
-          modal={
-            <CreateArticle
-              closeModal={closeModal}
-              changeToSelect={changeToSelect}
-            />
-          }
-        />
       )}
 
       <button onClick={() => setAutoView((prev) => !prev)}>AutoFocus</button>

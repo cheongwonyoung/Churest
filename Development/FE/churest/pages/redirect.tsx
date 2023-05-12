@@ -25,6 +25,8 @@ export default function Redirect() {
       }
       // 가입자일 때
       else {
+        console.log('데이터', data.data);
+
         setMyInfo({
           ...myInfo,
           id: data.data.memberId,
