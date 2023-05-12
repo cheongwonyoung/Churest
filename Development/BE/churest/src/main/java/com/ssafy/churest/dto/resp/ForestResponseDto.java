@@ -14,9 +14,9 @@ public class ForestResponseDto {
         private int avatarId;
         private String birdNickname;
         private int coin;
-        private HouseResponseDto.Info house;
-        private BirdHouseResponseDto.Info birdhouse;
-        private BirdResponseDto.Info bird;
+        private int houseId;
+        private int birdhouseId;
+        private int birdId;
         private List<BoardResponseDto.BoardInfo> treeList;
     }
 
