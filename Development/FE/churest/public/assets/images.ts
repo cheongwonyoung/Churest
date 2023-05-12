@@ -80,4 +80,22 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/chuworld2_img.png',
   watering_icon_img:
     'https://storage.googleapis.com/churest-bucket/project_image/watering_icon_img.png',
+  tree_1_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/Tree1.png',
+  tree_2_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/Tree2.png',
+  tree_3_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/Tree3.png',
+  tree_4_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/Tree4.png',
+  tree_5_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/Tree5.png',
+  tree_6_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/Tree6.png',
+  tree_7_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/Tree7.png',
+  tree_8_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/Tree8.png',
+  tree_9_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/Tree9.png',
 };

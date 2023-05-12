@@ -8,7 +8,8 @@ import {
   openSearchAtom,
   openTagAtom,
   openShopAtom,
-  newBirdAtom
+  newBirdAtom,
+  createArticleAtom,
 } from '@/atoms/modal';
 import Notice from '@/components/navbar/Notice';
 import Tag from '@/components/navbar/Tag';
@@ -19,6 +20,8 @@ import LetterBox from '../churest/LetterBox';
 import MyBird from '../churest/MyBird';
 import ItemShop from '@/components/navbar/ItemShop';
 import NewBird from '../churest/NewBird';
+import CreateArticle from '../churest/CreateArticle';
+import CreateBoox from '../churest/CreateBoox';
 
 export default function Modals() {
   const id = useRecoilValue(loginAtom).id;
@@ -29,12 +32,14 @@ export default function Modals() {
   const [isLetterOpen, setIsLetterOpen] = useRecoilState(letterBoxAtom);
   const [isMyBirdOpen, setIsMyBirdOpen] = useRecoilState(myBirdAtom);
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
-  const [isNewBirdOpen, setIsNewBirdOpen] =useRecoilState(newBirdAtom)
+  const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
+  const [isCreate, setIsCreate] = useRecoilState(createArticleAtom);
+
   return (
-    <div>      
+    <div>
       {isShopOpen.isModal && (
         <ModalBlackBg
-          modal={<ItemShop memberId={id}/>}
+          modal={<ItemShop memberId={id} />}
           closeModal={() => setIsShopOpen({ isModal: false })}
         />
       )}
@@ -84,11 +89,23 @@ export default function Modals() {
           closeModal={() => setIsMyBirdOpen({ isModal: false })}
         />
       )}
-        {isNewBirdOpen.isModal && (
-        <ModalBlackBg 
+      {isNewBirdOpen.isModal && (
+        <ModalBlackBg
           modal={<NewBird />}
-        closeModal={() => setIsNewBirdOpen({ ...isNewBirdOpen, isModal: false })}
-      />)}
+          closeModal={() =>
+            setIsNewBirdOpen({ ...isNewBirdOpen, isModal: false })
+          }
+        />
+      )}
+
+      {isCreate.isModal && (
+        <ModalBlackBg
+          closeModal={() => {
+            setIsCreate({ ...isCreate, isModal: false });
+          }}
+          modal={<CreateBoox />}
+        />
+      )}
     </div>
   );
 }

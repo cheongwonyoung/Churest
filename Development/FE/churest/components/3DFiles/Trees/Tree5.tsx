@@ -12,21 +12,47 @@ import { glbs } from '@/public/assets/glb';
 type GLTFResult = GLTF & {
   nodes: {
     tree5: THREE.Mesh;
+    tree5001: THREE.Mesh;
+    tree5002: THREE.Mesh;
+    tree5003: THREE.Mesh;
   };
   materials: {
-    ['Material.013']: THREE.MeshStandardMaterial;
+    ['Material.008']: THREE.MeshStandardMaterial;
+    ['매테리얼.012']: THREE.MeshStandardMaterial;
   };
 };
-
 export function Tree5(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF(glbs.tree_5_glb) as GLTFResult;
   return (
     <group {...props} dispose={null}>
       <mesh
         geometry={nodes.tree5.geometry}
-        material={materials['Material.013']}
+        material={materials['Material.008']}
         position={[0, 1.8, 0]}
         scale={0.23}
+        castShadow
+      />
+      <mesh
+        geometry={nodes.tree5001.geometry}
+        material={materials['매테리얼.012']}
+        position={[0, 1.8, 0]}
+        scale={0.23}
+        castShadow
+      />
+      <mesh
+        geometry={nodes.tree5002.geometry}
+        material={materials['매테리얼.012']}
+        position={[0, 1.8, 0]}
+        scale={0.23}
+        castShadow
+      />
+      <mesh
+        geometry={nodes.tree5003.geometry}
+        material={materials['매테리얼.012']}
+        position={[-0.13, 1.84, 0.12]}
+        rotation={[-2.73, -1.31, -2.72]}
+        scale={0.23}
+        castShadow
       />
     </group>
   );

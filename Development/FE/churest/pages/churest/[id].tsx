@@ -1,16 +1,12 @@
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import Churest3D from '@/components/churest/Churest3D';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { createArticleAtom, spaceModalAtom } from '@/atoms/modal';
-import ModalBlackBg from '@/components/common/ModalBlackBg';
-import CreateArticle from '@/components/churest/CreateArticle';
+import { useRecoilValue } from 'recoil';
+import { spaceModalAtom } from '@/atoms/modal';
 import Navbar from '@/components/common/Navbar';
 import MemoryButton from '@/components/churest/MemoryButton';
 import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
-import { images } from '@/public/assets/images';
-import Image from 'next/image';
 
 export default function Garden() {
   const memberId = useRecoilValue(loginAtom).id;
@@ -25,12 +21,6 @@ export default function Garden() {
     setSelectSpot((prev) => !prev);
   };
 
-  const [isCreate, setIsCreate] = useRecoilState(createArticleAtom);
-
-  const closeModal = () => {
-    setIsCreate({ ...isCreate, isModal: false });
-  };
-
   return (
     <div className="gogo">
       <Navbar />
@@ -40,10 +30,6 @@ export default function Garden() {
             <p>SpaceBar</p>
           </div>
         </div>
-      )}
-
-      {isCreate.isModal && (
-        <ModalBlackBg closeModal={closeModal} modal={<CreateArticle />} />
       )}
 
       <button onClick={() => setAutoView((prev) => !prev)}>AutoFocus</button>

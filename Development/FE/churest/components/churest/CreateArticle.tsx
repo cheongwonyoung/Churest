@@ -9,7 +9,6 @@ import { createArticleAtom } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
 import { useMutation } from 'react-query';
 import { goCreateArticle } from '@/apis/churest';
-import { log } from 'console';
 
 // 850 700
 export default function CreateArticle() {
@@ -98,75 +97,69 @@ export default function CreateArticle() {
   };
 
   return (
-    <div className="articleContainer">
-      <div className="inputBox">
-        <div className="left">
-          <div className="titleBox">
-            <p>제목</p>
+    <div className="inputBox">
+      <div className="left">
+        <div className="titleBox">
+          <p>제목</p>
+          <input
+            type="text"
+            className="title"
+            placeholder="어떤 추억인가요?"
+            name="title"
+            value={data.title}
+            onChange={(e) => handleData(e)}
+          />
+        </div>
+        <div className="dateweather">
+          <div className="dateBox box">
+            <p>날짜</p>
             <input
-              type="text"
-              className="title"
-              placeholder="어떤 추억인가요?"
-              name="title"
-              value={data.title}
+              className="date"
+              type="date"
+              name="date"
+              value={data.date}
               onChange={(e) => handleData(e)}
             />
           </div>
-          <div className="dateweather">
-            <div className="dateBox box">
-              <p>날짜</p>
-              <input
-                className="date"
-                type="date"
-                name="date"
-                value={data.date}
-                onChange={(e) => handleData(e)}
-              />
-            </div>
-            <div className="weatherBox box">
-              <p>날씨</p>
-              <WeatherPicker handleWeather={handleWeather} weather={weather} />
-            </div>
-          </div>
-          <div>
-            <p className="imgName">사진</p>
-            <ImgUploader
-              addFiles={addFiles}
-              files={files}
-              deleteImage={deleteImage}
-            />
+          <div className="weatherBox box">
+            <p>날씨</p>
+            <WeatherPicker handleWeather={handleWeather} weather={weather} />
           </div>
         </div>
-        <div className="right">
-          <div>
-            <p className="contentName">내용</p>
-            <textarea
-              className="content"
-              name="content"
-              value={data.content}
-              onChange={(e) => handleData(e)}
-              placeholder="무슨 일이 있었나요?"
-            />
-          </div>
-          <div>
-            <p className="tagName">태그</p>
-            <TagPicker
-              pickedTag={pickedTag}
-              addPickedTag={addPickedTag}
-              deleteTag={deleteTag}
-            />
-          </div>
-          <button className="submitBtn" onClick={createArticle}>
-            추억 심기
-          </button>
+        <div>
+          <p className="imgName">사진</p>
+          <ImgUploader
+            addFiles={addFiles}
+            files={files}
+            deleteImage={deleteImage}
+          />
         </div>
       </div>
-      <Image src={images.memory_img} width={850} height={700} alt="" />
+      <div className="right">
+        <div>
+          <p className="contentName">내용</p>
+          <textarea
+            className="content"
+            name="content"
+            value={data.content}
+            onChange={(e) => handleData(e)}
+            placeholder="무슨 일이 있었나요?"
+          />
+        </div>
+        <div>
+          <p className="tagName">태그</p>
+          <TagPicker
+            pickedTag={pickedTag}
+            addPickedTag={addPickedTag}
+            deleteTag={deleteTag}
+          />
+        </div>
+        <button className="submitBtn" onClick={createArticle}>
+          추억 심기
+        </button>
+      </div>
       <style jsx>
         {`
-          .articleContainer {
-            position: relative;
-          }
           p {
             color: #8b80ca;
             font-size: 20px;
@@ -186,28 +179,7 @@ export default function CreateArticle() {
             margin-top: 8px;
             font-weight: 700;
           }
-          .inputBox {
-            position: absolute;
-            z-index: 51;
-            width: 100%;
-            height: 100%;
-            display: flex;
-          }
-          .left {
-            width: 335px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 50px 25px 0px 65px;
-            gap: 20px;
-          }
-          .right {
-            width: 335px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 50px 65px 0px 25px;
-          }
+
           .dateweather {
             display: flex;
             justify-content: space-between;
