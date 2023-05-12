@@ -16,12 +16,20 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/bird_5_img.png',
   bird_6_img:
     'https://storage.googleapis.com/churest-bucket/project_image/bird_6_img.png',
+  bird_7_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/bird_7_img.png', 
   house_1_img:
-    'https://storage.googleapis.com/churest-bucket/project_image/bird_1_img.png',
+    'https://storage.googleapis.com/churest-bucket/project_image/house_1_img.png',
   house_2_img:
-    'https://storage.googleapis.com/churest-bucket/project_image/bird_1_img.png',
+    'https://storage.googleapis.com/churest-bucket/project_image/house_2_img.png',
   house_3_img:
-    'https://storage.googleapis.com/churest-bucket/project_image/bird_1_img.png',
+    'https://storage.googleapis.com/churest-bucket/project_image/house_3_img.png',
+  house_4_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/house_4_img.png', 
+  house_5_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/house_5_img.png', 
+  house_6_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/house_6_img.png', 
   avatar_1_img:
     'https://storage.googleapis.com/churest-bucket/project_image/avatar_1.png',
   avatar_2_img:
@@ -34,6 +42,12 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/avatar_5.png',
   avatar_6_img:
     'https://storage.googleapis.com/churest-bucket/project_image/avatar_6.png',
+  nest_1_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/nest_1_img.png',
+  nest_2_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/nest_2_img.png', 
+  nest_3_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/nest_3_img.png', 
   letter_img:
     'https://storage.googleapis.com/churest-bucket/project_image/letter_img.png',
   my_tree_img:

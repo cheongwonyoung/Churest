@@ -61,7 +61,6 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         console.log('에러다');
         console.log(error);
       },
-    
     }
   );
 
@@ -78,15 +77,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         console.log('에러다');
         console.log(error);
       },
-  
     }
   );
   useEffect(() => {
-    refetchBird() 
-    refetchBirdHouse(); 
-    refetchHouse(); 
-  }, [])  
-
+    refetchBird();
+    refetchBirdHouse();
+    refetchHouse();
+  }, []);
 
   const buyBird = useMutation(
     (info: { birdId: number; memberId: number }) => getNewBird(info),
