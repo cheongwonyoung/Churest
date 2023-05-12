@@ -38,7 +38,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
       };
     }
   }
-
+  console.log(info);
   return (
     <>
       <div>

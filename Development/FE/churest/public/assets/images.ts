@@ -120,4 +120,8 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/pin_home.png',
   pin_focus_img:
     'https://storage.googleapis.com/churest-bucket/project_image/pin_focus.png',
+  sprout_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/sprout_img.png',
+  branch_img: 
+    'https://storage.googleapis.com/churest-bucket/project_image/branch_img.png', 
 };
