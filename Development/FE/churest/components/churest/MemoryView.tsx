@@ -55,11 +55,12 @@ export default function MemoryView({ boardId }: Props) {
 
   const clickWatering = () => {
     console.log(boardId + '물줄게');
-    watering.mutate({ boardId });
+    watering.mutate({ boardId, memberId });
   };
 
   const watering = useMutation(
-    (info: { boardId: number }) => wateringTree(info.boardId),
+    (info: { boardId: number; memberId: number }) =>
+      wateringTree(info.boardId, info.memberId),
     {
       onSuccess: () => {
         console.log('물주기성공');
