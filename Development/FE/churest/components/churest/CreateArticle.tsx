@@ -10,9 +10,12 @@ import { loginAtom } from '@/atoms/login';
 import { useMutation } from 'react-query';
 import { goCreateArticle } from '@/apis/churest';
 import { log } from 'console';
+import Swal from 'sweetalert2';
+
+type Props = { closeModal: any; changeToSelect: any };
 
 // 850 700
-export default function CreateArticle() {
+export default function CreateArticle({ closeModal, changeToSelect }: Props) {
   const [weather, setWeather] = useState<
     '맑음' | '흐림' | '비' | '안개' | '눈' | '천둥번개'
   >('맑음');
@@ -67,7 +70,16 @@ export default function CreateArticle() {
   const { mutate: submit } = useMutation((info: any) => goCreateArticle(info), {
     onSuccess(data, variables, context) {
       console.log('성공');
-      console.log(data);
+      // console.log(data);
+      closeModal();
+      changeToSelect();
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '추억 나무 심기 완료',
+        showConfirmButton: false,
+        timer: 1000,
+      });
     },
     onError(error, variables, context) {
       console.log('넌 실패밖에 모르는 하남자야');
