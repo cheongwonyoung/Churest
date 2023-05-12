@@ -32,6 +32,7 @@ import {
   myBirdAtom,
   openMyPageAtom,
   spaceModalAtom,
+  myTreeAtom,
 } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
 import { Mountain } from '../3DFiles/Rock/Mountain';
@@ -96,7 +97,10 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
   const setIsMyPageOpen = useSetRecoilState(openMyPageAtom);
   const setIsMyBirdOpen = useSetRecoilState(myBirdAtom);
   const setIsPostBoxOpen = useSetRecoilState(letterBoxAtom);
+  const setIsMyTreeOpen = useSetRecoilState(myTreeAtom);
   const [readyModal, setReadyModal] = useRecoilState(spaceModalAtom);
+  const [myTreeId, setTreeId] = useState(0);
+
   const spaceModal = () => {
     switch (readyModal) {
       case 'postBox':
@@ -106,12 +110,17 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
       case 'myBird':
         setIsMyBirdOpen({ isModal: true });
         setReadyModal('');
-
         return;
       case 'myPage':
         setIsMyPageOpen({ isModal: true });
         setReadyModal('');
-
+        return;
+      case 'myTree':
+        setIsMyTreeOpen({
+          isModal: true,
+          boardId: myTreeId,
+        });
+        setReadyModal('');
         return;
       default:
         return;
@@ -147,6 +156,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               </>
             ) : (
               <>
+                {/* 나의 집 3D start */}
                 <RigidBody position={[0, 0.5, 0]} type="fixed" name="house">
                   <group onClick={() => setIsMyPageOpen({ isModal: true })}>
                     <House1 />
@@ -164,6 +174,9 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                     }}
                   />
                 </RigidBody>
+                {/* 나의 집 3D end */}
+
+                {/* 우편함 3D start */}
                 <RigidBody position={[-4.5, 0, 4.5]} type="fixed">
                   <group onClick={() => setIsPostBoxOpen({ isModal: true })}>
                     <PostBox />
@@ -181,6 +194,9 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                     }}
                   />
                 </RigidBody>
+                {/* 우편함 3D end */}
+
+                {/* 새집 3D start */}
                 <RigidBody position={[4.5, 0, 4.5]} type="fixed">
                   <group onClick={() => setIsMyBirdOpen({ isModal: true })}>
                     {/* <BirdHouse1 />
@@ -200,12 +216,18 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                     }}
                   />
                 </RigidBody>
+                {/* 새집 3D end */}
               </>
             )}
+            {/* 추억 나무 리스트 start */}
             {data?.data.treeList?.map(
-              (tree: { boardId: number; spot: number; score: number }) => {
+              (
+                tree: { boardId: number; spot: number; score: number },
+                idx: number
+              ) => {
                 return (
                   <RigidBody
+                    key={idx}
                     position={
                       new Vector3(
                         spotINfo[tree.spot]['x'],
@@ -216,11 +238,35 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                     type="fixed"
                     colliders="trimesh"
                   >
-                    <Tree3 />
+                    <group>
+                      <Tree3
+                        onClick={() =>
+                          setIsMyTreeOpen({
+                            isModal: true,
+                            boardId: myTreeId,
+                          })
+                        }
+                      />
+                    </group>
+                    <CylinderCollider
+                      sensor
+                      args={[5, 2]}
+                      onIntersectionEnter={(e) => {
+                        e.colliderObject?.name == 'character' &&
+                          setTreeId(tree.boardId);
+                        setReadyModal('myTree');
+                        console.log(tree.boardId + '에게 다가갔떠');
+                      }}
+                      onIntersectionExit={(e) => {
+                        e.colliderObject?.name == 'character' &&
+                          setReadyModal('');
+                      }}
+                    />
                   </RigidBody>
                 );
               }
             )}
+            {/* 추억 나무 리스트 end */}
             <RigidBody
               name="map"
               colliders="trimesh"

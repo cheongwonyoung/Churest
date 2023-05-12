@@ -74,10 +74,10 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
         initial={{ scale: 0 }}
         animate={{ scale: 1, rotateZ: 360 }}
         transition={{
-          duration: 1,
+          duration: 2,
           type: 'spring',
           stiffness: 260,
-          damping: 20,
+          damping: 50,
         }}
       >
         {viewMode ? (

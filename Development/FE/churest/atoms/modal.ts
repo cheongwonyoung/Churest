@@ -86,6 +86,7 @@ export const spaceModalAtom = atom({
   default: '',
 });
 
+// 새 구입 모달
 export const newBirdAtom = atom<newBird>({
   key: 'newBird',
   default: {

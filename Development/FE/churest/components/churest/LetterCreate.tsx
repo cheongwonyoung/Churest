@@ -63,8 +63,8 @@ export default function Letter({ refetch, closeModal }: Props) {
         transition={{
           duration: 1,
           type: 'spring',
-          stiffness: 260,
-          damping: 20,
+          stiffness: 200,
+          damping: 50,
         }}
       >
         <div className="letter-clay letter">

@@ -18,6 +18,8 @@ type Props = {
 };
 export default function MemoryView({ boardId }: Props) {
   let memberId = useRecoilValue(loginAtom).id;
+  const gcsLink =
+    'https://storage.googleapis.com/churest-bucket/project_image/';
 
   // fileList를 아래 양식에 맞게 변환해야함
   const cards = [
@@ -41,7 +43,7 @@ export default function MemoryView({ boardId }: Props) {
 
   const [tree, setTree] = useState<any>([]);
   const [tagList, setTagList] = useState<any>([]);
-  const [fleList, setFileList] = useState<any>([]);
+  const [fileList, setFileList] = useState<any>([]);
   // const {data} =
   useQuery('myTree', () => getMyChurest(Number(memberId), Number(boardId)), {
     onSuccess(data) {
@@ -50,27 +52,37 @@ export default function MemoryView({ boardId }: Props) {
       setTree(data?.data);
       setTagList(data?.data.tagList);
       setFileList(data?.data.fileList);
+
+      fileList.forEach((el: String) => {
+        const srcStr = gcsLink + el;
+        const item = {
+          key: uuidv4(),
+          content: <CardComp imagen={srcStr} />,
+        };
+        cards.push(item);
+      });
     },
   });
 
   const clickWatering = () => {
-    console.log(boardId + '물줄게');
-    watering.mutate({ boardId });
+    // console.log(boardId + '물줄게');
+    watering.mutate({ boardId, memberId });
   };
 
   const watering = useMutation(
-    (info: { boardId: number }) => wateringTree(info.boardId),
+    (info: { boardId: number; memberId: number }) =>
+      wateringTree(info.boardId, info.memberId),
     {
       onSuccess: () => {
-        console.log('물주기성공');
-        showAlert('추억에 물 주기 성공');
+        // console.log('물주기성공');
+        showAlert('물 주기 성공');
       },
     }
   );
 
   const showAlert = (text: string) => {
     Swal.fire({
-      position: 'center',
+      position: 'top',
       icon: 'success',
       title: text,
       showConfirmButton: false,
