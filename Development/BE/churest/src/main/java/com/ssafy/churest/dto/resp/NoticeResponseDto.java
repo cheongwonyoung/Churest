@@ -14,6 +14,7 @@ public class NoticeResponseDto {
         private int toMember;
         private int board;
         private int avatar;
+        private int treeId;
         private String content;
         private Boolean isChecked;
         private LocalDateTime createdTime;
@@ -24,6 +25,7 @@ public class NoticeResponseDto {
                     .board(notice.getBoard().getBoardId())
                     .avatar(notice.getFromMember().getAvatarId())
                     .noticeId(notice.getNoticeId())
+                    .treeId(notice.getBoard().getTree().getTreeId())
                     .fromMember(notice.getFromMember().getMemberId())
                     .toMember(notice.getToMember().getMemberId())
                     .content(notice.getContent())
