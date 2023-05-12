@@ -176,6 +176,7 @@ public class BoardServiceImpl implements BoardService {
         if(recentTreeLogScore >= TREE_CRITERIA_SCORE) {
 
             if(!board.isPayed()) {
+                // 나를 제외한 사람들
                 List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
                 memberList.add(board.getMember().rewardCoinAndTree());
                 memberRepository.saveAllAndFlush(memberList);
@@ -183,11 +184,16 @@ public class BoardServiceImpl implements BoardService {
                 boardRepository.save(board.updatePayed(true));
                 boardDetailInfo.setReward(true);
 
-                // 알림 전송
-                FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(memberId).targetUserId(memberId).title("쥬잉님 저 다 컸떠용").build();
-                Member member = memberRepository.findByMemberId(memberId);
-                fcmNotificationService.sendNotificationByToken(requestDto);
-                noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").isChecked(false).build());
+
+//            알림 전송
+                for(int i=0; i<memberList.size(); i++){
+                    Member member = memberList.get(i);
+                    int target = member.getMemberId();
+                    FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).title("쥬잉님 저 다 컸떠용").build();
+                    fcmNotificationService.sendNotificationByToken(requestDto);
+                    noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").isChecked(false).build());
+                }
+
             }
 
             //  정렬?
