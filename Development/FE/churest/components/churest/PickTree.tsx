@@ -5,20 +5,25 @@ import {
   MdOutlineArrowForwardIos,
 } from 'react-icons/md';
 import { useState } from 'react';
-export default function PickTree() {
-  const [page, setPage] = useState(1);
 
-  const plusPage = () => {
-    page < 9 && setPage((prev) => prev + 1);
-  };
+type Props = {
+  plusStep(): void;
+  step: number;
+  plusPage(): void;
+  minusPage(): void;
+  page: number;
+};
 
-  const minusPage = () => {
-    page > 1 && setPage((prev) => prev - 1);
-  };
-
+export default function PickTree({
+  plusStep,
+  step,
+  plusPage,
+  minusPage,
+  page,
+}: Props) {
   return (
     <div className="inputBox">
-      <div className="left">
+      <div className="left left-add">
         <div className="box">
           <div className="tree-title">
             <p>어떤 나무를 심을건가요?</p>
@@ -59,6 +64,7 @@ export default function PickTree() {
               얇은 나뭇가지를 가졌지만 빨갛고 커다란 열매를 맺는 것이 특징이다.
             </p>
           </div>
+          <button onClick={plusStep}>나무 선택</button>
         </div>
       </div>
       <style jsx>{`
