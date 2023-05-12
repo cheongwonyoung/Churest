@@ -61,7 +61,7 @@ export default function BirdNickname({
 
   const modifyButton = canInput ? (
     <div className="center">
-      정보 수정하기&nbsp;
+      이름 수정하기&nbsp;
       <BsPencil />
     </div>
   ) : (

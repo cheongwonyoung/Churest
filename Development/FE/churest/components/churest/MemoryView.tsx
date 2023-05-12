@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil';
 import { wateringTree } from '@/apis/churest';
 import CardComp from './CardComp.jsx';
 import RoundCarousel from './RoundCarousel';
+import { imageUrl } from '@/apis/index';
 
 import Swal from 'sweetalert2';
 
@@ -18,28 +19,44 @@ type Props = {
 };
 export default function MemoryView({ boardId }: Props) {
   let memberId = useRecoilValue(loginAtom).id;
-  const gcsLink =
-    'https://storage.googleapis.com/churest-bucket/project_image/';
 
   // fileList를 아래 양식에 맞게 변환해야함
-  const cards = [
-    {
-      key: uuidv4(),
-      content: <CardComp imagen={images['bird_5_img']} />,
-    },
-    {
-      key: uuidv4(),
-      content: <CardComp imagen={images['bird_2_img']} />,
-    },
-    {
-      key: uuidv4(),
-      content: <CardComp imagen={images['bird_4_img']} />,
-    },
-    {
-      key: uuidv4(),
-      content: <CardComp imagen={images['bird_3_img']} />,
-    },
-  ];
+  // const cards = [
+  //   {
+  //     key: uuidv4(),
+  //     content: <CardComp imagen={images['bird_5_img']} />,
+  //   },
+  //   {
+  //     key: uuidv4(),
+  //     content: <CardComp imagen={images['bird_2_img']} />,
+  //   },
+  //   {
+  //     key: uuidv4(),
+  //     content: <CardComp imagen={images['bird_2_img']} />,
+  //   },
+  // ];
+
+  const [cards, setCards] = useState([{}]);
+
+  const makeCards = (list: []) => {
+    console.log('원본은');
+    console.log(...cards);
+
+    const pictures: any = [];
+    list.forEach((el: String) => {
+      const srcStr = imageUrl + el;
+      console.log('출처:', srcStr);
+      const item = {
+        key: uuidv4(),
+        content: <CardComp imagen={srcStr} />,
+      };
+      pictures.push(item);
+    });
+
+    setCards([...pictures]);
+    console.log('푸시해쥼!');
+    console.log(...cards);
+  };
 
   const [tree, setTree] = useState<any>([]);
   const [tagList, setTagList] = useState<any>([]);
@@ -52,15 +69,11 @@ export default function MemoryView({ boardId }: Props) {
       setTree(data?.data);
       setTagList(data?.data.tagList);
       setFileList(data?.data.fileList);
-
-      fileList.forEach((el: String) => {
-        const srcStr = gcsLink + el;
-        const item = {
-          key: uuidv4(),
-          content: <CardComp imagen={srcStr} />,
-        };
-        cards.push(item);
-      });
+      makeCards(data.data.fileList);
+    },
+    onError(error) {
+      console.log('에러다! ');
+      console.log(error);
     },
   });
 
@@ -98,7 +111,7 @@ export default function MemoryView({ boardId }: Props) {
           alt=""
           width={33}
           height={48}
-          style={{ margin: '5px' }}
+          style={{ margin: '10px' }}
         ></Image>
       </>
     );

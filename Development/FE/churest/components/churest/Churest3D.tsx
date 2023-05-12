@@ -133,6 +133,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
     () => getForest(memberId),
     {
       onSuccess(data) {
+        console.log('추레스트에 왔단다');
         console.log(data);
       },
     }
@@ -243,7 +244,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                         onClick={() =>
                           setIsMyTreeOpen({
                             isModal: true,
-                            boardId: myTreeId,
+                            boardId: tree.boardId,
                           })
                         }
                       />
