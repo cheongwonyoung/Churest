@@ -116,9 +116,12 @@ export default function CharacterChurest({
   const controlRef = useRef<any>();
   useEffect(() => {
     if (selectSpot) {
-      camera.position.x = 0;
       camera.position.y = 43;
       camera.position.z = 0;
+      camera.position.x = 0;
+      // for (let time = 30; time > 0; time++) {
+      //   camera.position.x = time;
+      // }
       cameraTarget.x = 0;
       cameraTarget.y = 0;
       cameraTarget.z = 0;
