@@ -1,4 +1,3 @@
-// import CloudMap from '@/components/chuworld/CloudMap';
 import { useEffect } from 'react';
 import ChuWorldList from '@/components/chuworld/ChuWorldList';
 import ChuWorldNavbar from '@/components/chuworld/ChuWorldNavbar';
@@ -9,11 +8,8 @@ import { loginAtom } from '@/atoms/login';
 
 export default function Chuworld() {
   const memberId = useRecoilValue(loginAtom).id;
-  const { data, refetch } = useQuery('getChu', () => getChuworld(memberId), {
-    onSuccess(data) {
-      console.log(data);
-    },
-  });
+  const { data, refetch } = useQuery('getChu', () => getChuworld(memberId));
+
   useEffect(() => {
     refetch();
   }, []);
@@ -21,7 +17,6 @@ export default function Chuworld() {
   return (
     <div className="root">
       <ChuWorldNavbar />
-      {/* <CloudMap /> */}
       {data && <ChuWorldList data={data.data} />}
       <style jsx>
         {`
