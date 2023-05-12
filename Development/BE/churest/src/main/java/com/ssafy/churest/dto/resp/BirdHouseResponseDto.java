@@ -9,15 +9,15 @@ public class BirdHouseResponseDto {
     @Data
     @Builder
     public static class Info{
-        private int birdHouseId;
+        private int id;
         private String name;
         private String description;
         private int price;
         private Boolean isOwn;
         private Boolean isUsed;
         public static BirdHouseResponseDto.Info fromEntity(BirdHouse birdHouse){
-            return BirdHouseResponseDto.Info.builder()
-                    .birdHouseId(birdHouse.getBirdHouseId())
+            return Info.builder()
+                    .id(birdHouse.getBirdHouseId())
                     .name(birdHouse.getName())
                     .description(birdHouse.getDescription())
                     .price(birdHouse.getPrice())

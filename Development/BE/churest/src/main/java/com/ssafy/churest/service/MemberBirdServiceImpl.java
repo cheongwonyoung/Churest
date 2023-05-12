@@ -101,4 +101,9 @@ public class MemberBirdServiceImpl implements MemberBirdService{
         memberBirdRepository.save(memberBirdRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).updateIsUsed(false));
         memberBirdRepository.save(memberBirdRepository.findByMember_MemberIdAndBird_BirdId(memberId, birdId).updateIsUsed(true));
     }
+    @Override
+    public Boolean checkBird(String nickname) {
+        // member_bird 테이블의 nickname에서 확인
+        return memberBirdRepository.existsByNickname(nickname);
+    }
 }

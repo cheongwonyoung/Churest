@@ -39,4 +39,17 @@ public class MemberBirdController {
         }
     }
 
+    @ApiOperation(value = "birdNickname 중복체크", notes = "birdNickname 받아 db에서 중복 확인")
+    @GetMapping("/birdNickname")
+    public ResponseEntity<?> birdNickname(@RequestParam String nickname) {
+        try {
+            Boolean result = memberBirdService.checkBird(nickname);
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
 }

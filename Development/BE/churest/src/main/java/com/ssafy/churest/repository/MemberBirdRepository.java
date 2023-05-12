@@ -1,5 +1,6 @@
 package com.ssafy.churest.repository;
 
+import com.ssafy.churest.entity.Member;
 import com.ssafy.churest.entity.MemberBird;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,4 +13,8 @@ public interface MemberBirdRepository extends JpaRepository<MemberBird, Integer>
     MemberBird findByMember_MemberIdAndIsUsedIsTrue(int memberId);
 
     List<MemberBird> findAllByMember_MemberIdOrderByCreatedTimeDesc(int memberId);
+
+    Boolean existsByMember_MemberId(int memberId);
+
+    Boolean existsByNickname(String nickname);
 }
