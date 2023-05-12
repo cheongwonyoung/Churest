@@ -112,13 +112,19 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                         <div className="back gray-clay center">
                           {item.treeInfo ? (
                             <div className="tree-info">
-                              <Image
-                                src={IMAGE_ROOT + item.treeinfo?.file}
-                                width={20}
-                                height={20}
-                                alt=""
-                              />
-                              <div className="title">{item.treeInfo.name}</div>
+                              <div className="tree-title">
+                                <Image
+                                  src={IMAGE_ROOT + item.treeInfo.file}
+                                  width={80}
+                                  height={80}
+                                  alt=""
+                                />
+
+                                <div className="title">
+                                  {item.treeInfo.name}
+                                </div>
+                              </div>
+
                               <div>{item.treeInfo.description}</div>
                             </div>
                           ) : (
@@ -198,6 +204,8 @@ export default function Carousel({ cardType, info, refetch }: Props) {
 
           .title {
             color: black;
+            font-weight: bold;
+            font-size: large;
           }
           .date {
             font-size: 13px;
@@ -279,6 +287,12 @@ export default function Carousel({ cardType, info, refetch }: Props) {
           }
           .bird-description {
             font-size: 17px;
+          }
+          .tree-title {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
           }
         `}
       </style>
