@@ -239,7 +239,14 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                     colliders="trimesh"
                   >
                     <group>
-                      <Tree3 />
+                      <Tree3
+                        onClick={() =>
+                          setIsMyTreeOpen({
+                            isModal: true,
+                            boardId: myTreeId,
+                          })
+                        }
+                      />
                     </group>
                     <CylinderCollider
                       sensor
