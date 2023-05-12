@@ -15,9 +15,11 @@ export const glbs: glbs = {
   house_3_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/house_3.glb',
   house_4_glb:
-    'https://storage.googleapis.com/churest-bucket/project_3D/house_4.glb',
+    'https://storage.googleapis.com/churest-bucket/project_3D/home_4.glb',
   house_5_glb:
-    'https://storage.googleapis.com/churest-bucket/project_3D/house_5.glb',
+    'https://storage.googleapis.com/churest-bucket/project_3D/home_5.glb',
+  house_6_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/house_7.glb',
   tree_1_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/Tree1.glb',
   tree_2_glb:
@@ -80,5 +82,19 @@ export const glbs: glbs = {
   rock_5_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/Rock5.glb',
   error_404_glb:
-    'https://storage.googleapis.com/churest-bucket/project_3D/Error404.glb', 
+    'https://storage.googleapis.com/churest-bucket/project_3D/Error404.glb',
+  bird_1_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/bird1.glb',
+  bird_2_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/bird2.glb',
+  bird_3_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/bird3.glb',
+  bird_4_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/bird4.glb',
+  bird_5_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/bird5.glb',
+  bird_6_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/bird6.glb',
+  bird_7_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/bird7.glb',
 };
