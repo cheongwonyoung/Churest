@@ -5,15 +5,18 @@ import { useQuery } from 'react-query';
 import { getChuworld } from '@/apis/chuworld';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
+import CloudMap from '@/components/common/CloudMap';
 
 export default function Chuworld() {
   const memberId = useRecoilValue(loginAtom).id;
-  const { data, refetch } = useQuery('getChu', () => getChuworld(memberId));
+  const { data, isLoading, refetch } = useQuery('getChu', () =>
+    getChuworld(memberId)
+  );
 
   useEffect(() => {
     refetch();
   }, []);
-
+  if (isLoading) return <CloudMap />;
   return (
     <div className="root">
       <ChuWorldNavbar />

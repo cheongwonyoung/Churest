@@ -7,5 +7,5 @@ export const getAlarm = (memberId: number) => {
 
 // 알림 읽음 처리 
 export const checkedAlarm = (noticeId: number) => {
-  return instance.post(`/notice?memberId=${noticeId}`)
+  return instance.post(`/notice?noticeId=${noticeId}`)
 }

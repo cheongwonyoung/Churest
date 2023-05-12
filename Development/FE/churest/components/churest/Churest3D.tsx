@@ -243,7 +243,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                         onClick={() =>
                           setIsMyTreeOpen({
                             isModal: true,
-                            boardId: myTreeId,
+                            boardId: tree.boardId,
                           })
                         }
                       />
