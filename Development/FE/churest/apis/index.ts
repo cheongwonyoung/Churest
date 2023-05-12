@@ -10,3 +10,7 @@ export const instance = axios.create({
 
 export const imageUrl =
   'https://storage.googleapis.com/churest-bucket/project_image/';
+
+
+export const imageUrl_two = 
+  'https://storage.googleapis.com/churest-bucket/' 
