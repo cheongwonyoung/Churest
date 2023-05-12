@@ -12,20 +12,19 @@ import { Char6 } from '../3DFiles/Character/Char6';
 import { Controls } from './Churest3D';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
-import { useQuery } from 'react-query';
-import { useRouter } from 'next/router';
-import { getForest } from '@/apis/churest';
 
 type Props = {
   autoView: boolean;
   selectSpot: boolean;
   spaceModal(): void;
+  resetPosition: boolean;
 };
 
 export default function CharacterChurest({
   autoView,
   selectSpot,
   spaceModal,
+  resetPosition,
 }: Props) {
   const man1 = useRef<any>();
 
@@ -50,6 +49,12 @@ export default function CharacterChurest({
   const forwardPressed = useKeyboardControls(
     (state) => state[Controls.forward]
   );
+
+  useEffect(() => {
+    man1.current.setTranslation({ x: 0, y: 8, z: 4 });
+    man1.current.setLinvel({ x: 0, y: 0, z: 0 });
+    setIsFloor(false);
+  }, [resetPosition]);
 
   // 캐릭터 이동
   const handleMovement = () => {

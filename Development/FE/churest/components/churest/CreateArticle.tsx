@@ -5,9 +5,10 @@ import TagPicker from './TagPicker';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { createArticleAtom } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
-import { useMutation } from 'react-query';
-import { goCreateArticle } from '@/apis/churest';
+import { useMutation, useQuery } from 'react-query';
+import { getForest, goCreateArticle } from '@/apis/churest';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 type Props = {
   treeId: number;
@@ -67,10 +68,16 @@ export default function CreateArticle({ treeId }: Props) {
     setPickedTag((prev) => prev.filter((f) => f != friend));
   };
 
+  const forestId = useRouter().query.id;
+  const { refetch } = useQuery(['tree', forestId], () => getForest(forestId), {
+    enabled: false,
+  });
+
   const { mutate: submit } = useMutation((info: any) => goCreateArticle(info), {
     onSuccess(data, variables, context) {
       console.log('성공');
       // console.log(data);
+      refetch();
       setIsCreate((prev) => {
         return { ...prev, isModal: false, isSelect: false };
       });
@@ -252,23 +259,6 @@ export default function CreateArticle({ treeId }: Props) {
           .tagName {
             margin-top: 8px;
             margin-bottom: 8px;
-          }
-
-          .submitBtn {
-            margin-top: 36px;
-            box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.4),
-              5px 5px 10px rgba(174, 174, 192, 0.2),
-              inset -2px -2px 4px rgba(0, 0, 0, 0.1), inset 2px 2px 4px#fff;
-            width: 334px;
-            height: 44px;
-            border-radius: 10px;
-            padding: 8px;
-            background-color: rgb(255, 218, 118);
-            border: none;
-            font-size: 24px;
-            font-weight: 700;
-            cursor: pointer;
-            color: rgb(104, 97, 64);
           }
         `}
       </style>

@@ -31,6 +31,8 @@ export default function Garden() {
     }
   }, [isSelect]);
 
+  const [resetPosition, setResetPosition] = useState(true);
+
   return (
     <div className="gogo">
       <Navbar />
@@ -41,15 +43,22 @@ export default function Garden() {
           </div>
         </div>
       )}
-
-      <button onClick={() => setAutoView((prev) => !prev)}>AutoFocus</button>
-
+      <div className="btn-box">
+        <button onClick={() => setAutoView((prev) => !prev)}>AutoFocus</button>
+        <button onClick={() => setResetPosition((prev) => !prev)}>
+          집으로 가기
+        </button>
+      </div>
       {churestId === memberId && (
         <MemoryButton selectSpot={selectSpot} changeToSelect={changeToSelect} />
       )}
 
       <Canvas shadows>
-        <Churest3D autoView={autoView} selectSpot={selectSpot} />
+        <Churest3D
+          autoView={autoView}
+          selectSpot={selectSpot}
+          resetPosition={resetPosition}
+        />
       </Canvas>
       <style jsx>
         {`
@@ -100,7 +109,7 @@ export default function Garden() {
             margin: 0;
             font-size: 40px;
           }
-          .gogo button {
+          .btn-box {
             position: absolute;
             left: 40px;
             top: 40px;
