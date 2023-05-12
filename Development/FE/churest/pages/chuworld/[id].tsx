@@ -9,14 +9,12 @@ import CloudMap from '@/components/common/CloudMap';
 
 export default function Chuworld() {
   const memberId = useRecoilValue(loginAtom).id;
-  const { data, isLoading, refetch } = useQuery('getChu', () =>
-    getChuworld(memberId)
-  );
+  const { data, refetch } = useQuery('getChu', () => getChuworld(memberId));
 
   useEffect(() => {
     refetch();
   }, []);
-  if (isLoading) return <CloudMap />;
+
   return (
     <div className="root">
       <ChuWorldNavbar />
