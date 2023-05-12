@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
+
 type Props = {
   showedItem: string;
   handleItems(v: any): void;
 };
 
 export default function ItemList({ showedItem, handleItems }: Props) {
-  const birdList = ['bird_0', 'bird_1', 'bird_2', 'bird_3'];
+  const birdList = ['bird_0', 'bird_1', 'bird_2', 'bird_3', 'bird_4', 'bird_5'];
   const nestList = ['nest_0', 'nest_1', 'nest_2', 'nest_3'];
   const houseList = ['house_0', 'house_1', 'house_2', 'house_3'];
 
@@ -29,13 +30,12 @@ export default function ItemList({ showedItem, handleItems }: Props) {
         onClick={() => handleItems(item)}
         style={{ margin: '30px' }}
       >
-        {item}
         <Image
           src={images[item + '_img']}
           alt=""
           id={item}
-          width={50}
-          height={50}
+          width={100}
+          height={100}
         />
       </div>
     ));

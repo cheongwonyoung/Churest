@@ -1,0 +1,23 @@
+type Props = {
+  comment: string;
+  logic(): void;
+};
+
+export default function NextBtn({ comment, logic }: Props) {
+  return (
+    <>
+      <div onClick={logic} className="green-btn center">
+        <p>NEXT</p>
+        {/* {icon && <p className="">{icon}</p>} */}
+      </div>
+      <style jsx>
+        {`
+          p {
+            font-family: 'MICEGothic Bold';
+            font-weight: 100px;
+          }
+        `}
+      </style>
+    </>
+  );
+}

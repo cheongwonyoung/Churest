@@ -1,6 +1,5 @@
 import React from 'react';
-import birdImg from '@/public/assets/bird_1_img.png';
-import treeImg from '@/public/assets/my_tree_img.png';
+import { images } from '@/public/assets/images';
 import SwiperCore, { EffectCoverflow, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
@@ -40,21 +39,35 @@ const Carousel = ({ cardType, info }: Props) => {
                 key={idx}
                 className={
                   cardType == 'mypage'
-                    ? 'gray-clay center my-tree'
-                    : 'inside-circle center'
+                    ? 'gray-clay center'
+                    : 'inside-circle'
                 }
               >
                 {cardType == 'mypage' ? (
-                  <div className="">
-                    <Image src={treeImg} alt="" width={150} height={150} />
-                    <p>{item.title}</p>
-                    <p className="date center">
-                      {moment(item.createdTime).format('YYYY년 MM월 DD일')}
-                    </p>
+                  <div className="mypage-box">
+                    <Image
+                      src={images.my_tree_img}
+                      alt=""
+                      width={150}
+                      height={150}
+                    />
+                    <div className="text-content">
+                      <p className="title">{item.title}</p>
+                      <p className="date">
+                        {moment(item.createdTime).format('YYYY년 MM월 DD일')}
+                      </p>
+                    </div>
                   </div>
                 ) : (
-                  <div style={{ margin: '0 auto' }}>
-                    <Image src={birdImg} alt="" width={100} height={100} />
+                  <div style={{ margin: '0 auto', height: '200px' }}>
+                    <div>
+                      <Image
+                        src={images['bird_' + item.memberBirdId + '_img']}
+                        alt=""
+                        layout="fill"
+                        object-fit
+                      />
+                    </div>
                     <p>{item.nickname}</p>
                   </div>
                 )}
@@ -68,21 +81,31 @@ const Carousel = ({ cardType, info }: Props) => {
           img {
             display: block;
             margin: 0 auto;
-            width: 60%;
           }
           p {
+            font-size: 15px;
             text-align: center;
-            line-height: 50px;
           }
           .date {
-            margin-bottom: 50px;
+            font-size: 13px;
+            color: gray;
           }
           .hide {
             display: none;
           }
-          .my-tree {
-            width: 400px;
-            height: 400px;
+          .mypage-box {
+            display: flex;
+            flex-direction: column;
+            width: 260px;
+            height: 300px;
+            justify-content: center;
+            align-items: center;
+          }
+          .text-content {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
           }
         `}
       </style>

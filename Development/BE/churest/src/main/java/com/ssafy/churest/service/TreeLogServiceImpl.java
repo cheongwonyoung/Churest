@@ -58,8 +58,8 @@ public class TreeLogServiceImpl implements TreeLogService {
         recentTreeLog.setScore(recentTreeLog.getScore() + 3);
 
         if(!recentTreeLog.getBoard().isPayed() && recentTreeLog.getScore() >= TREE_CRITERIA_SCORE) {
-            List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoin()).collect(Collectors.toList());
-            memberList.add(recentTreeLog.getBoard().getMember().rewardCoin());
+            List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+            memberList.add(recentTreeLog.getBoard().getMember().rewardCoinAndTree());
             memberRepository.saveAllAndFlush(memberList);
             boardRepository.save(recentTreeLog.getBoard().updatePayed(true));
             isReward = true;
