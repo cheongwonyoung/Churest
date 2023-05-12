@@ -53,9 +53,8 @@ body {
   z-index: 50;
   row-gap: 15px;
 }
-.modal-container-scroll::-webkit-scrollbar{
+.modal-container-scroll::-webkit-scrollbar {
   display: none;
-
 }
 .modal-title {
   display: flex;
@@ -113,6 +112,16 @@ body {
   border: none;
   background: linear-gradient(315deg, #f0ff94 0%, #1eb0e9 100%);
   border-radius: 12px;
+}
+.disable-btn {
+  cursor: not-allowed;
+  color: white;
+  width: 180px;
+  height: 35px;
+  border: none;
+  background: linear-gradient(315deg, #d3e08180 0%, #1c94c370 100%);
+  border-radius: 12px;
+  font-weight: 600;
 }
 .center {
   display: flex;

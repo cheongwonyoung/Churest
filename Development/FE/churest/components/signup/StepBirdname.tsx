@@ -36,6 +36,7 @@ export default function StepBirdname({
           maxLength={6}
           minLength={1}
         />
+        <div className="center">앙녕 ????????????????</div>
         <div className="center">
           {pickedBird && birdname.length != 0 ? (
             <NextBtn comment={"LET'S GO "} logic={signUpSubmit} />
