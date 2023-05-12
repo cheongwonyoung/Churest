@@ -63,11 +63,15 @@ public class BoardServiceImpl implements BoardService {
                         .build());
 
         //  GCS 사진 업로드
-        if(!fileList.isEmpty()) {
-            for (MultipartFile file :
-                    fileList) {
-                gcsService.uploadBoardImage(file, board);
+        if(fileList!=null){
+
+            if(!fileList.isEmpty()) {
+                for (MultipartFile file :
+                        fileList) {
+                    gcsService.uploadBoardImage(file, board);
+                }
             }
+
         }
 
         //  태그된 사용자 알림 생성 추가해야 함
@@ -79,16 +83,22 @@ public class BoardServiceImpl implements BoardService {
                     .build());
             //  알림 생성 ...
             //  알림 전송
-            String message = writeInfo.getMemberId() +"님이 '"+ writeInfo.getTitle() + "' 추억에 회원님을 태그했습니다.";
+            String senderName = memberRepository.findByMemberId(writeInfo.getMemberId()).getNickname();
+            String message = senderName +"님이 '"+ writeInfo.getTitle() + "' 추억에 회원님을 태그했습니다.";
+
+
+
+
+            // fcm 전송
             FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder()
                     .fromUserId(writeInfo.getMemberId())
                     .targetUserId(tagMemberId)
                     .title(message)
                     .build();
-            Member targetMember = memberRepository.findByMemberId(tagMemberId);
-            // fcm 전송
             fcmNotificationService.sendNotificationByToken(requestDto);
+
             // notice table 저장
+            Member targetMember = memberRepository.findByMemberId(tagMemberId);
             noticeRepository.save(new Notice(targetMember, member, false, message));
 
         }
@@ -166,8 +176,8 @@ public class BoardServiceImpl implements BoardService {
         if(recentTreeLogScore >= TREE_CRITERIA_SCORE) {
 
             if(!board.isPayed()) {
-                List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoin()).collect(Collectors.toList());
-                memberList.add(board.getMember().rewardCoin());
+                List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+                memberList.add(board.getMember().rewardCoinAndTree());
                 memberRepository.saveAllAndFlush(memberList);
 
                 boardRepository.save(board.updatePayed(true));
@@ -178,7 +188,6 @@ public class BoardServiceImpl implements BoardService {
                 Member member = memberRepository.findByMemberId(memberId);
                 fcmNotificationService.sendNotificationByToken(requestDto);
                 noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").build());
-
             }
 
             //  정렬?

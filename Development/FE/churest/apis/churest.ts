@@ -4,7 +4,8 @@ import { instance } from '.';
 // formdata
 
 // 추억 숲 조회
-export const getForest = (memberId: number) => {
+export const getForest = (memberId:any) => {
+  if (typeof memberId == 'string')
   return instance.get(`/forest/${memberId}`);
 };
 

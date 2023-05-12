@@ -1,15 +1,19 @@
-import { modifyMyBird } from '@/apis/mypage'
+import { modifyMyBird } from '@/apis/mypage';
 import Image from 'next/image';
-import birdImg from '@/public/assets/bird_1_img.png';
+import { images } from '@/public/assets/images';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { openShopAtom, newBirdAtom } from '@/atoms/modal';
 
-type Props = {
-  bird: number;
-};
+export default function NewBird() {
+  const bird = useRecoilValue(newBirdAtom).bird;
 
-export default function NewBird({ bird }: Props) {
-  const [name, setName] = useState("");
+  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
+  const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
+
+  console.log(bird.bird);
+  const [name, setName] = useState('');
   const handleName = (e: any) => {
     setName(e.target.value);
   };
@@ -18,20 +22,31 @@ export default function NewBird({ bird }: Props) {
     changeName.mutate();
   };
 
-  const changeName = useMutation(() => modifyMyBird({memberBirdId:bird, nickname:name}), {
-    onSuccess:(data) => {
-      console.log(data.data);
+  const changeName = useMutation(
+    () => modifyMyBird({ memberBirdId: bird.memberBirdId, nickname: name }),
+    {
+      onSuccess: (data) => {
+        console.log(data.data);
+        alert(data.data.bird.name + '야! 너의 이름은 ' + data.data.nickname + '란다!');
+        setIsNewBirdOpen({isModal: false, bird:{}});
+        setIsShopOpen({ isModal: true });
+      },
     }
-  });
-
+  );
 
   return (
     <>
       <div className="blue-clay container">
-        <div className="bird-title">New Bird</div>
+        <div className="bird-title">{bird.bird.name}</div>
         <div className="bird-img">
-          <Image src={birdImg} alt="birdImg" width={200} />
+          <Image
+            src={images['bird_' + bird.bird.birdId + '_img']}
+            alt="birdImg"
+            width={200}
+            height={200}
+          />
         </div>
+        {/* {bird.bird.description} */}
         <div className="inside-clay bird-input center">
           <input
             type="text"
@@ -39,7 +54,9 @@ export default function NewBird({ bird }: Props) {
             onChange={(e) => handleName(e)}
           ></input>
         </div>
-        <button className="green-btn" onClick={clickChangeName}>확인</button>
+        <button className="green-btn" onClick={clickChangeName}>
+          확인
+        </button>
       </div>
       <style jsx>{`
         .container {
@@ -47,7 +64,7 @@ export default function NewBird({ bird }: Props) {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 400px;
+          width: 500px;
           height: 450px;
         }
         input {
@@ -82,9 +99,18 @@ export default function NewBird({ bird }: Props) {
         .bird-img {
           position: absolute;
           margin-bottom: 5%;
+          animation: flying 1s infinite alternate;
         }
         .confirm {
           poisition: static;
+        }
+        @keyframes flying {
+          0% {
+            transform: translate(0, 0);
+          }
+          100% {
+            transform: translate(0, 8px);
+          }
         }
       `}</style>
     </>

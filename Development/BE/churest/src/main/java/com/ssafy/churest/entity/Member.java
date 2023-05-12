@@ -38,6 +38,8 @@ public class Member {
     @UpdateTimestamp
     private LocalDateTime modifiedTime;
 
+    private int grownTreeCount;
+
 //    @OneToMany(mappedBy = "member")
 //    private List<Board> boards = new ArrayList<>();
 //
@@ -63,8 +65,9 @@ public class Member {
         return this;
     }
 
-    public Member rewardCoin(){
+    public Member rewardCoinAndTree(){
         this.coin += 20;
+        this.grownTreeCount++;
         return this;
     }
 

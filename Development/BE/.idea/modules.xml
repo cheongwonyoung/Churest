@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/BE.iml" filepath="$PROJECT_DIR$/.idea/BE.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/churest.main.iml" filepath="$PROJECT_DIR$/.idea/modules/churest.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.ssafy.churest.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.ssafy.churest.main.iml" />
     </modules>
   </component>
 </project>
