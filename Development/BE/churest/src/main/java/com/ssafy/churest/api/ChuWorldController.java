@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("ChuWorldController API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/chuworld")
+@RequestMapping("/api/chuworld")
 public class ChuWorldController {
 
     private final ForestService forestService;
