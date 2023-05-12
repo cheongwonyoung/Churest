@@ -10,6 +10,7 @@ import {
   openShopAtom,
   newBirdAtom,
   createArticleAtom,
+  squareModalAtom
 } from '@/atoms/modal';
 import Notice from '@/components/navbar/Notice';
 import Tag from '@/components/navbar/Tag';
@@ -22,6 +23,7 @@ import ItemShop from '@/components/navbar/ItemShop';
 import NewBird from '../churest/NewBird';
 import CreateArticle from '../churest/CreateArticle';
 import CreateBoox from '../churest/CreateBoox';
+import SquareDonate from '../square/SquareDonate';
 
 export default function Modals() {
   const id = useRecoilValue(loginAtom).id;
@@ -34,6 +36,7 @@ export default function Modals() {
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
   const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
   const [isCreate, setIsCreate] = useRecoilState(createArticleAtom);
+  const [isDonateOpen, setIsDonateOpen] = useRecoilState(squareModalAtom);
 
   return (
     <div>
@@ -104,6 +107,13 @@ export default function Modals() {
             setIsCreate({ ...isCreate, isModal: false });
           }}
           modal={<CreateBoox />}
+        />
+      )}
+
+{isDonateOpen.isModal && (
+        <ModalBlackBg
+          modal={<SquareDonate memberId={id} />}
+          closeModal={() => setIsDonateOpen({ isModal: false })}
         />
       )}
     </div>
