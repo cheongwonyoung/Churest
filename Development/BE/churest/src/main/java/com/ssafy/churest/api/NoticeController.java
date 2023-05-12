@@ -17,7 +17,7 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @ApiOperation(value = "전체 알림 조회", notes = "memberId를 받아 전체 알림 조회 \n")
-    @GetMapping("/{memberId}")
+    @GetMapping("")
     public ResponseEntity<?> search(@ApiParam(value = "내 memberId", required = true) @RequestParam int memberId) {
         try {
             return new ResponseEntity<>(noticeService.saerch(memberId), HttpStatus.OK);
@@ -27,7 +27,7 @@ public class NoticeController {
         }
     }
     @ApiOperation(value = "알림 읽음 처리", notes = "noticeId를 받아 읽음 처리 수정 \n")
-    @PostMapping("/{noticeId}")
+    @PostMapping("")
     public ResponseEntity<?> check(@ApiParam(value = "읽은 알림 noticeId", required = true) @RequestParam int noticeId) {
         try {
             noticeService.check(noticeId);
