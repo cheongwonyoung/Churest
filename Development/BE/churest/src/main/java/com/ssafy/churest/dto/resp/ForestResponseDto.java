@@ -12,17 +12,11 @@ public class ForestResponseDto {
     public static class ForestInfo {
 
         private int avatarId;
-
-        private int birdId;
-
         private String birdNickname;
-
-        private int houseId;
-
-        private int birdHouseId;
-
         private int coin;
-
+        private HouseResponseDto.Info house;
+        private BirdHouseResponseDto.Info birdhouse;
+        private BirdResponseDto.Info bird;
         private List<BoardResponseDto.BoardInfo> treeList;
     }
 
