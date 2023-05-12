@@ -34,22 +34,27 @@ export function Bird5(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes.Sphere002.geometry}
           material={materials['Material.001']}
+          castShadow
         />
         <mesh
           geometry={nodes.Sphere002_1.geometry}
           material={materials['Material.002']}
+          castShadow
         />
         <mesh
           geometry={nodes.Sphere002_2.geometry}
           material={materials['Material.004']}
+          castShadow
         />
         <mesh
           geometry={nodes.Sphere002_3.geometry}
           material={materials['Material.005']}
+          castShadow
         />
         <mesh
           geometry={nodes.Sphere002_4.geometry}
           material={materials['Material.007']}
+          castShadow
         />
       </group>
     </group>

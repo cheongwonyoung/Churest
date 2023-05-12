@@ -44,34 +44,42 @@ export function Bird7(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes.Cube003.geometry}
           material={materials['매테리얼.001']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube003_1.geometry}
           material={materials.매테리얼}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube003_2.geometry}
           material={materials['Material.047']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube003_3.geometry}
           material={materials['Material.048']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube003_4.geometry}
           material={materials['Material.049']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube003_5.geometry}
           material={materials['Material.050']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube003_6.geometry}
           material={materials['Material.051']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube003_7.geometry}
           material={materials['Material.052']}
+          castShadow
         />
       </group>
     </group>

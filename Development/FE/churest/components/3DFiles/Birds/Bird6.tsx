@@ -36,26 +36,32 @@ export function Bird6(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes.Cube002.geometry}
           material={materials['Material.041']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube002_1.geometry}
           material={materials['Material.042']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube002_2.geometry}
           material={materials['Material.043']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube002_3.geometry}
           material={materials['Material.044']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube002_4.geometry}
           material={materials['Material.045']}
+          castShadow
         />
         <mesh
           geometry={nodes.Cube002_5.geometry}
           material={materials['Material.046']}
+          castShadow
         />
       </group>
     </group>

@@ -55,6 +55,7 @@ import { spots } from '@/utils/spots';
 import { BirdHouses, Birds, Houses } from './Options';
 import { House2 } from '../3DFiles/House/House_2';
 import { House3 } from '../3DFiles/House/House_3';
+import Bird from './Bird';
 
 export const Controls = {
   forward: 'forward',
@@ -156,7 +157,7 @@ export default function Churest3D({
     <>
       <KeyboardControls map={map}>
         <Suspense>
-          <Physics>
+          <Physics debug>
             <SoftShadows />
             {/* <MovingCharacter logSpot={logSpot} autoView={autoView} /> */}
             <CharacterChurest
@@ -230,15 +231,8 @@ export default function Churest3D({
                   />
                 </RigidBody>
                 {/* 새집 3D end */}
-                {/* 새 3D start */}
-                <RigidBody
-                  position={[3, 8, 0]}
-                  colliders="trimesh"
-                  canSleep={false}
-                  enabledRotations={[false, false, false]}
-                >
-                  {Birds(data?.data.birdId)}
-                </RigidBody>
+                {/* 새 3D */}
+                <Bird id={data?.data.birdId} />
               </>
             )}
             {/* 추억 나무 리스트 start */}
