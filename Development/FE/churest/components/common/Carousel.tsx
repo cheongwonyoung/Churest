@@ -17,6 +17,7 @@ type Props = {
 };
 
 export default function Carousel({ cardType, info, refetch }: Props) {
+  const IMAGE_ROOT = process.env.NEXT_PUBLIC_IMAGE_ROOT;
   // 태그된 추억 퍼가기
   const clickTakeTree = (boardId: number) => {
     console.log(
@@ -38,7 +39,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
       };
     }
   }
-  console.log(info);
+  console.log('인포다인마', info);
   return (
     <>
       <div>
@@ -76,12 +77,29 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                     <div className="mypage-box flip-card">
                       <div className="card center">
                         <div className="front gray-clay center-clay">
-                          <Image
-                            src={images.my_tree_img}
-                            alt=""
-                            width={150}
-                            height={150}
-                          />
+                          {item.score <= 5 ? (
+                            <Image
+                              src={images.sprout_img}
+                              alt=""
+                              width={150}
+                              height={150}
+                            />
+                          ) : item.score <= 15 ? (
+                            <Image
+                              src={images.branch_img}
+                              alt=""
+                              width={150}
+                              height={150}
+                            />
+                          ) : (
+                            <Image
+                              src={images['tree_' + item.treeId + '_img']}
+                              alt=""
+                              width={150}
+                              height={150}
+                            />
+                          )}
+
                           <div className="text-content">
                             <p className="title">{item.title}</p>
                             <p className="date">
@@ -94,10 +112,14 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                         <div className="back gray-clay center">
                           {item.treeInfo ? (
                             <div className="tree-info">
-                              <div>{item.treeInfo.file}</div>
+                              <Image
+                                src={IMAGE_ROOT + item.treeinfo?.file}
+                                width={20}
+                                height={20}
+                                alt=""
+                              />
                               <div className="title">{item.treeInfo.name}</div>
-                              <div>스플릿{treeDesc}</div>
-                              {/* <div>{item.treeInfo.description}</div> */}
+                              <div>{item.treeInfo.description}</div>
                             </div>
                           ) : (
                             <div>나무가 아직 성장 중이에요</div>
