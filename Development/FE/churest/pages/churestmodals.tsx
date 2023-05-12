@@ -1,5 +1,4 @@
 import LetterBox from '../components/churest/LetterBox';
-import ItemShop from '../components/churest/ItemShop';
 import NewBird from '../components/churest/NewBird';
 import MyBird from '../components/churest/MyBird';
 import ChureeView from '../components/churest/MemoryView';

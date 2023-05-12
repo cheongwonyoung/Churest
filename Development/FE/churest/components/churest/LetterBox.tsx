@@ -56,7 +56,11 @@ export default function LetterBox() {
   return (
     <>
       {data?.data ? (
-        <LetterSlide letters={data!.data} refetch={refetch}></LetterSlide>
+        <LetterSlide
+          letters={data!.data}
+          refetch={refetch}
+          closeModal={closeModal}
+        ></LetterSlide>
       ) : (
         <div></div>
       )}
