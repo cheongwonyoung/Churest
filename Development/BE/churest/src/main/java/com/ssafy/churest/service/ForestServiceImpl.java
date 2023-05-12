@@ -1,8 +1,6 @@
 package com.ssafy.churest.service;
 
-import com.ssafy.churest.dto.resp.BirdResponseDto;
-import com.ssafy.churest.dto.resp.ForestResponseDto;
-import com.ssafy.churest.dto.resp.MemberBirdResponseDto;
+import com.ssafy.churest.dto.resp.*;
 import com.ssafy.churest.entity.Member;
 import com.ssafy.churest.entity.MemberBird;
 import com.ssafy.churest.repository.MemberBirdHouseRepository;
@@ -50,8 +48,8 @@ public class ForestServiceImpl implements ForestService{
                 .avatarId(member.getAvatarId())
                 .bird(BirdResponseDto.Info.fromEntity(memberBird.getBird()))
                 .birdNickname(memberBird.getNickname())
-                .house(memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getMemberHouseId())
-                .birdHouse(memberBirdHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getMemberBirdHouseId())
+                .house(HouseResponseDto.Info.fromEntity(memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getHouse()))
+                .birdhouse(BirdHouseResponseDto.Info.fromEntity(memberBirdHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getBirdHouse()))
                 .coin(member.getCoin())
                 .treeList(boardService.getBoardInfoList(memberId))
                 .build();
