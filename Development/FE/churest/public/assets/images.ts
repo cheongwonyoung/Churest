@@ -116,4 +116,8 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/save_plant.png',
   save_earth_img:
     'https://storage.googleapis.com/churest-bucket/project_image/save_earth.png',
+  pin_home_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/pin_home.png',
+  pin_focus_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/pin_focus.png',
 };
