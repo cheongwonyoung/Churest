@@ -127,6 +127,7 @@ export default function SignUpPage() {
         avatarId: data.data.avatarId,
         nickname: data.data.nickname,
       });
+      console.log(userInfo);
       router.push('/');
     },
   });
