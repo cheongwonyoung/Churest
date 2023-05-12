@@ -36,18 +36,22 @@ export function BirdHouse2(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes.실린더011.geometry}
           material={materials['매테리얼.013']}
+          castShadow
         />
         <mesh
           geometry={nodes.실린더011_1.geometry}
           material={materials['매테리얼.004']}
+          castShadow
         />
         <mesh
           geometry={nodes.실린더011_2.geometry}
           material={materials['매테리얼.009']}
+          castShadow
         />
         <mesh
           geometry={nodes.실린더011_3.geometry}
           material={materials['매테리얼.014']}
+          castShadow
         />
       </group>
     </group>

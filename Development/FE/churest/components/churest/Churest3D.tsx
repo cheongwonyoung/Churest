@@ -52,7 +52,9 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { getForest } from '@/apis/churest';
 import { spots } from '@/utils/spots';
-import { BirdHouses, Houses } from './Options';
+import { BirdHouses, Birds, Houses } from './Options';
+import { House2 } from '../3DFiles/House/House_2';
+import { House3 } from '../3DFiles/House/House_3';
 
 export const Controls = {
   forward: 'forward',
@@ -86,7 +88,7 @@ export default function Churest3D({
   const directionalLight = new DirectionalLight(0xffffff, 2);
   const gogo = useThree();
   useEffect(() => {
-    directionalLight.position.set(15, 30, 16);
+    directionalLight.position.set(20, 30, 16);
     directionalLight.castShadow = true;
     directionalLight.shadow.mapSize.x = 4 * 1024; // default
     directionalLight.shadow.mapSize.y = 4 * 1024; // defaultw
@@ -228,6 +230,15 @@ export default function Churest3D({
                   />
                 </RigidBody>
                 {/* 새집 3D end */}
+                {/* 새 3D start */}
+                <RigidBody
+                  position={[3, 8, 0]}
+                  colliders="trimesh"
+                  canSleep={false}
+                  enabledRotations={[false, false, false]}
+                >
+                  {Birds(data?.data.birdId)}
+                </RigidBody>
               </>
             )}
             {/* 추억 나무 리스트 start */}

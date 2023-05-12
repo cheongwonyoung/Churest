@@ -17,6 +17,8 @@ import {
 import { useRecoilState } from 'recoil';
 import { openShopAtom, newBirdAtom } from '@/atoms/modal';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
+import { getForest } from '@/apis/churest';
 
 type Props = {
   itemCategoryName: string;
@@ -32,6 +34,15 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
 
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
   const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
+
+  const forestId = useRouter().query.id;
+  const { refetch: getForestInfo } = useQuery(
+    ['tree', forestId],
+    () => getForest(forestId),
+    {
+      enabled: false,
+    }
+  );
 
   const { refetch: refetchBird } = useQuery(
     'birds',
@@ -139,6 +150,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
       onSuccess: (data) => {
         console.log('새 변경 성공');
         console.log(data.data);
+        getForestInfo();
         refetchBird();
       },
       onError: (error) => {
@@ -154,6 +166,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
       onSuccess: (data) => {
         console.log('새 집 변경 성공');
         console.log(data.data);
+        getForestInfo();
         refetchBirdHouse();
       },
       onError: (error) => {
@@ -169,6 +182,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
       onSuccess: (data) => {
         console.log('집 변경 성공');
         console.log(data.data);
+        getForestInfo();
         refetchHouse();
       },
       onError: (error) => {
