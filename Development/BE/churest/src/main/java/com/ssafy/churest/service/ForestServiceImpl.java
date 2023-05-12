@@ -46,10 +46,10 @@ public class ForestServiceImpl implements ForestService{
 
         return ForestResponseDto.ForestInfo.builder()
                 .avatarId(member.getAvatarId())
-                .bird(BirdResponseDto.Info.fromEntity(memberBird.getBird()))
+                .birdId(memberBird.getBird().getBirdId())
                 .birdNickname(memberBird.getNickname())
-                .house(HouseResponseDto.Info.fromEntity(memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getHouse()))
-                .birdhouse(BirdHouseResponseDto.Info.fromEntity(memberBirdHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getBirdHouse()))
+                .houseId(memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getHouse().getHouseId())
+                .birdhouseId(memberBirdHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getBirdHouse().getBirdHouseId())
                 .coin(member.getCoin())
                 .treeList(boardService.getBoardInfoList(memberId))
                 .build();
