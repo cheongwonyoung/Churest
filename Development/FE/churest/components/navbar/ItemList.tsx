@@ -16,6 +16,7 @@ import {
 } from '@/apis/shop';
 import { useRecoilState } from 'recoil';
 import { openShopAtom, newBirdAtom } from '@/atoms/modal';
+import Swal from 'sweetalert2';
 
 type Props = {
   itemCategoryName: string;
@@ -61,7 +62,6 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         console.log('에러다');
         console.log(error);
       },
-    
     }
   );
 
@@ -78,15 +78,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         console.log('에러다');
         console.log(error);
       },
-  
     }
   );
   useEffect(() => {
-    refetchBird() 
-    refetchBirdHouse(); 
-    refetchHouse(); 
-  }, [])  
-
+    refetchBird();
+    refetchBirdHouse();
+    refetchHouse();
+  }, []);
 
   const buyBird = useMutation(
     (info: { birdId: number; memberId: number }) => getNewBird(info),
@@ -183,41 +181,66 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   const handleItem = (e: any) => {
     if (e.isOwn) {
       if (!e.isUsed) {
-        if (confirm(e.name + '으로 변경하시겠습니까?')) {
-          switch (itemCategoryName) {
-            case 'bird':
-              modifyBird.mutate({ birdId: e.id, memberId: memberId });
-              break;
-            case 'nest':
-              modifyBirdHouse.mutate({ houseId: e.id, memberId: memberId });
-              break;
-            default:
-              modifyHouse.mutate({ houseId: e.id, memberId: memberId });
-              break;
+        const name = e.name + '로 변경하시겠습니까?';
+        Swal.fire({
+          title: name,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#51da93',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            switch (itemCategoryName) {
+              case 'bird':
+                modifyBird.mutate({ birdId: e.id, memberId: memberId });
+                break;
+              case 'nest':
+                modifyBirdHouse.mutate({ houseId: e.id, memberId: memberId });
+                break;
+              default:
+                modifyHouse.mutate({ houseId: e.id, memberId: memberId });
+                break;
+            }
+            console.log('변경 완료');
+          } else {
+            console.log('변경 취소');
           }
-        } else {
-          console.log('변경 취소');
-        }
+        });
       }
     } else {
       if (coin >= e.price) {
         console.log('살거고 살 수 있음');
-        if (confirm(e.name + '를 구매하시겠습니까?')) {
-          switch (itemCategoryName) {
-            case 'bird':
-              buyBird.mutate({ birdId: e.id, memberId: memberId });
-              break;
-            case 'nest':
-              buyBirdHouse.mutate({ birdHouseId: e.id, memberId: memberId });
-              break;
-            default:
-              buyHouse.mutate({ houseId: e.id, memberId: memberId });
-              break;
+
+        console.log(e.name);
+        console.log(typeof e.name);
+
+        const name = e.name + '를 구매하시겠습니까?';
+        Swal.fire({
+          title: name,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#51da93',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            switch (itemCategoryName) {
+              case 'bird':
+                buyBird.mutate({ birdId: e.id, memberId: memberId });
+                break;
+              case 'nest':
+                buyBirdHouse.mutate({ birdHouseId: e.id, memberId: memberId });
+                break;
+              default:
+                buyHouse.mutate({ houseId: e.id, memberId: memberId });
+                break;
+            }
+            console.log('구매 완료');
+          } else {
+            console.log('구매 취소');
           }
-          console.log('구매 완료');
-        } else {
-          console.log('구매 취소');
-        }
+        });
       } else {
         alert('잔액이 부족하여 구매할 수 없습니다.');
       }
