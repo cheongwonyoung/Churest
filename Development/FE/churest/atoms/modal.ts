@@ -3,6 +3,7 @@ import { atom } from 'recoil';
 interface createArticle {
   isModal: boolean;
   spot: number;
+  isSelect: boolean;
 }
 
 interface openAlarm {
@@ -18,16 +19,12 @@ interface newBird {
   bird: any;
 }
 
-interface myTree {
-  isModal: boolean;
-  boardId: number;
-}
-
 export const createArticleAtom = atom<createArticle>({
   key: 'createArticle',
   default: {
     isModal: false,
     spot: -1,
+    isSelect: false,
   },
 });
 export const openShopAtom = atom<openAlarm>({
@@ -95,14 +92,5 @@ export const newBirdAtom = atom<newBird>({
   default: {
     isModal: false,
     bird: {},
-  },
-});
-
-// 추억 조회 모달
-export const myTreeAtom = atom<myTree>({
-  key: 'myTree',
-  default: {
-    isModal: false,
-    boardId: 0,
   },
 });

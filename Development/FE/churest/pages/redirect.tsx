@@ -25,11 +25,13 @@ export default function Redirect() {
       }
       // 가입자일 때
       else {
+        console.log('데이터', data.data);
+
         setMyInfo({
           ...myInfo,
           id: data.data.memberId,
           accessToken: data.data.accessToken,
-          // avatarId: data.data.avatarId,
+          avatarId: data.data.avatarId,
           nickname: data.data.nickname,
         });
         console.log('당신은 가입자');

@@ -1,21 +1,20 @@
-import { images } from '@/public/assets/images';
-import Image from 'next/image';
 import WeatherPicker from './WeatherPicker';
 import { useState } from 'react';
 import ImgUploader from './ImgUploader';
 import TagPicker from './TagPicker';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { createArticleAtom } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
 import { useMutation } from 'react-query';
 import { goCreateArticle } from '@/apis/churest';
-import { log } from 'console';
 import Swal from 'sweetalert2';
 
-type Props = { closeModal: any; changeToSelect: any };
+type Props = {
+  treeId: number;
+};
 
 // 850 700
-export default function CreateArticle({ closeModal, changeToSelect }: Props) {
+export default function CreateArticle({ treeId }: Props) {
   const [weather, setWeather] = useState<
     '맑음' | '흐림' | '비' | '안개' | '눈' | '천둥번개'
   >('맑음');
@@ -25,6 +24,7 @@ export default function CreateArticle({ closeModal, changeToSelect }: Props) {
   ) => {
     setWeather(x);
   };
+  const [isCreate, setIsCreate] = useRecoilState(createArticleAtom);
 
   const [files, setFiles] = useState<File[]>([]);
 
@@ -71,8 +71,11 @@ export default function CreateArticle({ closeModal, changeToSelect }: Props) {
     onSuccess(data, variables, context) {
       console.log('성공');
       // console.log(data);
-      closeModal();
-      changeToSelect();
+      setIsCreate((prev) => {
+        return { ...prev, isModal: false, isSelect: false };
+      });
+      // closeModal();
+      // changeToSelect();
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -88,7 +91,7 @@ export default function CreateArticle({ closeModal, changeToSelect }: Props) {
     },
   });
 
-  const spot = useRecoilValue(createArticleAtom).spot;
+  const spot = isCreate.spot;
   const memberId = useRecoilValue(loginAtom).id;
   const createArticle = () => {
     const formData = new FormData();
@@ -104,6 +107,7 @@ export default function CreateArticle({ closeModal, changeToSelect }: Props) {
       title: data.title,
       weather,
       date: data.date,
+      treeId,
     };
     formData.append('writeInfo', JSON.stringify(writeInfo));
     submit({ formData });
@@ -171,7 +175,6 @@ export default function CreateArticle({ closeModal, changeToSelect }: Props) {
           추억 심기
         </button>
       </div>
-      <Image src={images.memory_img} priority width={850} height={700} alt="" />
       <style jsx>
         {`
           p {
@@ -197,6 +200,7 @@ export default function CreateArticle({ closeModal, changeToSelect }: Props) {
           .dateweather {
             display: flex;
             justify-content: space-between;
+            width: 100%;
           }
           .dateBox {
             width: 45%;
