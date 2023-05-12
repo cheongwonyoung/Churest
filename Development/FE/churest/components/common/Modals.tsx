@@ -3,6 +3,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   letterBoxAtom,
   myBirdAtom,
+  myTreeAtom,
   openAlarmAtom,
   openMyPageAtom,
   openSearchAtom,
@@ -21,19 +22,21 @@ import MyBird from '../churest/MyBird';
 import ItemShop from '@/components/navbar/ItemShop';
 import NewBird from '../churest/NewBird';
 import CreateArticle from '../churest/CreateArticle';
+import MemoryView from '../churest/MemoryView';
 import CreateBoox from '../churest/CreateBoox';
 
 export default function Modals() {
   const id = useRecoilValue(loginAtom).id;
-  const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
-  const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
-  const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
-  const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
-  const [isLetterOpen, setIsLetterOpen] = useRecoilState(letterBoxAtom);
-  const [isMyBirdOpen, setIsMyBirdOpen] = useRecoilState(myBirdAtom);
-  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
-  const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
-  const [isCreate, setIsCreate] = useRecoilState(createArticleAtom);
+  const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom); // 알림함 모달
+  const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom); // 태그 모아보기 모달
+  const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom); // 친구 검색 모달
+  const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom); // 마이페이지 모달
+  const [isLetterOpen, setIsLetterOpen] = useRecoilState(letterBoxAtom); // 우편함 모달
+  const [isMyBirdOpen, setIsMyBirdOpen] = useRecoilState(myBirdAtom); // 나의 새 모달
+  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom); // 상점 모달
+  const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom); // 새 구입 모달
+  const [isCreate, setIsCreate] = useRecoilState(createArticleAtom); // 추억 생성 모달
+  const [isMyTreeOpen, setIsMyTreeOpen] = useRecoilState(myTreeAtom); // 추억 나무 조회
 
   return (
     <div>
@@ -43,7 +46,6 @@ export default function Modals() {
           closeModal={() => setIsShopOpen({ isModal: false })}
         />
       )}
-
       {/* {isAlarmOpen.isModal && <Notice memberId={id} />} */}
       {isAlarmOpen.isModal && (
         <ModalBlackBg
@@ -89,6 +91,7 @@ export default function Modals() {
           closeModal={() => setIsMyBirdOpen({ isModal: false })}
         />
       )}
+      {/* 새로운 새 모달 */}
       {isNewBirdOpen.isModal && (
         <ModalBlackBg
           modal={<NewBird />}
@@ -97,13 +100,23 @@ export default function Modals() {
           }
         />
       )}
-
+      {/* 추억 작성 모달 */}
       {isCreate.isModal && (
         <ModalBlackBg
           closeModal={() => {
             setIsCreate({ ...isCreate, isModal: false });
           }}
           modal={<CreateBoox />}
+        />
+      )}
+
+      {/* 추억 조회 모달 */}
+      {isMyTreeOpen.isModal && (
+        <ModalBlackBg
+          modal={<MemoryView boardId={isMyTreeOpen.boardId} />}
+          closeModal={() =>
+            setIsMyTreeOpen({ ...isMyTreeOpen, isModal: false })
+          }
         />
       )}
     </div>

@@ -32,7 +32,7 @@ export default function Garden() {
         </div>
       )}
 
-      {isCreate.isModal && (
+      {/* {isCreate.isModal && (
         <ModalBlackBg
           closeModal={closeModal}
           modal={
@@ -42,7 +42,7 @@ export default function Garden() {
             />
           }
         />
-      )}
+      )} */}
 
       <button onClick={() => setAutoView((prev) => !prev)}>AutoFocus</button>
 

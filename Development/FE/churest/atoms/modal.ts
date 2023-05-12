@@ -13,9 +13,14 @@ interface postBox {
   isModal: boolean;
 }
 
-interface newBird{
+interface newBird {
   isModal: boolean;
-  bird:any;
+  bird: any;
+}
+
+interface myTree {
+  isModal: boolean;
+  boardId: number;
 }
 
 export const createArticleAtom = atom<createArticle>({
@@ -29,8 +34,8 @@ export const openShopAtom = atom<openAlarm>({
   key: 'openShop',
   default: {
     isModal: false,
-  }
-})
+  },
+});
 export const openAlarmAtom = atom<openAlarm>({
   key: 'openAlarm',
   default: {
@@ -84,10 +89,20 @@ export const spaceModalAtom = atom({
   default: '',
 });
 
+// 새 구입 모달
 export const newBirdAtom = atom<newBird>({
   key: 'newBird',
   default: {
     isModal: false,
-    bird:{}
-  }
+    bird: {},
+  },
+});
+
+// 추억 조회 모달
+export const myTreeAtom = atom<myTree>({
+  key: 'myTree',
+  default: {
+    isModal: false,
+    boardId: 0,
+  },
 });
