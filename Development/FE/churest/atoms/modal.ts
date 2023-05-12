@@ -99,6 +99,15 @@ export const newBirdAtom = atom<newBird>({
     bird: {},
   },
 });
+
+// 광장 세계수 기부 모달
+export const squareModalAtom = atom({
+  key: 'squareModal',
+  default: {
+    isModal: false,
+  },
+});
+
 // 추억 조회 모달
 export const myTreeAtom = atom<myTree>({
   key: 'myTree',
