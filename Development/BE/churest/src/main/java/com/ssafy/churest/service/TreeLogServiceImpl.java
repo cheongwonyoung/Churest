@@ -68,7 +68,7 @@ public class TreeLogServiceImpl implements TreeLogService {
             FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(memberId).targetUserId(memberId).title("쥬잉님 저 다 컸떠용").build();
             Member member = memberRepository.findByMemberId(memberId);
             fcmNotificationService.sendNotificationByToken(requestDto);
-            noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").build());
+            noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").isChecked(false).build());
         }
 
         if(recentTreeLog.getDate().equals(LocalDate.now()))
