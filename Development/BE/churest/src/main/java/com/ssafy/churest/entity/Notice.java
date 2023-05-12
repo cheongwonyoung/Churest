@@ -29,6 +29,10 @@ public class Notice {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_member_id")
     private Member fromMember;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
+    private Board board;
 
     @NotNull
     @ColumnDefault("false")
@@ -40,9 +44,10 @@ public class Notice {
     private LocalDateTime date;
 
     @Builder
-    public Notice(Member toMember, Member fromMember, Boolean isChecked, String content){
+    public Notice(Member toMember, Member fromMember, Board board, Boolean isChecked, String content){
         this.toMember = toMember;
         this.fromMember = fromMember;
+        this.board = board;
         this.isChecked = isChecked;
         this.content = content;
     }

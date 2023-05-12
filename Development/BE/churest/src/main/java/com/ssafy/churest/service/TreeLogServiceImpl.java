@@ -2,10 +2,7 @@ package com.ssafy.churest.service;
 
 import com.ssafy.churest.dto.req.FCMNotificationRequestDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
-import com.ssafy.churest.entity.Member;
-import com.ssafy.churest.entity.Notice;
-import com.ssafy.churest.entity.Tag;
-import com.ssafy.churest.entity.TreeLog;
+import com.ssafy.churest.entity.*;
 import com.ssafy.churest.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -58,17 +55,27 @@ public class TreeLogServiceImpl implements TreeLogService {
         recentTreeLog.setScore(recentTreeLog.getScore() + 3);
 
         if(!recentTreeLog.getBoard().isPayed() && recentTreeLog.getScore() >= TREE_CRITERIA_SCORE) {
+            // 나를 제외한 사람들
             List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+
+//            알림 전송
+            for(int i=0; i<memberList.size(); i++){
+                Member member = memberList.get(i);
+                int target = member.getMemberId();
+                FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).title("쥬잉님 저 다 컸떠용").build();
+
+                fcmNotificationService.sendNotificationByToken(requestDto);
+                Board board = boardRepository.findByBoardId(boardId);
+                noticeRepository.save(Notice.builder().toMember(member).fromMember(member).board(board).content("쥬잉님 저 다 컸떠용").isChecked(false).build());
+            }
+
+
+            // 나 추가
             memberList.add(recentTreeLog.getBoard().getMember().rewardCoinAndTree());
             memberRepository.saveAllAndFlush(memberList);
             boardRepository.save(recentTreeLog.getBoard().updatePayed(true));
             isReward = true;
 
-//            알림 전송
-            FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(memberId).targetUserId(memberId).title("쥬잉님 저 다 컸떠용").build();
-            Member member = memberRepository.findByMemberId(memberId);
-            fcmNotificationService.sendNotificationByToken(requestDto);
-            noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").build());
         }
 
         if(recentTreeLog.getDate().equals(LocalDate.now()))
