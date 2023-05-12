@@ -166,8 +166,8 @@ public class BoardServiceImpl implements BoardService {
         if(recentTreeLogScore >= TREE_CRITERIA_SCORE) {
 
             if(!board.isPayed()) {
-                List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoin()).collect(Collectors.toList());
-                memberList.add(board.getMember().rewardCoin());
+                List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+                memberList.add(board.getMember().rewardCoinAndTree());
                 memberRepository.saveAllAndFlush(memberList);
 
                 boardRepository.save(board.updatePayed(true));
@@ -178,7 +178,6 @@ public class BoardServiceImpl implements BoardService {
                 Member member = memberRepository.findByMemberId(memberId);
                 fcmNotificationService.sendNotificationByToken(requestDto);
                 noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").build());
-
             }
 
             //  정렬?
