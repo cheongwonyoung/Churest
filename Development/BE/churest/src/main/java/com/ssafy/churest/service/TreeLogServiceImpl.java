@@ -2,10 +2,7 @@ package com.ssafy.churest.service;
 
 import com.ssafy.churest.dto.req.FCMNotificationRequestDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
-import com.ssafy.churest.entity.Member;
-import com.ssafy.churest.entity.Notice;
-import com.ssafy.churest.entity.Tag;
-import com.ssafy.churest.entity.TreeLog;
+import com.ssafy.churest.entity.*;
 import com.ssafy.churest.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -68,8 +65,8 @@ public class TreeLogServiceImpl implements TreeLogService {
                 FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).title("쥬잉님 저 다 컸떠용").build();
 
                 fcmNotificationService.sendNotificationByToken(requestDto);
-
-                noticeRepository.save(Notice.builder().toMember(member).fromMember(member).content("쥬잉님 저 다 컸떠용").isChecked(false).build());
+                Board board = boardRepository.findByBoardId(boardId);
+                noticeRepository.save(Notice.builder().toMember(member).fromMember(member).board(board).content("쥬잉님 저 다 컸떠용").isChecked(false).build());
             }
 
 
