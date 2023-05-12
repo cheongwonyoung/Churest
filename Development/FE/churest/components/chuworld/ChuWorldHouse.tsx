@@ -50,7 +50,7 @@ export default function ChuWorldHouse({
       <></>
       <mesh onClick={() => router.push('/churest/' + myInfo.memberId)}>
         <mesh position={bubble_position}>
-          <Html>
+          <Html zIndexRange={[10, 0]}>
             <div className="text-box">
               <Image
                 src={images.chuworld_bubble_img}

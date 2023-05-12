@@ -37,7 +37,7 @@ export default function NewBird() {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: { alertMsg },
+          title: alertMsg,
           showConfirmButton: false,
           timer: 1000,
         });

@@ -1,12 +1,13 @@
 import { images } from '@/public/assets/images';
 import { useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import moment from 'moment';
 import Image from 'next/image';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { openAlarmAtom } from '@/atoms/modal';
-import { getAlarm } from '@/apis/alarm';
+import { getAlarm, checkedAlarm } from '@/apis/alarm';
 import { useRouter } from 'next/router';
+import { myTreeAtom } from '@/atoms/modal';
 
 type Props = {
   memberId: number;
@@ -31,6 +32,7 @@ export default function Notice({ memberId }: Props) {
   const closeModal = () => {
     setIsAlarmOpen({ isModal: false });
   };
+  const setIsMyTreeOpen = useSetRecoilState(myTreeAtom);
 
   // 알림 GET
   const { data, refetch } = useQuery('getNotice', () => getAlarm(memberId));
@@ -39,6 +41,14 @@ export default function Notice({ memberId }: Props) {
     refetch();
   }, []);
 
+  // 읽은 알람 checked
+  const isChecked = useMutation((noticeId: number) => checkedAlarm(noticeId), {
+    onSuccess: (data) => {
+      console.log('hi');
+      refetch();
+    },
+  });
+  // TODO: api 나오면 바꾸기
   const avatarId = 3;
   const boardId = 6;
 
@@ -53,16 +63,6 @@ export default function Notice({ memberId }: Props) {
               return notice.toMember === notice.fromMember ? (
                 // 나무 다 자랐을 때
                 <div key={idx} className="notice-item">
-                  {/* <div className="image">
-                    <div className="notice-profile center">
-                      <Image
-                      src={images['avatar_' + ㅜ + '_img']}
-                      alt=""
-                      width={50}
-                      height={75}
-                    />
-                    </div>
-                  </div> */}
                   <div className="item">
                     <div className="notice-content">
                       <p>{notice.content}</p>
@@ -79,7 +79,12 @@ export default function Notice({ memberId }: Props) {
                   className="notice-item"
                   onClick={() => {
                     setIsAlarmOpen({ isModal: false });
-                    router.push('/churest/' + notice.fromMember);
+                    // router.push('/churest/' + notice.fromMember);
+                    setIsMyTreeOpen({
+                      isModal: true,
+                      boardId: boardId,
+                    });
+                    isChecked.mutate(notice.noticeId);
                   }}
                 >
                   <div className="image">
