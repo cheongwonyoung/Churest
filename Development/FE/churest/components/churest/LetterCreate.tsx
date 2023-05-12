@@ -4,11 +4,12 @@ import { useMutation } from 'react-query';
 import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
+import Swal from 'sweetalert2';
+import { motion } from 'framer-motion';
 
-import Image from 'next/image';
-import { images } from '@/public/assets/images';
+type Props = { refetch: any; closeModal: any };
 
-export default function Letter() {
+export default function Letter({ refetch, closeModal }: Props) {
   const fromMemberId = useRecoilValue(loginAtom).id;
   const router = useRouter();
   const toMemberId = Number(router.query.id);
@@ -35,7 +36,16 @@ export default function Letter() {
     {
       onSuccess: (data) => {
         console.log('방명록 작성 성공');
-        console.log(data.data);
+        refetch();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: '전송 완료',
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        closeModal();
+        // console.log(data.data);
         // navigate
       },
       onError: (error) => {
@@ -44,26 +54,40 @@ export default function Letter() {
       },
     }
   );
+
   return (
     <>
-      <div className="letter blue-clay">
-        <div className="input">
-          <textarea
-            className="letter-box"
-            placeholder="방명록을 남겨주세요!"
-            maxLength={140}
-            onChange={(e) => handleLetter(e)}
-          />
-
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1, rotateZ: 360 }}
+        transition={{
+          duration: 1,
+          type: 'spring',
+          stiffness: 260,
+          damping: 20,
+        }}
+      >
+        <div className="letter-clay letter">
+          <div className="input">
+            <textarea
+              className="letter-box"
+              placeholder="방명록을 남겨주세요!"
+              maxLength={140}
+              onChange={(e) => handleLetter(e)}
+              style={{ resize: 'none' }}
+            />
+          </div>
+        </div>
+        <div className="center">
           <button className="green-btn" onClick={clickCreateLetter}>
-            입력
+            전송
           </button>
         </div>
-      </div>
+      </motion.div>
 
       <style jsx>{`
         .letter {
-          width: 300px;
+          width: 400px;
           height: 500px;
           position: relative;
           display: flex;
@@ -81,6 +105,7 @@ export default function Letter() {
           background: linear-gradient(315deg, #f0ff94 0%, #1eb0e9 100%);
           border-radius: 12px;
           font-size: 20px;
+          margin: 10px;
         }
         .green-btn:hover {
           color: black;

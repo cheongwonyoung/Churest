@@ -32,6 +32,18 @@ export default function Garden() {
         </div>
       )}
 
+      {isCreate.isModal && (
+        <ModalBlackBg
+          closeModal={closeModal}
+          modal={
+            <CreateArticle
+              closeModal={closeModal}
+              changeToSelect={changeToSelect}
+            />
+          }
+        />
+      )}
+
       <button onClick={() => setAutoView((prev) => !prev)}>AutoFocus</button>
 
       {churestId === memberId && (

@@ -1,84 +1,81 @@
-// import { getNotices } from '@/apis/navbar';
 import { images } from '@/public/assets/images';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import moment from 'moment';
 import Image from 'next/image';
-import ModalBlackBg from '../common/ModalBlackBg';
 import { useRecoilState } from 'recoil';
 import { openAlarmAtom } from '@/atoms/modal';
+import { getAlarm } from '@/apis/alarm';
 
 type Props = {
   memberId: number;
 };
 
+type Notice = {
+  noticeId: number;
+  fromMember: number;
+  toMember: number;
+  content: string;
+  isChecked: boolean;
+  createdTime: string;
+  fromMemberName: string;
+};
+
 export default function Notice({ memberId }: Props) {
+  // 모달 관련
   const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
   const type = 'tagged';
-  const [noticeList, setNoticeList] = useState<
-    {
-      avatarId: number;
-      boardId: number;
-      title: string;
-      nickname: string;
-      type: string; // 태그 또는 나무 성장
-      // createdTime: ;
-    }[]
-  >([]);
   const closeModal = () => {
     setIsAlarmOpen({ isModal: false });
   };
 
-  // 나의 알림 목록 GET
-  // useQuery('notices', () => getNotices(Number(memberId)), {
-  //   onSuccess(data) {
-  //     setNoticeList([...data.data.notice]);
-  //   },
-  //   onError: (error) => {
-  //     console.log('에러다');
-  //     console.log(error);
-  //   },
-  //   staleTime: 60 * 1000,
-  // });
+  // 알림 GET
+  const { data, refetch } = useQuery('getNotice', () => getAlarm(memberId));
 
-  // useEffect(() => {
-  //   // 마운트 될 때만 실행됨
-  // }, []);
+  useEffect(() => {
+    refetch();
+    console.log(data) 
+  }, []);
 
   return (
     <>
       <div>
-        {/* {isAlarmOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
         <div className="blue-clay modal-container">
           <div className="modal-title">알림함</div>
-          {/* noticeList.map((notice)=>(어쩌저쩌)) */}
+          {data ? (
+            data.data.map((notice: Notice, idx: number) => {
+              return (
+                <div key={idx} className="notice-item">
+                  <div className="image">
+                    <div className="notice-profile center">
+                      {/* <Image
+                        src={images['avatar_' + avatarId + '_img']}
+                        alt=""
+                        width={50}
+                        height={75}
+                      /> */}
+                    </div>
+                  </div>
 
-          <div className="notice-item">
-            <div className="image">
-              <div className="notice-profile center">
-                <Image
-                  src={images.avatar_1_img}
-                  // src={images['avatar_' + avatarId + '_img']}
-                  alt=""
-                  width={50}
-                  height={75}
-                />
-              </div>
-            </div>
-            <div className="item">
-              <div className="notice-content">
-                {type == 'tagged' ? (
-                  <p>님이 추억에 회원님을 태그했습니다.</p>
-                ) : (
-                  <p>추억이 나무로 성장했습니다.</p>
-                )}
-              </div>
-              <div className="item-date">
-                2023.05.04
-                {/* {moment(item.createdTime).format('YYYY년 MM월 DD일')} */}
-              </div>
-            </div>
-          </div>
+                  <div className="item">
+                    <div className="notice-content">
+                      {type == 'tagged' ? (
+                        <p>님이 추억에 회원님을 태그했습니다.</p>
+                      ) : (
+                        <p>추억이 나무로 성장했습니다.</p>
+                      )}
+                    </div>
+                    <div className="item-date">
+                      2023.05.04
+                      {/* {moment(item.createdTime).format('YYYY년 MM월 DD일')} */}
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div>알림이 없어용!</div>
+          )}
         </div>
       </div>
 
