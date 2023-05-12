@@ -54,17 +54,22 @@ export default function PickTree({
       </div>
       <div className="right">
         <div className="box">
-          <div className="name-box">
-            <p className="name-class">이름 :</p>
-            <p className="tree-info">슈퍼레드불</p>
+          <div>
+            <div className="name-box">
+              <p className="name-class">이름 :</p>
+              <p className="tree-info">슈퍼레드불</p>
+            </div>
+            <div className="name-box">
+              <p className="name-class">설명 :</p>
+              <p className="tree-info">
+                얇은 나뭇가지를 가졌지만 빨갛고 커다란 열매를 맺는 것이
+                특징이다.
+              </p>
+            </div>
           </div>
-          <div className="name-box">
-            <p className="name-class">설명 :</p>
-            <p className="tree-info">
-              얇은 나뭇가지를 가졌지만 빨갛고 커다란 열매를 맺는 것이 특징이다.
-            </p>
-          </div>
-          <button onClick={plusStep}>나무 선택</button>
+          <button onClick={plusStep} className="submitBtn">
+            나무 선택
+          </button>
         </div>
       </div>
       <style jsx>{`
@@ -112,6 +117,9 @@ export default function PickTree({
           font-weight: 600;
           color: #000000;
           width: 250px;
+        }
+        .right .box {
+          justify-content: space-between;
         }
       `}</style>
     </div>

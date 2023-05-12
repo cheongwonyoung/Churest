@@ -51,6 +51,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { getForest } from '@/apis/churest';
 import { spots } from '@/utils/spots';
+import { BirdHouses, Houses } from './Options';
 
 export const Controls = {
   forward: 'forward',
@@ -63,8 +64,13 @@ export const Controls = {
 type Props = {
   selectSpot: boolean;
   autoView: boolean;
+  resetPosition: boolean;
 };
-export default function Churest3D({ selectSpot, autoView }: Props) {
+export default function Churest3D({
+  selectSpot,
+  autoView,
+  resetPosition,
+}: Props) {
   const map = useMemo(
     () => [
       { name: Controls.forward, keys: ['ArrowUp', 'KeyW'] },
@@ -129,6 +135,11 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
     }
   );
   const spotINfo = spots;
+
+  // const trees = ()=>{
+  //   switch ()
+  // }
+
   return (
     <>
       <KeyboardControls map={map}>
@@ -140,6 +151,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               autoView={autoView}
               selectSpot={selectSpot}
               spaceModal={spaceModal}
+              resetPosition={resetPosition}
             />
             {selectSpot ? (
               <>
@@ -149,7 +161,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
               <>
                 <RigidBody position={[0, 0.5, 0]} type="fixed" name="house">
                   <group onClick={() => setIsMyPageOpen({ isModal: true })}>
-                    <House1 />
+                    {Houses(data?.data.houseId)}
                   </group>
                   <CylinderCollider
                     sensor
@@ -183,9 +195,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                 </RigidBody>
                 <RigidBody position={[4.5, 0, 4.5]} type="fixed">
                   <group onClick={() => setIsMyBirdOpen({ isModal: true })}>
-                    {/* <BirdHouse1 />
-                <BirdHouse2 /> */}
-                    <BirdHouse3 />
+                    {BirdHouses(data?.data.birdhouseId)}
                   </group>
                   <CylinderCollider
                     sensor
@@ -216,7 +226,7 @@ export default function Churest3D({ selectSpot, autoView }: Props) {
                     type="fixed"
                     colliders="trimesh"
                   >
-                    <Tree3 />
+                    <Tree1 />
                   </RigidBody>
                 );
               }

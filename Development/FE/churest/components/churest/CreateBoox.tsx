@@ -63,10 +63,26 @@ export default function CreateBoox() {
           }
           .right {
             width: 335px;
-            height: 100%;
+            height: 560px;
             display: flex;
             flex-direction: column;
             padding: 50px 65px 0px 25px;
+          }
+          .submitBtn {
+            margin-top: 36px;
+            box-shadow: -5px -5px 5px rgba(255, 255, 255, 0.4),
+              5px 5px 10px rgba(174, 174, 192, 0.2),
+              inset -2px -2px 4px rgba(0, 0, 0, 0.1), inset 2px 2px 4px#fff;
+            width: 334px;
+            height: 44px;
+            border-radius: 10px;
+            padding: 8px;
+            background-color: rgb(255, 218, 118);
+            border: none;
+            font-size: 24px;
+            font-weight: 700;
+            cursor: pointer;
+            color: rgb(104, 97, 64);
           }
         `}
       </style>
