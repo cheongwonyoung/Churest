@@ -256,7 +256,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
           }
         });
       } else {
-        alert('잔액이 부족하여 구매할 수 없습니다.');
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '잔액이 부족하여 구매할 수 없습니다.',
+          showConfirmButton: false,
+          timer: 1000,
+        });
       }
     }
   };

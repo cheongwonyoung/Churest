@@ -56,7 +56,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             slideShadows: false,
           }}
           pagination={true}
-          className="mySwiper center"
+          className="center"
         >
           {info &&
             info.map((item: any, idx: number) => {
@@ -70,7 +70,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                       ? 'inside-circle'
                       : 'bird-swiper center'
                   }
-                  style={{ width: '200px' }}
+                  style={{ width: '100px', height: '300px' }}
                 >
                   {/* 마이페이지에서 추억 리스트 조회 */}
                   {cardType == 'mypage' ? (
@@ -238,38 +238,11 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             height: 30px;
           }
 
-          .flip-card {
-            width: 200px;
-            height: 280px;
-            position: relative;
-            perspective: 1100px;
-            margin: 2rem;
-          }
-
-          .card {
-            margin: 50px;
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: 0.4s;
-            transform-style: preserve-3d;
-          }
-
-          .front,
-          .back {
-            width: 200px;
-            height: 250px;
-            position: absolute;
-            backface-visibility: hidden;
-            margin: auto;
-          }
-
-          .back {
-            transform: rotateY(180deg);
-          }
-
-          .flip-card:hover .card {
-            transform: rotateY(180deg);
+          .tree-title {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
           }
           .tree-info {
             text-align: center;
@@ -278,20 +251,6 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-          }
-          .bird-title {
-            font-weight: bold;
-            font-size: 25px;
-            margin-bottom: 20px;
-          }
-          .bird-description {
-            font-size: 17px;
-          }
-          .tree-title {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
             align-items: center;
           }
         `}

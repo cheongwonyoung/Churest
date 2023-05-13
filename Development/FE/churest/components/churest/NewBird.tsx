@@ -30,7 +30,7 @@ export default function NewBird() {
         console.log(data.data);
         const alertMsg =
           data.data.bird.name +
-          '야! 너의 이름은 ' +
+          '야!\n너의 이름은 ' +
           data.data.nickname +
           '란다!';
 
