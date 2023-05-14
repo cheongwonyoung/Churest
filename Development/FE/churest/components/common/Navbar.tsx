@@ -9,10 +9,15 @@ import {
   openShopAtom,
 } from '@/atoms/modal';
 import { useRouter } from 'next/router';
-
-export default function Navbar() {
+import { useQuery } from 'react-query';
+import { getAlarm } from '@/apis/alarm';
+import { useEffect } from 'react';
+type Props = {
+  types: string;
+};
+export default function Navbar({ types }: Props) {
   const id = useRecoilValue(loginAtom).id;
-
+  // square , chuworld, churest
   const router = useRouter();
   const params = Number(router.query.id);
 
@@ -21,6 +26,11 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
+
+  const { data, refetch } = useQuery('getNotice', () => getAlarm(id));
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <div className="navbarContainer">
@@ -34,16 +44,28 @@ export default function Navbar() {
       </div>
 
       {/* 1. 광장  */}
-      <div
-        onClick={() => {
-          router.push('/square');
-        }}
-      >
-        <NavbarButton image="garden_navbar_img" title="광장" />
-      </div>
+      {types == 'square' ? null : (
+        <div
+          onClick={() => {
+            router.push('/square');
+          }}
+        >
+          <NavbarButton image="garden_navbar_img" title="광장" />
+        </div>
+      )}
 
       {/* 2. 마이츄레스트 , 단 내 츄레스트일 때는 안보이게  */}
-      {params !== id && (
+      {types == 'churest' ? (
+        params !== id && (
+          <div
+            onClick={() => {
+              router.push('/churest/' + id);
+            }}
+          >
+            <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
+          </div>
+        )
+      ) : (
         <div
           onClick={() => {
             router.push('/churest/' + id);
@@ -68,7 +90,12 @@ export default function Navbar() {
           setIsAlarmOpen({ isModal: true });
         }}
       >
-        <NavbarButton image="alarm_navbar_img" title="알림함" />
+        {data?.data.length ? (
+          <NavbarButton image="alarm_navbar_img" title="알림함" />
+        ) : (
+          // 여기에 그 ping 한 머시기
+          <NavbarButton image="alarm_navbar_img" title="알림" />
+        )}
       </div>
 
       {/* 5. 태그 모아보기  */}
@@ -90,13 +117,15 @@ export default function Navbar() {
       </div>
 
       {/* 7. 츄월드  */}
-      <div
-        onClick={() => {
-          router.push('/chuworld/' + id);
-        }}
-      >
-        <NavbarButton image="chuworld_navbar_img" title="츄월드" />
-      </div>
+      {types == 'chuworld' ? null : (
+        <div
+          onClick={() => {
+            router.push('/chuworld/' + id);
+          }}
+        >
+          <NavbarButton image="chuworld_navbar_img" title="츄월드" />
+        </div>
+      )}
 
       <style jsx>
         {`

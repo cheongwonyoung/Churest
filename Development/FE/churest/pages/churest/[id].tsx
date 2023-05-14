@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Churest3D from '@/components/churest/Churest3D';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { createArticleAtom, spaceModalAtom } from '@/atoms/modal';
-import  Navbar from '@/components/common/Navbar';
+import Navbar from '@/components/common/Navbar';
 import MemoryButton from '@/components/churest/MemoryButton';
 import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
@@ -37,7 +37,7 @@ export default function Garden() {
 
   return (
     <div className="gogo">
-      <Navbar />
+      <Navbar types="churest" />
       {isSpace.length > 0 && (
         <div className="spacebar">
           <div>
@@ -47,11 +47,11 @@ export default function Garden() {
       )}
       <div className="btn-box">
         <div onClick={() => setAutoView((prev) => !prev)}>
-        <Image src={images["pin_focus_img"]} width={80} height={80} alt="" />
+          <Image src={images['pin_focus_img']} width={80} height={80} alt="" />
           AutoFocus
         </div>
         <div onClick={() => setResetPosition((prev) => !prev)}>
-        <Image src={images["pin_home_img"]} width={80} height={80} alt="" />
+          <Image src={images['pin_home_img']} width={80} height={80} alt="" />
           집으로 가기
         </div>
       </div>
@@ -126,9 +126,9 @@ export default function Garden() {
             font-weight: bold;
           }
           .btn-box div {
-            display:flex;
-            flex-direction:column;
-            margin-right:20px;
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
             gap: 10px;
           }
         `}
