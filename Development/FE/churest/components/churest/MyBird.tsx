@@ -24,6 +24,7 @@ export default function MyBird() {
 
   // 나의 새 목록
   // const [birdList, setMyBirds] = useState([{}]);
+  const [len, setLength] = useState(1);
   const { data, isLoading, isError, refetch } = useQuery(
     'mybirds',
     () => getMyBirdsList(Number(memberId)),
@@ -31,6 +32,8 @@ export default function MyBird() {
       onSuccess() {
         // setMyBirds([...data.data]);
         // console.log(data.data);
+        let num = data?.data.length;
+        setLength(num / 2);
       },
       onError: (error) => {
         console.log(error);
@@ -44,13 +47,15 @@ export default function MyBird() {
 
   return (
     <>
-      <div className="blue-clay container center">
+      <div className="blue-clay container">
+        <div className="modal-title">My Bird</div>
         <div>
           <Swiper
             effect={'coverflow'}
             grabCursor={true}
             centeredSlides={true}
             slidesPerView={'auto'}
+            initialSlide={len}
             autoplay={{
               delay: 1500,
               disableOnInteraction: false,
@@ -65,7 +70,7 @@ export default function MyBird() {
             pagination={true}
             style={{ width: '600px', height: '400px' }}
           >
-            {data?.data &&
+            {data &&
               data?.data.map((item: any, idx: number) => {
                 return (
                   <SwiperSlide
@@ -85,7 +90,7 @@ export default function MyBird() {
                             />
                           </div>
                         </div>
-                        <div className="back">
+                        <div className="back gray-clay bird-card">
                           <p className="bird-title ">{item.bird.name}</p>
                           <p className="bird-description">
                             {item.bird.description}
@@ -110,7 +115,7 @@ export default function MyBird() {
       <style jsx>
         {`
           .container {
-            width: 600px;
+            width: 660px;
             height: 450px;
           }
           .bird-title {
@@ -121,6 +126,9 @@ export default function MyBird() {
           }
           .bird-description {
             font-size: 17px;
+          }
+          .bird-card {
+            padding: 20px;
           }
         `}
       </style>

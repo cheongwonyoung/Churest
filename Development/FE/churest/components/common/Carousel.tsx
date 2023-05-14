@@ -18,13 +18,6 @@ type Props = {
 
 export default function Carousel({ cardType, info, refetch }: Props) {
   const IMAGE_ROOT = process.env.NEXT_PUBLIC_IMAGE_ROOT;
-  // 태그된 추억 퍼가기
-  const clickTakeTree = (boardId: number) => {
-    console.log(
-      '퍼가기 버튼 누름, boardId 같이 넘겨서 본인 숲으로 가야함' + boardId
-    );
-    // redirect ?
-  };
 
   // 나무 설명 정보 받아오기
   let treeDesc: any;
@@ -133,58 +126,8 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                         </div>
                       </div>
                     </div>
-                  ) : cardType == 'myTagged' ? (
-                    // 태그된 추억 조회
-                    <div className="mypage-box">
-                      <Image
-                        src={images.my_tree_img}
-                        alt=""
-                        width={150}
-                        height={150}
-                      />
-                      <div className="text-content">
-                        <p className="title">{item.title}</p>
-                        <p className="date">
-                          {moment(item.createdTime).format('YYYY년 MM월 DD일')}
-                        </p>
-                      </div>
-                      <button
-                        className="green-btn"
-                        onClick={() => clickTakeTree(item.boardId)}
-                      >
-                        퍼가기
-                      </button>
-                    </div>
                   ) : (
-                    // 나의 새 조회
-                    <div className="flip-card mypage-box">
-                      <div className="card center">
-                        <div className="front">
-                          <div className="gray-clay center-clay">
-                            <Image
-                              src={images['bird_' + item.bird?.birdId + '_img']}
-                              alt=""
-                              width={200}
-                              height={230}
-                            />
-                          </div>
-                        </div>
-                        <div className="back">
-                          <p className="bird-title">{item.bird?.name}</p>
-                          <p className="bird-description">
-                            {item.bird?.description}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div>
-                        <BirdNickname
-                          nickname={item.nickname}
-                          memberBirdId={item.memberBirdId}
-                          refetch={refetch}
-                        ></BirdNickname>
-                      </div>
-                    </div>
+                    <></>
                   )}
                 </SwiperSlide>
               );
@@ -215,9 +158,6 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             display: flex;
             flex-direction: column;
             width: 100%;
-             {
-              /* height: 300px; */
-            }
             justify-content: center;
             align-items: center;
           }
@@ -245,11 +185,9 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             align-items: center;
           }
           .flip-card {
-            width: 130px;
             height: 280px;
             position: relative;
             perspective: 1100px;
-            margin: 2rem;
           }
 
           .card {
