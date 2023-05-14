@@ -41,8 +41,6 @@ public class ForestServiceImpl implements ForestService{
 
         MemberBird memberBird = memberBirdRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId);
 
-        int treeId = boardRepository.findByMember_MemberId(memberId).get(0).getTree().getTreeId();
-
         return ForestResponseDto.ForestInfo.builder()
                 .avatarId(member.getAvatarId())
                 .birdId(memberBird.getBird().getBirdId())
@@ -50,7 +48,6 @@ public class ForestServiceImpl implements ForestService{
                 .houseId(memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getHouse().getHouseId())
                 .birdhouseId(memberBirdHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getBirdHouse().getBirdHouseId())
                 .coin(member.getCoin())
-                .treeId(treeId)
                 .treeList(boardService.getBoardInfoList(memberId))
                 .build();
     }

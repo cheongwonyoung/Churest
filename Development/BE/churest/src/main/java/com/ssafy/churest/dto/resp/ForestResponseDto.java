@@ -17,7 +17,6 @@ public class ForestResponseDto {
         private int houseId;
         private int birdhouseId;
         private int birdId;
-        private int treeId;
         private List<BoardResponseDto.BoardInfo> treeList;
     }
 
@@ -30,8 +29,6 @@ public class ForestResponseDto {
         private String nickname;
 
         private int houseId;
-
-        private int treeId;
 
         public static ForestResponseDto.OtherForestInfo fromEntity(com.ssafy.churest.entity.Member member, com.ssafy.churest.entity.MemberHouse memberHouse){
             return OtherForestInfo.builder()
