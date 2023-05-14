@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import ChuWorldList from '@/components/chuworld/ChuWorldList';
-import ChuWorldNavbar from '@/components/chuworld/ChuWorldNavbar';
 import { useQuery } from 'react-query';
 import { getChuworld } from '@/apis/chuworld';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
-import CloudMap from '@/components/common/CloudMap';
+import Navbar from '@/components/common/Navbar';
 
 export default function Chuworld() {
   const memberId = useRecoilValue(loginAtom).id;
@@ -17,7 +16,7 @@ export default function Chuworld() {
 
   return (
     <div className="root">
-      <ChuWorldNavbar />
+      <Navbar types="chuworld" />
       {data && <ChuWorldList data={data.data} />}
       <style jsx>
         {`
