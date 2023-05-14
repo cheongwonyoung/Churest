@@ -6,8 +6,23 @@ import { PlantOk } from '../3DFiles/PlantOk';
 import { useSetRecoilState } from 'recoil';
 import { createArticleAtom } from '@/atoms/modal';
 
-export default function ChoosePosition() {
+type Props = {
+  occupied: { boardId: number; spot: number; score: number }[];
+};
+
+export default function ChoosePosition({ occupied }: Props) {
   const [points, setpoints] = useState(spots);
+
+  useEffect(() => {
+    occupied.map((spot) => {
+      setpoints((prev) => {
+        return {
+          ...prev,
+          [spot['spot']]: { ...prev[spot['spot']], ok: false },
+        };
+      });
+    });
+  });
 
   const [hover, setHover] = useState('');
   const setIsSelcet = useSetRecoilState(createArticleAtom);
@@ -26,9 +41,12 @@ export default function ChoosePosition() {
                   point[1].z,
                 ]}
                 onClick={(e: any) =>
-                  setIsSelcet({
-                    isModal: true,
-                    spot: Number(e.eventObject.name),
+                  setIsSelcet((prev) => {
+                    return {
+                      ...prev,
+                      isModal: true,
+                      spot: Number(e.eventObject.name),
+                    };
                   })
                 }
                 onPointerEnter={(e: any) => {

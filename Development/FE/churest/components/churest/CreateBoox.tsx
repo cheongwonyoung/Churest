@@ -33,7 +33,7 @@ export default function CreateBoox() {
           />
         );
       case 1:
-        return <CreateArticle treeId={step} />;
+        return <CreateArticle treeId={page} />;
     }
   };
 

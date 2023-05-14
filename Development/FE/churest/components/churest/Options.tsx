@@ -14,6 +14,18 @@ import { House3 } from '../3DFiles/House/House_3';
 import { House4 } from '../3DFiles/House/House_4';
 import { House5 } from '../3DFiles/House/House_5';
 import { House6 } from '../3DFiles/House/House_6';
+import { Branch } from '../3DFiles/Trees/Branch';
+import { Seed } from '../3DFiles/Trees/Seed';
+import { Sprout } from '../3DFiles/Trees/Sprout';
+import { Tree1 } from '../3DFiles/Trees/Tree1';
+import { Tree2 } from '../3DFiles/Trees/Tree2';
+import { Tree3 } from '../3DFiles/Trees/Tree3';
+import { Tree4 } from '../3DFiles/Trees/Tree4';
+import { Tree5 } from '../3DFiles/Trees/Tree5';
+import { Tree6 } from '../3DFiles/Trees/Tree6';
+import { Tree7 } from '../3DFiles/Trees/Tree7';
+import { Tree8 } from '../3DFiles/Trees/Tree8';
+import { Tree9 } from '../3DFiles/Trees/Tree9';
 
 export function BirdHouses(id: number) {
   switch (id) {
@@ -59,5 +71,41 @@ export function Birds(id: number) {
       return <Bird6 scale={0.5} />;
     case 7:
       return <Bird7 scale={0.5} />;
+  }
+}
+
+export function Trees(treeInfo: {
+  boardId: number;
+  spot: number;
+  score: number;
+  treeId: number;
+}) {
+  if (treeInfo.score == 0) {
+    return <Seed scale={3} />;
+  } else if (treeInfo.score < 6) {
+    return <Sprout rotation={[0, Math.PI / 2, 0]} scale={3} />;
+  } else if (treeInfo.score < 16) {
+    return <Branch />;
+  } else {
+    switch (treeInfo.treeId) {
+      case 1:
+        return <Tree1 />;
+      case 2:
+        return <Tree2 />;
+      case 3:
+        return <Tree3 />;
+      case 4:
+        return <Tree4 />;
+      case 5:
+        return <Tree5 />;
+      case 6:
+        return <Tree6 />;
+      case 7:
+        return <Tree7 />;
+      case 8:
+        return <Tree8 />;
+      case 9:
+        return <Tree9 />;
+    }
   }
 }

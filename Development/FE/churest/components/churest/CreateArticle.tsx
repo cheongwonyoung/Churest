@@ -5,7 +5,12 @@ import TagPicker from './TagPicker';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { createArticleAtom } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
-import { useMutation, useQuery } from 'react-query';
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from 'react-query';
 import { getForest, goCreateArticle } from '@/apis/churest';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
@@ -71,8 +76,10 @@ export default function CreateArticle({ treeId }: Props) {
   const forestId = useRouter().query.id;
   const { refetch } = useQuery(['tree', forestId], () => getForest(forestId), {
     enabled: false,
+    onSuccess(data) {
+      console.log('데이터', data);
+    },
   });
-
   const { mutate: submit } = useMutation((info: any) => goCreateArticle(info), {
     onSuccess(data, variables, context) {
       console.log('성공');
@@ -116,6 +123,7 @@ export default function CreateArticle({ treeId }: Props) {
       date: data.date,
       treeId,
     };
+    console.log(treeId);
     formData.append('writeInfo', JSON.stringify(writeInfo));
     submit({ formData });
   };

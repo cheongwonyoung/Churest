@@ -42,24 +42,6 @@ export default function TagPicker({
     []
   );
 
-  // const [pickedTag, setPickedTag] = useState<
-  //   { [key: string]: number | string }[]
-  // >([]);
-
-  // const addPickedTag = (friend: { [key: string]: number | string }) => {
-  //   if (pickedTag.length == 6) {
-  //     alert('최대 6명까지 태그 가능합니다.');
-  //   } else {
-  //     if (pickedTag.indexOf(friend) == -1) {
-  //       setPickedTag((prev) => [...prev, friend]);
-  //     }
-  //   }
-  // };
-
-  // const deleteTag = (friend: { [key: string]: number | string }) => {
-  //   setPickedTag((prev) => prev.filter((f) => f != friend));
-  // };
-
   return (
     <div className="tag">
       <div className="pickedBox">
@@ -170,8 +152,12 @@ export default function TagPicker({
             column-gap: 1px;
             font-weight: 600;
           }
+
           .pickenName {
             width: 75px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
           }
           .searchBox {
             width: 100%;
