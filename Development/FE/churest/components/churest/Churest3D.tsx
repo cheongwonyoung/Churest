@@ -144,7 +144,7 @@ export default function Churest3D({
             ) : (
               <>
                 {/* 나의 집 3D start */}
-                <RigidBody position={[0, 0.5, 0]} type="fixed" name="house">
+                <RigidBody position={[0, 0.2, 0]} type="fixed" name="house">
                   <group onClick={() => setIsMyPageOpen({ isModal: true })}>
                     {Houses(data?.data.houseId)}
                   </group>
@@ -265,7 +265,7 @@ export default function Churest3D({
               name="map"
               colliders="trimesh"
               type="fixed"
-              position={[0, 0, 0]}
+              position={[0, -1, 0]}
               friction={1}
             >
               {/* <ChurestMap receiveShadow /> */}

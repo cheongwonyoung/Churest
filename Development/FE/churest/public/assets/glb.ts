@@ -98,5 +98,5 @@ export const glbs: glbs = {
   bird_7_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/bird7.glb',
   churest_map_11_glb:
-    'https://storage.googleapis.com/churest-bucket/project_3D/ChurestMap11.glb',
+    'https://storage.googleapis.com/churest-bucket/project_3D/ChurestMap11x11.glb',
 };
