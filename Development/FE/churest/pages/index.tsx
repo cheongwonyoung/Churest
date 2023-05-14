@@ -15,7 +15,7 @@ export default function Home() {
   };
 
   return (
-    <div className="login" onClick={() => router.push('/login')}>
+    <div className="login">
       <p className="login-text">Churest</p>
       <RotatingEarth />
       <div className="button-box" onClick={loginKakao}>
