@@ -47,7 +47,6 @@ export default function Bird({ id }: Props) {
   useEffect(() => {
     setInterval(() => {
       const x = randomNum(-2, 2);
-      console.log(x);
 
       const z = randomNum(-2, 2);
       const y = randomNum(2, 4);
@@ -64,7 +63,7 @@ export default function Bird({ id }: Props) {
   const [look, setLook] = useState(0);
   return (
     <RigidBody
-      position={[3, 8, 0]}
+      position={[4.5, 8, 5.5]}
       colliders="cuboid"
       canSleep={false}
       enabledRotations={[false, false, false]}

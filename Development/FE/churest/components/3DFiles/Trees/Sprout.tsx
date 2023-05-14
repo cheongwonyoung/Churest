@@ -28,6 +28,7 @@ export function Sprout(props: JSX.IntrinsicElements['group']) {
         position={[0, 0.17, -0.05]}
         rotation={[-Math.PI, -1.37, 3]}
         scale={[0.05, 0.03, 0.02]}
+        castShadow
       />
     </group>
   );
