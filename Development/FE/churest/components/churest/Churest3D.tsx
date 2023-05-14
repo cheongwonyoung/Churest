@@ -30,6 +30,7 @@ import { spots } from '@/utils/spots';
 import { BirdHouses, Houses, Trees } from './Options';
 
 import Bird from './Bird';
+import { ChurestMap11 } from '../3DFiles/ChurestMap11';
 
 export const Controls = {
   forward: 'forward',
@@ -267,7 +268,8 @@ export default function Churest3D({
               position={[0, 0, 0]}
               friction={1}
             >
-              <ChurestMap receiveShadow />
+              {/* <ChurestMap receiveShadow /> */}
+              <ChurestMap11 />
             </RigidBody>
             <RigidBody
               colliders="trimesh"
