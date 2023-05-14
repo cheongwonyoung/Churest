@@ -239,7 +239,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
           }
 
           .flip-card {
-            width: 200px;
+            width: 130px;
             height: 280px;
             position: relative;
             perspective: 1100px;
