@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("SquareController API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/square")
+@RequestMapping("/api/square")
 public class SquareController {
 
     private final SquareService squareService;
