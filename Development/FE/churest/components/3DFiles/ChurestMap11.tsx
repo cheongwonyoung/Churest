@@ -11,13 +11,11 @@ import { glbs } from '@/public/assets/glb';
 
 type GLTFResult = GLTF & {
   nodes: {
-    큐브003: THREE.Mesh;
-    큐브003_1: THREE.Mesh;
-    큐브001: THREE.Mesh;
+    큐브_1: THREE.Mesh;
+    큐브_2: THREE.Mesh;
   };
   materials: {
-    ['매테리얼.001']: THREE.MeshStandardMaterial;
-    ['매테리얼.004']: THREE.MeshStandardMaterial;
+    Material: THREE.MeshStandardMaterial;
     매테리얼: THREE.MeshStandardMaterial;
   };
 };
@@ -26,22 +24,18 @@ export function ChurestMap11(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF(glbs.churest_map_11_glb) as GLTFResult;
   return (
     <group {...props} dispose={null}>
-      <group position={[0, -1, 0]} scale={[22, 1, 22]}>
+      <group scale={[22, 1, 22]}>
         <mesh
-          geometry={nodes.큐브003.geometry}
-          material={materials['매테리얼.001']}
+          geometry={nodes.큐브_1.geometry}
+          material={materials.Material}
+          receiveShadow
         />
         <mesh
-          geometry={nodes.큐브003_1.geometry}
-          material={materials['매테리얼.004']}
+          geometry={nodes.큐브_2.geometry}
+          material={materials.매테리얼}
+          receiveShadow
         />
       </group>
-      <mesh
-        geometry={nodes.큐브001.geometry}
-        material={materials.매테리얼}
-        position={[0, -3, 0]}
-        scale={[22, 1, 22]}
-      />
     </group>
   );
 }
