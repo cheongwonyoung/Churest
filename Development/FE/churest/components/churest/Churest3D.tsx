@@ -1,32 +1,14 @@
-import { Html, KeyboardControls, SoftShadows } from '@react-three/drei';
-import { Canvas, useThree } from '@react-three/fiber';
-import {
-  CuboidCollider,
-  CylinderCollider,
-  Physics,
-  RapierCollider,
-  RigidBody,
-} from '@react-three/rapier';
+import { KeyboardControls, SoftShadows } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
+import { CylinderCollider, Physics, RigidBody } from '@react-three/rapier';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import CharacterChurest from './CharacterChurest';
 import ChoosePosition from './ChoosePosition';
 import { PostBox } from '../3DFiles/PostBox';
-import { BirdHouse3 } from '../3DFiles/BirdHouse/BirdHouse3';
 import { ChurestMap } from '../3DFiles/ChurestMap';
-import { House1 } from '../3DFiles/House/House_1';
 import { Tree3 } from '../3DFiles/Trees/Tree3';
-import { Tree1 } from '../3DFiles/Trees/Tree1';
-import { Seed } from '../3DFiles/Trees/Seed';
-import { Tree4 } from '../3DFiles/Trees/Tree4';
-import { Tree5 } from '../3DFiles/Trees/Tree5';
-import { Tree6 } from '../3DFiles/Trees/Tree6';
-import { Tree2 } from '../3DFiles/Trees/Tree2';
-import { Tree7 } from '../3DFiles/Trees/Tree7';
-import { Tree8 } from '../3DFiles/Trees/Tree8';
-import { Tree9 } from '../3DFiles/Trees/Tree9';
-import { Sprout } from '../3DFiles/Trees/Sprout';
-import { Branch } from '../3DFiles/Trees/Branch';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   letterBoxAtom,
   myBirdAtom,
@@ -34,28 +16,21 @@ import {
   spaceModalAtom,
   myTreeAtom,
 } from '@/atoms/modal';
-import { loginAtom } from '@/atoms/login';
 import { Mountain } from '../3DFiles/Rock/Mountain';
 import { Rock1 } from '../3DFiles/Rock/Rock1';
 import { Rock2 } from '../3DFiles/Rock/Rock2';
 import { Rock3 } from '../3DFiles/Rock/Rock3';
 import { Rock4 } from '../3DFiles/Rock/Rock4';
 import { Rock5 } from '../3DFiles/Rock/Rock5';
-import {
-  Camera,
-  DirectionalLight,
-  DirectionalLightShadow,
-  Vector2,
-  Vector3,
-} from 'three';
+import { DirectionalLight, Vector3 } from 'three';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { getForest } from '@/apis/churest';
 import { spots } from '@/utils/spots';
-import { BirdHouses, Birds, Houses } from './Options';
-import { House2 } from '../3DFiles/House/House_2';
-import { House3 } from '../3DFiles/House/House_3';
+import { BirdHouses, Houses, Trees } from './Options';
+
 import Bird from './Bird';
+import { ChurestMap11 } from '../3DFiles/ChurestMap11';
 
 export const Controls = {
   forward: 'forward',
@@ -149,15 +124,11 @@ export default function Churest3D({
   );
   const spotINfo = spots;
 
-  // const trees = ()=>{
-  //   switch ()
-  // }
-
   return (
     <>
       <KeyboardControls map={map}>
         <Suspense>
-          <Physics debug>
+          <Physics>
             <SoftShadows />
             {/* <MovingCharacter logSpot={logSpot} autoView={autoView} /> */}
             <CharacterChurest
@@ -168,12 +139,12 @@ export default function Churest3D({
             />
             {selectSpot ? (
               <>
-                <ChoosePosition />
+                <ChoosePosition occupied={data?.data.treeList} />
               </>
             ) : (
               <>
                 {/* 나의 집 3D start */}
-                <RigidBody position={[0, 0.5, 0]} type="fixed" name="house">
+                <RigidBody position={[0, 0.2, 0]} type="fixed" name="house">
                   <group onClick={() => setIsMyPageOpen({ isModal: true })}>
                     {Houses(data?.data.houseId)}
                   </group>
@@ -233,64 +204,72 @@ export default function Churest3D({
                 {/* 새집 3D end */}
                 {/* 새 3D */}
                 <Bird id={data?.data.birdId} />
+                {/* 추억 나무 리스트 start */}
+                {data?.data.treeList?.map(
+                  (
+                    tree: {
+                      boardId: number;
+                      spot: number;
+                      score: number;
+                      treeId: number;
+                    },
+                    idx: number
+                  ) => {
+                    return (
+                      <RigidBody
+                        key={idx}
+                        position={
+                          new Vector3(
+                            spotINfo[tree.spot]['x'],
+                            0,
+                            spotINfo[tree.spot]['z']
+                          )
+                        }
+                        type="fixed"
+                        colliders="trimesh"
+                      >
+                        <group
+                          onClick={() =>
+                            setIsMyTreeOpen({
+                              isModal: true,
+                              boardId: tree.boardId,
+                            })
+                          }
+                        >
+                          {Trees(tree)}
+                        </group>
+                        <CylinderCollider
+                          sensor
+                          args={[5, 2]}
+                          onIntersectionEnter={(e) => {
+                            if (e.colliderObject?.name == 'character') {
+                              setTreeId(tree.boardId);
+                              setReadyModal('myTree');
+                              console.log(tree.boardId + '에게 다가갔떠');
+                            }
+                          }}
+                          onIntersectionExit={(e) => {
+                            e.colliderObject?.name == 'character' &&
+                              setReadyModal('');
+                          }}
+                        />
+                      </RigidBody>
+                    );
+                  }
+                )}
+                {/* 추억 나무 리스트 end */}
               </>
             )}
-            {/* 추억 나무 리스트 start */}
-            {data?.data.treeList?.map(
-              (
-                tree: { boardId: number; spot: number; score: number },
-                idx: number
-              ) => {
-                return (
-                  <RigidBody
-                    key={idx}
-                    position={
-                      new Vector3(
-                        spotINfo[tree.spot]['x'],
-                        0,
-                        spotINfo[tree.spot]['z']
-                      )
-                    }
-                    type="fixed"
-                    colliders="trimesh"
-                  >
-                    <group>
-                      <Tree3
-                        onClick={() =>
-                          setIsMyTreeOpen({
-                            isModal: true,
-                            boardId: tree.boardId,
-                          })
-                        }
-                      />
-                    </group>
-                    <CylinderCollider
-                      sensor
-                      args={[5, 2]}
-                      onIntersectionEnter={(e) => {
-                        e.colliderObject?.name == 'character' &&
-                          setTreeId(tree.boardId);
-                        setReadyModal('myTree');
-                        console.log(tree.boardId + '에게 다가갔떠');
-                      }}
-                      onIntersectionExit={(e) => {
-                        e.colliderObject?.name == 'character' &&
-                          setReadyModal('');
-                      }}
-                    />
-                  </RigidBody>
-                );
-              }
-            )}
-            {/* 추억 나무 리스트 end */}
+
             <RigidBody
               name="map"
               colliders="trimesh"
               type="fixed"
-              position={[0, 0, 0]}
+              position={[0, -1, 0]}
               friction={1}
             >
-              <ChurestMap receiveShadow />
+              {/* <ChurestMap receiveShadow /> */}
+              <ChurestMap11 />
             </RigidBody>
             <RigidBody
               colliders="trimesh"

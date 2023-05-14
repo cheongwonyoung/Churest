@@ -169,3 +169,10 @@ body {
 .flip-card:hover .card {
   transform: rotateY(180deg);
 }
+/* .swiper {
+  width: 500px; 
+}
+
+.swiper-wrapper {
+  width: 500px; 
+} */

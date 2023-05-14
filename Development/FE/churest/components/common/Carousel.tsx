@@ -244,6 +244,39 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             justify-content: space-evenly;
             align-items: center;
           }
+          .flip-card {
+            width: 130px;
+            height: 280px;
+            position: relative;
+            perspective: 1100px;
+            margin: 2rem;
+          }
+
+          .card {
+            margin: 50px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: 0.4s;
+            transform-style: preserve-3d;
+          }
+
+          .front,
+          .back {
+            width: 200px;
+            height: 250px;
+            position: absolute;
+            backface-visibility: hidden;
+            margin: auto;
+          }
+
+          .back {
+            transform: rotateY(180deg);
+          }
+
+          .flip-card:hover .card {
+            transform: rotateY(180deg);
+          }
           .tree-info {
             text-align: center;
           }

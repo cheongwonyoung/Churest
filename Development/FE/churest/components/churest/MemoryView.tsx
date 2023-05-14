@@ -13,6 +13,7 @@ import RoundCarousel from './RoundCarousel';
 import { imageUrl } from '@/apis/index';
 
 import Swal from 'sweetalert2';
+import { weathers } from '@/utils/weathers';
 
 type Props = {
   boardId: number;
@@ -61,21 +62,24 @@ export default function MemoryView({ boardId }: Props) {
   const [tree, setTree] = useState<any>([]);
   const [tagList, setTagList] = useState<any>([]);
   const [fileList, setFileList] = useState<any>([]);
-  // const {data} =
-  useQuery('myTree', () => getMyChurest(Number(memberId), Number(boardId)), {
-    onSuccess(data) {
-      console.log(boardId + '번 책 열기 성공');
-      console.log(data.data);
-      setTree(data?.data);
-      setTagList(data?.data.tagList);
-      setFileList(data?.data.fileList);
-      makeCards(data.data.fileList);
-    },
-    onError(error) {
-      console.log('에러다! ');
-      console.log(error);
-    },
-  });
+  const { data } = useQuery(
+    ['myTree', boardId],
+    () => getMyChurest(Number(memberId), Number(boardId)),
+    {
+      onSuccess(data) {
+        console.log(boardId + '번 책 열기 성공');
+        console.log(data.data);
+        setTree(data?.data);
+        setTagList(data?.data.tagList);
+        setFileList(data?.data.fileList);
+        makeCards(data.data.fileList);
+      },
+      onError(error) {
+        console.log('에러다! ');
+        console.log(error);
+      },
+    }
+  );
 
   const clickWatering = () => {
     // console.log(boardId + '물줄게');
@@ -116,6 +120,8 @@ export default function MemoryView({ boardId }: Props) {
       </>
     );
   });
+  const weather: '맑음' | '흐림' | '비' | '안개' | '눈' | '천둥번개' =
+    data?.data.weather;
 
   return (
     <>
@@ -125,7 +131,7 @@ export default function MemoryView({ boardId }: Props) {
             <div className="center">
               <div style={{ width: '60px', height: '50px' }}>
                 <Image
-                  src={images['cloudy_img']}
+                  src={weathers[weather]}
                   alt=""
                   priority
                   width={58}
@@ -135,9 +141,9 @@ export default function MemoryView({ boardId }: Props) {
                 ></Image>
               </div>
             </div>
-            <div className="center title">{tree.title}</div>
+            <div className="center title">{data?.data.title}</div>
             <div className="center" style={{ color: 'gray' }}>
-              {tree.createdTime}
+              {data?.data.createdTime}
             </div>
           </div>
           <div className="center" style={{ margin: '30px 100px 30px 50px' }}>
@@ -153,7 +159,7 @@ export default function MemoryView({ boardId }: Props) {
               showArrows={false}
             ></RoundCarousel>
           </div>
-          <div className="center content">{tree.content}</div>
+          <div className="center content">{data?.data.content}</div>
           <div></div>
           <div className="center" onClick={clickWatering}>
             <div className="watering-card content">

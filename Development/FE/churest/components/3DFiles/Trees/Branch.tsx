@@ -27,6 +27,7 @@ export function Branch(props: JSX.IntrinsicElements['group']) {
         material={materials['Material.011']}
         position={[0.11, 0.88, 0]}
         scale={0.29}
+        castShadow
       />
     </group>
   );
