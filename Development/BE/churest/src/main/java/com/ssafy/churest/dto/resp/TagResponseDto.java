@@ -13,6 +13,7 @@ public class TagResponseDto {
         private int tagId;
 
         private int boardId;
+        private int treeId;
 
         private String title;
 

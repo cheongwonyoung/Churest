@@ -39,7 +39,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
 
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
-        logger.info("come here !!!! "+ token);
+//        logger.info("come here !!!! "+ token);
         if(token != null & jwtTokenProvider.validateToken(token)){
 //            try{
 
@@ -73,7 +73,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         }
 
         else{
-            logger.info("?????");
+//            logger.info("?????");
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
