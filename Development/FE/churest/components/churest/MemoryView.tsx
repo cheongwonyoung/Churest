@@ -8,12 +8,13 @@ import { loginAtom } from '@/atoms/login';
 import { useMutation } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { wateringTree } from '@/apis/churest';
-import CardComp from './CardComp.jsx';
-import RoundCarousel from './RoundCarousel';
 import { imageUrl } from '@/apis/index';
-
-import Swal from 'sweetalert2';
 import { weathers } from '@/utils/weathers';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCards } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import Swal from 'sweetalert2';
 
 type Props = {
   boardId: number;
@@ -21,47 +22,7 @@ type Props = {
 export default function MemoryView({ boardId }: Props) {
   let memberId = useRecoilValue(loginAtom).id;
 
-  // fileList를 아래 양식에 맞게 변환해야함
-  // const cards = [
-  //   {
-  //     key: uuidv4(),
-  //     content: <CardComp imagen={images['bird_5_img']} />,
-  //   },
-  //   {
-  //     key: uuidv4(),
-  //     content: <CardComp imagen={images['bird_2_img']} />,
-  //   },
-  //   {
-  //     key: uuidv4(),
-  //     content: <CardComp imagen={images['bird_2_img']} />,
-  //   },
-  // ];
-
-  const [cards, setCards] = useState([{}]);
-
-  const makeCards = (list: []) => {
-    console.log('원본은');
-    console.log(...cards);
-
-    const pictures: any = [];
-    list.forEach((el: String) => {
-      const srcStr = imageUrl + el;
-      console.log('출처:', srcStr);
-      const item = {
-        key: uuidv4(),
-        content: <CardComp imagen={srcStr} />,
-      };
-      pictures.push(item);
-    });
-
-    setCards([...pictures]);
-    console.log('푸시해쥼!');
-    console.log(...cards);
-  };
-
-  const [tree, setTree] = useState<any>([]);
   const [tagList, setTagList] = useState<any>([]);
-  const [fileList, setFileList] = useState<any>([]);
   const { data } = useQuery(
     ['myTree', boardId],
     () => getMyChurest(Number(memberId), Number(boardId)),
@@ -69,10 +30,7 @@ export default function MemoryView({ boardId }: Props) {
       onSuccess(data) {
         console.log(boardId + '번 책 열기 성공');
         console.log(data.data);
-        setTree(data?.data);
         setTagList(data?.data.tagList);
-        setFileList(data?.data.fileList);
-        makeCards(data.data.fileList);
       },
       onError(error) {
         console.log('에러다! ');
@@ -120,6 +78,7 @@ export default function MemoryView({ boardId }: Props) {
       </>
     );
   });
+
   const weather: '맑음' | '흐림' | '비' | '안개' | '눈' | '천둥번개' =
     data?.data.weather;
 
@@ -149,16 +108,39 @@ export default function MemoryView({ boardId }: Props) {
           <div className="center" style={{ margin: '30px 100px 30px 50px' }}>
             {tagItems}
           </div>
-          <div className="center carousel" style={{ margin: '0 50px 0 100px' }}>
-            <RoundCarousel
-              cards={cards}
-              height="400px"
-              width="100%"
-              margin="0 auto"
-              offset={2}
-              showArrows={false}
-            ></RoundCarousel>
-          </div>
+          <Swiper
+            effect={'cards'}
+            grabCursor={true}
+            modules={[EffectCards]}
+            centeredSlides={true}
+            slidesPerView={'auto'}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: false,
+            }}
+            pagination={true}
+            mousewheel={true}
+            className="mySwiper"
+          >
+            {data &&
+              data?.data.fileList.map((item: String, idx: number) => {
+                return (
+                  <>
+                    <SwiperSlide key={idx}>
+                      <Image
+                        src={imageUrl + item}
+                        fill
+                        alt="image"
+                        style={{ borderRadius: '5%' }}
+                      ></Image>
+                    </SwiperSlide>
+                  </>
+                );
+              })}
+          </Swiper>
           <div className="center content">{data?.data.content}</div>
           <div></div>
           <div className="center" onClick={clickWatering}>
