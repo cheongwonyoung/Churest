@@ -67,7 +67,7 @@ export default function LetterBox() {
         <LetterCreate closeModal={closeModal} refetch={refetch}></LetterCreate>
       ) : (
         <LetterSlide
-          letters={data.data}
+          letters={data?.data}
           refetch={refetch}
           closeModal={closeModal}
         ></LetterSlide>

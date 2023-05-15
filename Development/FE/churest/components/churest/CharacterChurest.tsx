@@ -221,16 +221,19 @@ export default function CharacterChurest({
         onCollisionEnter={({ other }) => {
           if (other.colliderObject?.name == 'map') setIsFloor(true);
         }}
-        onCollisionExit={({ other }) => {
-          if (
-            other.colliderObject?.name == 'map' &&
-            (man1.current.translation().x < -30 ||
-              man1.current.translation().x > 30 ||
-              man1.current.translation().z < -30 ||
-              man1.current.translation().z > 30)
-          ) {
-            setIsFloor(false);
-          }
+        // onCollisionExit={({ other }) => {
+        //   if (
+        //     other.colliderObject?.name == 'map' &&
+        //     (man1.current.translation().x < -22 ||
+        //       man1.current.translation().x > 22 ||
+        //       man1.current.translation().z < -22 ||
+        //       man1.current.translation().z > 22)
+        //   ) {
+        //     setIsFloor(false);
+        //   }
+        // }}
+        onIntersectionExit={({ other }) => {
+          other.colliderObject?.name == 'mapSensor' && setIsFloor(false);
         }}
         rotation={[0, look, 0]}
       >
