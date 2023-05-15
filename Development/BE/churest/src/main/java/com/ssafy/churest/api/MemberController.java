@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("my Member Controller API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/member")
+@RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
 
@@ -74,12 +74,12 @@ public class MemberController {
         }
     }
 
-    @ApiOperation(value = "test", notes = "test")
-    @GetMapping("/test")
-    public ResponseEntity<?> test(@RequestParam String code) {
+    @ApiOperation(value = "fcm 수정 ", notes = "fcm 토큰을 받아 유저의 fcm 수정")
+    @PutMapping("/fcm")
+    public ResponseEntity<?> fcm(@RequestParam String fcm, @RequestParam int memberId) {
         try {
-
-            return new ResponseEntity<>(code, HttpStatus.OK);
+            memberService.updateFcm(fcm, memberId);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
