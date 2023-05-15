@@ -34,6 +34,7 @@ public class TagServiceImpl implements TagService {
             Board board = boardRepository.findByBoardId(tag.getBoard().getBoardId());
             tagInfoList.add(TagResponseDto.TagInfo.builder()
                             .tagId(tag.getTagId())
+                            .treeId(board.getTree().getTreeId())
                             .boardId(board.getBoardId())
                             .title(board.getTitle())
                             .createdTime(board.getCreatedTime())

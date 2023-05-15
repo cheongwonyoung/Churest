@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("birdController API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/bird")
+@RequestMapping("/api/bird")
 public class BirdController {
 
     private final BirdService birdService;

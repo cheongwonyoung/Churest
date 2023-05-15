@@ -22,7 +22,7 @@ import java.util.List;
 @Api("ForestController API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/forest")
+@RequestMapping("/api/forest")
 public class ForestController {
 
     private final ForestService forestService;
