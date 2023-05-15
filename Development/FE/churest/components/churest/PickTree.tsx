@@ -21,6 +21,14 @@ export default function PickTree({
   minusPage,
   page,
 }: Props) {
+
+  const treeInfo = [
+    {name:"나무1", desc:"나무1임; 유태야 해줘"}, {name:"나무2", desc:"나무2임; 유태야 해줘"}, {name:"나무3", desc:"나무3임; 유태야 해줘"}, 
+    {name:"나무4", desc:"나무4임; 유태야 해줘"}, {name:"나무5", desc:"나무5임; 유태야 해줘"}, {name:"나무6", desc:"나무6임; 유태야 해줘"},
+    {name:"나무7", desc:"나무7임; 유태야 해줘"}, {name:"나무8", desc:"나무8임; 유태야 해줘"}, {name:"나무9", desc:"나무9임; 유태야 해줘"},   
+  ];
+
+
   return (
     <div className="inputBox">
       <div className="left left-add">
@@ -57,13 +65,12 @@ export default function PickTree({
           <div>
             <div className="name-box">
               <p className="name-class">이름 :</p>
-              <p className="tree-info">슈퍼레드불</p>
+              <p className="tree-info">{treeInfo[page-1].name}</p>
             </div>
             <div className="name-box">
               <p className="name-class">설명 :</p>
               <p className="tree-info">
-                얇은 나뭇가지를 가졌지만 빨갛고 커다란 열매를 맺는 것이
-                특징이다.
+                {treeInfo[page-1].desc}
               </p>
             </div>
           </div>
