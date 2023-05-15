@@ -117,7 +117,7 @@ export default function Notice({ memberId }: Props) {
                   }}
                 >
                   <div className="image">
-                    <div className="notice-profile center">
+                    <div className="notice-profile">
                       <Image
                         src={images['avatar_' + notice.avatar + '_img']}
                         alt=""
@@ -155,7 +155,7 @@ export default function Notice({ memberId }: Props) {
             padding: 5% 0;
           }
           .notice-item {
-            width: 360px;
+            width: 340px;
             background: linear-gradient(
                 317.7deg,
                 rgba(228, 228, 228, 0.104) 0%,
@@ -163,7 +163,7 @@ export default function Notice({ memberId }: Props) {
               ),
               #f7faff;
             background-blend-mode: soft-light, normal;
-            box-shadow: -5px -5px 10px #fafbff,
+            box-shadow: -5px -5px 10px #f1f1f1,
               5px 5px 10px rgba(166, 171, 189, 0.29);
             border-radius: 10px;
           }
@@ -173,10 +173,13 @@ export default function Notice({ memberId }: Props) {
             cursor: pointer;
           }
           .notice-profile {
-            width: 80px;
+            width: 70px;
             height: 70px;
             border-radius: 100px;
-            margin-left: 15%;
+            margin-left: 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
           .item {

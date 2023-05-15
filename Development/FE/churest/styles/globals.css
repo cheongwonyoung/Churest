@@ -42,7 +42,7 @@ body {
 }
 
 .modal-container-scroll {
-  width: 460px;
+  width: 400px;
   height: 480px;
   display: flex;
   flex-direction: column;
