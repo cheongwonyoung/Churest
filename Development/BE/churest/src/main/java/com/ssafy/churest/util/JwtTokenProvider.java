@@ -82,6 +82,7 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest req) {
         return req.getHeader("X-AUTH-TOKEN");
+
     }
 
     // Jwt Token의 유효성 및 만료 기간 검사
