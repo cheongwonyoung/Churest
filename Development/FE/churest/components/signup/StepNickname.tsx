@@ -51,11 +51,11 @@ export default function StepNickname({
     <>
       <div>
         <div className="center img">
-          <Image src={images[pickedAvatar]} alt="" width={180} height={280} />
+          <Image src={images[pickedAvatar]} alt="" width={180} height={320} />
         </div>
         <input
           placeholder="닉네임을 입력해주세요 (최대 6자)"
-          className="inside-clay"
+          className="gray-clay"
           maxLength={6}
           minLength={1}
           value={nickname}
@@ -91,15 +91,10 @@ export default function StepNickname({
           text-align: center;
           margin: 50px 0 5px 0;
         }
-        input::placeholder {
-          color: rgba(169, 162, 214, 1);
-          font-size: 16px;
-          line-height: 40px;
-        }
         input:focus {
-          outline: none;
-          border-color: #ff97d3;
-          box-shadow: inset 0 1px 4px #c7daff, 0 0 20px 2px #c7daff;
+          background: rgba(175, 186, 206, 0.11);
+          box-shadow: inset -5px -2px 4px #ffffff, inset 3px 3px 10px #bac3df;
+          border-radius: 20px;
         }
         .check-alert {
           color: red;

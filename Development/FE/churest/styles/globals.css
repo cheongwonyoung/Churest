@@ -114,6 +114,12 @@ body {
   border-radius: 12px;
   visibility: visible;
 }
+
+.green-btn:hover {
+  cursor: pointer;
+  color: black;
+}
+
 .disable-btn {
   cursor: not-allowed;
   color: white;

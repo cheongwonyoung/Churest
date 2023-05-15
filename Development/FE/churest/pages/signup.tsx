@@ -139,9 +139,10 @@ export default function SignUpPage() {
           width: 100%;
           height: 100vh;
           display: flex;
-          flex-direction: column;
           align-items: center; /* 수직 정렬 */
           justify-content: center; /* 수평 정렬 */
+          margin: 0px auto;
+	        background: radial-gradient( circle, #fff5e0 20%, white, white );
         }
       `}</style>
     </>

@@ -13,25 +13,28 @@ export default function StepAvatart({
 }: Props) {
   return (
     <>
-      <div className="">
-        <div className="">
-          <h1 className="center font-bold">원하는 캐릭터를 선택해주세요</h1>
-          <div className="center">
-            <AvatarList
-              handlePickedAvatar={handlePickedAvatar}
-              pickedAvatar={pickedAvatar}
-            />
-          </div>
-          <div className="center">
-            <NextBtn
-              comment={'NEXT'}
-              type={pickedAvatar ? 'show' : 'hidden'}
-              logic={plusPage}
-            />
-          </div>
+      <div className="avatar-container">
+        <h1 className="center font-bold">원하는 캐릭터를 선택해주세요</h1>
+        <div className="center">
+          <AvatarList
+            handlePickedAvatar={handlePickedAvatar}
+            pickedAvatar={pickedAvatar}
+          />
+        </div>
+        <div className="center">
+          <NextBtn
+            comment={'NEXT'}
+            type={pickedAvatar ? 'show' : 'hidden'}
+            logic={plusPage}
+          />
         </div>
       </div>
-      <style jsx>{``}</style>
+      <style jsx>{`
+        .avatar-container{
+          padding-top: 30px;
+          padding-bottom: 30px;
+        } 
+        `}</style>
     </>
   );
 }

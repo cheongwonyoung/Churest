@@ -31,7 +31,7 @@ export default function AvatarItem({
   // };
 
   const clickStyle = () => {
-    if (Avatar === pickedAvatar) return 'inside-clay signup-item';
+    if (Avatar === pickedAvatar) return 'yellow-clay-custom signup-item';
     return 'gray-clay signup-item';
   };
 
@@ -46,19 +46,31 @@ export default function AvatarItem({
           id={Avatar}
           src={images[Avatar]}
           alt=""
-          width={120}
-          height={170}
+          width={100}
+          height={180}
         />
       </div>
       <style jsx>{`
         .signup-item {
-          width: 250px;
-          height: 300px;
-          margin: 30px;
+          width: 200px;
+          height: 250px;
           display: flex;
           justify-content: center;
           align-items: center;
           cursor: pointer;
+        }
+        .yellow-clay-custom {
+          cursor: pointer;
+          border-radius: 20px;
+          background: #fff5e0;
+          box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1),
+            inset 4px 4px 4px 4px #ffffff,
+            inset 6px 6px 20px 6px rgba(255, 255, 255, 0.7);
+        }
+        .signup-item:hover {
+          background: rgba(175, 186, 206, 0.11);
+          box-shadow: inset -5px -2px 4px #ffffff, inset 3px 3px 10px #bac3df;
+          border-radius: 12px;
         }
       `}</style>
     </>

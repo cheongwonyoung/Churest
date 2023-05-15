@@ -13,25 +13,28 @@ export default function StepBirdt({
 }: Props) {
   return (
     <>
-      <div className="">
-        <div className="">
-          <h1 className="center font-bold">원하는 새를 선택해주세요</h1>
-          <div className="center">
-            <BirdList
-              handlePickedBird={handlePickedBird}
-              pickedBird={pickedBird}
-            />
-          </div>
-          <div className="center">
-            <NextBtn
-              comment={'NEXT'}
-              type={pickedBird ? 'show' : 'hidden'}
-              logic={plusPage}
-            />
-          </div>
+      <div className="bird-container">
+        <h1 className="center font-bold">원하는 새를 선택해주세요</h1>
+        <div className="center">
+          <BirdList
+            handlePickedBird={handlePickedBird}
+            pickedBird={pickedBird}
+          />
+        </div>
+        <div className="center">
+          <NextBtn
+            comment={'NEXT'}
+            type={pickedBird ? 'show' : 'hidden'}
+            logic={plusPage}
+          />
         </div>
       </div>
-      <style jsx>{``}</style>
+      <style jsx>{`
+        .bird-container {
+          padding-top: 30px;
+          padding-bottom: 30px;
+        }
+      `}</style>
     </>
   );
 }
