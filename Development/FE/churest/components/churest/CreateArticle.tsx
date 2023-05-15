@@ -1,5 +1,5 @@
 import WeatherPicker from './WeatherPicker';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ImgUploader from './ImgUploader';
 import TagPicker from './TagPicker';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -33,6 +33,13 @@ export default function CreateArticle({ treeId }: Props) {
   const [isCreate, setIsCreate] = useRecoilState(createArticleAtom);
 
   const [files, setFiles] = useState<File[]>([]);
+
+  const titleRef = useRef(null);
+  const contentRef = useRef(null);
+  const dateRef = useRef(null);
+
+  const dateNow = new Date();
+  const today = dateNow.toISOString().slice(0,10);
 
   const addFiles = (acceptedFiles: any) => {
     setFiles([
@@ -97,6 +104,7 @@ export default function CreateArticle({ treeId }: Props) {
         showConfirmButton: false,
         timer: 1000,
       });
+      //  refetch();
     },
     onError(error, variables, context) {
       console.log('넌 실패밖에 모르는 하남자야');
@@ -108,24 +116,58 @@ export default function CreateArticle({ treeId }: Props) {
   const spot = isCreate.spot;
   const memberId = useRecoilValue(loginAtom).id;
   const createArticle = () => {
-    const formData = new FormData();
-    Object.values(files).forEach((file) => {
-      formData.append('fileList', file);
-    });
-    const tagList = pickedTag.map((picked) => picked['memberId']);
-    const writeInfo = {
-      content: data.content,
-      spot,
-      memberId,
-      tagList,
-      title: data.title,
-      weather,
-      date: data.date,
-      treeId,
-    };
-    console.log(treeId);
-    formData.append('writeInfo', JSON.stringify(writeInfo));
-    submit({ formData });
+    console.log("추억 심기 클릭");
+
+    if(data.title == ""){      //  제목 필수
+      titleRef.current.focus();
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: '제목을 입력해주세요.',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
+    else if(data.content == ""){      //  내용 필수
+      contentRef.current.focus();
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: '내용을 입력해주세요.',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
+    else if(data.date == "") {      //  날짜 필수
+      dateRef.current.focus();
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: '날짜를 입력해주세요.',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
+    else{
+      const formData = new FormData();
+      Object.values(files).forEach((file) => {
+        formData.append('fileList', file);
+      });
+      const tagList = pickedTag.map((picked) => picked['memberId']);
+      const writeInfo = {
+        content: data.content,
+        spot,
+        memberId,
+        tagList,
+        title: data.title,
+        weather,
+        date: data.date,
+        treeId,
+      };
+      console.log(treeId);
+      formData.append('writeInfo', JSON.stringify(writeInfo));
+      submit({ formData });
+    }
   };
 
   return (
@@ -139,6 +181,7 @@ export default function CreateArticle({ treeId }: Props) {
             placeholder="어떤 추억인가요?"
             name="title"
             value={data.title}
+            ref = {titleRef}
             onChange={(e) => handleData(e)}
           />
         </div>
@@ -150,6 +193,8 @@ export default function CreateArticle({ treeId }: Props) {
               type="date"
               name="date"
               value={data.date}
+              max = {today}
+              ref = {dateRef}
               onChange={(e) => handleData(e)}
             />
           </div>
@@ -174,6 +219,7 @@ export default function CreateArticle({ treeId }: Props) {
             className="content"
             name="content"
             value={data.content}
+            ref = {contentRef}
             onChange={(e) => handleData(e)}
             placeholder="무슨 일이 있었나요?"
           />

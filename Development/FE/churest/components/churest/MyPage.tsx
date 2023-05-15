@@ -27,16 +27,14 @@ export default function MyPage() {
   // 방문 츄레스트 id
   const router = useRouter();
   const churestId: number = Number(router.query.id);
-
-  if (churestId == useRecoilValue(loginAtom).id) {
-    memberId = churestId;
-  }
+  console.log('이곳은' + churestId);
 
   const { data, refetch } = useQuery(
     'mypage',
-    () => getMyInfo(Number(memberId)),
+    () => getMyInfo(Number(churestId)),
     {
       onSuccess(data) {
+        console.log('마이페이징');
         console.log(data.data);
       },
       onError: (error) => {
@@ -114,7 +112,7 @@ export default function MyPage() {
           }
           .memory-title {
             text-align: center;
-            line-height: 50px;
+            line-height: 80px;
             font-size: 18px;
             font-weight: bold;
           }
