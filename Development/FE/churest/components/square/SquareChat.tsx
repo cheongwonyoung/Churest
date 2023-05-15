@@ -7,19 +7,16 @@ import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
 import SquareChatList from './SquareChatList';
 import { disconnect } from 'process';
-// import { subscribe } from 'diagnostics_channel';
 
 export default memo(function SquareChat() {
   // const baseURL = 'ws://localhost:8080/api/chat/websocket';
   const baseURL = 'ws://k8a505.p.ssafy.io/chat/websocket';
-  // const baseURL = 'http://localhost:8080/api/ws/chat';
-  const nickname = useRecoilValue(loginAtom).nickname;
+  const nickname = useRecoilValue(loginAtom)!.nickname;
   const client: any = useRef({});
   const roomId = 1;
   const [message, setMessage] = useState('');
-  // const [messageList, setMessageList] = useState(['']);
-  const [messageList, setMessageList] = useState<{[key: string]: any}[]>([]);
-
+  const [connected, setConnected] = useState(false);
+  const [messageList, setMessageList] = useState<{ [key: string]: any }[]>([]);
 
   const connect = () => {
     // 연결할 때
@@ -30,11 +27,9 @@ export default memo(function SquareChat() {
         password: 'password',
       },
       onConnect: () => {
-        // setConnectd(true);
-        console.log('연결댐');
-        console.log('이 몸 등장 ' + nickname);
+        setConnected(true);
         subscribe(); // 연결 성공 시 구독하는 로직 실행
-        
+
         //  입장하였습니다. json_body로 받기 위해서 추가함
         sendEnterMessage(nickname);
       },
@@ -48,20 +43,25 @@ export default memo(function SquareChat() {
   const subscribe = () => {
     client.current.subscribe('/sub/chat/room/' + roomId, (body: any) => {
       const json_body = JSON.parse(body.body);
-      console.log(json_body);
-
       setMessageList((messageList: any[]) => [json_body, ...messageList]);
-      console.log(messageList.length);
     });
+  };
+  const disConnect = () => {
+    if (connected) {
+      client.current.deactivate();
+      setConnected(false);
+    }
   };
 
   useEffect(() => {
     connect();
-    return () => {disconnect();};
+    return () => {
+      disConnect();
+    };
   }, []);
 
   const sendEnterMessage = (sender: string) => {
-    console.log("입장 메세지 전송 " + sender );
+    console.log('입장 메세지 전송 ' + sender);
     client.current.publish({
       destination: '/pub/chat/message',
       body: JSON.stringify({
@@ -71,7 +71,7 @@ export default memo(function SquareChat() {
         message: '',
       }),
     });
-  }
+  };
 
   const sendMessage = (message: string) => {
     client.current.publish({
@@ -85,7 +85,7 @@ export default memo(function SquareChat() {
       }),
     });
     //  메세지 보내고 SquareChatInp 빈칸 만들기
-    setMessage("");
+    setMessage('');
   };
 
   const changeMsg = useCallback((e: any) => {
@@ -96,7 +96,7 @@ export default memo(function SquareChat() {
     <div>
       <p>메시지</p>
       <div className="chat-box">
-        <SquareChatList messages = {messageList?.slice(0).reverse()}/>
+        <SquareChatList messages={messageList?.slice(0).reverse()} />
         <SquareChatInp
           message={message}
           changeMsg={changeMsg}
