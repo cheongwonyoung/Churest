@@ -14,7 +14,7 @@ export default function ChoosePosition({ occupied }: Props) {
   const [points, setpoints] = useState(spots);
 
   useEffect(() => {
-    occupied.map((spot) => {
+    occupied?.map((spot) => {
       setpoints((prev) => {
         return {
           ...prev,
