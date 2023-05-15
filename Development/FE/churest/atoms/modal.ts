@@ -70,7 +70,7 @@ export const openSearchAtom = atom<openAlarm>({
 });
 
 // 우체통 모달
-export const letterBoxAtom = atom<openAlarm>({
+export const letterBoxAtom = atom<postBox>({
   key: 'letterBox',
   default: {
     isModal: false,

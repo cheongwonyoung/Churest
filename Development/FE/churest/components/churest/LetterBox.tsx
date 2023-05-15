@@ -12,27 +12,23 @@ import LetterCreate from './LetterCreate';
 export default function LetterBox() {
   const router = useRouter();
   const churestId = Number(router.query.id);
-  const memberId: number = useRecoilValue(loginAtom).id;
+  const memberId = useRecoilValue(loginAtom).id;
 
   // 나의 우편함 편지 목록
   const [showInputModal, setInputModal] = useState(false);
   const { data, refetch } = useQuery(
     'myLetters',
-    () => getLetterList(Number(churestId)),
+    () => getLetterList(churestId),
     {
       onSuccess(data) {
-        console.log('편지목록');
-        console.log(...data.data);
-        console.log('편지갯수는');
+        console.log('hi');
         console.log(data.data.length);
-        if (data.data.length == 0) {
-          showAlert('편지가 아직 없어요');
-          if (memberId == churestId) {
-            closeModal();
-          } else {
-            setInputModal(true);
-          }
-        }
+        // if (data.data.length == 0) {
+        //   if (memberId == churestId) {
+        //     showAlert('편지가 아직 없어요');
+        //     closeModal();
+        //   }
+        // }
       },
       onError: (error) => {
         console.log('에러다');
@@ -47,7 +43,6 @@ export default function LetterBox() {
 
   const [isLetterOpen, setIsLetterOpen] = useRecoilState(letterBoxAtom);
   const closeModal = () => {
-    console.log(isLetterOpen);
     setIsLetterOpen({ isModal: false });
   };
 
@@ -63,15 +58,20 @@ export default function LetterBox() {
 
   return (
     <>
-      {data?.data && data?.data.length == 0 ? (
+      {data && data?.data.length === 0 && churestId !== memberId && (
         <LetterCreate closeModal={closeModal} refetch={refetch}></LetterCreate>
-      ) : (
+      )}
+      {data && data?.data.length > 0 && (
         <LetterSlide
-          letters={data?.data}
+          letters={data!.data}
           refetch={refetch}
           closeModal={closeModal}
         ></LetterSlide>
       )}
+      {data &&
+        data?.data.length === 0 &&
+        churestId === memberId &&
+        (showAlert('편지가 없어요'), closeModal())}
       <style jsx>{``}</style>
     </>
   );

@@ -229,7 +229,12 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         console.log(e.name);
         console.log(typeof e.name);
 
-        const name = e.name + '를 구매하시겠습니까?';
+        let name = '';
+        if (itemCategoryName == 'bird') {
+          name = e.name + '를 구매하시겠습니까?';
+        } else {
+          name = e.name + '을 구매하시겠습니까?';
+        }
         Swal.fire({
           title: name,
           icon: 'warning',
@@ -256,7 +261,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
           }
         });
       } else {
-        alert('잔액이 부족하여 구매할 수 없습니다.');
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '잔액이 부족하여 구매할 수 없습니다.',
+          showConfirmButton: false,
+          timer: 1000,
+        });
       }
     }
   };

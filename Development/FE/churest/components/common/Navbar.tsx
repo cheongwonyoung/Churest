@@ -9,9 +9,7 @@ import {
   openShopAtom,
 } from '@/atoms/modal';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
-import { getAlarm } from '@/apis/alarm';
-import { useEffect } from 'react';
+
 type Props = {
   types: string;
 };
@@ -26,11 +24,6 @@ export default function Navbar({ types }: Props) {
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
-
-  const { data, refetch } = useQuery('getNotice', () => getAlarm(id));
-  useEffect(() => {
-    refetch();
-  }, []);
 
   return (
     <div className="navbarContainer">
@@ -90,13 +83,20 @@ export default function Navbar({ types }: Props) {
           setIsAlarmOpen({ isModal: true });
         }}
       >
+        <NavbarButton image="alarm_navbar_img" title="알림함" />
+      </div>
+      {/* <div
+        onClick={() => {
+          setIsAlarmOpen({ isModal: true });
+        }}
+      >
         {data?.data.length ? (
           <NavbarButton image="alarm_navbar_img" title="알림함" />
         ) : (
           // 여기에 그 ping 한 머시기
           <NavbarButton image="alarm_navbar_img" title="알림" />
         )}
-      </div>
+      </div> */}
 
       {/* 5. 태그 모아보기  */}
       <div

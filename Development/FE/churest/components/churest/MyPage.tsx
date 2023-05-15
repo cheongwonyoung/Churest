@@ -98,13 +98,14 @@ export default function MyPage() {
       <style jsx>
         {`
           .mypage-container {
-            width: 600px;
-            height: 460px;
+            width: 650px;
+            height: 470px;
             overflow-x: hidden;
             overflow-y: auto;
             z-index: 50;
           }
           .mine {
+            width: 370px;
             justify-content: center;
             align-items: center;
           }
@@ -121,7 +122,7 @@ export default function MyPage() {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 100px;
+            gap: 3%;
           }
           .nickname-box {
             justify-content: center;
