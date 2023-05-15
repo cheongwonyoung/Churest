@@ -289,15 +289,14 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         key={item.name}
         id={item.name}
         onClick={() => handleItem(item)}
-        style={{ margin: '30px' }}
+        className="item-box"
       >
         <Image
           src={images[itemCategoryName + '_' + (idx + 1) + '_img']}
           alt={item.name}
           id={item.name}
-          width={100}
-          height={100}
-          style={{ marginBottom: '20px' }}
+          width={70}
+          height={90}
         />
 
         {item.isOwn ? (
@@ -324,6 +323,17 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
             justify-content: center;
             display: flex;
           }
+          .item-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+          }
+          .item-box:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s;
+            cursor: pointer;
+          }
           .btn {
             cursor: pointer;
             border-radius: 205px;
@@ -332,8 +342,8 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
               inset 4px 4px 4px 4px #ffffff,
               inset 6px 6px 20px 6px rgba(255, 255, 255, 0.7);
             font-weight: bold;
-            height: 40px;
-            width: 80px;
+            height: 30px;
+            width: 100px;
             text-align: center;
             align-items: center;
             justify-content: center;
@@ -346,18 +356,16 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
 
   return (
     <>
-      <div className="">
+      <div className="container">
         <div className="price">
           <Image
             src={images['coin_navbar_img']}
             alt=""
-            width={30}
-            height={30}
-            style={{ margin: '0 10px 0 0' }}
+            width={40}
+            height={40}
           />
           {coin}
         </div>
-
         <div className="item-grid">{itemList()}</div>
       </div>
       <style jsx>{`
@@ -365,6 +373,8 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
           display: grid;
           grid-template-columns: 1fr 1fr 1fr 1fr;
           place-items: center;
+          row-gap: 15px;
+          column-gap: 60px;
         }
         .price {
           text-align: center;
@@ -372,6 +382,17 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
           align-items: center;
           justify-content: center;
           display: flex;
+          position: absolute;
+          top: -70px;
+          left: -70px;
+          font-size: 20px;
+          gap: 10px;
+        }
+        .container {
+          min-height: 270px;
+          margin-left: 100px;
+          margin-right: 100px;
+          position: relative;
         }
       `}</style>
     </>

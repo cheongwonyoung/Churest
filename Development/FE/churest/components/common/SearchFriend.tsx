@@ -6,7 +6,9 @@ import SearchResult from './SearchResult';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { openSearchAtom } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
-import { BsSearchHeart } from 'react-icons/bs';
+import Image from 'next/image';
+import { images } from '@/public/assets/images';
+
 interface ResultType {
   memberId: number;
   avatarId: number;
@@ -52,7 +54,13 @@ export default function SearchFriend() {
         {/* {isSearchOpen && <ModalBlackBg closeModal={closeModal} />} */}
         <div className="blue-clay modal-container ">
           <div className="modal-title">
-            <BsSearchHeart /> 친구 검색
+            <Image
+              src={images.search_navbar_img}
+              width={35}
+              height={35}
+              alt=""
+            />{' '}
+            친구 검색
           </div>
           <input
             placeholder="닉네임을 입력해주세요"
