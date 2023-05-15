@@ -88,19 +88,20 @@ public class BoardServiceImpl implements BoardService {
             String message = "님이 '"+ writeInfo.getTitle() + "' 추억에 회원님을 태그했습니다.";
 
 
-
+            // notice table 저장
+            Member targetMember = memberRepository.findByMemberId(tagMemberId);
+            int noticeId = noticeRepository.save(new Notice(targetMember, member, board,  false, message)).getNoticeId();
 
             // fcm 전송
             FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder()
                     .fromUserId(writeInfo.getMemberId())
                     .targetUserId(tagMemberId)
-                    .title(message)
+                    .title(member.getNickname()+message)
+                    .noticeId(noticeId)
                     .build();
             fcmNotificationService.sendNotificationByToken(requestDto);
 
-            // notice table 저장
-            Member targetMember = memberRepository.findByMemberId(tagMemberId);
-            noticeRepository.save(new Notice(targetMember, member, board,  false, message));
+
 
         }
 
@@ -190,9 +191,9 @@ public class BoardServiceImpl implements BoardService {
                 for(int i=0; i<memberList.size(); i++){
                     Member member = memberList.get(i);
                     int target = member.getMemberId();
-                    FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).title("'"+board.getTitle()+"'이 나무로 성장했어요.").build();
+                    int noticeId = noticeRepository.save(Notice.builder().toMember(member).fromMember(member).board(board).content("'"+board.getTitle()+"'이 나무로 성장했어요.").isChecked(false).build()).getNoticeId();
+                    FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).noticeId(noticeId).title("'"+board.getTitle()+"'이 나무로 성장했어요.").build();
                     fcmNotificationService.sendNotificationByToken(requestDto);
-                    noticeRepository.save(Notice.builder().toMember(member).fromMember(member).board(board).content("'"+board.getTitle()+"'이 나무로 성장했어요.").isChecked(false).build());
                 }
 
             }
