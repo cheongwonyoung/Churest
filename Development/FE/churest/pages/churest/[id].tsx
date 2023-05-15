@@ -1,8 +1,8 @@
 import { Canvas } from '@react-three/fiber';
 import { useEffect, useState } from 'react';
 import Churest3D from '@/components/churest/Churest3D';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { createArticleAtom, spaceModalAtom } from '@/atoms/modal';
+import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
+import { createArticleAtom, spaceModalAtom, tutorialAtom } from '@/atoms/modal';
 import Navbar from '@/components/common/Navbar';
 import MemoryButton from '@/components/churest/MemoryButton';
 import { loginAtom } from '@/atoms/login';
@@ -35,6 +35,8 @@ export default function Garden() {
 
   const [resetPosition, setResetPosition] = useState(true);
 
+  const [isTutorialOpen, setIsTutorialOpen] = useRecoilState(tutorialAtom);
+
   return (
     <div className="gogo">
       <Navbar types="churest" />
@@ -46,13 +48,19 @@ export default function Garden() {
         </div>
       )}
       <div className="btn-box">
-        <div onClick={() => setAutoView((prev) => !prev)}>
+        <div className = "btn" onClick={() => setAutoView((prev) => !prev)}>
           <Image src={images['pin_focus_img']} width={80} height={80} alt="" />
           AutoFocus
         </div>
-        <div onClick={() => setResetPosition((prev) => !prev)}>
+        <div className = "btn" onClick={() => setResetPosition((prev) => !prev)}>
           <Image src={images['pin_home_img']} width={80} height={80} alt="" />
           집으로 가기
+        </div>
+      </div>
+      <div className='btn-tutorial'>
+      <div className = "btn" onClick={() => setIsTutorialOpen({ isModal: true })}>
+          <Image src={images['tutorial_navbar_img']} width={80} height={80} alt="" />
+          튜토리얼
         </div>
       </div>
       {churestId === memberId && (
@@ -129,6 +137,33 @@ export default function Garden() {
             display: flex;
             flex-direction: column;
             margin-right: 20px;
+            gap: 10px;
+          }
+          .btn {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 60px 60px 80px rgba(254, 255, 193, 0.55),
+          }
+          .btn:hover{
+            cursor: pointer;
+            transform: scale(1.10);
+            transition: transform 0.5s;
+          }
+          .btn-tutorial {
+            position: absolute;
+            left: 40px;
+            top: 180px;
+            z-index: 100;
+            display: flex;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+          }
+          .btn-tutorial div {
+            display: flex;
             gap: 10px;
           }
         `}
