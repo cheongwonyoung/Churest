@@ -10,10 +10,12 @@ import com.ssafy.churest.entity.Notice;
 import com.ssafy.churest.repository.MemberRepository;
 import com.ssafy.churest.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class FCMNotificationService {
 
     private final FirebaseMessaging firebaseMessaging;
@@ -25,14 +27,10 @@ public class FCMNotificationService {
         Member toMember = memberRepository.findByMemberId(requestDto.getTargetUserId());
         Member fromMember = memberRepository.findByMemberId(requestDto.getFromUserId());
 //        알림 생성해서 저장
-        Notice notice = Notice.builder()
-                .fromMember(fromMember)
-                .toMember(toMember)
-                .content(requestDto.getTitle())
-                .build();
+        Notice notice = noticeRepository.findById(requestDto.getNoticeId()).get();
 
         // 유저가 존재하는지
-        if(toMember==null){
+        if(toMember!=null){
             // 토큰이 발급된 사람인지 확인
             if(toMember.getFcmToken() != null) {
                 Notification notification = Notification.builder()
@@ -41,10 +39,9 @@ public class FCMNotificationService {
                         .build();
 
                 Message message = Message.builder()
-                        .setToken(toMember.getToken())
+                        .setToken(toMember.getFcmToken())
                         .setNotification(notification)
                         .build();
-
                 try {
                     firebaseMessaging.send(message);
                     return "알림을 성공적으로 전송했습니다. targetUserId=" + requestDto.getTargetUserId();

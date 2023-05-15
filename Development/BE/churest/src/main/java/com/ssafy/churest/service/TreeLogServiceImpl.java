@@ -61,13 +61,13 @@ public class TreeLogServiceImpl implements TreeLogService {
 //            알림 전송
             for(int i=0; i<memberList.size(); i++){
                 Member member = memberList.get(i);
-                int target = member.getMemberId();
-                FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).title("'"+recentTreeLog.getBoard().getTitle()+"'이 나무로 성장했어요.").build();
-
-                fcmNotificationService.sendNotificationByToken(requestDto);
                 Board board = boardRepository.findByBoardId(boardId);
+                int noticeId = noticeRepository.save(Notice.builder().toMember(member).fromMember(member).board(board).content("'"+recentTreeLog.getBoard().getTitle()+"'이 나무로 성장했어요.").isChecked(false).build()).getNoticeId();
 
-                noticeRepository.save(Notice.builder().toMember(member).fromMember(member).board(board).content("'"+recentTreeLog.getBoard().getTitle()+"'이 나무로 성장했어요.").isChecked(false).build());
+
+                int target = member.getMemberId();
+                FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).noticeId(noticeId).title("'"+recentTreeLog.getBoard().getTitle()+"'이 나무로 성장했어요.").build();
+                fcmNotificationService.sendNotificationByToken(requestDto);
             }
 
 

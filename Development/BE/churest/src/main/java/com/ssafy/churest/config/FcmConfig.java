@@ -18,7 +18,7 @@ public class FcmConfig {
     @Bean
     public FirebaseMessaging firebaseMessaging() throws IOException {
         // EC2 resources 폴더 절대 경로
-        ClassPathResource resource = new ClassPathResource("fcm/churest-83cc0-firebase-adminsdk-euvyx-fe252122f7.json");
+        ClassPathResource resource = new ClassPathResource("fcm/churest-83cc0-firebase-adminsdk-euvyx-0c3a98f8e9.json");
 
         InputStream refreshToken = resource.getInputStream();
 
