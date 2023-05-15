@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import StepFaceResult from '../components/signUp/StepFaceResult';
 import { signUp } from '@/apis/login';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -12,6 +12,16 @@ import Swal from 'sweetalert2';
 import { loginAtom } from '@/atoms/login';
 
 export default function SignUpPage() {
+  // const [fcmToken, setFcmToken] = useState('');
+  // useEffect(() => {
+  //   async function getMessageToken() {
+  //     const token = await getFcm();
+  //     console.log('토쿠토큰');
+  //     setFcmToken(token);
+  //   }
+  //   getMessageToken();
+  // }, []);
+
   // 회원가입 입력 단계
   const [page, setPage] = useState(0);
   const plusPage = () => {
@@ -87,7 +97,7 @@ export default function SignUpPage() {
 
   const token: string = useRecoilValue(loginAtom).accessToken;
   const memberId: Number | null = useRecoilValue(loginAtom).id;
-
+  const fcmToken: string = useRecoilValue(loginAtom).fcmToken;
   const showAlert = (text: string) => {
     Swal.fire({
       position: 'center',
@@ -110,6 +120,7 @@ export default function SignUpPage() {
       avatarId: Number(avatarId),
       birdId: Number(birdId),
       birdNickname: birdname,
+      fcmToken: fcmToken,
       memberId: memberId,
       nickname: nickname,
     };
@@ -126,6 +137,7 @@ export default function SignUpPage() {
         ...userInfo,
         avatarId: data.data.avatarId,
         nickname: data.data.nickname,
+        fcmToken: fcmToken,
       });
       router.push('/churest/' + userInfo.id);
     },
@@ -139,10 +151,9 @@ export default function SignUpPage() {
           width: 100%;
           height: 100vh;
           display: flex;
+          flex-direction: column;
           align-items: center; /* 수직 정렬 */
           justify-content: center; /* 수평 정렬 */
-          margin: 0px auto;
-	        background: radial-gradient( circle, #fff5e0 20%, white, white );
         }
       `}</style>
     </>
