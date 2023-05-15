@@ -26,12 +26,11 @@ export default function MyPage() {
 
   // 방문 츄레스트 id
   const router = useRouter();
-  const churestId: number = Number(router.query.id);
-  console.log('이곳은' + churestId);
+  const id = useRecoilValue(loginAtom).id;
 
   const { data, refetch } = useQuery(
     'mypage',
-    () => getMyInfo(Number(churestId)),
+    () => getMyInfo(Number(id)),
     {
       onSuccess(data) {
         console.log('마이페이징');
@@ -81,7 +80,7 @@ export default function MyPage() {
                   </p>
                 </div>
               ) : (
-                <div>
+                <div className="memory-container">
                   <div className="memory-title">추억 모아보기</div>
                   <Carousel
                     cardType={cardType}
@@ -97,7 +96,7 @@ export default function MyPage() {
         {`
           .mypage-container {
             width: 650px;
-            height: 470px;
+            height: 440px;
             overflow-x: hidden;
             overflow-y: auto;
             z-index: 50;
@@ -112,15 +111,21 @@ export default function MyPage() {
           }
           .memory-title {
             text-align: center;
-            line-height: 80px;
             font-size: 18px;
             font-weight: bold;
+            margin-top: 20px;
+          }
+          .memory-container {
+            display: flex;
+            flex-direction: column;
+            justify-items: center;
+            width: 100%;
           }
           .mypage-content-box {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 3%;
+            min-height: 340px;
           }
           .nickname-box {
             justify-content: center;
@@ -129,7 +134,6 @@ export default function MyPage() {
             margin-top: 30px;
           }
           .avatar-box {
-            margin-top: 30px;
           }
           .alarm-text {
             display: flex;
