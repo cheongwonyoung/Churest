@@ -25,6 +25,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 
 @Component
 @Getter
@@ -43,8 +44,7 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             //Token에서 Claim 꺼내기
-
-                log.info(request.getHeader("Authorization"));
+        log.info(request.getHeader("Authorization"));
 
 //            if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){      //header에 AUTHORIZATION이 없거나, Bearer로 시작하지 않으면 filter
 //                log.error("header가 없거나, 형식이 틀립니다. - {}", authorizationHeader);
