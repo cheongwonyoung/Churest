@@ -11,7 +11,8 @@ import {
   openShopAtom,
   newBirdAtom,
   createArticleAtom,
-  squareModalAtom
+  squareModalAtom,
+  tutorialAtom
 } from '@/atoms/modal';
 import Notice from '@/components/navbar/Notice';
 import Tag from '@/components/navbar/Tag';
@@ -26,6 +27,7 @@ import CreateArticle from '../churest/CreateArticle';
 import MemoryView from '../churest/MemoryView';
 import CreateBoox from '../churest/CreateBoox';
 import SquareDonate from '../square/SquareDonate';
+import Tutorial from '../churest/Tutorial';
 
 export default function Modals() {
   const id = useRecoilValue(loginAtom).id;
@@ -41,6 +43,7 @@ export default function Modals() {
   const [isCreate, setIsCreate] = useRecoilState(createArticleAtom); // 추억 생성 모달
   const [isMyTreeOpen, setIsMyTreeOpen] = useRecoilState(myTreeAtom); // 추억 나무 조회
   const [isDonateOpen, setIsDonateOpen] = useRecoilState(squareModalAtom); // 세계수 기부 현황 모달
+  const [isTutorialOpen, setIsTutorialOpen] = useRecoilState(tutorialAtom); //  튜토리얼 모달
 
   return (
     <div>
@@ -130,6 +133,16 @@ export default function Modals() {
           modal={<MemoryView boardId={isMyTreeOpen.boardId} />}
           closeModal={() =>
             setIsMyTreeOpen({ ...isMyTreeOpen, isModal: false })
+          }
+        />
+      )}
+
+      {/* 튜토리얼 모달 */}
+      {isTutorialOpen.isModal && (
+        <ModalBlackBg
+          modal={<Tutorial/>}
+          closeModal={() =>
+            setIsTutorialOpen({ ...isTutorialOpen, isModal: false })
           }
         />
       )}

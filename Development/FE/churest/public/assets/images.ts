@@ -72,6 +72,8 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/tag_navbar_img.png',
   chuworld_navbar_img:
     'https://storage.googleapis.com/churest-bucket/project_image/chuworld_navbar_img.png',
+  tutorial_navbar_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/tutorial_navbar_img.png',
   cloudy_img:
     'https://storage.googleapis.com/churest-bucket/project_image/cloudy_img.png',
   thunder_img:
@@ -125,5 +127,8 @@ export const images: Images = {
   branch_img: 
     'https://storage.googleapis.com/churest-bucket/project_image/branch_img.png', 
   loading: 
-  'https://storage.googleapis.com/churest-bucket/bird_move.gif', 
+    'https://storage.googleapis.com/churest-bucket/bird_move.gif', 
+  tutorial_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/tutorial.png',
+    
 };

@@ -116,3 +116,11 @@ export const myTreeAtom = atom<myTree>({
     boardId: 0,
   },
 });
+
+//  튜토리얼 모달
+export const tutorialAtom = atom({
+  key: 'tutorial',
+  default: {
+    isModal: false,
+  },
+})
