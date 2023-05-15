@@ -99,7 +99,7 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
             className="mySwiper"
             style={{ width: '30%' }}
           >
-            {letters.map((letter: any, idx: number) => {
+            {letters?.map((letter: any, idx: number) => {
               return (
                 <SwiperSlide key={idx} style={{ width: '400px' }}>
                   <div key={idx} className="letter letter-clay">
@@ -109,7 +109,7 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
                       보냄
                     </div>
                     {/* 작성자와 사용자 확인 여부 */}
-                    {letter.fromMember.memberId == memberId ? (
+                    {letter?.fromMember.memberId == memberId ? (
                       <div className="letter-buttons">
                         <button onClick={() => clickDeleteLetter(letter)}>
                           삭제
@@ -131,7 +131,7 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
             ></LetterCreate>
           </>
         )}
-        {letters.length != 0 && viewMode ? (
+        {letters?.length != 0 && viewMode ? (
           <div className="center">
             <div className="green-btn" style={{ margin: '10px' }}>
               <button onClick={handleModal} style={{ color: 'white' }}>

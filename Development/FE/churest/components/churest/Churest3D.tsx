@@ -1,11 +1,15 @@
 import { KeyboardControls, SoftShadows } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
-import { CylinderCollider, Physics, RigidBody } from '@react-three/rapier';
+import {
+  CuboidCollider,
+  CylinderCollider,
+  Physics,
+  RigidBody,
+} from '@react-three/rapier';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import CharacterChurest from './CharacterChurest';
 import ChoosePosition from './ChoosePosition';
 import { PostBox } from '../3DFiles/PostBox';
-import { ChurestMap } from '../3DFiles/ChurestMap';
 import { Tree3 } from '../3DFiles/Trees/Tree3';
 
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -30,7 +34,9 @@ import { spots } from '@/utils/spots';
 import { BirdHouses, Houses, Trees } from './Options';
 
 import Bird from './Bird';
-import { ChurestMap11 } from '../3DFiles/ChurestMap11';
+import { Sample } from '../3DFiles/Sample';
+import { Tile } from '../3DFiles/Tile';
+import { ChurestMap } from '../3DFiles/ChurestMapLast';
 
 export const Controls = {
   forward: 'forward',
@@ -61,7 +67,7 @@ export default function Churest3D({
     []
   );
 
-  const directionalLight = new DirectionalLight(0xffffff, 2);
+  const directionalLight = new DirectionalLight(0xffffff, 1.8);
   const gogo = useThree();
   useEffect(() => {
     directionalLight.position.set(20, 30, 16);
@@ -164,7 +170,7 @@ export default function Churest3D({
                 {/* 나의 집 3D end */}
 
                 {/* 우편함 3D start */}
-                <RigidBody position={[-4.5, 0, 4.5]} type="fixed">
+                <RigidBody position={[-4.5, 0, 0]} type="fixed">
                   <group onClick={() => setIsPostBoxOpen({ isModal: true })}>
                     <PostBox />
                   </group>
@@ -184,7 +190,7 @@ export default function Churest3D({
                 {/* 우편함 3D end */}
 
                 {/* 새집 3D start */}
-                <RigidBody position={[4.5, 0, 4.5]} type="fixed">
+                <RigidBody position={[4.5, 0, 0]} type="fixed">
                   <group onClick={() => setIsMyBirdOpen({ isModal: true })}>
                     {BirdHouses(data?.data.birdhouseId)}
                   </group>
@@ -235,9 +241,11 @@ export default function Churest3D({
                               boardId: tree.boardId,
                             })
                           }
+                          position={[0, 0.025, 0]}
                         >
                           {Trees(tree)}
                         </group>
+                        <Tile position={[0, -0.025, 0]} />
                         <CylinderCollider
                           sensor
                           args={[5, 2]}
@@ -265,16 +273,16 @@ export default function Churest3D({
               name="map"
               colliders="trimesh"
               type="fixed"
-              position={[0, -1, 0]}
+              position={[0, 0, 0]}
               friction={1}
             >
-              {/* <ChurestMap receiveShadow /> */}
-              <ChurestMap11 />
+              <ChurestMap />
+              <CuboidCollider sensor args={[22, 8, 22]} name="mapSensor" />
             </RigidBody>
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[35, -4, -42]}
+              position={[23, -4, -33]}
               rotation={[0, 0, 0]}
             >
               <Mountain />
@@ -282,7 +290,7 @@ export default function Churest3D({
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-10, -6, -42]}
+              position={[-2, -6, -34]}
               name="rock"
             >
               <Rock1 />
@@ -290,7 +298,7 @@ export default function Churest3D({
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-25, -6, -43]}
+              position={[-17, -6, -35]}
               name="rock"
             >
               <Rock2 />
@@ -298,7 +306,7 @@ export default function Churest3D({
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-42, -6, -25]}
+              position={[-34, -6, -17]}
               rotation={[0, Math.PI / 2, 0]}
               name="rock"
             >
@@ -307,7 +315,7 @@ export default function Churest3D({
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-43, -6, 0]}
+              position={[-35, -6, 8]}
               rotation={[0, Math.PI / 2, 0]}
               name="rock"
             >
@@ -316,7 +324,7 @@ export default function Churest3D({
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-43, -6, 20]}
+              position={[-35, -6, -28]}
               rotation={[0, (-Math.PI * 0.7) / 2, 0]}
               name="rock"
             >
@@ -325,7 +333,7 @@ export default function Churest3D({
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[46, -6, -13]}
+              position={[38, -6, -5]}
               rotation={[0, Math.PI, 0]}
               name="rock"
             >
@@ -334,7 +342,7 @@ export default function Churest3D({
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[45, -6, 18]}
+              position={[37, -6, 10]}
               rotation={[0, -Math.PI / 2, 0]}
               name="rock"
             >

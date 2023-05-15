@@ -42,7 +42,7 @@ export const glbs: glbs = {
     'https://storage.googleapis.com/churest-bucket/project_3D/Branch.glb',
   seed_glb: 'https://storage.googleapis.com/churest-bucket/project_3D/Seed.glb',
   sprout_glb:
-    'https://storage.googleapis.com/churest-bucket/project_3D/Sprout.glb',
+    'https://storage.googleapis.com/churest-bucket/project_3D/SproutSand.glb',
   char_1_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/Char1.glb',
   char_2_glb:
@@ -68,7 +68,7 @@ export const glbs: glbs = {
   plant_no_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/PlantNo.glb',
   churest_map_glb:
-    'https://storage.googleapis.com/churest-bucket/project_3D/ChurestMap.glb',
+    'https://storage.googleapis.com/churest-bucket/project_3D/ChurestMapLast.glb',
   mountain_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/Mountain.glb',
   rock_1_glb:
@@ -99,4 +99,5 @@ export const glbs: glbs = {
     'https://storage.googleapis.com/churest-bucket/project_3D/bird7.glb',
   churest_map_11_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/ChurestMap11x11.glb',
+  tile_glb: 'https://storage.googleapis.com/churest-bucket/project_3D/tile.glb',
 };

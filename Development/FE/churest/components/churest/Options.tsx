@@ -83,7 +83,7 @@ export function Trees(treeInfo: {
   if (treeInfo.score == 0) {
     return <Seed scale={3} />;
   } else if (treeInfo.score < 6) {
-    return <Sprout rotation={[0, Math.PI / 2, 0]} scale={3} />;
+    return <Sprout scale={3} />;
   } else if (treeInfo.score < 16) {
     return <Branch />;
   } else {

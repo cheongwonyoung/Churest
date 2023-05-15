@@ -37,7 +37,7 @@ export default function ChoosePosition({ occupied }: Props) {
                 name={point[0]}
                 position={[
                   point[1].x,
-                  hover == point[0] ? -6 : -6.48,
+                  hover == point[0] ? -5.8 : -6.2,
                   point[1].z,
                 ]}
                 onClick={(e: any) =>
@@ -59,7 +59,7 @@ export default function ChoosePosition({ occupied }: Props) {
             ) : (
               <PlantNo
                 name={point[0]}
-                position={[point[1].x, -6.48, point[1].z]}
+                position={[point[1].x, -6.2, point[1].z]}
               />
             )}
           </RigidBody>
