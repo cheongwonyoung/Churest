@@ -56,7 +56,7 @@ export default function StepBirdname({
         </div>
         <input
           placeholder="새의 이름을 입력해주세요 (최대 6자)"
-          className="inside-clay"
+          className="gray-clay"
           value={birdname}
           maxLength={6}
           minLength={1}
@@ -94,17 +94,12 @@ export default function StepBirdname({
           outline: 0px;
           border: none;
           text-align: center;
-          margin: 30px;
-        }
-        input::placeholder {
-          color: rgba(169, 162, 214, 1);
-          font-size: 16px;
-          line-height: 40px;
+          margin: 50px 0 5px 0;
         }
         input:focus {
-          outline: none;
-          border-color: #ff97d3;
-          box-shadow: inset 0 1px 4px #c7daff, 0 0 20px 2px #c7daff;
+          background: rgba(175, 186, 206, 0.11);
+          box-shadow: inset -5px -2px 4px #ffffff, inset 3px 3px 10px #bac3df;
+          border-radius: 20px;
         }
         .check-alert {
           color: red;
