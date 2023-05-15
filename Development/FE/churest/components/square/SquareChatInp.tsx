@@ -1,5 +1,5 @@
 import { BsFillSendFill } from 'react-icons/bs';
-
+import { KeyboardEvent } from 'react';
 type Props = {
   message: string;
   changeMsg(e: any): void;
@@ -11,6 +11,12 @@ export default function SquareChatInp({
   changeMsg,
   sendMessage,
 }: Props) {
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == 'Enter') {
+      sendMessage(message);
+    }
+  };
+
   return (
     <div className="inp-box">
       <input
@@ -18,6 +24,7 @@ export default function SquareChatInp({
         className="chat-inp"
         value={message}
         onChange={changeMsg}
+        onKeyDown={onKeyDown}
       />
 
       <button className="chat-btn" onClick={() => sendMessage(message)}>

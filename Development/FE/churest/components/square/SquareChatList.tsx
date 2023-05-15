@@ -1,21 +1,21 @@
+import { v4 as uuidv4 } from 'uuid';
 type Props = {
   // sender: string;
   // message: string;
-  messages: [];
+  messages: any[];
   //  리스트로?
 };
 
-export default function SquareChatList({messages} : Props) {
+export default function SquareChatList({ messages }: Props) {
   return (
     <div className="chat-list-box">
-      {messages?.map((msg) =>
-      <div className="msg">      
-        {msg.type == 'ENTER' ? 
-        (msg.sender + "님이 광장에 입장했습니다.") 
-        : 
-        (msg.sender + " : " + msg.message)}
-      </div>
-      )}
+      {messages?.map((msg) => (
+        <div className="msg" key={uuidv4()}>
+          {msg.type == 'ENTER'
+            ? msg.sender + '님이 광장에 입장했습니다.'
+            : msg.sender + ' : ' + msg.message}
+        </div>
+      ))}
       <style jsx>{`
         .chat-list-box {
           width: 500px;

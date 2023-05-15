@@ -8,7 +8,7 @@ interface login {
   accessToken: string;
   refreshToken: string;
   avatarId: number;
-  nickname: string | null;
+  nickname: string;
 }
 
 export const loginAtom = atom<login>({
