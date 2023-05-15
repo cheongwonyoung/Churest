@@ -212,4 +212,17 @@ public class MemberServiceImpl implements  MemberService{
     public List<MemberResponseDto.FriendSearchInfo> getSearchMemberList(String nickname, int memberId) {
         return memberRepository.findAllByNicknameContainingAndMemberIdIsNot(nickname, memberId).stream().map(MemberResponseDto.FriendSearchInfo::fromEntity).collect(Collectors.toList());
     }
+
+
+
+
+    @Override
+    public void updateFcm(String fcm, int memberId){
+
+        Member member = memberRepository.findByMemberId(memberId);
+
+        member.setFcmToken(fcm);
+        memberRepository.save(member);
+
+    }
 }

@@ -16,8 +16,8 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenRespon
 import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
-    @Service
-    public interface MemberService {
+@Service
+public interface MemberService {
     List<MemberResponseDto.FriendSearchInfo> getSearchMemberList(String nickname, int memberId);
 
     LoginResponseDto login(String code) throws JsonProcessingException;
@@ -30,9 +30,10 @@ import java.util.Map;
 
     MemberResponseDto.MemberInfo join(MemberRequestDto.Join joinInfo);
 
-        String token(String refreshToken);
+    String token(String refreshToken);
 
-        Boolean checkAvatar(String nickname);
+    Boolean checkAvatar(String nickname);
 
 
-    }
+    void updateFcm(String fcm, int memberId);
+}
