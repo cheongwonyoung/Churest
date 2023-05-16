@@ -41,6 +41,7 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
         this.memberRepository = memberRepository;
     }
 
+    // Request로 들어오는 Jwt Token의 유효성을 검증하는 filter를 filterChain에 등록합니다.
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             //Token에서 Claim 꺼내기
@@ -59,7 +60,6 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
-            log.info("token : {}", token);
 
             //토큰이 Valid한지 확인하기 (유효하지 않으면)
             if(!jwtTokenProvider.validateToken(token)){
@@ -67,34 +67,10 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
                 return;
             }
 
-            Member member= memberRepository.findByEmail(jwtTokenProvider.getEmail(token));
-            member.setFcmToken(null);
-            memberRepository.save(member);
-
+            Authentication auth = jwtTokenProvider.getAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(auth);
             filterChain.doFilter(request, response);
+
         }
 
     }
-
-    // Request로 들어오는 Jwt Token의 유효성을 검증하는 filter를 filterChain에 등록합니다.
-//    @Override
-//    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-//        log.info(servletRequest.toString());
-//        String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
-//        if(token != null){
-//            if(jwtTokenProvider.validateToken(token)){
-//                // token 검증
-//                Authentication auth = jwtTokenProvider.getAuthentication(token);    // 인증 객체 생성
-//                SecurityContextHolder.getContext().setAuthentication(auth); // SecurityContextHolder에 인증 객체 저장
-//            }
-//            // access token이 만료되었을 경우 fcm 토큰 초기화
-//            else{
-//                Member member= memberRepository.findByEmail(jwtTokenProvider.getEmail(token));
-//                member.setFcmToken(null);
-//                memberRepository.save(member);
-//            }
-//        }
-//        filterChain.doFilter(servletRequest, servletResponse);
-//    }
-
-//};
