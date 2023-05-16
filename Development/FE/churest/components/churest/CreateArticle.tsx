@@ -39,7 +39,7 @@ export default function CreateArticle({ treeId }: Props) {
   const dateRef = useRef(null);
 
   const dateNow = new Date();
-  const today = dateNow.toISOString().slice(0,10);
+  const today = dateNow.toISOString().slice(0, 10);
 
   const addFiles = (acceptedFiles: any) => {
     setFiles([
@@ -116,10 +116,11 @@ export default function CreateArticle({ treeId }: Props) {
   const spot = isCreate.spot;
   const memberId = useRecoilValue(loginAtom).id;
   const createArticle = () => {
-    console.log("추억 심기 클릭");
+    console.log('추억 심기 클릭');
 
-    if(data.title == ""){      //  제목 필수
-      titleRef.current.focus();
+    if (data.title == '') {
+      //  제목 필수
+      // titleRef.current.focus();
       Swal.fire({
         position: 'center',
         icon: 'warning',
@@ -127,9 +128,9 @@ export default function CreateArticle({ treeId }: Props) {
         showConfirmButton: false,
         timer: 1000,
       });
-    }
-    else if(data.content == ""){      //  내용 필수
-      contentRef.current.focus();
+    } else if (data.content == '') {
+      //  내용 필수
+      // contentRef.current.focus();
       Swal.fire({
         position: 'center',
         icon: 'warning',
@@ -137,9 +138,9 @@ export default function CreateArticle({ treeId }: Props) {
         showConfirmButton: false,
         timer: 1000,
       });
-    }
-    else if(data.date == "") {      //  날짜 필수
-      dateRef.current.focus();
+    } else if (data.date == '') {
+      //  날짜 필수
+      // dateRef.current.focus();
       Swal.fire({
         position: 'center',
         icon: 'warning',
@@ -147,8 +148,7 @@ export default function CreateArticle({ treeId }: Props) {
         showConfirmButton: false,
         timer: 1000,
       });
-    }
-    else{
+    } else {
       const formData = new FormData();
       Object.values(files).forEach((file) => {
         formData.append('fileList', file);
@@ -181,7 +181,7 @@ export default function CreateArticle({ treeId }: Props) {
             placeholder="어떤 추억인가요?"
             name="title"
             value={data.title}
-            ref = {titleRef}
+            ref={titleRef}
             onChange={(e) => handleData(e)}
           />
         </div>
@@ -193,8 +193,8 @@ export default function CreateArticle({ treeId }: Props) {
               type="date"
               name="date"
               value={data.date}
-              max = {today}
-              ref = {dateRef}
+              max={today}
+              ref={dateRef}
               onChange={(e) => handleData(e)}
             />
           </div>
@@ -219,7 +219,7 @@ export default function CreateArticle({ treeId }: Props) {
             className="content"
             name="content"
             value={data.content}
-            ref = {contentRef}
+            ref={contentRef}
             onChange={(e) => handleData(e)}
             placeholder="무슨 일이 있었나요?"
           />

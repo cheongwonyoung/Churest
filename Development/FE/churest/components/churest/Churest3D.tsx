@@ -32,9 +32,7 @@ import { useQuery } from 'react-query';
 import { getForest } from '@/apis/churest';
 import { spots } from '@/utils/spots';
 import { BirdHouses, Houses, Trees } from './Options';
-
 import Bird from './Bird';
-import { Sample } from '../3DFiles/Sample';
 import { Tile } from '../3DFiles/Tile';
 import { ChurestMap } from '../3DFiles/ChurestMapLast';
 

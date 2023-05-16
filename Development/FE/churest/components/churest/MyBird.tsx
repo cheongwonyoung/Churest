@@ -1,14 +1,10 @@
-import Carousel from '../common/Carousel';
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import { getMyBirdsList } from '@/apis/mypage';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import { loginAtom } from '@/atoms/login';
-import { useRecoilValue } from 'recoil';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import SwiperCore, { EffectCoverflow, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';

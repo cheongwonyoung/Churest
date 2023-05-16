@@ -15,7 +15,6 @@ type GLTFResult = GLTF & {
     큐브003: THREE.Mesh;
     큐브004: THREE.Mesh;
   };
-  images;
   materials: {
     ['Material.003']: THREE.MeshStandardMaterial;
     ['매테리얼.001']: THREE.MeshStandardMaterial;
