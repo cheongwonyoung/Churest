@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BiImageAdd } from 'react-icons/bi';
+import { v4 as uuidv4 } from 'uuid';
 
 type Props = {
   addFiles(x: File[]): void;
@@ -27,7 +28,7 @@ export default function ImgUploader({ addFiles, files, deleteImage }: Props) {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () => files.forEach((file) => URL.revokeObjectURL(file?.preview));
   }, []);
-
+  console.log('file이당!!', files);
   return (
     <section className="container">
       <div {...getRootProps({ className: 'dropzone' })}>
@@ -47,6 +48,7 @@ export default function ImgUploader({ addFiles, files, deleteImage }: Props) {
             {files.map((file) => {
               return (
                 <div
+                  key={uuidv4()}
                   className="img"
                   onClick={(e) => e.stopPropagation()}
                   onDoubleClick={() => deleteImage(file)}
