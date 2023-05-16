@@ -10,13 +10,15 @@ public class FCMNotificationRequestDto {
 
     private int fromUserId;
     private int targetUserId;
+    private int noticeId;
     private String title;
 
 
     @Builder
-    public FCMNotificationRequestDto(int fromUserId, int targetUserId, String title, String body){
+    public FCMNotificationRequestDto(int fromUserId, int targetUserId, int noticeId, String title){
         this.fromUserId = fromUserId;
         this.targetUserId = targetUserId;
+        this.noticeId = noticeId;
         this.title = title;
     }
 
