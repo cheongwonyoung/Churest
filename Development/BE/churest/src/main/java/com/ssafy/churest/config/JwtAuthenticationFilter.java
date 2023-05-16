@@ -44,40 +44,33 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
             //Token에서 Claim 꺼내기
-        log.info(request.getHeader("Authorization"));
+                String authorizationHeader = request.getHeader("Authorization");
+            if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){      //header에 AUTHORIZATION이 없거나, Bearer로 시작하지 않으면 filter
+                log.error("header가 없거나, 형식이 틀립니다. - {}", authorizationHeader);
+                filterChain.doFilter(request, response);
+                return;
+            }
 
-//            if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){      //header에 AUTHORIZATION이 없거나, Bearer로 시작하지 않으면 filter
-//                log.error("header가 없거나, 형식이 틀립니다. - {}", authorizationHeader);
-//                filterChain.doFilter(request, response);
-//                return;
-//            }
-//
-//            String token;
-//            try {
-//                token = authorizationHeader.split(" ")[1].trim();
-//            } catch (Exception e) {
-//                log.error("토큰을 분리하는데 실패했습니다. - {}", authorizationHeader);
-//                filterChain.doFilter(request, response);
-//                return;
-//            }
-//            log.info("token : {}", token);
-//
-//            //토큰이 Valid한지 확인하기
-//            if(JwtTokenUtil.isExpired(token, secretKey)){
-//                filterChain.doFilter(request, response);
-//                return;
-//            }
-//
-//            //userName 넣기, 문 열어주기
-//            String userName = JwtTokenUtil.getUserName(token, secretKey);
-//            log.info("userName : {}", userName);
-//            User user = userService.getUserByUserName(userName);
-//
-//            //AuthenticationToken 만들기
-//            UsernamePasswordAuthenticationToken authenticationToken =  new UsernamePasswordAuthenticationToken(user.getUserName(), null, List.of(new SimpleGrantedAuthority(user.getRole().name())));
-//            //디테일 설정하기
-//            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            String token;
+            try {
+                token = authorizationHeader.split(" ")[1].trim();
+            } catch (Exception e) {
+                log.error("토큰을 분리하는데 실패했습니다. - {}", authorizationHeader);
+                filterChain.doFilter(request, response);
+                return;
+            }
+            log.info("token : {}", token);
+
+            //토큰이 Valid한지 확인하기 (유효하지 않으면)
+            if(!jwtTokenProvider.validateToken(token)){
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            Member member= memberRepository.findByEmail(jwtTokenProvider.getEmail(token));
+            member.setFcmToken(null);
+            memberRepository.save(member);
+
             filterChain.doFilter(request, response);
         }
 

@@ -22,7 +22,6 @@ public class ChuWorldController {
     @ApiOperation(value = "츄월드 조회", notes = "남의 숲 둘러보기")
     @GetMapping()
     public ResponseEntity<?> getForest(@ApiParam(value = "내 memberId", required = true) @RequestParam(value = "memberId") int memberId){
-        log.info("memberIf : {}", memberId);
         try{
             return new ResponseEntity<>(forestService.getOtherForestList(memberId), HttpStatus.OK);
         }catch(Exception e){
