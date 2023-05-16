@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedHeaders("Origin", "Content-Type", "Accept", "X-AUTH-TOKEN")
+                .allowedHeaders("Origin", "Content-Type", "Accept", "X-AUTH-TOKEN", "Authorization")
 //                    .allowedHeaders("*")
 //                    .allowedOrigins("*")
                 .allowedOrigins("*","http://localhost:8080", "http://localhost:3000"

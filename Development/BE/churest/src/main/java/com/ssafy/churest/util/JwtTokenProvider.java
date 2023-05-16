@@ -81,8 +81,7 @@ public class JwtTokenProvider {
     }
 
     public String resolveToken(HttpServletRequest req) {
-        return req.getHeader("Authorization");
-
+        return req.getHeader("Authorization").split(" ")[1].trim();
     }
 
     // Jwt Token의 유효성 및 만료 기간 검사
