@@ -2,7 +2,6 @@ package com.ssafy.churest;
 
 import com.ssafy.churest.entity.*;
 import com.ssafy.churest.repository.*;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -45,7 +44,7 @@ public class DataLoader implements CommandLineRunner {
     private GuestBookRepository guestBookRepository;
 
     @Autowired
-    private NotificationRepository notificationRepository;
+    private NoticeRepository notificationRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -84,9 +83,11 @@ public class DataLoader implements CommandLineRunner {
 
         BirdHouse birdHouse1 = BirdHouse.builder().name("그린").description("싱그러운 나뭇잎들이 느껴지는 새집").price(0).build();
         BirdHouse birdHouse2 = BirdHouse.builder().name("블루").description("넓고 푸른 하늘 느낌의 새집").price(100).build();
+        BirdHouse birdHouse3 = BirdHouse.builder().name("레드").description("강렬하고 정열적인 느낌의 새집").price(100).build();
 
         birdHouseList.add(birdHouse1);
         birdHouseList.add(birdHouse2);
+        birdHouseList.add(birdHouse3);
 
         birdHouseRepository.saveAllAndFlush(birdHouseList);
     }
@@ -95,10 +96,18 @@ public class DataLoader implements CommandLineRunner {
         List<House> houseList = new ArrayList<>();
 
         House house1 = House.builder().name("오두막").description("낮고 아늑한 느낌의 오두막").price(0).build();
-        House house2 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
+        House house2 = House.builder().name("마법사집").description("튼튼한 중세 마법사집").price(0).build();
+        House house3 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
+        House house4 = House.builder().name("산타집").description("앙증맞은 산타집").price(100).build();
+        House house5 = House.builder().name("2층집").description("포근한 2층집").price(0).build();
+        House house6 = House.builder().name("텐트집").description("작고 귀여운 텐트집").price(100).build();
 
         houseList.add(house1);
         houseList.add(house2);
+        houseList.add(house3);
+        houseList.add(house4);
+        houseList.add(house5);
+        houseList.add(house6);
 
         houseRepository.saveAllAndFlush(houseList);
     }
@@ -106,21 +115,19 @@ public class DataLoader implements CommandLineRunner {
     private void addBirds() {
         List<Bird> birdList = new ArrayList<>();
 
-        Bird bird1 = Bird.builder().name("고대갈매기")
-                .description("저는 제주도를 제외한 한국의 해안 전역에서 볼 수 있었어요. 하지만, 갯벌 매립으로 인해 집을 빼앗기고 있어요. 제 집을 찾아주세요.").price(50).build();
-        Bird bird2 = Bird.builder().name("흑비둘기")
-                .description("저는 동백나무 숲이나 후박나무 숲이 있는 지역에서 살아요. 산림훼손에 의해 친구들이 사라지고 저만 남았어요.").price(50).build();
-        Bird bird3 = Bird.builder().name("검은머리촉새")
-                .description("저는 주로 5월과 9월에 저를 볼 수 있었어요. 그런데, 요즘 기온변화로 가족을 다 잃었어요.").price(50).build();
-        Bird bird4 = Bird.builder().name("붉은해오라기")
-                .description("저는 제주도와 부산에서 살고 있어요. 그런데, 사람들이 작은 저를 마구 잡아가고 집을 밀어버렸어요.").price(50).build();
-        Bird bird5 = Bird.builder().name("팔색조")
-                .description("저는 울음소리가 아름답고 다양한 색이 있어 매력이 넘치는게 특징이에요. 그러나, 집이 사라지고 먹이가 줄어 국내에 단 1종만 남았어요.").price(50).build();
-        Bird bird6 = Bird.builder().name("붉은배새매")
+        Bird bird1 = Bird.builder().name("붉은배새매")
                 .description("저는 평지와 야산의 숲, 숲 주변의 논, 개활지에서 번식해요, 그러나, 집이 사라지고 먹이가 줄어서 살기 너무 힘들어요.").price(50).build();
-        Bird bird7 = Bird.builder().name("올빼미")
+        Bird bird2 = Bird.builder().name("고대갈매기")
+                .description("저는 제주도를 제외한 한국의 해안 전역에서 볼 수 있었어요. 하지만, 갯벌 매립으로 인해 집을 빼앗기고 있어요. 제 집을 찾아주세요.").price(50).build();
+        Bird bird3 = Bird.builder().name("흑비둘기")
+                .description("저는 동백나무 숲이나 후박나무 숲이 있는 지역에서 살아요. 산림훼손에 의해 친구들이 사라지고 저만 남았어요.").price(50).build();
+        Bird bird4 = Bird.builder().name("검은머리촉새")
+                .description("저는 주로 5월과 9월에 저를 볼 수 있었어요. 그런데, 요즘 기온변화로 가족을 다 잃었어요.").price(50).build();
+        Bird bird5 = Bird.builder().name("붉은해오라기")
+                .description("저는 제주도와 부산에서 살고 있어요. 그런데, 사람들이 작은 저를 마구 잡아가고 집을 밀어버렸어요.").price(50).build();
+        Bird bird6 = Bird.builder().name("올빼미")
                 .description("저는 고목나무에 둥지를 틀고 먹이를 구하고 왔는데 집이 사라졌어요. 알고보니 사람들이 제 나무를 밀었던 거예요. 저는 어디로 가야하죠?").price(50).build();
-        Bird bird8 = Bird.builder().name("뱁새")
+        Bird bird7 = Bird.builder().name("뱁새")
                 .description("저는 작고 귀여운 매력의 뱁새예요. 츄레스트의 마스코트로 친구들을 지키고 있어요.").price(50).build();
 
         birdList.add(bird1);
@@ -130,7 +137,6 @@ public class DataLoader implements CommandLineRunner {
         birdList.add(bird5);
         birdList.add(bird6);
         birdList.add(bird7);
-        birdList.add(bird8);
 
         birdRepository.saveAllAndFlush(birdList);
     }
@@ -161,7 +167,6 @@ public class DataLoader implements CommandLineRunner {
         MemberBird memberBird6 = MemberBird.builder().bird(birdRepository.findById(3).get()).member(member6).nickname("피닉스").isUsed(true).build();
 
         MemberHouse memberHouse1 = MemberHouse.builder().house(defaultHouse).member(member1).build().updateIsUsed(true);
-        MemberHouse memberHouse2 = MemberHouse.builder().house(houseRepository.findById(2).get()).member(member1).build().updateIsUsed(true);
         MemberHouse memberHouse3 = MemberHouse.builder().house(defaultHouse2).member(member2).build().updateIsUsed(true);
         MemberHouse memberHouse4 = MemberHouse.builder().house(defaultHouse).member(member3).build().updateIsUsed(true);
         MemberHouse memberHouse5 = MemberHouse.builder().house(defaultHouse).member(member4).build().updateIsUsed(true);
@@ -169,12 +174,12 @@ public class DataLoader implements CommandLineRunner {
         MemberHouse memberHouse7 = MemberHouse.builder().house(defaultHouse).member(member6).build().updateIsUsed(true);
 
         MemberBirdHouse memberBirdHouse1 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member1).build().updateIsUsed(true);
-        MemberBirdHouse memberBirdHouse2 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member2).build();
+        MemberBirdHouse memberBirdHouse2 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member2).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse3 = MemberBirdHouse.builder().birdHouse(birdHouseRepository.findById(2).get()).member(member2).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse4 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member3).build().updateIsUsed(true);
         MemberBirdHouse memberBirdHouse5 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member4).build().updateIsUsed(true);
-        MemberBirdHouse memberBirdHouse6 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member5).build();
-        MemberBirdHouse memberBirdHouse7 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member6).build();
+        MemberBirdHouse memberBirdHouse6 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member5).build().updateIsUsed(true);
+        MemberBirdHouse memberBirdHouse7 = MemberBirdHouse.builder().birdHouse(defaultBirdHouse).member(member6).build().updateIsUsed(true);
 
         memberList.add(member1);
         memberList.add(member2);
@@ -192,7 +197,6 @@ public class DataLoader implements CommandLineRunner {
         memberBirdList.add(memberBird6);
 
         memberHouseList.add(memberHouse1);
-        memberHouseList.add(memberHouse2);
         memberHouseList.add(memberHouse3);
         memberHouseList.add(memberHouse4);
         memberHouseList.add(memberHouse5);
@@ -216,7 +220,7 @@ public class DataLoader implements CommandLineRunner {
 
     private void addBoard() {
         List<Board> boardList = new ArrayList<>();
-        List<Notification> notificationList = new ArrayList<>();
+        List<Notice> notificationList = new ArrayList<>();
         List<Member> memberList = memberRepository.findAll();
         List<MemberBoard> memberBoardList = new ArrayList<>();
         List<TreeLog> treeLogList = new ArrayList<>();
@@ -234,7 +238,7 @@ public class DataLoader implements CommandLineRunner {
                 memberList) {
             if (member.getMemberId() != member1.getMemberId()) {
                 tagList.add(Tag.builder().board(board1).member(member).build());
-                notificationList.add(Notification.builder().toMember(member).fromMember(member1).isChecked(false).content("테트리스 정기 모임ㅋ").build());
+                notificationList.add(Notice.builder().toMember(member).fromMember(member1).isChecked(false).board(board1).content("테트리스 정기 모임ㅋ").build());
                 //  퍼가기
                 memberBoardList.add(MemberBoard.builder().board(board1).member(member).spot(3).build());
             }

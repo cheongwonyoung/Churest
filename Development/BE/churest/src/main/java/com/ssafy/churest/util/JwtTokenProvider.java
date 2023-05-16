@@ -87,12 +87,12 @@ public class JwtTokenProvider {
     // Jwt Token의 유효성 및 만료 기간 검사
     public boolean validateToken(String jwtToken) {
         try {
-            log.info("c");
+//            log.info("c");
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
-            log.info("f");
+//            log.info("f");
             return !claims.getBody().getExpiration().before(new Date());
         } catch (Exception e) {
-            log.info("error !!!");
+//            log.info("error !!!");
             return false;
         }
     }

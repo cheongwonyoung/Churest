@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("my Member Controller API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/api/member")
 public class MemberController {
     private final MemberService memberService;
 
@@ -55,6 +55,19 @@ public class MemberController {
             String acceesToken = memberService.token(refreshToken);
 
             return new ResponseEntity<>(acceesToken, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @ApiOperation(value = "avatarNickname 중복체크", notes = "사용중인 닉네임이면 true 반환")
+    @GetMapping("/avatarNickname")
+    public ResponseEntity<?> avatarNickname(@RequestParam String nickname) {
+        try {
+            Boolean result = memberService.checkAvatar(nickname);
+
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

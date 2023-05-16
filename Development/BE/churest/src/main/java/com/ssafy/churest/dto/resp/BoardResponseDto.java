@@ -20,12 +20,14 @@ public class BoardResponseDto {
         private int spot;
 
         private int score;
+        private int treeId;
 
         public static BoardInfo fromEntity(com.ssafy.churest.entity.MemberBoard memberBoard, com.ssafy.churest.entity.Board board, com.ssafy.churest.entity.TreeLog treeLog) {
             return BoardInfo.builder()
                     .boardId(board.getBoardId())
                     .spot(memberBoard.getSpot())
                     .score(treeLog.getScore())
+                    .treeId(board.getTree().getTreeId())
                     .build();
         }
 
@@ -78,6 +80,7 @@ public class BoardResponseDto {
         private LocalDate createdTime;
         private int score;
         private TreeResponseDto.TreeInfo treeInfo;
+        private int treeId;
 
         public static MyPageInfo fromEntity(Board board) {
             return MyPageInfo.builder().boardId(board.getBoardId())

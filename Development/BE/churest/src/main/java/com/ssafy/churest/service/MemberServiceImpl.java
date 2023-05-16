@@ -8,10 +8,7 @@ import com.ssafy.churest.dto.req.MemberRequestDto;
 import com.ssafy.churest.dto.resp.KakaoMemberResponseDto;
 import com.ssafy.churest.dto.resp.LoginResponseDto;
 import com.ssafy.churest.dto.resp.MemberResponseDto;
-import com.ssafy.churest.entity.House;
-import com.ssafy.churest.entity.Member;
-import com.ssafy.churest.entity.MemberBird;
-import com.ssafy.churest.entity.MemberHouse;
+import com.ssafy.churest.entity.*;
 import com.ssafy.churest.repository.*;
 import com.ssafy.churest.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +38,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberServiceImpl implements  MemberService{
+    private final MemberBirdHouseRepository memberBirdHouseRepository;
+    private final BirdHouseRepository birdHouseRepository;
     private final MemberHouseRepository memberHouseRepository;
     private final BirdRepository birdRepository;
     private final MemberBirdRepository memberBirdRepository;
@@ -72,9 +71,25 @@ public class MemberServiceImpl implements  MemberService{
         member.updateToken(refreshToken);
         memberRepository.save(member);
 
-        House defaultHouse = houseRepository.findById(1).get();
-        memberHouseRepository.save(MemberHouse.builder().house(defaultHouse).member(member).build().updateIsUsed(true));
-        memberBirdRepository.save(MemberBird.builder().member(member).bird(null).nickname("").build());
+        // memberHouse 저장
+        if(!memberHouseRepository.existsByMember_MemberId(member.getMemberId())){
+            // 기본 집
+            House defaultHouse = houseRepository.findById(1).get();
+            memberHouseRepository.save(MemberHouse.builder().house(defaultHouse).member(member).build().updateIsUsed(true));
+            // 기본 새
+            MemberBird memberBird = new MemberBird(member, birdRepository.findById(1).get(),"기본새",true);
+            memberBirdRepository.save(memberBird);
+            // 기본 새집
+            MemberBirdHouse memberBirdHouse = new MemberBirdHouse(member, birdHouseRepository.findById(1).get());
+            memberBirdHouse.updateIsUsed(true);
+            memberBirdHouseRepository.save(memberBirdHouse);
+        }
+
+        // memberBird 저장
+//        if(!memberBirdRepository.existsByMember_MemberId(member.getMemberId())){
+//            MemberBird memberBird = new MemberBird(member, birdRepository.findById(1).get(),"기본새",true);
+//            memberBirdRepository.save(memberBird);
+//        }
 
         return LoginResponseDto.builder()
                 .memberId(member.getMemberId())
@@ -149,12 +164,16 @@ public class MemberServiceImpl implements  MemberService{
         Member member = memberRepository.findByMemberId(joinInfo.getMemberId());
 
         // memberBird 저장
-        MemberBird memberBird = new MemberBird(member, birdRepository.findById(joinInfo.getBirdId()).get(),joinInfo.getBirdNickname(),true);
+        // memberId로 memberBird 찾아옴
+        MemberBird memberBird = memberBirdRepository.findByMember_MemberIdAndIsUsedIsTrue(joinInfo.getMemberId());
+        memberBird.setBird(birdRepository.findById(joinInfo.getBirdId()).get());
+        memberBird.setNickname(joinInfo.getBirdNickname());
         memberBirdRepository.save(memberBird);
 
         // 회원가입(아바타id, 닉네임)
         member.setAvatarId(joinInfo.getAvatarId());
         member.setNickname(joinInfo.getNickname());
+        member.setFcmToken(joinInfo.getFcmToken());
         MemberResponseDto.MemberInfo memberInfo = MemberResponseDto.MemberInfo.fromEntity(memberRepository.save(member));
 
         return memberInfo;
@@ -180,6 +199,12 @@ public class MemberServiceImpl implements  MemberService{
         }
         new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return null;
+    }
+
+    @Override
+    public Boolean checkAvatar(String nickname) {
+        // member 테이블의 nickname에서 확인
+        return memberRepository.existsByNickname(nickname);
     }
 
 

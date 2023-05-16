@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("shop bird house Controller API v1")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/shop/bird-house")
+@RequestMapping("/api/shop/bird-house")
 public class ShopBirdHouseController {
     private final MemberBirdHouseService memberBirdHouseService;
     @ApiOperation(value = "집 목록", notes = "상점 내에 표시할 집 목록 불러오기")

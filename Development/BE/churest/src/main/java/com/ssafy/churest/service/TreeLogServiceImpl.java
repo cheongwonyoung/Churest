@@ -1,13 +1,9 @@
 package com.ssafy.churest.service;
 
+import com.ssafy.churest.dto.req.FCMNotificationRequestDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
-import com.ssafy.churest.entity.Member;
-import com.ssafy.churest.entity.Tag;
-import com.ssafy.churest.entity.TreeLog;
-import com.ssafy.churest.repository.BoardRepository;
-import com.ssafy.churest.repository.MemberRepository;
-import com.ssafy.churest.repository.TagRepository;
-import com.ssafy.churest.repository.TreeLogRepository;
+import com.ssafy.churest.entity.*;
+import com.ssafy.churest.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +22,9 @@ public class TreeLogServiceImpl implements TreeLogService {
     private final TreeLogRepository treeLogRepository;
     private final BoardRepository boardRepository;
     private final TagRepository tagRepository;
+    private final FCMNotificationService fcmNotificationService;
     private static final int TREE_CRITERIA_SCORE = 16;
+    private final NoticeRepository noticeRepository;
 
     @Override
     public List<TreeLogResponseDto.TreeLogInfo> getTreeLogList(int boardId) {
@@ -49,7 +47,7 @@ public class TreeLogServiceImpl implements TreeLogService {
     }
 
     @Override
-    public TreeLogResponseDto.RecentTreeLogInfo updateScoreByWatering(int boardId) {
+    public TreeLogResponseDto.RecentTreeLogInfo updateScoreByWatering(int boardId, int memberId) {
 
         boolean isReward = false;
 
@@ -57,11 +55,28 @@ public class TreeLogServiceImpl implements TreeLogService {
         recentTreeLog.setScore(recentTreeLog.getScore() + 3);
 
         if(!recentTreeLog.getBoard().isPayed() && recentTreeLog.getScore() >= TREE_CRITERIA_SCORE) {
-            List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoin()).collect(Collectors.toList());
-            memberList.add(recentTreeLog.getBoard().getMember().rewardCoin());
+            // 나를 제외한 사람들
+            List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+
+//            알림 전송
+            for(int i=0; i<memberList.size(); i++){
+                Member member = memberList.get(i);
+                int target = member.getMemberId();
+                FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).title("'"+recentTreeLog.getBoard().getTitle()+"'이 나무로 성장했어요.").build();
+
+                fcmNotificationService.sendNotificationByToken(requestDto);
+                Board board = boardRepository.findByBoardId(boardId);
+
+                noticeRepository.save(Notice.builder().toMember(member).fromMember(member).board(board).content("'"+recentTreeLog.getBoard().getTitle()+"'이 나무로 성장했어요.").isChecked(false).build());
+            }
+
+
+            // 나 추가
+            memberList.add(recentTreeLog.getBoard().getMember().rewardCoinAndTree());
             memberRepository.saveAllAndFlush(memberList);
             boardRepository.save(recentTreeLog.getBoard().updatePayed(true));
             isReward = true;
+
         }
 
         if(recentTreeLog.getDate().equals(LocalDate.now()))

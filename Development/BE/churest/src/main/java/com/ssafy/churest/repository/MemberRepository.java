@@ -13,7 +13,10 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     @Query(value = "SELECT * FROM churest.member WHERE member_id != (:memberId) ORDER BY RAND() LIMIT 5", nativeQuery = true)
     List<Member> findAll(@Param("memberId") int memberId);
 
+    List<Member> findAllByMemberIdIsNot(int memberId);
+
     List<Member> findAllByNicknameContainingAndMemberIdIsNot(String nickname, int memberId);
     Member findByEmail(String email);
     Member findByToken(String token);
+    Boolean existsByNickname(String nickname);
 }

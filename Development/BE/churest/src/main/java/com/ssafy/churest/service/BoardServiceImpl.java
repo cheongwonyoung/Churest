@@ -1,6 +1,7 @@
 package com.ssafy.churest.service;
 
 import com.ssafy.churest.dto.req.BoardRequestDto;
+import com.ssafy.churest.dto.req.FCMNotificationRequestDto;
 import com.ssafy.churest.dto.resp.BoardResponseDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
 import com.ssafy.churest.dto.resp.TreeResponseDto;
@@ -35,13 +36,14 @@ public class BoardServiceImpl implements BoardService {
     private final TreeRepository treeRepository;
     private final TreeLogRepository treeLogRepository;
     private final TagRepository tagRepository;
-
+    private final FCMNotificationService fcmNotificationService;
+    private final NoticeRepository noticeRepository;
     @Override
     public void writeTree(List<MultipartFile> fileList, BoardRequestDto.Write writeInfo) throws IOException {
 
         //  나무 랜덤 매칭
-        int treeId = (int) (Math.random() * TREE_SIZE) + 1;
-
+//        int treeId = (int) (Math.random() * TREE_SIZE) + 1;
+        int treeId = writeInfo.getTreeId();
         Member member = memberRepository.findByMemberId(writeInfo.getMemberId());
 
         Board board = boardRepository.save(Board.builder()
@@ -53,6 +55,7 @@ public class BoardServiceImpl implements BoardService {
                         .createdTime(LocalDate.parse(writeInfo.getDate(), DateTimeFormatter.ISO_DATE))
                         .build());
 
+
         //  내 숲 속 추억 나무 위치 기록
         memberBoardRepository.save(MemberBoard.builder()
                         .member(member)
@@ -61,11 +64,15 @@ public class BoardServiceImpl implements BoardService {
                         .build());
 
         //  GCS 사진 업로드
-        if(fileList != null) {
-            for (MultipartFile file :
-                    fileList) {
-                gcsService.uploadBoardImage(file, board);
+        if(fileList!=null){
+
+            if(!fileList.isEmpty()) {
+                for (MultipartFile file :
+                        fileList) {
+                    gcsService.uploadBoardImage(file, board);
+                }
             }
+
         }
 
         //  태그된 사용자 알림 생성 추가해야 함
@@ -76,6 +83,25 @@ public class BoardServiceImpl implements BoardService {
                             .board(board)
                     .build());
             //  알림 생성 ...
+            //  알림 전송
+//            String senderName = memberRepository.findByMemberId(writeInfo.getMemberId()).getNickname();
+            String message = "님이 '"+ writeInfo.getTitle() + "' 추억에 회원님을 태그했습니다.";
+
+
+
+
+            // fcm 전송
+            FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder()
+                    .fromUserId(writeInfo.getMemberId())
+                    .targetUserId(tagMemberId)
+                    .title(message)
+                    .build();
+            fcmNotificationService.sendNotificationByToken(requestDto);
+
+            // notice table 저장
+            Member targetMember = memberRepository.findByMemberId(tagMemberId);
+            noticeRepository.save(new Notice(targetMember, member, board,  false, message));
+
         }
 
         //  나무 로그 생성
@@ -151,12 +177,24 @@ public class BoardServiceImpl implements BoardService {
         if(recentTreeLogScore >= TREE_CRITERIA_SCORE) {
 
             if(!board.isPayed()) {
-                List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoin()).collect(Collectors.toList());
-                memberList.add(board.getMember().rewardCoin());
+                // 나를 제외한 사람들
+                List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+                memberList.add(board.getMember().rewardCoinAndTree());
                 memberRepository.saveAllAndFlush(memberList);
 
                 boardRepository.save(board.updatePayed(true));
                 boardDetailInfo.setReward(true);
+
+
+//            알림 전송
+                for(int i=0; i<memberList.size(); i++){
+                    Member member = memberList.get(i);
+                    int target = member.getMemberId();
+                    FCMNotificationRequestDto requestDto = FCMNotificationRequestDto.builder().fromUserId(target).targetUserId(target).title("'"+board.getTitle()+"'이 나무로 성장했어요.").build();
+                    fcmNotificationService.sendNotificationByToken(requestDto);
+                    noticeRepository.save(Notice.builder().toMember(member).fromMember(member).board(board).content("'"+board.getTitle()+"'이 나무로 성장했어요.").isChecked(false).build());
+                }
+
             }
 
             //  정렬?

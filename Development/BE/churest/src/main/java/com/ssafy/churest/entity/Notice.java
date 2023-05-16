@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Notification {
+public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int notificationId;
+    private int noticeId;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,7 +29,12 @@ public class Notification {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_member_id")
     private Member fromMember;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
+    private Board board;
 
+    @NotNull
     @ColumnDefault("false")
     private Boolean isChecked;
 
@@ -39,9 +44,10 @@ public class Notification {
     private LocalDateTime date;
 
     @Builder
-    public Notification(Member toMember, Member fromMember, Boolean isChecked, String content){
+    public Notice(Member toMember, Member fromMember, Board board, Boolean isChecked, String content){
         this.toMember = toMember;
         this.fromMember = fromMember;
+        this.board = board;
         this.isChecked = isChecked;
         this.content = content;
     }

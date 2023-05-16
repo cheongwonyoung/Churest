@@ -18,6 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,7 +48,8 @@ public class GCSServiceImpl implements GCSService {
 
             InputStream processedInputStream = new ByteArrayInputStream(os.toByteArray());
 
-            storage.create(BlobInfo.newBuilder(bucketName, saveFileName).build(), processedInputStream);
+            Blob blob = storage.create(BlobInfo.newBuilder(bucketName, saveFileName).build(), processedInputStream);
+            saveFileName = blob.getSelfLink().split("/o/")[1];
         } catch (IOException e) {
             e.printStackTrace();
         }
