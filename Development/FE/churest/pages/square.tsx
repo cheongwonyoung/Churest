@@ -20,9 +20,6 @@ export default function Square() {
       <div className="three-container">
         <button onClick={clickDonate}>세계수 눌러가지고 기부 현황 보기</button>
         <Navbar types="square" />
-        <Canvas>
-          <Churest3D selectSpot={false} autoView={true} />
-        </Canvas>
       </div>
       <SquareBox />
       <style jsx>{`

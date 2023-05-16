@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
 import { GrFormClose } from 'react-icons/gr';
 import { BiSearchAlt2 } from 'react-icons/bi';
+import { v4 as uuidv4 } from 'uuid';
 
 type Props = {
   pickedTag: { [key: string]: number | string }[];
@@ -47,7 +48,7 @@ export default function TagPicker({
       <div className="pickedBox">
         {pickedTag.map((tag) => {
           return (
-            <div className="pickedItem">
+            <div key={uuidv4()} className="pickedItem">
               <p className="pickenName">{tag.nickname}</p>
               <p onClick={() => deleteTag(tag)}>
                 <GrFormClose />
@@ -76,7 +77,11 @@ export default function TagPicker({
           <div className="tagList">
             {friends.map((friend) => {
               return (
-                <div className="tagItem" onClick={() => addPickedTag(friend)}>
+                <div
+                  key={uuidv4()}
+                  className="tagItem"
+                  onClick={() => addPickedTag(friend)}
+                >
                   <p>{friend.nickname}</p>
                 </div>
               );

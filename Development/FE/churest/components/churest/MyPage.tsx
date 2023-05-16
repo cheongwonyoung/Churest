@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import Carousel from '../common/Carousel';
 import { getMyInfo } from '@/apis/mypage';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { openMyPageAtom } from '@/atoms/modal';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -28,20 +28,16 @@ export default function MyPage() {
   const router = useRouter();
   const id = useRecoilValue(loginAtom).id;
 
-  const { data, refetch } = useQuery(
-    'mypage',
-    () => getMyInfo(Number(id)),
-    {
-      onSuccess(data) {
-        console.log('마이페이징');
-        console.log(data.data);
-      },
-      onError: (error) => {
-        console.log('에러다');
-        console.log(error);
-      },
-    }
-  );
+  const { data, refetch } = useQuery('mypage', () => getMyInfo(Number(id)), {
+    onSuccess(data) {
+      console.log('마이페이징');
+      console.log(data.data);
+    },
+    onError: (error) => {
+      console.log('에러다');
+      console.log(error);
+    },
+  });
 
   useEffect(() => {
     refetch();
