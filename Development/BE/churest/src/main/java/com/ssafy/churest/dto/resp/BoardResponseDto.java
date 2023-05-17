@@ -53,8 +53,8 @@ public class BoardResponseDto {
 
         private List<String> fileList;
 
-        //  태그된 사용자 id
-        private List<Integer> tagList;
+        //  태그된 사용자 정보
+        private List<MemberResponseDto.LittleInfo> tagList;
 
         //  나무 종류
         private TreeResponseDto.TreeInfo treeInfo;

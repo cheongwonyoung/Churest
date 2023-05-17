@@ -3,6 +3,7 @@ package com.ssafy.churest.service;
 import com.ssafy.churest.dto.req.BoardRequestDto;
 import com.ssafy.churest.dto.req.FCMNotificationRequestDto;
 import com.ssafy.churest.dto.resp.BoardResponseDto;
+import com.ssafy.churest.dto.resp.MemberResponseDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
 import com.ssafy.churest.dto.resp.TreeResponseDto;
 import com.ssafy.churest.entity.*;
@@ -197,8 +198,6 @@ public class BoardServiceImpl implements BoardService {
                 }
 
             }
-
-            //  정렬?
             //  나무 성장 로그
             boardDetailInfo.setTreeLogInfoList(treeLogService.getTreeLogList(boardId));
 
@@ -209,8 +208,8 @@ public class BoardServiceImpl implements BoardService {
         //  파일 리스트
         boardDetailInfo.setFileList(photoRepository.findAllByBoard_BoardId(boardId).stream().map(photo -> photo.getFile()).collect(Collectors.toList()));
 
-        //  태그된 사용자 id
-        boardDetailInfo.setTagList(tagRepository.findAllByBoard_BoardId(board.getBoardId()).stream().map(tag -> tag.getMember().getMemberId()).collect(Collectors.toList()));
+        //  태그된 사용자 정보
+        boardDetailInfo.setTagList(tagRepository.findAllByBoard_BoardId(board.getBoardId()).stream().map(tag -> MemberResponseDto.LittleInfo.fromEntity(tag.getMember())).collect(Collectors.toList()));
 
         //  isTagged
         boolean isTagged = (board.getMember().getMemberId() == memberId) ? true : tagRepository.existsByMember_MemberIdAndBoard_BoardId(memberId, boardId);
