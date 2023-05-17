@@ -17,6 +17,7 @@ public class ForestResponseDto {
         private int houseId;
         private int birdhouseId;
         private int birdId;
+        private String nickname;
         private List<BoardResponseDto.BoardInfo> treeList;
     }
 
