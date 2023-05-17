@@ -43,7 +43,6 @@ public class ForestServiceImpl implements ForestService{
 
         return ForestResponseDto.ForestInfo.builder()
                 .avatarId(member.getAvatarId())
-                .nickname(member.getNickname())
                 .birdId(memberBird.getBird().getBirdId())
                 .birdNickname(memberBird.getNickname())
                 .houseId(memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getHouse().getHouseId())

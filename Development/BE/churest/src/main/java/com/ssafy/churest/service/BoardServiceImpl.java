@@ -204,6 +204,11 @@ public class BoardServiceImpl implements BoardService {
             //  나무
             boardDetailInfo.setTreeInfo(TreeResponseDto.TreeInfo.fromEntity(board.getTree()));
         }
+        //  나무 성장 로그
+        boardDetailInfo.setTreeLogInfoList(treeLogService.getTreeLogList(boardId));
+
+        //  나무
+        boardDetailInfo.setTreeInfo(TreeResponseDto.TreeInfo.fromEntity(board.getTree()));
 
         //  파일 리스트
         boardDetailInfo.setFileList(photoRepository.findAllByBoard_BoardId(boardId).stream().map(photo -> photo.getFile()).collect(Collectors.toList()));
