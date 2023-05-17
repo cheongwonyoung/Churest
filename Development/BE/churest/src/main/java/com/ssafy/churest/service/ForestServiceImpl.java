@@ -45,6 +45,7 @@ public class ForestServiceImpl implements ForestService{
                 .avatarId(member.getAvatarId())
                 .birdId(memberBird.getBird().getBirdId())
                 .birdNickname(memberBird.getNickname())
+                .nickname(member.getNickname())
                 .houseId(memberHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getHouse().getHouseId())
                 .birdhouseId(memberBirdHouseRepository.findByMember_MemberIdAndIsUsedIsTrue(memberId).getBirdHouse().getBirdHouseId())
                 .coin(member.getCoin())
