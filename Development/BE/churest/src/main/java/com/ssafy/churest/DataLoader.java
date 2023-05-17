@@ -264,22 +264,22 @@ public class DataLoader implements CommandLineRunner {
 
     public void addTree() {
         List<Tree> treeList = new ArrayList<>();
-//        Tree tree1 = Tree.builder().name("산분꽃나무").description("산지나 계곡 가장자리, 석회암 지대 등에서 높이 2~4m 정도로 자라요. 드물게 사는 낙엽성 활엽 떨기나무. 한국에서 자연적으로 살아간다는 건 최근에 알려졌어요. 원예식물로 가치가 높지만 개체수가 매우 작은 희귀식물이에요.").file("산분꽃나무.jpg").build();
-//        Tree tree2 = Tree.builder().name("미선나무").description("열매의 모양이 둥근 부채를 닮아 아름다운 부채라는 뜻의 미선나무라고 불려요. 한반도의 고유종이며, 경기도와 충청도의 볕이 잘 드는 산기슭에서 자라요. 전세계에서 오직 우리나라에만 있어요!").file("미선나무.jpg").build();
-//        Tree tree3 = Tree.builder().name("섬개야광나무").description("울릉도 해안가에서도 절벽과 바위 지대에서 자라는 한국 고유종이에요. 5~6월에 분홍색이 섞인 흰 꽃이 피며 열매는 9~10월에 붉게 익어요. 과거 울릉도 전역에 분포했으나 무분별한 채취와 서식지가 훼손되어 위협을 받는 중이에요.").file("섬개야광나무.jpg").build();
-//        Tree tree4 = Tree.builder().name("구상나무").description("제가 전세계에서 가장 아름다운 크리스마스 트리의 원조랍니다. 외국 나무라고 생각하는 분들이 많지만, 사실은 우리나라 토종 나무예요! 한라산, 지리산, 무등산, 덕유산 등 높은 곳에서 살아요. 온난화, 불규칙한 강수량 등의 기후변화로 살기 힘들어요.").file("구상나무.jpg").build();
-//        Tree tree5 = Tree.builder().name("은행나무").description("저는 흔하게 볼 수 있지만 사실 멸종위기종이에요. 자주 보는 건 야생 나무가 아닌 모두 인간의 손을 거친 나무랍니다. 어린 나무가 종자를 맺기까지는 30년의 긴 시간이 걸려 야생 번식이 매우 어렵고 종자가 크고 무거워 점차 사라지고 있어요.").file("은행나무.jpg").build();
-//        Tree tree6 = Tree.builder().name("초령목").description("국내에서 자연으로 자란 건 단 3그루만 알려진 희귀 나무예요. 높이가 1m 이하인 어린나무에서 21m에 이르는 큰 나무까지 다양해요. 사람들의 무분별한 채취, 국내에 분포 지역이 극소해 친구들이 사라졌어요.").file("초령목.jpg").build();
-//        Tree tree7 = Tree.builder().name("분비나무").description("고산지대에서 자라는 사시사철 잎 푸른 나무예요. 높이 25m, 지름 75cm에 달해요. 기후변화에 따른 서식 환경 변화로 인해 주요 서식지인 소백산과 지리산 등에서 사라지고 있다. 소백산에서도 절반이 친구 절반이 없어졌어요.").file("분비나무.jpg").build();
-        Tree tree1 = Tree.builder().name("비몽사목").description("넣지 말자고 했는데 개발자가 잠이 부족해 깜빡했는지 최종까지 함께 온 나무. 하루에 6시간은 꼭 자자.").file("tree1.jpg").build();
-        Tree tree2 = Tree.builder().name("도라에몽 물주목").description("도라에몽 주먹과 꼭 닮은 열매를 맺는 나무. 혹시 모른다. 다 자라면 내 소원을 들어줄지도? 주머니 열어.").file("tree2.jpg").build();
-        Tree tree3 = Tree.builder().name("거들먹거들목").description("사람이 지나갈 때 튀어나온 가지로 몰래 때린다는 소문이 있어 붙여진 이름. 거들먹 거리는 느낌의 양아치 나무.").file("tree3.jpg").build();
-        Tree tree4 = Tree.builder().name("회오리감자").description("어쩐지 놀이공원 앞에서 많이 본 것 같다. 주변에 가면 달콤 짭짤한 맛이 날 것 같은 회오리 감자 모양의 나무.").file("tree4.jpg").build();
-        Tree tree5 = Tree.builder().name("커몽커목").description("평범하게 생긴 나무라 사람들이 찾지 않을까 싶어 이름에 힘을 줘보았다. 우리 나무 가까이서 보면 더 귀여운데... 커몬커몬!").file("tree5.jpg").build();
-        Tree tree6 = Tree.builder().name("에그목니나").description("벚꽃이 피면 사람들이 나무를 발로 자꾸 차서 붙여진 이름. 에구머니나! 우리 나무 차지 마세요!").file("tree6.jpg").build();
-        Tree tree7 = Tree.builder().name("쥐구목").description("중간에 구멍이 뻥 뚫려 있는 나무. 계속 쳐다 보고 있으면 귀여운 다람쥐가 나온다고 한다. 아닐 수도 있음.").file("tree7.jpg").build();
-        Tree tree8 = Tree.builder().name("엠씨목").description("사랑니를 닮은 동글동글 귀여운 모양의 나무. 뽑으면 내가 아플 것 같다.").file("tree8.jpg").build();
-        Tree tree9 = Tree.builder().name("탕수육 부목찍목").description("탕수육 부먹이에요 찍먹이에요? 궁금해요.").file("tree9.jpg").build();
+        Tree tree1 = Tree.builder().name("산분꽃나무").description("산지나 계곡 가장자리, 석회암 지대 등에서 높이 2~4m 정도로 자라요. 드물게 사는 낙엽성 활엽 떨기나무. 한국에서 자연적으로 살아간다는 건 최근에 알려졌어요. 원예식물로 가치가 높지만 개체수가 매우 작은 희귀식물이에요.").file("산분꽃나무.jpg").build();
+        Tree tree2 = Tree.builder().name("미선나무").description("열매의 모양이 둥근 부채를 닮아 아름다운 부채라는 뜻의 미선나무라고 불려요. 한반도의 고유종이며, 경기도와 충청도의 볕이 잘 드는 산기슭에서 자라요. 전세계에서 오직 우리나라에만 있어요!").file("미선나무.jpg").build();
+        Tree tree3 = Tree.builder().name("섬개야광나무").description("울릉도 해안가에서도 절벽과 바위 지대에서 자라는 한국 고유종이에요. 5~6월에 분홍색이 섞인 흰 꽃이 피며 열매는 9~10월에 붉게 익어요. 과거 울릉도 전역에 분포했으나 무분별한 채취와 서식지가 훼손되어 위협을 받는 중이에요.").file("섬개야광나무.jpg").build();
+        Tree tree4 = Tree.builder().name("구상나무").description("제가 전세계에서 가장 아름다운 크리스마스 트리의 원조랍니다. 외국 나무라고 생각하는 분들이 많지만, 사실은 우리나라 토종 나무예요! 한라산, 지리산, 무등산, 덕유산 등 높은 곳에서 살아요. 온난화, 불규칙한 강수량 등의 기후변화로 살기 힘들어요.").file("구상나무.jpg").build();
+        Tree tree5 = Tree.builder().name("은행나무").description("저는 흔하게 볼 수 있지만 사실 멸종위기종이에요. 자주 보는 건 야생 나무가 아닌 모두 인간의 손을 거친 나무랍니다. 어린 나무가 종자를 맺기까지는 30년의 긴 시간이 걸려 야생 번식이 매우 어렵고 종자가 크고 무거워 점차 사라지고 있어요.").file("은행나무.jpg").build();
+        Tree tree6 = Tree.builder().name("초령목").description("국내에서 자연으로 자란 건 단 3그루만 알려진 희귀 나무예요. 높이가 1m 이하인 어린나무에서 21m에 이르는 큰 나무까지 다양해요. 사람들의 무분별한 채취, 국내에 분포 지역이 극소해 친구들이 사라졌어요.").file("초령목.jpg").build();
+        Tree tree7 = Tree.builder().name("분비나무").description("고산지대에서 자라는 사시사철 잎 푸른 나무예요. 높이 25m, 지름 75cm에 달해요. 기후변화에 따른 서식 환경 변화로 인해 주요 서식지인 소백산과 지리산 등에서 사라지고 있다. 소백산에서도 절반이 친구 절반이 없어졌어요.").file("분비나무.jpg").build();
+//        Tree tree1 = Tree.builder().name("비몽사목").description("넣지 말자고 했는데 개발자가 잠이 부족해 깜빡했는지 최종까지 함께 온 나무. 하루에 6시간은 꼭 자자.").file("tree1.jpg").build();
+//        Tree tree2 = Tree.builder().name("도라에몽 물주목").description("도라에몽 주먹과 꼭 닮은 열매를 맺는 나무. 혹시 모른다. 다 자라면 내 소원을 들어줄지도? 주머니 열어.").file("tree2.jpg").build();
+//        Tree tree3 = Tree.builder().name("거들먹거들목").description("사람이 지나갈 때 튀어나온 가지로 몰래 때린다는 소문이 있어 붙여진 이름. 거들먹 거리는 느낌의 양아치 나무.").file("tree3.jpg").build();
+//        Tree tree4 = Tree.builder().name("회오리감자").description("어쩐지 놀이공원 앞에서 많이 본 것 같다. 주변에 가면 달콤 짭짤한 맛이 날 것 같은 회오리 감자 모양의 나무.").file("tree4.jpg").build();
+//        Tree tree5 = Tree.builder().name("커몽커목").description("평범하게 생긴 나무라 사람들이 찾지 않을까 싶어 이름에 힘을 줘보았다. 우리 나무 가까이서 보면 더 귀여운데... 커몬커몬!").file("tree5.jpg").build();
+//        Tree tree6 = Tree.builder().name("에그목니나").description("벚꽃이 피면 사람들이 나무를 발로 자꾸 차서 붙여진 이름. 에구머니나! 우리 나무 차지 마세요!").file("tree6.jpg").build();
+//        Tree tree7 = Tree.builder().name("쥐구목").description("중간에 구멍이 뻥 뚫려 있는 나무. 계속 쳐다 보고 있으면 귀여운 다람쥐가 나온다고 한다. 아닐 수도 있음.").file("tree7.jpg").build();
+//        Tree tree8 = Tree.builder().name("엠씨목").description("사랑니를 닮은 동글동글 귀여운 모양의 나무. 뽑으면 내가 아플 것 같다.").file("tree8.jpg").build();
+//        Tree tree9 = Tree.builder().name("탕수육 부목찍목").description("탕수육 부먹이에요 찍먹이에요? 궁금해요.").file("tree9.jpg").build();
 
         treeList.add(tree1);
         treeList.add(tree2);
@@ -288,8 +288,8 @@ public class DataLoader implements CommandLineRunner {
         treeList.add(tree5);
         treeList.add(tree6);
         treeList.add(tree7);
-        treeList.add(tree8);
-        treeList.add(tree9);
+//        treeList.add(tree8);
+//        treeList.add(tree9);
 
         treeRepository.saveAllAndFlush(treeList);
     }
