@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @RequiredArgsConstructor
 @Service
 @Slf4j
@@ -35,7 +37,7 @@ public class FCMNotificationService {
             if(toMember.getFcmToken() != null) {
                 Notification notification = Notification.builder()
                         .setTitle(requestDto.getTitle())
-                        .setBody(notice.getDate().toString())
+                        .setBody(LocalDate.from(notice.getDate()).toString())
                         .build();
 
                 Message message = Message.builder()
