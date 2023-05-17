@@ -180,7 +180,8 @@ public class BoardServiceImpl implements BoardService {
 
             if(!board.isPayed()) {
                 // 나를 제외한 사람들
-                List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+//                List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+                List<Member> memberList = memberBoardRepository.findAllByBoard_BoardId(boardId).stream().map(board1 -> board1.getMember().rewardCoinAndTree()).collect(Collectors.toList());
                 memberList.add(board.getMember().rewardCoinAndTree());
                 memberRepository.saveAllAndFlush(memberList);
 
