@@ -10,15 +10,15 @@ import { Suspense, useEffect, useMemo, useState } from 'react';
 import CharacterChurest from './CharacterChurest';
 import ChoosePosition from './ChoosePosition';
 import { PostBox } from '../3DFiles/PostBox';
-import { Tree3 } from '../3DFiles/Trees/Tree3';
-
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import {
   letterBoxAtom,
   myBirdAtom,
   openMyPageAtom,
   spaceModalAtom,
   myTreeAtom,
+  createArticleAtom,
 } from '@/atoms/modal';
 import { Mountain } from '../3DFiles/Rock/Mountain';
 import { Rock1 } from '../3DFiles/Rock/Rock1';
@@ -26,6 +26,11 @@ import { Rock2 } from '../3DFiles/Rock/Rock2';
 import { Rock3 } from '../3DFiles/Rock/Rock3';
 import { Rock4 } from '../3DFiles/Rock/Rock4';
 import { Rock5 } from '../3DFiles/Rock/Rock5';
+import { RedFlower } from '../3DFiles/Flowers/RedFlower';
+import { WhiteFlower } from '../3DFiles/Flowers/WhiteFlower';
+import { BlueFlower } from '../3DFiles/Flowers/BlueFlower';
+import { OrangeFlower } from '../3DFiles/Flowers/OrangeFlower';
+import { GrassFlower } from '../3DFiles/Flowers/GrassFlower';
 import { DirectionalLight, Vector3 } from 'three';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
@@ -34,7 +39,13 @@ import { spots } from '@/utils/spots';
 import { BirdHouses, Houses, Trees } from './Options';
 import Bird from './Bird';
 import { Tile } from '../3DFiles/Tile';
+import { clickedName } from '@/atoms/modal';
 import { ChurestMap } from '../3DFiles/ChurestMapLast';
+import Swal from 'sweetalert2';
+import { forestAtom } from '@/atoms/inp';
+import { TFlower_1 } from '../3DFiles/Flowers/TFlower_1';
+import TileFlower from './TileFlower';
+import Loader3D from '../common/Loader3D';
 
 export const Controls = {
   forward: 'forward',
@@ -45,15 +56,29 @@ export const Controls = {
 };
 
 type Props = {
-  selectSpot: boolean;
   autoView: boolean;
   resetPosition: boolean;
 };
-export default function Churest3D({
-  selectSpot,
-  autoView,
-  resetPosition,
-}: Props) {
+export default function Churest3D({ autoView, resetPosition }: Props) {
+  // const [name, setClickedName] = useRecoilState(clickedName);
+  // const showAlert = () => {
+  //   Swal.fire({
+  //     title: name.name + '의 츄레스트',
+  //     position: 'center',
+  //     showConfirmButton: false,
+  //     timer: 1000,
+  //   });
+  // };
+
+  let loginId = useRecoilValue(loginAtom).id;
+  // 방문 츄레스트 id
+  const router = useRouter();
+  let churestId = Number(router.query.id);
+
+  if (loginId == churestId) {
+    churestId = loginId;
+  }
+
   const map = useMemo(
     () => [
       { name: Controls.forward, keys: ['ArrowUp', 'KeyW'] },
@@ -65,7 +90,7 @@ export default function Churest3D({
     []
   );
 
-  const directionalLight = new DirectionalLight(0xffffff, 1.8);
+  const directionalLight = new DirectionalLight(0xffffff, 1.4);
   const gogo = useThree();
   useEffect(() => {
     directionalLight.position.set(20, 30, 16);
@@ -100,7 +125,7 @@ export default function Churest3D({
         setReadyModal('');
         return;
       case 'myPage':
-        setIsMyPageOpen({ isModal: true });
+        setIsMyPageOpen({ isModal: true, myPageId: churestId });
         setReadyModal('');
         return;
       case 'myTree':
@@ -114,20 +139,36 @@ export default function Churest3D({
         return;
     }
   };
-
   const memberId = useRouter().query.id;
   const { data, refetch } = useQuery(
     ['tree', memberId],
     () => getForest(memberId),
     {
       onSuccess(data) {
-        console.log('추레스트에 왔단다');
         console.log(data);
       },
     }
   );
   const spotINfo = spots;
 
+  const refetchTime = useRecoilValue(forestAtom);
+  useEffect(() => {
+    refetch();
+  }, [refetchTime]);
+  useEffect(() => {
+    return () => {
+      setReadyModal('');
+      setIsSelect({
+        isModal: false,
+        spot: -1,
+        isSelect: false,
+        isTagged: false,
+        boardId: -1,
+        isTagModal: false,
+      });
+    };
+  }, []);
+  const [isSelect, setIsSelect] = useRecoilState(createArticleAtom);
   return (
     <>
       <KeyboardControls map={map}>
@@ -137,19 +178,22 @@ export default function Churest3D({
             {/* <MovingCharacter logSpot={logSpot} autoView={autoView} /> */}
             <CharacterChurest
               autoView={autoView}
-              selectSpot={selectSpot}
               spaceModal={spaceModal}
               resetPosition={resetPosition}
             />
-            {selectSpot ? (
+            {isSelect.isSelect ? (
               <>
                 <ChoosePosition occupied={data?.data.treeList} />
               </>
             ) : (
               <>
                 {/* 나의 집 3D start */}
-                <RigidBody position={[0, 0.2, 0]} type="fixed" name="house">
-                  <group onClick={() => setIsMyPageOpen({ isModal: true })}>
+                {/* <RigidBody position={[0, 0, 0]} type="fixed" name="house">
+                  <group
+                    onClick={() =>
+                      setIsMyPageOpen({ isModal: true, myPageId: churestId })
+                    }
+                  >
                     {Houses(data?.data.houseId)}
                   </group>
                   <CylinderCollider
@@ -164,9 +208,80 @@ export default function Churest3D({
                         setReadyModal('');
                     }}
                   />
-                </RigidBody>
+                </RigidBody> */}
                 {/* 나의 집 3D end */}
-
+                {/* 꽃들 */}
+                <WhiteFlower
+                  position={[5, -2.5, 0]}
+                  type="fixed"
+                  name="whiteFlower"
+                />
+                <WhiteFlower
+                  position={[-2, -2.5, 1]}
+                  type="fixed"
+                  name="whiteFlower"
+                />
+                <WhiteFlower position={[-2.5, -2.7, 0.5]} />
+                <WhiteFlower
+                  position={[-1, -2.5, -3]}
+                  type="fixed"
+                  name="whiteFlower"
+                />
+                <BlueFlower
+                  position={[5, 0, 0]}
+                  type="fixed"
+                  name="blueFlower"
+                />
+                <GrassFlower
+                  position={[5.2, -1, 1.5]}
+                  type="fixed"
+                  name="blueFlower"
+                />
+                <BlueFlower
+                  position={[-3, 0, -2]}
+                  type="fixed"
+                  name="blueFlower"
+                />
+                <GrassFlower
+                  position={[-2, -1, -1.4]}
+                  type="fixed"
+                  name="blueflower"
+                />
+                <group>
+                  <OrangeFlower
+                    position={[-5.5, -1.5, -4.4]}
+                    type="fixed"
+                    name="orangeFlower"
+                  />
+                  <GrassFlower
+                    position={[-4, -1, -3]}
+                    type="fixed"
+                    name="grass"
+                  />
+                </group>
+                {/* 우측상단 잔디 */}
+                <group>
+                  <GrassFlower
+                    position={[5, -1, -4.5]}
+                    type="fixed"
+                    name="grassflower"
+                  />{' '}
+                  <GrassFlower
+                    position={[5.3, -1, -4.7]}
+                    type="fixed"
+                    name="grassflower"
+                    rotation={[0, Math.PI / 2, 0]}
+                  />
+                </group>
+                <group>
+                  <GrassFlower
+                    position={[-4.2, -1, -3.2]}
+                    type="fixed"
+                    name="grass"
+                  />
+                </group>
+                <GrassFlower position={[-5, -1, 5]} />
+                <GrassFlower position={[-4.5, -1, 5.5]} />
                 {/* 우편함 3D start */}
                 <RigidBody position={[-4.5, 0, 0]} type="fixed">
                   <group onClick={() => setIsPostBoxOpen({ isModal: true })}>
@@ -185,29 +300,35 @@ export default function Churest3D({
                     }}
                   />
                 </RigidBody>
+                <GrassFlower
+                  position={[-4, -1.5, 0.5]}
+                  type="fixed"
+                  name="blueFlower"
+                />
                 {/* 우편함 3D end */}
-
                 {/* 새집 3D start */}
-                <RigidBody position={[4.5, 0, 0]} type="fixed">
-                  <group onClick={() => setIsMyBirdOpen({ isModal: true })}>
-                    {BirdHouses(data?.data.birdhouseId)}
-                  </group>
-                  <CylinderCollider
-                    sensor
-                    args={[5, 2]}
-                    onIntersectionEnter={(e) => {
-                      e.colliderObject?.name == 'character' &&
-                        setReadyModal('myBird');
-                    }}
-                    onIntersectionExit={(e) => {
-                      e.colliderObject?.name == 'character' &&
-                        setReadyModal('');
-                    }}
-                  />
-                </RigidBody>
+                {data?.data.birdhouseId && (
+                  <RigidBody position={[4.5, 0, 0]} type="fixed">
+                    <group onClick={() => setIsMyBirdOpen({ isModal: true })}>
+                      {BirdHouses(data?.data.birdhouseId)}
+                    </group>
+                    <CylinderCollider
+                      sensor
+                      args={[5, 2]}
+                      onIntersectionEnter={(e) => {
+                        e.colliderObject?.name == 'character' &&
+                          setReadyModal('myBird');
+                      }}
+                      onIntersectionExit={(e) => {
+                        e.colliderObject?.name == 'character' &&
+                          setReadyModal('');
+                      }}
+                    />
+                  </RigidBody>
+                )}
                 {/* 새집 3D end */}
                 {/* 새 3D */}
-                <Bird id={data?.data.birdId} />
+                {data?.data.birdId && <Bird id={data?.data.birdId} />}
                 {/* 추억 나무 리스트 start */}
                 {data?.data.treeList?.map(
                   (
@@ -219,54 +340,66 @@ export default function Churest3D({
                     },
                     idx: number
                   ) => {
+                    const randNum = Math.floor(Math.random() * (4 - 1) + 1);
                     return (
-                      <RigidBody
-                        key={idx}
-                        position={
-                          new Vector3(
-                            spotINfo[tree.spot]['x'],
-                            0,
-                            spotINfo[tree.spot]['z']
-                          )
-                        }
-                        type="fixed"
-                        colliders="trimesh"
-                      >
-                        <group
-                          onClick={() =>
-                            setIsMyTreeOpen({
-                              isModal: true,
-                              boardId: tree.boardId,
-                            })
+                      <>
+                        <TileFlower
+                          num={randNum}
+                          position={
+                            new Vector3(
+                              spotINfo[tree.spot]['x'],
+                              0,
+                              spotINfo[tree.spot]['z']
+                            )
                           }
-                          position={[0, 0.025, 0]}
-                        >
-                          {Trees(tree)}
-                        </group>
-                        <Tile position={[0, -0.025, 0]} />
-                        <CylinderCollider
-                          sensor
-                          args={[5, 2]}
-                          onIntersectionEnter={(e) => {
-                            if (e.colliderObject?.name == 'character') {
-                              setTreeId(tree.boardId);
-                              setReadyModal('myTree');
-                              console.log(tree.boardId + '에게 다가갔떠');
-                            }
-                          }}
-                          onIntersectionExit={(e) => {
-                            e.colliderObject?.name == 'character' &&
-                              setReadyModal('');
-                          }}
                         />
-                      </RigidBody>
+                        <RigidBody
+                          key={idx}
+                          position={
+                            new Vector3(
+                              spotINfo[tree.spot]['x'],
+                              0,
+                              spotINfo[tree.spot]['z']
+                            )
+                          }
+                          type="fixed"
+                          colliders="trimesh"
+                        >
+                          <group
+                            onClick={() =>
+                              setIsMyTreeOpen({
+                                isModal: true,
+                                boardId: tree.boardId,
+                              })
+                            }
+                            position={[0, 0.025, 0]}
+                          >
+                            {Trees(tree)}
+                          </group>
+                          <Tile position={[0, -0.025, 0]} />
+                          <CylinderCollider
+                            sensor
+                            args={[5, 2]}
+                            onIntersectionEnter={(e) => {
+                              if (e.colliderObject?.name == 'character') {
+                                setTreeId(tree.boardId);
+                                setReadyModal('myTree');
+                                console.log(tree.boardId + '에게 다가갔떠');
+                              }
+                            }}
+                            onIntersectionExit={(e) => {
+                              e.colliderObject?.name == 'character' &&
+                                setReadyModal('');
+                            }}
+                          />
+                        </RigidBody>
+                      </>
                     );
                   }
                 )}
                 {/* 추억 나무 리스트 end */}
               </>
             )}
-
             <RigidBody
               name="map"
               colliders="trimesh"
@@ -277,48 +410,72 @@ export default function Churest3D({
               <ChurestMap />
               <CuboidCollider sensor args={[22, 8, 22]} name="mapSensor" />
             </RigidBody>
+            {/* 상단 바위 ( center )*/}
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[23, -4, -33]}
+              position={[23, -4, -30]}
               rotation={[0, 0, 0]}
             >
               <Mountain />
             </RigidBody>
+            {/* 바위 */}
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-2, -6, -34]}
+              position={[-2, -6, -43]}
               name="rock"
             >
               <Rock1 />
             </RigidBody>
+            {/* 상단 바위 ( left )*/}
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-17, -6, -35]}
+              position={[-17, -6, -30]}
               name="rock"
             >
               <Rock2 />
             </RigidBody>
+            {/* 좌측 바위 */}
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-34, -6, -17]}
+              position={[-26, -6, -17]}
               rotation={[0, Math.PI / 2, 0]}
               name="rock"
             >
               <Rock3 />
             </RigidBody>
+            {/* 좌측 바위 */}
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[-35, -6, 8]}
+              position={[-30, -6, 8]}
               rotation={[0, Math.PI / 2, 0]}
               name="rock"
             >
               <Rock2 />
             </RigidBody>
+            <RigidBody
+              colliders="trimesh"
+              type="fixed"
+              position={[-33, -6, 3]}
+              rotation={[0, Math.PI / 3, 0]}
+              name="rock"
+            >
+              <Rock2 />
+            </RigidBody>
+            <RigidBody
+              colliders="trimesh"
+              type="fixed"
+              position={[-27, -7, 24]}
+              rotation={[0, Math.PI, 0]}
+              name="rock"
+            >
+              <Rock2 />
+            </RigidBody>
+            {/* 좌측 상단 바위 */}
             <RigidBody
               colliders="trimesh"
               type="fixed"
@@ -328,23 +485,51 @@ export default function Churest3D({
             >
               <Rock1 />
             </RigidBody>
+            {/* 우측 계곡 바위 */}
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[38, -6, -5]}
+              position={[29, -6, -10]}
               rotation={[0, Math.PI, 0]}
               name="rock"
             >
               <Rock4 />
             </RigidBody>
+            {/* 우측 하단 바위 */}
             <RigidBody
               colliders="trimesh"
               type="fixed"
-              position={[37, -6, 10]}
-              rotation={[0, -Math.PI / 2, 0]}
+              position={[35, -6, 10]}
+              rotation={[0, -Math.PI / 4, 0]}
               name="rock"
             >
               <Rock5 />
+            </RigidBody>
+            <RigidBody
+              colliders="trimesh"
+              type="fixed"
+              position={[36, -4, 20]}
+              rotation={[0, -Math.PI / 4, 0]}
+              name="rock"
+            >
+              <Rock5 />
+            </RigidBody>
+            {/* 하단 */}
+            <RigidBody
+              colliders="trimesh"
+              type="fixed"
+              position={[-2, -6, 33]}
+              name="rock"
+            >
+              <Rock1 />
+            </RigidBody>
+            <RigidBody
+              colliders="trimesh"
+              type="fixed"
+              position={[15, -6, 33]}
+              name="rock"
+            >
+              <Rock1 />
             </RigidBody>
           </Physics>
           <ambientLight intensity={0.2} />

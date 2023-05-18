@@ -110,7 +110,7 @@ export default function Navbar({ types }: Props) {
       {/* 6. 마이페이지    */}
       <div
         onClick={() => {
-          setIsMyPageOpen({ isModal: true });
+          setIsMyPageOpen({ isModal: true, myPageId: id });
         }}
       >
         <NavbarButton image="mypage_navbar_img" title="마이페이지" />
@@ -120,7 +120,7 @@ export default function Navbar({ types }: Props) {
       {types == 'chuworld' ? null : (
         <div
           onClick={() => {
-            router.push('/chuworld/' + id);
+            router.push('/chuworld');
           }}
         >
           <NavbarButton image="chuworld_navbar_img" title="츄월드" />

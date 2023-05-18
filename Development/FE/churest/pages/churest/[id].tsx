@@ -4,38 +4,59 @@ import Churest3D from '@/components/churest/Churest3D';
 import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
 import { createArticleAtom, spaceModalAtom, tutorialAtom } from '@/atoms/modal';
 import Navbar from '@/components/common/Navbar';
-import MemoryButton from '@/components/churest/MemoryButton';
+// import MemoryButton from '@/components/churest/MemoryButton';
 import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
 import { images } from '@/public/assets/images';
 import Image from 'next/image';
+// import { useMutation } from 'react-query';
+// import { updateFcm } from '@/apis/mypage';
 
 export default function Garden() {
   const memberId = useRecoilValue(loginAtom).id;
+  // const getFcmToken = useRecoilValue(loginAtom).fcmToken;
+  // const changeFcm = useMutation(
+  //   (info: { fcm: string; memberId: number }) => updateFcm(info),
+  //   {
+  //     onSuccess(data) {
+  //       console.log('수수수수수정와놔노아노안료');
+  //       console.log(getFcmToken);
+  //       console.log(data);
+  //     },
+  //   }
+  // );
   const isSpace = useRecoilValue(spaceModalAtom);
   const router = useRouter();
   const churestId = Number(router.query.id);
 
   const [autoView, setAutoView] = useState(true);
 
-  const [selectSpot, setSelectSpot] = useState(false);
-  const setIsSelect = useSetRecoilState(createArticleAtom);
-  const changeToSelect = () => {
-    setSelectSpot((prev) => !prev);
-    setIsSelect((prev) => {
-      return { ...prev, isSelect: true };
-    });
-  };
-  const isSelect = useRecoilValue(createArticleAtom).isSelect;
-  useEffect(() => {
-    if (isSelect == false) {
-      setSelectSpot(false);
-    }
-  }, [isSelect]);
+  // const [selectSpot, setSelectSpot] = useState(false);
+  // const setIsSelect = useSetRecoilState(createArticleAtom);
+  // const changeToSelect = () => {
+  //   setSelectSpot((prev) => !prev);
+  //   setIsSelect((prev) => {
+  //     return { ...prev, isSelect: true };
+  //   });
+  // };
+  // const isSelect = useRecoilValue(createArticleAtom).isSelect;
+  // useEffect(() => {
+  //   if (isSelect == false) {
+  //     setSelectSpot(false);
+  //   }
+  // }, [isSelect]);
 
   const [resetPosition, setResetPosition] = useState(true);
 
   const [isTutorialOpen, setIsTutorialOpen] = useRecoilState(tutorialAtom);
+
+  // useEffect(() => {
+  //   const info = {
+  //     fcm: getFcmToken,
+  //     memberId: memberId,
+  //   };
+  //   changeFcm.mutate(info);
+  // }, [getFcmToken]);
 
   return (
     <div className="gogo">
@@ -48,31 +69,39 @@ export default function Garden() {
         </div>
       )}
       <div className="btn-box">
-        <div className = "btn" onClick={() => setAutoView((prev) => !prev)}>
-          <Image src={images['pin_focus_img']} width={80} height={80} alt="" />
+        <div className="btn" onClick={() => setAutoView((prev) => !prev)}>
+          <Image
+            src={images['pin_focus_img']}
+            width={80}
+            height={80}
+            alt=""
+            priority
+          />
           AutoFocus
         </div>
-        <div className = "btn" onClick={() => setResetPosition((prev) => !prev)}>
+        <div className="btn" onClick={() => setResetPosition((prev) => !prev)}>
           <Image src={images['pin_home_img']} width={80} height={80} alt="" />
           집으로 가기
         </div>
       </div>
-      <div className='btn-tutorial'>
-      <div className = "btn" onClick={() => setIsTutorialOpen({ isModal: true })}>
-          <Image src={images['tutorial_navbar_img']} width={80} height={80} alt="" />
+      <div className="btn-tutorial">
+        <div
+          className="btn"
+          onClick={() => setIsTutorialOpen({ isModal: true })}
+        >
+          <Image
+            src={images['tutorial_navbar_img']}
+            width={80}
+            height={80}
+            alt=""
+          />
           튜토리얼
         </div>
       </div>
-      {churestId === memberId && (
-        <MemoryButton selectSpot={selectSpot} changeToSelect={changeToSelect} />
-      )}
+      {/* {churestId === memberId && <MemoryButton />} */}
 
       <Canvas shadows>
-        <Churest3D
-          autoView={autoView}
-          selectSpot={selectSpot}
-          resetPosition={resetPosition}
-        />
+        <Churest3D autoView={autoView} resetPosition={resetPosition} />
       </Canvas>
       <style jsx>
         {`
@@ -80,7 +109,7 @@ export default function Garden() {
             width: 100vw;
             height: 100vh;
             position: relative;
-            background-image: url('https://images.pexels.com/photos/896673/pexels-photo-896673.jpeg?auto=compress&cs=tinysrgb&w=1600');
+            background-image: url('https://images.pexels.com/photos/627823/pexels-photo-627823.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
             background-size: cover;
           }
           .navbarBox {
@@ -145,11 +174,10 @@ export default function Garden() {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 60px 60px 80px rgba(254, 255, 193, 0.55),
           }
-          .btn:hover{
+          .btn:hover {
             cursor: pointer;
-            transform: scale(1.10);
+            transform: scale(1.1);
             transition: transform 0.5s;
           }
           .btn-tutorial {

@@ -4,6 +4,9 @@ interface createArticle {
   isModal: boolean;
   spot: number;
   isSelect: boolean;
+  isTagged: boolean;
+  boardId: number;
+  isTagModal: boolean;
 }
 
 interface openAlarm {
@@ -23,6 +26,17 @@ interface myTree {
   isModal: boolean;
   boardId: number;
 }
+interface myReward {
+  isModal: boolean;
+  treeInfo: any;
+}
+interface storeName {
+  name: string;
+}
+interface myPage {
+  isModal: boolean;
+  myPageId: number;
+}
 
 export const createArticleAtom = atom<createArticle>({
   key: 'createArticle',
@@ -30,8 +44,19 @@ export const createArticleAtom = atom<createArticle>({
     isModal: false,
     spot: -1,
     isSelect: false,
+    isTagged: false,
+    boardId: -1,
+    isTagModal: false,
   },
 });
+// 태그 옮겨심기 로직 + 모달
+// export const takeArticleAtom = atom({
+//   key: 'takeArticle',
+//   default: {
+//     isModal: false,
+//   },
+// });
+
 export const openShopAtom = atom<openAlarm>({
   key: 'openShop',
   default: {
@@ -54,10 +79,11 @@ export const openTagAtom = atom<openAlarm>({
 });
 
 // 마이페이지 모달
-export const openMyPageAtom = atom<openAlarm>({
+export const openMyPageAtom = atom<myPage>({
   key: 'openMyPage',
   default: {
     isModal: false,
+    myPageId: 0,
   },
 });
 
@@ -67,6 +93,11 @@ export const openSearchAtom = atom<openAlarm>({
   default: {
     isModal: false,
   },
+});
+
+export const clickedName = atom<storeName>({
+  key: 'clickedName',
+  default: { name: '' },
 });
 
 // 우체통 모달
@@ -101,7 +132,7 @@ export const newBirdAtom = atom<newBird>({
 });
 
 // 광장 세계수 기부 모달
-export const squareModalAtom = atom({
+export const donationModalAtom = atom({
   key: 'squareModal',
   default: {
     isModal: false,
@@ -117,10 +148,18 @@ export const myTreeAtom = atom<myTree>({
   },
 });
 
+// 성장 완료 모달
+export const myRewardModal = atom<myReward>({
+  key: 'myReward',
+  default: {
+    isModal: false,
+    treeInfo: [{}],
+  },
+});
 //  튜토리얼 모달
 export const tutorialAtom = atom({
   key: 'tutorial',
   default: {
     isModal: false,
   },
-})
+});

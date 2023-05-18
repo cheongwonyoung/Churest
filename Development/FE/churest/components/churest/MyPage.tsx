@@ -10,38 +10,43 @@ import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
 import NickName from './NickName';
 
+type Props = {
+  myPageId: number;
+};
 type MyPageInfo = {
   member: { memberId: number; nickname: string; avatarId: number };
   boards: [];
 };
 
-export default function MyPage() {
+export default function MyPage({ myPageId }: Props) {
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
   const closeModal = () => {
-    setIsMyPageOpen({ isModal: false });
+    setIsMyPageOpen({ isModal: false, myPageId: myPageId });
   };
 
   const cardType = 'mypage';
   let memberId = useRecoilValue(loginAtom).id;
-
   // 방문 츄레스트 id
   const router = useRouter();
-  const id = useRecoilValue(loginAtom).id;
+  const churestId = Number(router.query.id);
 
-  const { data, refetch } = useQuery('mypage', () => getMyInfo(Number(id)), {
-    onSuccess(data) {
-      console.log('마이페이징');
-      console.log(data.data);
-    },
-    onError: (error) => {
-      console.log('에러다');
-      console.log(error);
-    },
-  });
+  const { data, refetch } = useQuery(
+    'mypage',
+    () => getMyInfo(Number(myPageId)),
+    {
+      onSuccess(data) {
+        // console.log('마이페이지 > >', data.data);
+      },
+      onError: (error) => {
+        // console.log('에러다');
+        // console.log(error);
+      },
+    }
+  );
 
   useEffect(() => {
     refetch();
-    console.log('처음');
+    // console.log('처음');
   }, []);
 
   return (
@@ -49,7 +54,15 @@ export default function MyPage() {
       <div>
         {/* {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
         <div className="blue-clay mypage-container">
-          <div className="modal-title">My Page</div>
+          <div className="modal-title">
+            <Image
+              src={images.mypage_navbar_img}
+              width={35}
+              height={35}
+              alt=""
+            />{' '}
+            마이페이지
+          </div>
           <div className="mypage-content-box">
             <div className="avatar-box">
               {/* <div className="inside-circle center"> */}
@@ -65,6 +78,7 @@ export default function MyPage() {
                 <NickName
                   nickname={data?.data.member && data.data.member.nickname}
                   refetch={refetch}
+                  myPageId={myPageId}
                 ></NickName>
               </div>
             </div>
@@ -92,7 +106,7 @@ export default function MyPage() {
         {`
           .mypage-container {
             width: 650px;
-            height: 440px;
+            height: 480px;
             overflow-x: hidden;
             overflow-y: auto;
             z-index: 50;
@@ -107,15 +121,16 @@ export default function MyPage() {
           }
           .memory-title {
             text-align: center;
+            line-height: 30px;
             font-size: 18px;
             font-weight: bold;
-            margin-top: 20px;
           }
           .memory-container {
             display: flex;
             flex-direction: column;
             justify-items: center;
             width: 100%;
+            height: 380px;
           }
           .mypage-content-box {
             display: flex;

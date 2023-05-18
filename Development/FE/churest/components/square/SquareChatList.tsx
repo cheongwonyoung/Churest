@@ -1,9 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 type Props = {
-  // sender: string;
-  // message: string;
   messages: any[];
-  //  리스트로?
 };
 
 export default function SquareChatList({ messages }: Props) {

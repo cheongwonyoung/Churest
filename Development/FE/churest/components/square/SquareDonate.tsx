@@ -1,20 +1,20 @@
-import { squareModalAtom } from '@/atoms/modal';
+import { donationModalAtom } from '@/atoms/modal';
 import { useRecoilState } from 'recoil';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
 import { getDonateInfo } from '@/apis/square';
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
-
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
 type Props = {
   memberId: number;
 };
 
 export default function SquareDonate({ memberId }: Props) {
-  const [isDonateOpen, setIsDonateOpen] = useRecoilState(squareModalAtom);
+  const [isDonateOpen, setIsDonateOpen] = useRecoilState(donationModalAtom);
   const [myDonateTree, setMyDonateTree] = useState(0);
   const [totalDonateTree, setTotalDonateTree] = useState(0);
-
   const clickCloseButton = () => {
     setIsDonateOpen({ isModal: false });
   };

@@ -1,15 +1,11 @@
-import { Stomp } from '@stomp/stompjs';
 import { useEffect, useState, useRef, useCallback, memo } from 'react';
-import SockJS from 'sockjs-client';
 import * as StompJS from '@stomp/stompjs';
 import SquareChatInp from './SquareChatInp';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
 import SquareChatList from './SquareChatList';
-import { disconnect } from 'process';
 
 export default memo(function SquareChat() {
-  // const baseURL = 'ws://localhost:8080/api/chat/websocket';
   const baseURL = 'ws://k8a505.p.ssafy.io/chat/websocket';
   const nickname = useRecoilValue(loginAtom)!.nickname;
   const client: any = useRef({});

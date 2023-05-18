@@ -9,10 +9,11 @@ import Swal from 'sweetalert2';
 
 type Props = {
   nickname: string;
+  myPageId: number;
   refetch: any;
 };
 
-export default function NickName({ nickname, refetch }: Props) {
+export default function NickName({ nickname, myPageId, refetch }: Props) {
   const router = useRouter();
   const memberId = useRecoilValue(loginAtom).id;
   const churestId = Number(router.query.id);
@@ -41,11 +42,21 @@ export default function NickName({ nickname, refetch }: Props) {
   );
 
   const submitForm = () => {
-    const info = {
-      memberId: memberId,
-      nickname: whatNickname,
-    };
-    canInputMessage.mutate(info);
+    if (whatNickname.trim().length < 1) {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: '공백은 입력이 불가합니다',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else {
+      const info = {
+        memberId: memberId,
+        nickname: whatNickname,
+      };
+      canInputMessage.mutate(info);
+    }
   };
 
   const showAlert = (text: string) => {
@@ -59,12 +70,12 @@ export default function NickName({ nickname, refetch }: Props) {
   };
 
   const modifyButton =
-    canInput && memberId == churestId ? (
+    canInput && memberId == myPageId ? (
       <div className="center">
         정보 수정하기&nbsp;
         <BsPencil />
       </div>
-    ) : memberId == churestId ? (
+    ) : memberId == myPageId ? (
       <p onClick={submitForm}>수정</p>
     ) : (
       <></>
@@ -80,7 +91,8 @@ export default function NickName({ nickname, refetch }: Props) {
             value={whatNickname}
             onChange={(e) => handleNickname(e)}
             readOnly={canInput}
-            maxLength={20}
+            maxLength={6}
+            minLength={1}
             placeholder={nickname}
             className={
               canInput == true ? 'nickname-div ' : 'modify-input inside-clay'

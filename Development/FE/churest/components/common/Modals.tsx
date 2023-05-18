@@ -1,5 +1,5 @@
 import { loginAtom } from '@/atoms/login';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   letterBoxAtom,
   myBirdAtom,
@@ -11,9 +11,11 @@ import {
   openShopAtom,
   newBirdAtom,
   createArticleAtom,
-  squareModalAtom,
-  tutorialAtom
+  donationModalAtom,
+  myRewardModal,
+  tutorialAtom,
 } from '@/atoms/modal';
+import { useEffect } from 'react';
 import Notice from '@/components/navbar/Notice';
 import Tag from '@/components/navbar/Tag';
 import SearchFriend from '@/components/common/SearchFriend';
@@ -27,7 +29,11 @@ import CreateArticle from '../churest/CreateArticle';
 import MemoryView from '../churest/MemoryView';
 import CreateBoox from '../churest/CreateBoox';
 import SquareDonate from '../square/SquareDonate';
+// import TreeInfo from '../churest/TreeInfo';
 import Tutorial from '../churest/Tutorial';
+// import RewardModal from './RewardModal';
+// import TagTaker from '../churest/TagTaker';
+import { movingAtom } from '@/atoms/inp';
 
 export default function Modals() {
   const id = useRecoilValue(loginAtom).id;
@@ -42,11 +48,56 @@ export default function Modals() {
   const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom); // 새 구입 모달
   const [isCreate, setIsCreate] = useRecoilState(createArticleAtom); // 추억 생성 모달
   const [isMyTreeOpen, setIsMyTreeOpen] = useRecoilState(myTreeAtom); // 추억 나무 조회
-  const [isDonateOpen, setIsDonateOpen] = useRecoilState(squareModalAtom); // 세계수 기부 현황 모달
+  const [isDonateOpen, setIsDonateOpen] = useRecoilState(donationModalAtom); // 세계수 기부 현황 모달
+  const [isRewardOpen, setMyRewardModal] = useRecoilState(myRewardModal); // 세계수 기부 현황 모달
   const [isTutorialOpen, setIsTutorialOpen] = useRecoilState(tutorialAtom); //  튜토리얼 모달
+
+  const setCharMove = useSetRecoilState(movingAtom);
+  useEffect(() => {
+    if (
+      isAlarmOpen.isModal ||
+      isTagOpen.isModal ||
+      isSearchOpen.isModal ||
+      isMyPageOpen.isModal ||
+      isLetterOpen.isModal ||
+      isMyBirdOpen.isModal ||
+      isShopOpen.isModal ||
+      isNewBirdOpen.isModal ||
+      isMyTreeOpen.isModal ||
+      isDonateOpen.isModal ||
+      isRewardOpen.isModal ||
+      isTutorialOpen.isModal
+    ) {
+      setCharMove(true);
+    } else {
+      setCharMove(false);
+    }
+  }, [
+    isAlarmOpen.isModal,
+    isTagOpen.isModal,
+    isSearchOpen.isModal,
+    isMyPageOpen.isModal,
+    isLetterOpen.isModal,
+    isMyBirdOpen.isModal,
+    isShopOpen.isModal,
+    isNewBirdOpen.isModal,
+    isMyTreeOpen.isModal,
+    isDonateOpen.isModal,
+    isRewardOpen.isModal,
+    isTutorialOpen.isModal,
+  ]);
 
   return (
     <div>
+      {/* 성장 완료 나무 */}
+      {/* {isRewardOpen.isModal && (
+        <RewardModal
+          modal={<TreeInfo item={isRewardOpen.treeInfo} />}
+          closeModal={() =>
+            setMyRewardModal({ ...isRewardOpen, isModal: false })
+          }
+        />
+      )} */}
       {isShopOpen.isModal && (
         <ModalBlackBg
           modal={<ItemShop memberId={id} />}
@@ -80,8 +131,10 @@ export default function Modals() {
       {/* {isMyPageOpen.isModal && <MyPage />} */}
       {isMyPageOpen.isModal && (
         <ModalBlackBg
-          modal={<MyPage />}
-          closeModal={() => setIsMyPageOpen({ isModal: false })}
+          modal={<MyPage myPageId={isMyPageOpen.myPageId} />}
+          closeModal={() =>
+            setIsMyPageOpen({ ...isMyPageOpen, isModal: false })
+          }
         />
       )}
       {/* 우체통 모달 */}
@@ -116,14 +169,20 @@ export default function Modals() {
           modal={<CreateBoox />}
         />
       )}
-
+      {/* 추억 옮겨심기 모달 */}
+      {/* {isCreate.isTagModal && (
+        <ModalBlackBg
+          closeModal={() => {
+            setIsCreate({ ...isCreate, isTagModal: false });
+          }}
+          modal={<TagTaker />}
+        />
+      )} */}
       {/* 세계수 기부 현황 조회 모달 */}
       {isDonateOpen.isModal && (
         <ModalBlackBg
           modal={<SquareDonate memberId={id} />}
-          closeModal={() => 
-            setIsDonateOpen({ isModal: false })
-          }
+          closeModal={() => setIsDonateOpen({ isModal: false })}
         />
       )}
 
@@ -140,7 +199,7 @@ export default function Modals() {
       {/* 튜토리얼 모달 */}
       {isTutorialOpen.isModal && (
         <ModalBlackBg
-          modal={<Tutorial/>}
+          modal={<Tutorial />}
           closeModal={() =>
             setIsTutorialOpen({ ...isTutorialOpen, isModal: false })
           }
