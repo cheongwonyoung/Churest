@@ -163,3 +163,10 @@ export const tutorialAtom = atom({
     isModal: false,
   },
 });
+export const gameFinishAtom = atom({
+  key: 'game',
+  default: {
+    isModal: false,
+    win: '',
+  },
+});

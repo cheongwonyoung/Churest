@@ -13,6 +13,7 @@ import CharacterChurest from '../churest/CharacterChurest';
 import { G_world_tree } from '../3DFiles/Square/G_worldTree';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { donationModalAtom, spaceModalAtom } from '@/atoms/modal';
+import { useRouter } from 'next/router';
 
 export const Controls = {
   forward: 'forward',
@@ -58,11 +59,17 @@ export default function Square3D() {
     setIsDonateOpen({ isModal: true });
   };
   const [readyModal, setReadyModal] = useRecoilState(spaceModalAtom);
+
+  const router = useRouter();
+
   const spaceModal = () => {
     switch (readyModal) {
       case 'donation':
         setIsDonateOpen({ isModal: true });
         setReadyModal('');
+        return;
+      case 'game1':
+        router.push('/game1');
         return;
       default:
         return;
@@ -90,7 +97,21 @@ export default function Square3D() {
               }
             }}
           />
-
+          <CylinderCollider
+            position={[6.4, 0, 14.8]}
+            args={[3, 1]}
+            sensor
+            onIntersectionEnter={(other) => {
+              if (other.colliderObject?.name == 'character') {
+                setReadyModal('game1');
+              }
+            }}
+            onIntersectionExit={(other) => {
+              if (other.colliderObject?.name == 'character') {
+                setReadyModal('');
+              }
+            }}
+          />
           <RigidBody type="fixed" colliders="trimesh">
             <G_world_tree onClick={clickDonate} />
           </RigidBody>

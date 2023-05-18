@@ -49,7 +49,7 @@ export default function TagPicker({
           return (
             <div key={uuidv4()} className="pickedItem">
               <p className="pickenName">{tag.nickname}</p>
-              <p onClick={() => deleteTag(tag)}>
+              <p className="deleteIcon" onClick={() => deleteTag(tag)}>
                 <GrFormClose />
               </p>
             </div>
@@ -127,6 +127,7 @@ export default function TagPicker({
             gap: 8px;
             padding: 8px;
             font-weight: 600;
+            cursor: pointer;
           }
           .tagItem:hover {
             background-color: #cab392;

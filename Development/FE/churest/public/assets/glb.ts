@@ -183,4 +183,6 @@ export const glbs: glbs = {
     'https://storage.googleapis.com/churest-bucket/project_3D/Flower_Grass.glb',
   flower_orange_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/Flower_Orange_Small.glb',
+  game_1_map_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/game1Map.glb',
 };

@@ -50,7 +50,7 @@ export default function Bird({ id }: Props) {
     const interverId = setInterval(() => {
       const x = randomNum(-2, 2);
       const z = randomNum(-2, 2);
-      const y = randomNum(5, 9);
+      const y = randomNum(3, 5);
       bird.current?.applyImpulse({
         x: x,
         y: y,

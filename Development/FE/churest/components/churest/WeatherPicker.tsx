@@ -50,6 +50,7 @@ export default function WeatherPicker({ weather, handleWeather }: Props) {
             height: 100%;
           }
           .picked {
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -63,6 +64,7 @@ export default function WeatherPicker({ weather, handleWeather }: Props) {
             align-items: center;
             gap: 8px;
             padding: 3px;
+            cursor: pointer;
           }
           .picked .imgName:hover {
             background-color: transparent;

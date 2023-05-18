@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { createArticleAtom } from '@/atoms/modal';
+import { createArticleAtom, spaceModalAtom } from '@/atoms/modal';
 
 // type Props = {
 //   selectSpot: any;
@@ -9,6 +9,7 @@ import { createArticleAtom } from '@/atoms/modal';
 // };
 export default function MemoryButton() {
   const [isSelect, setIsSelct] = useRecoilState(createArticleAtom);
+  const setIsSpace = useSetRecoilState(spaceModalAtom);
   return (
     <div>
       <div className="outside">
@@ -39,7 +40,7 @@ export default function MemoryButton() {
         ) : (
           <div
             className="plantContainer"
-            onClick={() =>
+            onClick={() => {
               setIsSelct((prev) => {
                 return {
                   ...prev,
@@ -47,8 +48,9 @@ export default function MemoryButton() {
                   isTagged: false,
                   boardId: -1,
                 };
-              })
-            }
+              });
+              setIsSpace('');
+            }}
           >
             <div className="plantTree">
               <Image
