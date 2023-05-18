@@ -7,6 +7,9 @@ import 'swiper/swiper.min.css';
 import moment from 'moment';
 import Image from 'next/image';
 import BirdNickname from '../churest/BirdNickname';
+import TreeInfo from '../churest/TreeInfo';
+import { myRewardModal } from '@/atoms/modal';
+import { useSetRecoilState } from 'recoil';
 
 SwiperCore.use([EffectCoverflow, Pagination]);
 
@@ -19,20 +22,14 @@ type Props = {
 export default function Carousel({ cardType, info, refetch }: Props) {
   const IMAGE_ROOT = process.env.NEXT_PUBLIC_IMAGE_ROOT;
 
-  // 나무 설명 정보 받아오기
-  let treeDesc: any;
-  if (info) {
-    console.log('트리성장완');
-    if (info.treeInfo != null) {
-      console.log('정보를줄게');
-      const desc = info.treeInfo.replace(/\./g, '<br>');
-      console.log(desc);
-      treeDesc = (desc: string) => {
-        return <>{desc}</>;
-      };
-    }
-  }
-  console.log('인포다인마', info);
+  const setMyRewardModal = useSetRecoilState(myRewardModal);
+
+  const showReward = (treeInfo: {}) => {
+    console.log('나무 정보보여주는 검정 모달');
+    setMyRewardModal({ isModal: true, treeInfo: treeInfo });
+  };
+
+  // console.log('인포다인마', info);
   return (
     <>
       <div>
@@ -50,6 +47,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
           }}
           pagination={true}
           className="center"
+          style={{ height: '350px' }}
         >
           {info &&
             info.map((item: any, idx: number) => {
@@ -63,7 +61,7 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                       ? 'inside-circle'
                       : 'bird-swiper center'
                   }
-                  style={{ width: '100px', height: '300px' }}
+                  style={{ width: '270px' }}
                 >
                   {/* 마이페이지에서 추억 리스트 조회 */}
                   {cardType == 'mypage' ? (
@@ -104,23 +102,21 @@ export default function Carousel({ cardType, info, refetch }: Props) {
                         </div>
                         <div className="back gray-clay center">
                           {item.treeInfo ? (
-                            <div className="tree-info">
-                              <div className="tree-title">
+                            <div>
+                              <div
+                                className="reward-btn"
+                                onClick={(e) => showReward(item)}
+                              >
                                 <Image
-                                  src={IMAGE_ROOT + item.treeInfo.file}
-                                  width={80}
-                                  height={80}
+                                  src={images['reward_icon_img']}
                                   alt=""
-                                />
-
-                                <div className="title">
-                                  {item.treeInfo.name}
-                                </div>
+                                  width={130}
+                                  height={130}
+                                ></Image>
                               </div>
-
-                              <div>{item.treeInfo.description}</div>
                             </div>
                           ) : (
+                            // <TreeInfo item={item.treeInfo}></TreeInfo>
                             <div>나무가 아직 성장 중이에요</div>
                           )}
                         </div>
@@ -157,7 +153,6 @@ export default function Carousel({ cardType, info, refetch }: Props) {
           .mypage-box {
             display: flex;
             flex-direction: column;
-            width: 100%;
             justify-content: center;
             align-items: center;
           }
@@ -184,45 +179,26 @@ export default function Carousel({ cardType, info, refetch }: Props) {
             justify-content: space-evenly;
             align-items: center;
           }
-          .flip-card {
-            height: 280px;
-            position: relative;
-            perspective: 1100px;
-          }
 
-          .card {
-            margin: 50px;
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: 0.4s;
-            transform-style: preserve-3d;
-          }
-
-          .front,
-          .back {
-            width: 200px;
-            height: 250px;
-            position: absolute;
-            backface-visibility: hidden;
-            margin: auto;
-          }
-
-          .back {
-            transform: rotateY(180deg);
-          }
-
-          .flip-card:hover .card {
-            transform: rotateY(180deg);
-          }
-          .tree-info {
-            text-align: center;
-          }
           .center-clay {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+          }
+          .reward-btn {
+            animation: flying 1s infinite alternate;
+          }
+          .reward-btn:hover {
+            animation: vibration 0.1s infinite;
+          }
+          @keyframes vibration {
+            from {
+              transform: rotate(1deg);
+            }
+            to {
+              transform: rotate(-1deg);
+            }
           }
         `}
       </style>

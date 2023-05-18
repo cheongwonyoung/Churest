@@ -29,10 +29,10 @@ import CreateArticle from '../churest/CreateArticle';
 import MemoryView from '../churest/MemoryView';
 import CreateBoox from '../churest/CreateBoox';
 import SquareDonate from '../square/SquareDonate';
-// import TreeInfo from '../churest/TreeInfo';
+import TreeInfo from '../churest/TreeInfo';
 import Tutorial from '../churest/Tutorial';
-// import RewardModal from './RewardModal';
-// import TagTaker from '../churest/TagTaker';
+import RewardModal from './RewardModal';
+import TagTaker from '../churest/TagTaker';
 import { movingAtom } from '@/atoms/inp';
 
 export default function Modals() {
@@ -90,14 +90,14 @@ export default function Modals() {
   return (
     <div>
       {/* 성장 완료 나무 */}
-      {/* {isRewardOpen.isModal && (
+      {isRewardOpen.isModal && (
         <RewardModal
           modal={<TreeInfo item={isRewardOpen.treeInfo} />}
           closeModal={() =>
             setMyRewardModal({ ...isRewardOpen, isModal: false })
           }
         />
-      )} */}
+      )}
       {isShopOpen.isModal && (
         <ModalBlackBg
           modal={<ItemShop memberId={id} />}
@@ -170,14 +170,14 @@ export default function Modals() {
         />
       )}
       {/* 추억 옮겨심기 모달 */}
-      {/* {isCreate.isTagModal && (
+      {isCreate.isTagModal && (
         <ModalBlackBg
           closeModal={() => {
             setIsCreate({ ...isCreate, isTagModal: false });
           }}
           modal={<TagTaker />}
         />
-      )} */}
+      )}
       {/* 세계수 기부 현황 조회 모달 */}
       {isDonateOpen.isModal && (
         <ModalBlackBg

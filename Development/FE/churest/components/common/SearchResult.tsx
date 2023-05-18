@@ -2,8 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { images } from '@/public/assets/images';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { openSearchAtom } from '@/atoms/modal';
-
+import { openSearchAtom, clickedName } from '@/atoms/modal';
 type Props = {
   list: ResultType[];
 };
@@ -15,6 +14,7 @@ interface ResultType {
 }
 export default function SearchFriend({ list }: Props) {
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
+  const [name, setClickedName] = useRecoilState(clickedName);
   const router = useRouter();
 
   return (
@@ -25,7 +25,8 @@ export default function SearchFriend({ list }: Props) {
             className="container"
             onClick={() => {
               setIsSearchOpen({ isModal: false });
-              router.push('/churest/' + item.memberId) 
+              setClickedName({ name: item.nickname });
+              router.push('/churest/' + item.memberId);
             }}
           >
             <div className="gray-clay search-avatar">
@@ -50,7 +51,7 @@ export default function SearchFriend({ list }: Props) {
           gap: 15px;
           margin-bottom: 10px;
         }
-        .container:hover{
+        .container:hover {
           transform: scale(0.9);
           transition: transform 0.3s;
           cursor: pointer;

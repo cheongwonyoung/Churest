@@ -15,16 +15,23 @@ export const goCreateArticle = (data: any) => {
 export const getForest = (memberId: any) => {
   if (typeof memberId == 'string') {
     return instance.get(`/forest/${memberId}`);
+    // return instance.get(`/forest/${memberId}`);
   }
 };
 
 // 추억 나무 조회
-export const getMyChurest = (memberId: number, boardId: number) => {
+export const getMyChurest = (
+  memberId: number,
+  boardId: number
+) => {
   return instance.get(`/forest/tree/${boardId}?memberId=${memberId}`);
 };
 
 // 추억 나무 물 주기
-export const wateringTree = (boardId: number, memberId: number) => {
+export const wateringTree = (
+  boardId: number,
+  memberId: number
+) => {
   return instance.get(`/forest/wateringTree/${boardId}/${memberId}`);
 };
 
@@ -40,21 +47,26 @@ export const checkLocation = (
 };
 
 // 추억 나무 생성 시 태그할 친구 닉네임 조회
-export const getTagNickname = (memberId: number, nickname: string) => {
-  return instance.get(`/forest/search/${nickname}?memberId=${memberId}`);
+export const getTagNickname = (
+  memberId: number,
+  nickname: string
+) => {
+  return instance.get(
+    `/forest/search/${nickname}?memberId=${memberId}`
+  );
 };
 
 // 추억 나무 퍼가기
-export const takeTree = (
-  boardId: number,
-  memberId: number,
+export const takeTree = (data: {
+  boardId: number;
+  memberId: number;
   locationInfo: {
-    locationX: number;
-    locationY: number;
-  }
-) => {
+    spot: number;
+  };
+}) => {
+ 
   return instance.post(
-    `/forest/takeTree/${boardId}?memberId=${memberId}`,
-    locationInfo
+    `/forest/takeTree/${data.boardId}?memberId=${data.memberId}`,
+    data.locationInfo,
   );
 };
