@@ -23,7 +23,7 @@ export default function TagPicker({
   const { refetch } = useQuery('tags', () => searchFriend(memberId, nickname), {
     enabled: false,
     onSuccess(data) {
-      console.log(data);
+      // console.log(data);
       if (data?.status == 200) {
         setFriends(data?.data);
       } else {
@@ -80,7 +80,10 @@ export default function TagPicker({
                 <div
                   key={uuidv4()}
                   className="tagItem"
-                  onClick={() => addPickedTag(friend)}
+                  onClick={() => {
+                    addPickedTag(friend);
+                    setNickname('');
+                  }}
                 >
                   <p>{friend.nickname}</p>
                 </div>

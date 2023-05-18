@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import { useState } from 'react';
@@ -7,10 +6,8 @@ import { tutorialAtom } from '@/atoms/modal';
 import Swal from 'sweetalert2';
 
 export default function Tutorial() {
-
   const [isTutorialOpen, setIsTutorialOpen] = useRecoilState(tutorialAtom);
   const [page, setPage] = useState(0);
-  
 
   // const tutorialList = [
   //   {title: "츄레스트", content:"츄레스트에 온 걸 환영해! 츄레스트의 기능에 대해 설명해줄게!", src:""},
@@ -35,19 +32,14 @@ export default function Tutorial() {
   return (
     <>
       <div className="blue-clay container">
-        <div className="title">마이 츄레스트</div>
+        {/* <div className="title">마이 츄레스트</div> */}
 
-        <div className='img'>
-            <Image
-                src={images['tutorial_img']}
-                width={600}
-                height={500}
-                alt=""
-            />
+        <div className="img">
+          <Image src={images['tutorial_img']} width={600} height={500} alt="" />
         </div>
 
         <button className="green-btn" onClick={clickCloseButton}>
-        닫기
+          닫기
         </button>
       </div>
       <style jsx>{`
@@ -55,8 +47,8 @@ export default function Tutorial() {
           display: flex;
           flex-direction: column;
           align-items: center;
-          width: 900px;
-          height: 650px;
+          width: 700px;
+          height: 580px;
         }
         .title {
           position: relative;
@@ -65,24 +57,26 @@ export default function Tutorial() {
           font-weight: 700;
           font-size: 70px;
           letter-spacing: -0.02em;
-          color: #3343FF;
+          color: #3343ff;
           text-shadow: -1px 0px rgba(35, 34, 91, 0.6),
             0px 1px rgba(35, 34, 91, 0.6), 1px 0px rgba(35, 34, 91, 0.6),
             0px -1px rgba(35, 34, 91, 0.6);
         }
-        .content{
-            display: flex;
-            font-size: 20px;
-            justify-content: center;
-            align-items: center;
-            margin: 5% 0;
+        .content {
+          display: flex;
+          font-size: 20px;
+          justify-content: center;
+          align-items: center;
+          margin: 5% 0;
         }
-        .img{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: flying 1s infinite alternate;
-            margin-bottom: 10px;
+        .img {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+           {
+            /* animation: flying 1s infinite alternate; */
+          }
+          margin-bottom: 10px;
         }
         .bird-img {
           position: absolute;
