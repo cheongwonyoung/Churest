@@ -34,6 +34,7 @@ export function PackFlower(props: JSX.IntrinsicElements['group']) {
           material={materials.Flower2}
           position={[6.89, 0.86, 0]}
           scale={0.79}
+          castShadow
         />
         <mesh
           geometry={nodes.Plane002_0.geometry}
@@ -41,6 +42,7 @@ export function PackFlower(props: JSX.IntrinsicElements['group']) {
           position={[-0.19, -21.28, -0.1]}
           rotation={[0, 0, 1.17]}
           scale={0.9}
+          castShadow
         />
         <mesh
           geometry={nodes.Plane003_0.geometry}
@@ -48,12 +50,14 @@ export function PackFlower(props: JSX.IntrinsicElements['group']) {
           position={[-1.27, 18.64, -0.1]}
           rotation={[0, 0, 2.64]}
           scale={0.91}
+          castShadow
         />
         <mesh
           geometry={nodes.Plane004_0.geometry}
           material={materials.Flower4}
           position={[-17.53, 0.12, -0.1]}
           rotation={[0, 0, 0.21]}
+          castShadow
         />
       </group>
     </group>

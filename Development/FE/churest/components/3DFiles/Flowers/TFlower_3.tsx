@@ -56,18 +56,22 @@ export function TFlower_3(props: JSX.IntrinsicElements['group']) {
             <mesh
               geometry={nodes.pCube21_BLUE_0_1.geometry}
               material={materials.BLUE}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0_2.geometry}
               material={materials.midred}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0_3.geometry}
               material={materials.green}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0_4.geometry}
               material={materials.yellowgem}
+              castShadow
             />
           </group>
           <group
@@ -78,18 +82,22 @@ export function TFlower_3(props: JSX.IntrinsicElements['group']) {
             <mesh
               geometry={nodes.pCube21_BLUE_0006.geometry}
               material={materials.BLUE}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0006_1.geometry}
               material={materials.midred}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0006_2.geometry}
               material={materials.green}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0006_3.geometry}
               material={materials.yellowgem}
+              castShadow
             />
           </group>
           <group
@@ -100,18 +108,22 @@ export function TFlower_3(props: JSX.IntrinsicElements['group']) {
             <mesh
               geometry={nodes.pCube21_BLUE_0007.geometry}
               material={materials.BLUE}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0007_1.geometry}
               material={materials.midred}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0007_2.geometry}
               material={materials.green}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0007_3.geometry}
               material={materials.yellowgem}
+              castShadow
             />
           </group>
           <group
@@ -122,18 +134,22 @@ export function TFlower_3(props: JSX.IntrinsicElements['group']) {
             <mesh
               geometry={nodes.pCube21_BLUE_0008.geometry}
               material={materials.BLUE}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0008_1.geometry}
               material={materials.midred}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0008_2.geometry}
               material={materials.green}
+              castShadow
             />
             <mesh
               geometry={nodes.pCube21_BLUE_0008_3.geometry}
               material={materials.yellowgem}
+              castShadow
             />
           </group>
         </group>
@@ -149,12 +165,14 @@ export function TFlower_3(props: JSX.IntrinsicElements['group']) {
             material={materials['Material.006']}
             position={[19.36, 21.39, 11.67]}
             scale={100}
+            castShadow
           />
           <mesh
             geometry={nodes.Circle006_Circle007_Material001_0.geometry}
             material={materials['Material.006']}
             position={[-12.33, 25.21, 6.35]}
             scale={100}
+            castShadow
           />
         </group>
       </group>
@@ -164,6 +182,7 @@ export function TFlower_3(props: JSX.IntrinsicElements['group']) {
         position={[1.55, 0.12, 0]}
         rotation={[0, -0.99, 0]}
         scale={0.21}
+        castShadow
       />
       <mesh
         geometry={nodes.tree009.geometry}
@@ -171,6 +190,7 @@ export function TFlower_3(props: JSX.IntrinsicElements['group']) {
         position={[-1.68, 0.12, -1.44]}
         rotation={[0, -0.99, 0]}
         scale={0.21}
+        castShadow
       />
     </group>
   );

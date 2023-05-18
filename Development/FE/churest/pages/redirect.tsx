@@ -1,10 +1,10 @@
 import { API_login } from '@/apis/login';
 import { loginAtom } from '@/atoms/login';
+import Loading from './loading';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
-import Loading from './loading';
 export default function Redirect() {
   const router = useRouter();
   const code = router.query.code;

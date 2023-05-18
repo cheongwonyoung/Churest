@@ -32,10 +32,12 @@ export function OrangeFlower(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes['calendula-flower_green_0'].geometry}
           material={materials['green.001']}
+          castShadow
         />
         <mesh
           geometry={nodes['calendula-flower_orange_0'].geometry}
           material={materials.orange}
+          castShadow
         />
       </group>
     </group>

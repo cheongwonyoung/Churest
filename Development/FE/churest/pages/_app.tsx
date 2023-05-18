@@ -11,7 +11,14 @@ import AlarmRoot from '@/components/common/AlarmRoot';
 export default function App({ Component, pageProps }: AppProps) {
   const [fcmToken, setFcmToken] = useState('');
   const [notice, setNotice] = useState({ title: 'hi', body: 'no' });
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
+
   const onMessageFCM = async () => {
     // 브라우저에 알림 권한을 요청합니다.
     const permission = await Notification.requestPermission();
@@ -72,9 +79,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <AlarmRoot fcmToken={fcmToken} />
           <Modals />
           <Component {...pageProps} />{' '}
-          <style jsx global>
-            {``}
-          </style>
         </RecoilRoot>
       </QueryClientProvider>
     </>

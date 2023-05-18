@@ -188,27 +188,29 @@ export default function Churest3D({ autoView, resetPosition }: Props) {
             ) : (
               <>
                 {/* 나의 집 3D start */}
-                {/* <RigidBody position={[0, 0, 0]} type="fixed" name="house">
-                  <group
-                    onClick={() =>
-                      setIsMyPageOpen({ isModal: true, myPageId: churestId })
-                    }
-                  >
-                    {Houses(data?.data.houseId)}
-                  </group>
-                  <CylinderCollider
-                    sensor
-                    args={[5, 2]}
-                    onIntersectionEnter={(e) => {
-                      e.colliderObject?.name == 'character' &&
-                        setReadyModal('myPage');
-                    }}
-                    onIntersectionExit={(e) => {
-                      e.colliderObject?.name == 'character' &&
-                        setReadyModal('');
-                    }}
-                  />
-                </RigidBody> */}
+                {data?.data.houseId && (
+                  <RigidBody position={[0, 0, 0]} type="fixed" name="house">
+                    <group
+                      onClick={() =>
+                        setIsMyPageOpen({ isModal: true, myPageId: churestId })
+                      }
+                    >
+                      {Houses(data?.data.houseId)}
+                    </group>
+                    <CylinderCollider
+                      sensor
+                      args={[5, 2]}
+                      onIntersectionEnter={(e) => {
+                        e.colliderObject?.name == 'character' &&
+                          setReadyModal('myPage');
+                      }}
+                      onIntersectionExit={(e) => {
+                        e.colliderObject?.name == 'character' &&
+                          setReadyModal('');
+                      }}
+                    />
+                  </RigidBody>
+                )}
                 {/* 나의 집 3D end */}
                 {/* 꽃들 */}
                 <WhiteFlower

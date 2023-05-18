@@ -34,11 +34,14 @@ export default function Loading() {
           }
           .text {
             z-index: 100;
-            font-size: 40px;
-            font-weight: bolder;
+            font-size: 60px;
+            background-color: rgba(223, 223, 223, 0.61);
+            border-radius: 10px;
+            font-weight: 700;
             text-align: center;
             color: rgb(0, 44, 61);
             margin-bottom: 40px;
+            padding: 10px;
           }
           .loading-box {
             position: absolute;

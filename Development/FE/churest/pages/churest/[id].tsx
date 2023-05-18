@@ -4,7 +4,7 @@ import Churest3D from '@/components/churest/Churest3D';
 import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
 import { createArticleAtom, spaceModalAtom, tutorialAtom } from '@/atoms/modal';
 import Navbar from '@/components/common/Navbar';
-// import MemoryButton from '@/components/churest/MemoryButton';
+import MemoryButton from '@/components/churest/MemoryButton';
 import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
 import { images } from '@/public/assets/images';
@@ -98,7 +98,7 @@ export default function Garden() {
           튜토리얼
         </div>
       </div>
-      {/* {churestId === memberId && <MemoryButton />} */}
+      {churestId === memberId && <MemoryButton />}
 
       <Canvas shadows>
         <Churest3D autoView={autoView} resetPosition={resetPosition} />

@@ -29,6 +29,7 @@ export function PinkFlower(props: JSX.IntrinsicElements['group']) {
             material={materials.MaterialFlower}
             rotation={[-Math.PI / 2, 0, 0]}
             scale={100}
+            castShadow
           />
         </group>
       </group>

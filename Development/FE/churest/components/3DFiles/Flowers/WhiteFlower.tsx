@@ -24,6 +24,7 @@ export function WhiteFlower(props: JSX.IntrinsicElements['group']) {
               geometry={nodes.Circle006_Circle007_Material001_0.geometry}
               material={materials['Material.001']}
               position={[0.09, -0.03, -0.09]}
+              castShadow
             />
           </group>
         </group>

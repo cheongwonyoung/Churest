@@ -142,7 +142,6 @@ export default function CharacterChurest({
   }, [isSelect]);
   let cameraTarget = new THREE.Vector3();
   const camera = useThree((state) => state.camera);
-  console.log('카메라', camera);
   const updateCameraTarget = () => {
     camera.position.x = man1.current.translation().x;
     // camera.position.z = camera.position.z;

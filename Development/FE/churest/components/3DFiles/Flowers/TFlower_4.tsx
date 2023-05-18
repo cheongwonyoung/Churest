@@ -37,54 +37,63 @@ export function TFlower_4(props: JSX.IntrinsicElements['group']) {
         material={materials['Material.010']}
         position={[-1.7, 0.46, 1.63]}
         scale={0.11}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant009.geometry}
         material={materials['Material.010']}
         position={[-1.23, 0.54, 1.83]}
         scale={0.13}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant010.geometry}
         material={materials['Material.010']}
         position={[-1.81, 0.48, 1.03]}
         scale={0.12}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant022.geometry}
         material={materials['Material.011']}
         position={[1.71, 0.42, 1.26]}
         scale={0.1}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant011.geometry}
         material={materials['Material.011']}
         position={[1.32, 0.47, 1.72]}
         scale={0.11}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant012.geometry}
         material={materials['Material.011']}
         position={[1.83, 0.37, 0.83]}
         scale={0.09}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant050.geometry}
         material={materials['Material.012']}
         position={[0, 0.49, -1.64]}
         scale={0.13}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant013.geometry}
         material={materials['Material.012']}
         position={[-0.42, 0.41, -1.52]}
         scale={0.1}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant014.geometry}
         material={materials['Material.012']}
         position={[0.43, 0.4, -1.57]}
         scale={0.11}
+        castShadow
       />
     </group>
   );

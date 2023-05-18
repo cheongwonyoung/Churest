@@ -43,6 +43,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[1.76, 0.3, 0.97]}
         rotation={[0, 1.05, 0]}
         scale={0.1}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant003.geometry}
@@ -50,6 +51,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[-1.27, 0.3, -1.44]}
         rotation={[0, -1.44, 0]}
         scale={0.1}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant076.geometry}
@@ -57,6 +59,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[-1.43, 0.3, 1.46]}
         rotation={[0, -0.46, 0]}
         scale={0.1}
+        castShadow
       />
       <mesh
         geometry={nodes.tree004.geometry}
@@ -64,6 +67,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[1.46, 0.22, -1.14]}
         rotation={[-Math.PI, 0.81, -Math.PI]}
         scale={0.25}
+        castShadow
       />
       <mesh
         geometry={nodes.tree005.geometry}
@@ -71,12 +75,14 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[-1.52, 0.22, -0.02]}
         rotation={[0, -1.04, 0]}
         scale={0.25}
+        castShadow
       />
       <mesh
         geometry={nodes.tree006.geometry}
         material={materials['Material.005']}
         position={[1.09, 0.15, 1.47]}
         scale={0.27}
+        castShadow
       />
       <mesh
         geometry={nodes.tree007.geometry}
@@ -84,6 +90,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[-0.18, 0.15, -1.61]}
         rotation={[0, -0.56, 0]}
         scale={0.27}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant006.geometry}
@@ -91,6 +98,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[1.54, 0.26, 1.73]}
         rotation={[0, 0.77, 0]}
         scale={0.07}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant007.geometry}
@@ -98,6 +106,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[1.81, 0.3, 1.82]}
         rotation={[0, 0.57, 0]}
         scale={0.1}
+        castShadow
       />
       <mesh
         geometry={nodes.fantasy_plant008.geometry}
@@ -105,6 +114,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[1.81, 0.4, 1.49]}
         rotation={[0, 0.77, 0]}
         scale={0.14}
+        castShadow
       />
       <mesh
         geometry={nodes.tree010.geometry}
@@ -112,6 +122,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[-1.52, 0.22, 0.08]}
         rotation={[0, -1.34, 0]}
         scale={0.25}
+        castShadow
       />
       <mesh
         geometry={nodes.tree011.geometry}
@@ -119,6 +130,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[-1.52, 0.25, -0.21]}
         rotation={[Math.PI, -1.57, Math.PI]}
         scale={0.29}
+        castShadow
       />
       <mesh
         geometry={nodes.tree012.geometry}
@@ -126,6 +138,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[1.65, 0.22, -1.14]}
         rotation={[-Math.PI, 1, -Math.PI]}
         scale={0.25}
+        castShadow
       />
       <mesh
         geometry={nodes.tree013.geometry}
@@ -133,6 +146,7 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
         position={[1.65, 0.25, -0.92]}
         rotation={[-Math.PI, 1, -Math.PI]}
         scale={0.29}
+        castShadow
       />
     </group>
   );

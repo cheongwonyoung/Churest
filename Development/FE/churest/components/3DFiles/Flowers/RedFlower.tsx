@@ -23,6 +23,7 @@ export function RedFlower(props: JSX.IntrinsicElements['group']) {
         material={materials['Material.001']}
         position={[0, 0.5, 0]}
         scale={0.2}
+        castShadow
       />
     </group>
   );

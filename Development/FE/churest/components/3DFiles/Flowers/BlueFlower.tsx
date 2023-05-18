@@ -45,66 +45,82 @@ export function BlueFlower(props: JSX.IntrinsicElements['group']) {
           <mesh
             geometry={nodes.pCube21_BLUE_0005.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube22_BLUE_0005.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube21_BLUE_0004.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube22_BLUE_0004.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube21_BLUE_0001.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube22_BLUE_0001.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube21_BLUE_0.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube22_BLUE_0.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube21_BLUE_0003.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube22_BLUE_0003.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube21_BLUE_0002.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube22_BLUE_0002.geometry}
             material={materials.BLUE}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube23_midred_0002.geometry}
             material={materials.midred}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube24_green_0002.geometry}
             material={materials.green}
+            castShadow
           />
           <mesh
             geometry={nodes.pCube25_green_0002.geometry}
             material={materials.green}
+            castShadow
           />
           <mesh
             geometry={nodes.yellow_gem1_yellowgem_0002.geometry}
             material={materials.yellowgem}
+            castShadow
           />
         </group>
       </group>

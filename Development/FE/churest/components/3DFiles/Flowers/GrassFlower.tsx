@@ -38,6 +38,7 @@ export function GrassFlower(props: JSX.IntrinsicElements['group']) {
               geometry={nodes.Circle018_Grass_0.geometry}
               material={materials.Grass}
               position={[-18.51, 37.72, -0.06]}
+              castShadow
             />
           </group>
           <mesh
@@ -46,6 +47,7 @@ export function GrassFlower(props: JSX.IntrinsicElements['group']) {
             position={[-54.61, 0, 6.67]}
             rotation={[-Math.PI / 2, 0, 0.03]}
             scale={[4.6, 4.6, 9.14]}
+            castShadow
           />
         </group>
       </group>
