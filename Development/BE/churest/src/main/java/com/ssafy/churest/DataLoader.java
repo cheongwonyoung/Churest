@@ -82,8 +82,8 @@ public class DataLoader implements CommandLineRunner {
         List<BirdHouse> birdHouseList = new ArrayList<>();
 
         BirdHouse birdHouse1 = BirdHouse.builder().name("그린").description("싱그러운 나뭇잎들이 느껴지는 새집").price(0).build();
-        BirdHouse birdHouse2 = BirdHouse.builder().name("블루").description("넓고 푸른 하늘 느낌의 새집").price(100).build();
-        BirdHouse birdHouse3 = BirdHouse.builder().name("레드").description("강렬하고 정열적인 느낌의 새집").price(100).build();
+        BirdHouse birdHouse2 = BirdHouse.builder().name("블루").description("넓고 푸른 하늘 느낌의 새집").price(30).build();
+        BirdHouse birdHouse3 = BirdHouse.builder().name("레드").description("강렬하고 정열적인 느낌의 새집").price(50).build();
 
         birdHouseList.add(birdHouse1);
         birdHouseList.add(birdHouse2);
@@ -96,11 +96,11 @@ public class DataLoader implements CommandLineRunner {
         List<House> houseList = new ArrayList<>();
 
         House house1 = House.builder().name("오두막").description("낮고 아늑한 느낌의 오두막").price(0).build();
-        House house2 = House.builder().name("마법사집").description("튼튼한 중세 마법사집").price(0).build();
-        House house3 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
-        House house4 = House.builder().name("산타집").description("앙증맞은 산타집").price(100).build();
-        House house5 = House.builder().name("2층집").description("포근한 2층집").price(0).build();
-        House house6 = House.builder().name("텐트집").description("작고 귀여운 텐트집").price(100).build();
+        House house2 = House.builder().name("마법사집").description("튼튼한 중세 마법사집").price(100).build();
+        House house3 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(150).build();
+        House house4 = House.builder().name("산타집").description("앙증맞은 산타집").price(200).build();
+        House house5 = House.builder().name("2층집").description("포근한 2층집").price(100).build();
+        House house6 = House.builder().name("텐트집").description("작고 귀여운 텐트집").price(50).build();
 
         houseList.add(house1);
         houseList.add(house2);
@@ -128,7 +128,7 @@ public class DataLoader implements CommandLineRunner {
         Bird bird6 = Bird.builder().name("올빼미")
                 .description("저는 고목나무에 둥지를 틀고 먹이를 구하고 왔는데 집이 사라졌어요. 알고보니 사람들이 제 나무를 밀었던 거예요. 저는 어디로 가야하죠?").price(50).build();
         Bird bird7 = Bird.builder().name("뱁새")
-                .description("저는 작고 귀여운 매력의 뱁새예요. 츄레스트의 마스코트로 친구들을 지키고 있어요.").price(50).build();
+                .description("저는 작고 귀여운 매력의 뱁새예요. 츄레스트의 마스코트로 친구들을 지키고 있어요.").price(100).build();
 
         birdList.add(bird1);
         birdList.add(bird2);
