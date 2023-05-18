@@ -81,6 +81,53 @@ SSAFY 8기 2학기 자율프로젝트 - 츄레스트
 
 ## ⛓ 프로젝트 파일 구조
 
+### Front-End
+
+```
+churest
+ ├── apis
+ ├── atoms
+ ├── components
+ │ ├── 3DFiles
+ │ │ ├── BirdHouse
+ │ │ ├── Birds
+ │ │ ├── Character
+ │ │ ├── Flowers
+ │ │ ├── House
+ │ │ ├── Rock
+ │ │ ├── Square
+ │ │ └── Trees
+ │ ├── churest
+ │ ├── chuworld
+ │ ├── common
+ │ ├── login
+ │ ├── navbar
+ │ ├── signup
+ │ └── square
+ ├── pages
+ │ └── churest
+ └── public
+   └── assets
+
+```
+
+### Back-End
+
+```
+churest
+ ├── api
+ ├── config
+ ├── dto
+ │ ├── req
+ │ └── resp
+ ├── entity
+ ├── repository
+ ├── service
+ ├── util
+ ├── ChurestApplication.java
+ └── DataLoader.java
+```
+
 ## 🔧 협업툴
 
 - Git
@@ -120,18 +167,22 @@ SSAFY 8기 2학기 자율프로젝트 - 츄레스트
 
 [ERD](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/ERD.md)
 
-[DB dump 파일]()
+[DB dump 파일](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/exec/churest_dump.sql)
 
 [기능 명세서](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/%EA%B8%B0%EB%8A%A5%EB%AA%85%EC%84%B8%EC%84%9C.md)
 
 [화면 구성도](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/%ED%99%94%EB%A9%B4%EA%B5%AC%EC%84%B1%EB%8F%84.md)
 
-[시연 시나리오]()
+[시연 시나리오](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/exec/%EC%8B%9C%EC%97%B0%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4.pdf)
 
 ## 📑 프로젝트 결과물
 
 [포팅 메뉴얼]()
 
-[중간 발표 자료](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/A505_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C.pptx)
+[중간 발표 자료 ppt](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/A505_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C.pptx)
 
-[최종 발표 자료](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/A505_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C.pptx)
+[중간 발표 자료 pdf](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/A505_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C.pdf)
+
+[최종 발표 자료 ppt](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/A505_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C.pptx)
+
+[최종 발표 자료 pdf](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/A505_%EC%B5%9C%EC%A2%85%EB%B0%9C%ED%91%9C.pdf)
