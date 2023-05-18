@@ -1,6 +1,6 @@
 import { images } from '@/public/assets/images';
 import Image from 'next/image';
-import RotatingTree from './RotatingTree';
+// import RotatingTree from './RotatingTree';
 
 type Props = {
   item: {
@@ -25,7 +25,7 @@ export default function TreeInfo({ item }: Props) {
       <div className="info-container">
         {/* <p>REWARD</p> */}
         <div className="left tree-model center">
-          <RotatingTree treeType={item.treeId}></RotatingTree>
+          {/* <RotatingTree treeType={item.treeId}></RotatingTree> */}
         </div>
         <div className="right tree-info">
           <div>
