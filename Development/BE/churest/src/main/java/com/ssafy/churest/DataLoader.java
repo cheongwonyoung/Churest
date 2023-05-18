@@ -54,10 +54,10 @@ public class DataLoader implements CommandLineRunner {
         addBirds();
         addHouses();
         addBirdHouses();
-        addMember();
         addTree();
-        addBoard();
-        addGuestBook();
+//        addMember();
+//        addBoard();
+//        addGuestBook();
     }
 
     private void addGuestBook() {
