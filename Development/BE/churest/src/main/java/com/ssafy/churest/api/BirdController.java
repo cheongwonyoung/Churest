@@ -25,5 +25,5 @@ public class BirdController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    } 
 }

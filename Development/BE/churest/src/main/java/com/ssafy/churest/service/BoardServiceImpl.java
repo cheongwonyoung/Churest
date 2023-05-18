@@ -3,6 +3,7 @@ package com.ssafy.churest.service;
 import com.ssafy.churest.dto.req.BoardRequestDto;
 import com.ssafy.churest.dto.req.FCMNotificationRequestDto;
 import com.ssafy.churest.dto.resp.BoardResponseDto;
+import com.ssafy.churest.dto.resp.TagResponseDto;
 import com.ssafy.churest.dto.resp.TreeLogResponseDto;
 import com.ssafy.churest.dto.resp.TreeResponseDto;
 import com.ssafy.churest.entity.*;
@@ -198,19 +199,29 @@ public class BoardServiceImpl implements BoardService {
 
             }
 
-            //  정렬?
-            //  나무 성장 로그
-            boardDetailInfo.setTreeLogInfoList(treeLogService.getTreeLogList(boardId));
-
-            //  나무
-            boardDetailInfo.setTreeInfo(TreeResponseDto.TreeInfo.fromEntity(board.getTree()));
         }
+        //  정렬?
+        //  나무 성장 로그
+        boardDetailInfo.setTreeLogInfoList(treeLogService.getTreeLogList(boardId));
+
+        //  나무
+        boardDetailInfo.setTreeInfo(TreeResponseDto.TreeInfo.fromEntity(board.getTree()));
 
         //  파일 리스트
         boardDetailInfo.setFileList(photoRepository.findAllByBoard_BoardId(boardId).stream().map(photo -> photo.getFile()).collect(Collectors.toList()));
+        List<TagResponseDto.Tag> tagList = new ArrayList<>();
 
         //  태그된 사용자 id
-        boardDetailInfo.setTagList(tagRepository.findAllByBoard_BoardId(board.getBoardId()).stream().map(tag -> tag.getMember().getMemberId()).collect(Collectors.toList()));
+        List<Integer> list =tagRepository.findAllByBoard_BoardId(board.getBoardId()).stream().map(tag -> tag.getMember().getMemberId()).collect(Collectors.toList());
+        for(int i=0; i<list.size(); i++){
+            int memId = list.get(i);
+            Member member = memberRepository.findByMemberId(memId);
+            int avaId = member.getAvatarId();
+            String nick = member.getNickname();
+            tagList.add(TagResponseDto.Tag.fromEntity(member));
+        }
+
+        boardDetailInfo.setTagList(tagList);
 
         //  isTagged
         boolean isTagged = (board.getMember().getMemberId() == memberId) ? true : tagRepository.existsByMember_MemberIdAndBoard_BoardId(memberId, boardId);
