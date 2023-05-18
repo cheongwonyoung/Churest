@@ -180,6 +180,7 @@ export default function CreateArticle({ treeId }: Props) {
             className="title"
             placeholder="어떤 추억인가요?"
             name="title"
+            maxLength={20}
             value={data.title}
             ref={titleRef}
             onChange={(e) => handleData(e)}

@@ -64,86 +64,92 @@ export default function Notice({ memberId }: Props) {
             />
             <div>알림함</div>
           </div>
-          {data && data?.data.length === 0 && <div>알림이 없습니다!</div>}
-          {data ? (
-            data.data.map((notice: Notice, idx: number) => {
-              return notice.toMember === notice.fromMember ? (
-                // 나무 다 자랐을 때
-                <div
-                  key={idx}
-                  className="notice-item"
-                  onClick={() => {
-                    setIsAlarmOpen({ isModal: false });
-                    // router.push('/churest/' + notice.fromMember);
-                    setIsMyTreeOpen({
-                      isModal: true,
-                      boardId: notice.board,
-                    });
-                    isChecked.mutate(notice.noticeId);
-                  }}
-                >
-                  <div className="image">
-                    <div className="notice-profile center">
-                      <Image
-                        src={images['tree_' + notice.treeId + '_img']}
-                        alt=""
-                        width={50}
-                        height={75}
-                      />
+          <div className="scroll-bar">
+            {data && data?.data.length === 0 && (
+              <div style={{ textAlign: 'center' }}>알림이 없습니다!</div>
+            )}
+            {data ? (
+              data.data.map((notice: Notice, idx: number) => {
+                return notice.toMember === notice.fromMember ? (
+                  // 나무 다 자랐을 때
+                  <div
+                    key={idx}
+                    className="notice-item"
+                    onClick={() => {
+                      setIsAlarmOpen({ isModal: false });
+                      // router.push('/churest/' + notice.fromMember);
+                      setIsMyTreeOpen({
+                        isModal: true,
+                        boardId: notice.board,
+                      });
+                      isChecked.mutate(notice.noticeId);
+                    }}
+                  >
+                    <div className="image">
+                      <div className="notice-profile center">
+                        <Image
+                          src={images['tree_' + notice.treeId + '_img']}
+                          alt=""
+                          width={50}
+                          height={75}
+                        />
+                      </div>
+                    </div>
+                    <div className="item">
+                      <div className="notice-content">
+                        <p>추억{notice.content}</p>
+                      </div>
+                      <div className="item-date">
+                        {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
+                      </div>
                     </div>
                   </div>
-                  <div className="item">
-                    <div className="notice-content">
-                      <p>추억{notice.content}</p>
+                ) : (
+                  // 추억에 태그 당했을 때
+                  <div
+                    key={idx}
+                    className="notice-item"
+                    onClick={() => {
+                      setIsAlarmOpen({ isModal: false });
+                      // router.push('/churest/' + notice.fromMember);
+                      setIsMyTreeOpen({
+                        isModal: true,
+                        boardId: notice.board,
+                      });
+                      isChecked.mutate(notice.noticeId);
+                    }}
+                  >
+                    <div className="image">
+                      <div className="notice-profile">
+                        <Image
+                          src={images['avatar_' + notice.avatar + '_img']}
+                          alt=""
+                          width={50}
+                          height={75}
+                        />
+                      </div>
                     </div>
-                    <div className="item-date">
-                      {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                // 추억에 태그 당했을 때
-                <div
-                  key={idx}
-                  className="notice-item"
-                  onClick={() => {
-                    setIsAlarmOpen({ isModal: false });
-                    // router.push('/churest/' + notice.fromMember);
-                    setIsMyTreeOpen({
-                      isModal: true,
-                      boardId: notice.board,
-                    });
-                    isChecked.mutate(notice.noticeId);
-                  }}
-                >
-                  <div className="image">
-                    <div className="notice-profile">
-                      <Image
-                        src={images['avatar_' + notice.avatar + '_img']}
-                        alt=""
-                        width={50}
-                        height={75}
-                      />
-                    </div>
-                  </div>
 
-                  <div className="item">
-                    <div className="notice-content">
-                      <p>
-                        {notice.fromMemberName}
-                        {notice.content}
-                      </p>
-                    </div>
-                    <div className="item-date">
-                      {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
+                    <div className="item">
+                      <div className="notice-content">
+                        <p>
+                          {notice.fromMemberName}
+                          {notice.content}
+                        </p>
+                      </div>
+                      <div className="item-date">
+                        {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })
-          ) : (
-            <div>알림이 없습니다!</div>
-          )}
+                );
+              })
+            ) : (
+              <>
+                <div>알림이 없습니다!</div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
@@ -194,6 +200,26 @@ export default function Notice({ memberId }: Props) {
             margin-top: 10px;
             font-weight: medium;
             color: #c0c0c0;
+          }
+          .scroll-bar {
+            width: 400px;
+            overflow-y: scroll;
+            text-align: center;
+          }
+          /* 스크롤바 설정*/
+          .scroll-bar::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          /* 스크롤바 막대 설정*/
+          .scroll-bar::-webkit-scrollbar-thumb {
+            background: linear-gradient(#8ea4c3, rgba(88, 120, 250, 0.298));
+            border-radius: 25px;
+          }
+
+          /* 스크롤바 뒷 배경 설정*/
+          .scroll-bar::-webkit-scrollbar-track {
+            background-color: #b1b1b11f;
           }
         `}
       </style>

@@ -98,7 +98,6 @@ export default function SearchFriend() {
             height: 50%;
             margin-top: 30px;
             overflow-x: hidden;
-            overflow-y: auto;
           }
           .search-result {
             display: grid;

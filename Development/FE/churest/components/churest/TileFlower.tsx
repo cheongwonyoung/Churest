@@ -6,18 +6,23 @@ import { TFlower_4 } from '../3DFiles/Flowers/TFlower_4';
 
 type Props = {
   position: Vector3;
-  num: number;
+  id: number;
 };
-export default function TileFlower({ position, num }: Props) {
+export default function TileFlower({ position, id }: Props) {
   const flower = () => {
-    switch (num) {
-      case 1:
-        return <TFlower_1 position={position} />;
-      case 2:
-        return <TFlower_2 position={position} />;
+    switch (id) {
       case 3:
-        return <TFlower_3 position={position} />;
+      case 5:
+        return <TFlower_1 position={position} />;
+      case 1:
       case 4:
+        return <TFlower_2 position={position} />;
+      case 2:
+      case 9:
+        return <TFlower_3 position={position} />;
+      case 6:
+      case 7:
+      case 8:
         return <TFlower_4 position={position} />;
     }
   };

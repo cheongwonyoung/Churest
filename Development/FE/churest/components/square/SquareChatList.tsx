@@ -14,14 +14,18 @@ export default function SquareChatList({ messages }: Props) {
   }, [messages]);
 
   return (
-    <div className="chat-list-box">
+    <div className="chat-list-box sroll-bar">
       {messages?.map((msg) => (
         <div key={uuidv4()}>
           {msg.type == 'ENTER' ? (
-            <p className="enter-msg">{msg.sender}님이 광장에 입장했습니다.</p>
+            <p className="enter-msg">
+              {msg.sender}
+              님이 광장에 입장했습니다.
+            </p>
           ) : (
             <p className="msg">
-              {msg.sender}: {msg.message}
+              <div className="name-msg">{msg.sender}&nbsp;:&nbsp;</div>
+              {msg.message}
             </p>
           )}
         </div>
@@ -37,16 +41,37 @@ export default function SquareChatList({ messages }: Props) {
           padding: 5% 5%;
           display: flex;
           flex-direction: column;
-          overflow: auto;
+          overflow-y: scroll;
         }
         .enter-msg {
-          font-weight: bold;
+          color: rgb(97, 97, 97);
           text-align: center;
           margin: 1% 0;
         }
         .msg {
+          display: inline-block;
           font-weight: bold;
           margin: 1% 0;
+        }
+        /* 스크롤바 설정*/
+        .chat-list-box::-webkit-scrollbar {
+          width: 10px;
+        }
+
+        /* 스크롤바 막대 설정*/
+        .chat-list-box::-webkit-scrollbar-thumb {
+          background: linear-gradient(rgba(161, 173, 193, 0.499), #a2a2bd8b);
+          border-radius: 25px;
+        }
+
+        /* 스크롤바 뒷 배경 설정*/
+        .chat-list-box::-webkit-scrollbar-track {
+          background-color: #b1b1b11f;
+        }
+        .name-msg,
+        .centent-msg {
+          display: inline-block;
+          font-weight: bold;
         }
       `}</style>
       <div ref={bottomRef} />

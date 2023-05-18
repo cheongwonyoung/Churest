@@ -342,11 +342,10 @@ export default function Churest3D({ autoView, resetPosition }: Props) {
                     },
                     idx: number
                   ) => {
-                    const randNum = Math.floor(Math.random() * (4 - 1) + 1);
                     return (
                       <>
                         <TileFlower
-                          num={randNum}
+                          id={tree.treeId}
                           position={
                             new Vector3(
                               spotINfo[tree.spot]['x'],

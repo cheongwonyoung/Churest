@@ -135,5 +135,5 @@ export const images: Images = {
   reward_bird_img:
     'https://storage.googleapis.com/churest-bucket/project_image/reward_bird_img.png',
   earth_move:
-    'https://storage.googleapis.com/churest-bucket/earth_move_1.gif',
+    'https://storage.googleapis.com/churest-bucket/rotating_earth_gif.gif',
 };
