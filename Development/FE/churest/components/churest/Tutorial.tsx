@@ -35,7 +35,13 @@ export default function Tutorial() {
         {/* <div className="title">마이 츄레스트</div> */}
 
         <div className="img">
-          <Image src={images['tutorial_img']} width={600} height={500} alt="" />
+          <Image
+            src={images['tutorial_img']}
+            width={600}
+            height={500}
+            alt=""
+            priority
+          />
         </div>
 
         <button className="green-btn" onClick={clickCloseButton}>

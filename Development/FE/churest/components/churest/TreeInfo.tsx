@@ -1,6 +1,5 @@
 import { images } from '@/public/assets/images';
 import Image from 'next/image';
-import TreeModel from './TreeModel';
 
 type Props = {
   item: {
@@ -21,7 +20,15 @@ export default function TreeInfo({ item }: Props) {
   return (
     <>
       <div className="info-container">
-        {/* <p>REWARD</p> */}
+        <div className="left tree-model center">
+          <Image
+            src={images['tree_' + item.treeId + '_img']}
+            width={500}
+            height={500}
+            alt=""
+          />
+        </div>
+
         <div className="right tree-info">
           <div>
             <div className="shape-outer shape-inner center">
@@ -35,14 +42,7 @@ export default function TreeInfo({ item }: Props) {
             </div>
           </div>
           <div className="tree-title ">{item.treeInfo.name}</div>
-          {/* <div className="bird-img">
-            <Image
-              src={images.reward_bird_img}
-              width={100}
-              height={90}
-              alt=""
-            />
-          </div> */}
+
           <div className="content">
             {item.treeInfo.description.replace(/\\./gm, '<br>')}
           </div>
@@ -59,7 +59,7 @@ export default function TreeInfo({ item }: Props) {
           .left {
             position: left;
              {
-              /* width: 50%; */
+              width: 50%;
             }
           }
           .shape-outer {
