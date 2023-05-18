@@ -1,5 +1,6 @@
 import { images } from '@/public/assets/images';
 import Image from 'next/image';
+import TreeModel from './TreeModel';
 
 type Props = {
   item: {
@@ -23,7 +24,9 @@ export default function TreeInfo({ item }: Props) {
     <>
       <div className="info-container">
         {/* <p>REWARD</p> */}
-        <div className="left tree-model center"></div>
+        <div className="left tree-model center">
+          <TreeModel treeType={item.treeId} />
+        </div>
         <div className="right tree-info">
           <div>
             <div className="shape-outer shape-inner center">
