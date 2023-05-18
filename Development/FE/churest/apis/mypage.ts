@@ -45,3 +45,12 @@ export const isCheckedNickname = (nickname: string) => {
 export const isCheckedBirdNickname = (nickname: string) => { 
   return instance.get(`/my-bird/birdNickname?nickname=${nickname}`) 
 } 
+
+// fcm 수정 
+// export const updateFcm = (info: {
+//   fcm: string, 
+//   memberId: number,
+// }) => {
+ 
+// return instance.put(`/member/fcm?fcm=${info.fcm}&memberId=${info.memberId}`, info);
+// };

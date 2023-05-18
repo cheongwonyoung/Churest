@@ -4,10 +4,11 @@ Command: npx gltfjsx@6.1.4 Tree6.glb -t
 */
 
 import * as THREE from 'three';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { glbs } from '@/public/assets/glb';
+import { useFrame } from '@react-three/fiber';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -19,15 +20,18 @@ type GLTFResult = GLTF & {
 };
 
 export function Tree6(props: JSX.IntrinsicElements['group']) {
+  const [angle, setAngle] = useState(0);
+  useFrame(() => {
+    setAngle((prev) => prev + 1);
+  });
   const { nodes, materials } = useGLTF(glbs.tree_6_glb) as GLTFResult;
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} rotation={[0, (Math.PI / 360) * angle, 0]}>
       <mesh
         geometry={nodes.tree6.geometry}
         material={materials['Material.012']}
         position={[0.04, 2.02, 0]}
         scale={0.17}
-        castShadow
       />
     </group>
   );

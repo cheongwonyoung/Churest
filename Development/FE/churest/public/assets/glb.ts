@@ -3,7 +3,6 @@ type glbs = {
 };
 
 export const glbs: glbs = {
-  // bird~house까지 다 이미지 루트 고쳐야 함
   man_1_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/Man1.glb',
   login_earth_glb:
@@ -100,4 +99,88 @@ export const glbs: glbs = {
   churest_map_11_glb:
     'https://storage.googleapis.com/churest-bucket/project_3D/ChurestMap11x11.glb',
   tile_glb: 'https://storage.googleapis.com/churest-bucket/project_3D/tile.glb',
+  square_map_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/SquareMap.glb',
+  g_map_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_map.glb',
+  g_map_floor_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_mapFloor.glb',
+  g_liver_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_liver.glb',
+  g_bridge_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_bridge.glb',
+  g_animal_1_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_animal1.glb',
+  g_animal_2_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_animal2.glb',
+  g_animal_3_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_animal3.glb',
+  g_animal_4_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_animal4.glb',
+  g_around_bridge_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_around_bridge.glb',
+  g_arrows_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_arrows.glb',
+  g_big_tree_around_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_big_tree_around.glb',
+  g_big_tree_bottom_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_big_tree_bottom.glb',
+  g_boxes_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_boxes.glb',
+  g_branches_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_branches.glb',
+  g_buildingFirst_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_buildingFirst.glb',
+  g_buildingGreen_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_buildingGreen.glb',
+  g_buildingSecond_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_buildingSecond.glb',
+  g_flower_blue_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_flowerBlue.glb',
+  g_flower_red_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_flowerRed.glb',
+  g_market_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_market.glb',
+  g_mushroom_left_top_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_mushroom_left_top.glb',
+  g_oaktong_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_oaktong.glb',
+  g_rocks_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_rocks.glb',
+  g_stones_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_stones.glb',
+  g_table_chair_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_tableChair.glb',
+  g_woomul_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_woomul.glb',
+  g_tree_bottom_right_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_tree_right_bottom.glb',
+  g_tree_bottom_left_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_tree_left_bottom.glb',
+  g_tree_right_top_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_tree_right_top.glb',
+  g_big_tree_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_big_tree.glb',
+  g_world_tree_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/g_worldTree.glb',
+  flower_red_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Flower_Red.glb',
+  flower_white_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Flower_White.glb',
+  flower_blue_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Flower_Blue_Small.glb',
+  flower_pink_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Flower_Pink.glb',
+  t_flower_1_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/tFlower_1.glb',
+  t_flower_2_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/tFlower_2.glb',
+  t_flower_3_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/tFlower_3.glb',
+  t_flower_4_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/tFlower_4.glb',
+  flower_grass_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Flower_Grass.glb',
+  flower_orange_glb:
+    'https://storage.googleapis.com/churest-bucket/project_3D/Flower_Orange_Small.glb',
 };

@@ -41,6 +41,7 @@ export function Char1({ isMoving, charState }: Props) {
 
   const [nowPlaying, setNowPlaying] = useState('Idle');
   useEffect(() => {
+    console.log(group);
     if (charState == 'Song Jump') {
       actions[charState]?.play();
       setNowPlaying(charState);

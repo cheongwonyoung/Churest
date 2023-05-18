@@ -9,7 +9,7 @@ interface login {
   refreshToken: string;
   avatarId: number;
   nickname: string;
-  fcmToken: string; 
+  fcmToken: string;
 }
 
 export const loginAtom = atom<login>({
@@ -20,16 +20,7 @@ export const loginAtom = atom<login>({
     refreshToken: '',
     avatarId: 0,
     nickname: '',
-    fcmToken: ''
+    fcmToken: '',
   },
   effects_UNSTABLE: [persistAtom],
-});
-
-export const gardenAtom = atom<{ gogo(): void }>({
-  key: 'aaaa',
-  default: {
-    gogo: () => {
-      return;
-    },
-  },
 });

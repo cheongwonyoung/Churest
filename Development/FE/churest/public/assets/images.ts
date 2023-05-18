@@ -124,11 +124,16 @@ export const images: Images = {
     'https://storage.googleapis.com/churest-bucket/project_image/pin_focus.png',
   sprout_img:
     'https://storage.googleapis.com/churest-bucket/project_image/sprout_img.png',
-  branch_img: 
-    'https://storage.googleapis.com/churest-bucket/project_image/branch_img.png', 
+  branch_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/branch_img.png',
   loading: 
-    'https://storage.googleapis.com/churest-bucket/bird_move.gif', 
+    'https://storage.googleapis.com/churest-bucket/bird_fly.gif',
   tutorial_img:
     'https://storage.googleapis.com/churest-bucket/project_image/tutorial.png',
-    
+  reward_icon_img:
+    'https://storage.googleapis.com/churest-bucket/reward_icon_img.png',
+  reward_bird_img:
+    'https://storage.googleapis.com/churest-bucket/project_image/reward_bird_img.png',
+  earth_move:
+    'https://storage.googleapis.com/churest-bucket/earth_move_1.gif',
 };
