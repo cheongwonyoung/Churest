@@ -3,7 +3,7 @@ import { RigidBody } from '@react-three/rapier';
 import { useEffect, useState } from 'react';
 import { PlantNo } from '../3DFiles/PlantNo';
 import { PlantOk } from '../3DFiles/PlantOk';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { createArticleAtom } from '@/atoms/modal';
 
 type Props = {
@@ -25,7 +25,7 @@ export default function ChoosePosition({ occupied }: Props) {
   });
 
   const [hover, setHover] = useState('');
-  const setIsSelcet = useSetRecoilState(createArticleAtom);
+  const [isSelect, setIsSelcet] = useRecoilState(createArticleAtom);
 
   return (
     <>
@@ -40,15 +40,25 @@ export default function ChoosePosition({ occupied }: Props) {
                   hover == point[0] ? -5.8 : -6.2,
                   point[1].z,
                 ]}
-                onClick={(e: any) =>
-                  setIsSelcet((prev) => {
-                    return {
-                      ...prev,
-                      isModal: true,
-                      spot: Number(e.eventObject.name),
-                    };
-                  })
-                }
+                onClick={(e: any) => {
+                  if (isSelect.isTagged) {
+                    setIsSelcet((prev) => {
+                      return {
+                        ...prev,
+                        isTagModal: true,
+                        spot: Number(e.eventObject.name),
+                      };
+                    });
+                  } else {
+                    setIsSelcet((prev) => {
+                      return {
+                        ...prev,
+                        isModal: true,
+                        spot: Number(e.eventObject.name),
+                      };
+                    });
+                  }
+                }}
                 onPointerEnter={(e: any) => {
                   setHover(e.eventObject.name);
                 }}

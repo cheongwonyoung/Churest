@@ -1,4 +1,4 @@
-import { CuboidCollider, RigidBody } from '@react-three/rapier';
+import { RigidBody } from '@react-three/rapier';
 import { Birds } from './Options';
 import { useEffect, useRef, useState } from 'react';
 
@@ -6,6 +6,8 @@ type Props = {
   id: number;
 };
 export default function Bird({ id }: Props) {
+  const [look, setLook] = useState(0);
+
   function randomNum(min: number, max: number) {
     var randNum = Math.floor(Math.random() * (max - min + 1)) + min;
     return randNum;
@@ -39,17 +41,19 @@ export default function Bird({ id }: Props) {
   };
 
   const resetPosition = () => {
-    if (bird.current?.translation().y < -10) {
-      bird.current?.setTranslation({ x: 0, y: 8, z: 4 });
+    if (bird.current?.translation().y < -5) {
+      bird.current?.setTranslation({ x: 0, y: 4, z: 4 });
     }
   };
 
   useEffect(() => {
-    setInterval(() => {
+    const interverId = setInterval(() => {
+      console.log('점프');
+
       const x = randomNum(-2, 2);
 
       const z = randomNum(-2, 2);
-      const y = randomNum(2, 4);
+      const y = randomNum(5, 9);
       bird.current?.applyImpulse({
         x: x,
         y: y,
@@ -58,14 +62,15 @@ export default function Bird({ id }: Props) {
       setLookAt(x, z);
       resetPosition();
     }, 2000);
+
+    return () => clearInterval(interverId);
   }, []);
 
-  const [look, setLook] = useState(0);
   return (
     <RigidBody
-      position={[4.5, 8, 5.5]}
-      colliders="cuboid"
-      canSleep={false}
+      position={[4, 2, 4]}
+      colliders="ball"
+      // canSleep={false}
       enabledRotations={[false, false, false]}
       ref={bird}
       rotation={[0, look, 0]}

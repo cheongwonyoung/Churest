@@ -20,6 +20,7 @@ export default function BirdNickname({
 }: Props) {
   const router = useRouter();
   const memberId = useRecoilValue(loginAtom).id;
+  const token = useRecoilValue(loginAtom).accessToken;
   const churestId = Number(router.query.id);
   const [canInput, setInput] = useState(true);
   const [whatNickname, setWhatNickname] = useState(nickname);
@@ -46,11 +47,21 @@ export default function BirdNickname({
   );
 
   const submitForm = () => {
-    const info = {
-      memberBirdId: memberBirdId,
-      nickname: whatNickname,
-    };
-    canInputMessage.mutate(info);
+    if (whatNickname.trim().length < 1) {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: '공백은 입력이 불가합니다',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else {
+      const info = {
+        memberBirdId: memberBirdId,
+        nickname: whatNickname,
+      };
+      canInputMessage.mutate(info);
+    }
   };
 
   const showAlert = (text: string) => {
@@ -85,7 +96,8 @@ export default function BirdNickname({
             value={whatNickname}
             onChange={(e) => handleNickname(e)}
             readOnly={canInput}
-            maxLength={20}
+            maxLength={6}
+            minLength={1}
             placeholder={nickname}
             className={
               canInput == true ? 'nickname-div ' : 'modify-input inside-clay'

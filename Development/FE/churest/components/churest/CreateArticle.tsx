@@ -2,7 +2,7 @@ import WeatherPicker from './WeatherPicker';
 import { useRef, useState } from 'react';
 import ImgUploader from './ImgUploader';
 import TagPicker from './TagPicker';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { createArticleAtom } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
 import {
@@ -14,6 +14,7 @@ import {
 import { getForest, goCreateArticle } from '@/apis/churest';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
+import { forestAtom } from '@/atoms/inp';
 
 type Props = {
   treeId: number;
@@ -81,17 +82,16 @@ export default function CreateArticle({ treeId }: Props) {
   };
 
   const forestId = useRouter().query.id;
-  const { refetch } = useQuery(['tree', forestId], () => getForest(forestId), {
-    enabled: false,
-    onSuccess(data) {
-      console.log('데이터', data);
-    },
-  });
+  const setTiming = useSetRecoilState(forestAtom);
+  const getForestInfo = () => {
+    setTiming((prev) => !prev);
+  };
+
   const { mutate: submit } = useMutation((info: any) => goCreateArticle(info), {
     onSuccess(data, variables, context) {
-      console.log('성공');
+      // console.log('성공');
       // console.log(data);
-      refetch();
+      getForestInfo();
       setIsCreate((prev) => {
         return { ...prev, isModal: false, isSelect: false };
       });
@@ -107,16 +107,16 @@ export default function CreateArticle({ treeId }: Props) {
       //  refetch();
     },
     onError(error, variables, context) {
-      console.log('넌 실패밖에 모르는 하남자야');
-      console.log(error);
-      console.log(variables);
+      // console.log('넌 실패밖에 모르는 하남자야');
+      // console.log(error);
+      // console.log(variables);
     },
   });
 
   const spot = isCreate.spot;
   const memberId = useRecoilValue(loginAtom).id;
   const createArticle = () => {
-    console.log('추억 심기 클릭');
+    // console.log('추억 심기 클릭');
 
     if (data.title == '') {
       //  제목 필수
@@ -164,7 +164,7 @@ export default function CreateArticle({ treeId }: Props) {
         date: data.date,
         treeId,
       };
-      console.log(treeId);
+      // console.log(treeId);
       formData.append('writeInfo', JSON.stringify(writeInfo));
       submit({ formData });
     }
@@ -222,6 +222,7 @@ export default function CreateArticle({ treeId }: Props) {
             ref={contentRef}
             onChange={(e) => handleData(e)}
             placeholder="무슨 일이 있었나요?"
+            maxLength={140}
           />
         </div>
         <div>
