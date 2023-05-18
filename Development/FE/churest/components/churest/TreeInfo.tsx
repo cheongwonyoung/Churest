@@ -24,9 +24,6 @@ export default function TreeInfo({ item }: Props) {
     <>
       <div className="info-container">
         {/* <p>REWARD</p> */}
-        <div className="left tree-model center">
-          <TreeModel treeType={item.treeId} />
-        </div>
         <div className="right tree-info">
           <div>
             <div className="shape-outer shape-inner center">
@@ -63,7 +60,9 @@ export default function TreeInfo({ item }: Props) {
           }
           .left {
             position: left;
-            width: 50%;
+             {
+              /* width: 50%; */
+            }
           }
           .shape-outer {
             position: relative;
@@ -88,7 +87,7 @@ export default function TreeInfo({ item }: Props) {
             background-color: rgba(19, 19, 19, 0.836);
           }
           .tree-info {
-            width: 40%;
+            width: 100%;
             color: white;
             display: flex;
             flex-direction: column;
