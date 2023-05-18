@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
+import { movingAtom } from '@/atoms/inp';
 
 type Props = { refetch: any; closeModal: any };
 
@@ -13,7 +14,6 @@ export default function Letter({ refetch, closeModal }: Props) {
   const fromMemberId = useRecoilValue(loginAtom).id;
   const router = useRouter();
   const toMemberId = Number(router.query.id);
-
   const [content, setContent] = useState('');
   const handleLetter = (e: any) => {
     setContent(e.target.value);
@@ -35,7 +35,7 @@ export default function Letter({ refetch, closeModal }: Props) {
     }) => writeLetter(writeInfo),
     {
       onSuccess: (data) => {
-        console.log('방명록 작성 성공');
+        // console.log('방명록 작성 성공');
         refetch();
         Swal.fire({
           position: 'center',
@@ -49,8 +49,8 @@ export default function Letter({ refetch, closeModal }: Props) {
         // navigate
       },
       onError: (error) => {
-        console.log('방명록 에러다');
-        console.log(error);
+        // console.log('방명록 에러다');
+        // console.log(error);
       },
     }
   );

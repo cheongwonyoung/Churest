@@ -1,28 +1,55 @@
 import Image from 'next/image';
 import { images } from '@/public/assets/images';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { createArticleAtom } from '@/atoms/modal';
 
-type Props = {
-  selectSpot: any;
-  changeToSelect: any;
-};
-export default function MemoryButton({ selectSpot, changeToSelect }: Props) {
+// type Props = {
+//   selectSpot: any;
+//   changeToSelect: any;
+// };
+export default function MemoryButton() {
+  const [isSelect, setIsSelct] = useRecoilState(createArticleAtom);
   return (
     <div>
       <div className="outside">
-        {selectSpot ? (
-          <div className="plantContainer" onClick={changeToSelect}>
+        {isSelect.isSelect ? (
+          <div
+            className="plantContainer"
+            onClick={() =>
+              setIsSelct((prev) => {
+                return {
+                  ...prev,
+                  isSelect: false,
+                  isTagged: false,
+                  boardId: -1,
+                };
+              })
+            }
+          >
             <div className="plantTree">
               <Image
                 src={images.my_tree_img}
                 alt="나무심기"
-                width={50}
+                width={80}
                 height={80}
               />
               <p>돌아가기</p>
             </div>
           </div>
         ) : (
-          <div className="plantContainer" onClick={changeToSelect}>
+          <div
+            className="plantContainer"
+            onClick={() =>
+              setIsSelct((prev) => {
+                return {
+                  ...prev,
+                  isSelect: true,
+                  isTagged: false,
+                  boardId: -1,
+                };
+              })
+            }
+          >
             <div className="plantTree">
               <Image
                 src={images.my_tree_img}
@@ -39,15 +66,15 @@ export default function MemoryButton({ selectSpot, changeToSelect }: Props) {
         {`
           .outside {
             position: absolute;
-
             width: 100%;
             height: 100%;
+            display: flex;
+            justify-content: center;
           }
           .plantContainer {
             position: fixed;
             bottom: 0;
             display: flex;
-            width: 100%;
             display: flex;
             justify-content: center;
             z-index: 5;

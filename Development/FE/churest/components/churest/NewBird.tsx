@@ -3,17 +3,18 @@ import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { openShopAtom, newBirdAtom } from '@/atoms/modal';
 import Swal from 'sweetalert2';
+import { loginAtom } from '@/atoms/login';
+import { movingAtom } from '@/atoms/inp';
 
 export default function NewBird() {
   const bird = useRecoilValue(newBirdAtom).bird;
-
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
   const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
 
-  console.log(bird.bird);
+  // console.log(bird.bird);
   const [name, setName] = useState('');
   const handleName = (e: any) => {
     setName(e.target.value);
@@ -27,7 +28,7 @@ export default function NewBird() {
     () => modifyMyBird({ memberBirdId: bird.memberBirdId, nickname: name }),
     {
       onSuccess: (data) => {
-        console.log(data.data);
+        // console.log(data.data);
         const alertMsg =
           data.data.bird.name +
           '야!\n너의 이름은 ' +
@@ -117,14 +118,6 @@ export default function NewBird() {
         }
         .confirm {
           poisition: static;
-        }
-        @keyframes flying {
-          0% {
-            transform: translate(0, 0);
-          }
-          100% {
-            transform: translate(0, 8px);
-          }
         }
       `}</style>
     </>

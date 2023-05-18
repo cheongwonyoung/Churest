@@ -12,6 +12,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css/scrollbar';
 import BirdNickname from '../churest/BirdNickname';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
 
 export default function MyBird() {
   const cardType = 'mybird';
@@ -32,7 +34,7 @@ export default function MyBird() {
         setLength(num / 2);
       },
       onError: (error) => {
-        console.log(error);
+        // console.log(error);
       },
     }
   );
@@ -64,7 +66,7 @@ export default function MyBird() {
               slideShadows: false,
             }}
             pagination={true}
-            style={{ width: '600px', height: '400px' }}
+            style={{ width: '600px' }}
           >
             {data &&
               data?.data.map((item: any, idx: number) => {
@@ -72,12 +74,12 @@ export default function MyBird() {
                   <SwiperSlide
                     key={idx}
                     className="bird-swiper center"
-                    style={{ width: '200px' }}
+                    style={{ width: '200px', height: '380px' }}
                   >
-                    <div className="flip-card">
-                      <div className="card center">
-                        <div className="front">
-                          <div className="gray-clay center-clay">
+                    <div className="bird-flip-card">
+                      <div className="bird-card  center">
+                        <div className="bird-front ">
+                          <div className="gray-clay center">
                             <Image
                               src={images['bird_' + item.bird.birdId + '_img']}
                               alt=""
@@ -86,7 +88,7 @@ export default function MyBird() {
                             />
                           </div>
                         </div>
-                        <div className="back gray-clay bird-card">
+                        <div className="bird-back gray-clay content">
                           <p className="bird-title ">{item.bird.name}</p>
                           <p className="bird-description">
                             {item.bird.description}
@@ -112,7 +114,7 @@ export default function MyBird() {
         {`
           .container {
             width: 660px;
-            height: 450px;
+            height: 470px;
           }
           .bird-title {
             font-weight: bold;
@@ -123,8 +125,41 @@ export default function MyBird() {
           .bird-description {
             font-size: 17px;
           }
-          .bird-card {
+          .content {
             padding: 20px;
+          }
+
+          /* 카드 뒤집기 효과 */
+          .bird-flip-card {
+            /* width: 200px; */
+            height: 280px;
+            position: relative;
+            perspective: 1100px;
+          }
+
+          .bird-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: 0.4s;
+            transform-style: preserve-3d;
+          }
+
+          .bird-front,
+          .bird-back {
+            width: 200px;
+            height: 220px;
+            position: absolute;
+            backface-visibility: hidden;
+            margin: auto;
+          }
+
+          .bird-back {
+            transform: rotateY(180deg);
+          }
+
+          .bird-flip-card:hover .bird-card {
+            transform: rotateY(180deg);
           }
         `}
       </style>

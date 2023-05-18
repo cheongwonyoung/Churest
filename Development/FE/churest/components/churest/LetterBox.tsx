@@ -13,7 +13,6 @@ export default function LetterBox() {
   const router = useRouter();
   const churestId = Number(router.query.id);
   const memberId = useRecoilValue(loginAtom).id;
-
   // 나의 우편함 편지 목록
   const [showInputModal, setInputModal] = useState(false);
   const { data, refetch } = useQuery(
@@ -21,8 +20,8 @@ export default function LetterBox() {
     () => getLetterList(churestId),
     {
       onSuccess(data) {
-        console.log('hi');
-        console.log(data.data.length);
+        // console.log('hi');
+        // console.log(data.data.length);
         // if (data.data.length == 0) {
         //   if (memberId == churestId) {
         //     showAlert('편지가 아직 없어요');
@@ -31,8 +30,8 @@ export default function LetterBox() {
         // }
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -71,7 +70,7 @@ export default function LetterBox() {
       {data &&
         data?.data.length === 0 &&
         churestId === memberId &&
-        (showAlert('편지가 없어요'), closeModal())}
+        (showAlert('편지가 아직 없어요'), closeModal())}
       <style jsx>{``}</style>
     </>
   );

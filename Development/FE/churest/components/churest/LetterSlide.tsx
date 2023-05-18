@@ -11,6 +11,7 @@ import moment from 'moment';
 import { useState } from 'react';
 import LetterCreate from './LetterCreate';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 type Props = {
   letters: any;
@@ -20,6 +21,7 @@ type Props = {
 
 export default function LetterSlide({ letters, refetch, closeModal }: Props) {
   const memberId: number = useRecoilValue(loginAtom).id;
+  const churestId = useRouter().query.id;
 
   // 방명록 삭제
   const deleteArticleItem = useMutation(
@@ -27,13 +29,13 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
       deleteLetter(deleteInfo),
     {
       onSuccess: (data) => {
-        console.log('성공 in mutation success');
-        console.log(data);
+        // console.log('성공 in mutation success');
+        // console.log(data);
         // refetch();
         // navigate("/방명록");
       },
       onError: (error) => {
-        console.log(error);
+        // console.log(error);
       },
     }
   );
@@ -57,7 +59,7 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
         goDeleteArticle(letter);
         refetch();
       } else {
-        console.log('삭제 취소');
+        // console.log('삭제 취소');
       }
     });
   };
@@ -131,7 +133,7 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
             ></LetterCreate>
           </>
         )}
-        {letters?.length != 0 && viewMode ? (
+        {letters?.length != 0 && viewMode && Number(churestId) != memberId && (
           <div className="center">
             <div className="green-btn" style={{ margin: '10px' }}>
               <button onClick={handleModal} style={{ color: 'white' }}>
@@ -139,8 +141,6 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
               </button>
             </div>
           </div>
-        ) : (
-          <></>
         )}
       </motion.div>
       <style jsx>{`
