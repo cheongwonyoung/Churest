@@ -1,13 +1,13 @@
-import { ReactComponentElement, ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 type Props = {
-  closeModal(): void;
+  closeModal?(): void;
   modal?: ReactNode;
 };
 
 export default function ModalBlackBg({ closeModal, modal }: Props) {
   const escClose = (e: any) => {
     if (e.code == 'Escape') {
-      closeModal();
+      closeModal && closeModal();
     }
   };
 

@@ -14,6 +14,7 @@ import {
   donationModalAtom,
   myRewardModal,
   tutorialAtom,
+  gameFinishAtom,
 } from '@/atoms/modal';
 import { useEffect } from 'react';
 import Notice from '@/components/navbar/Notice';
@@ -34,6 +35,7 @@ import Tutorial from '../churest/Tutorial';
 import RewardModal from './RewardModal';
 import TagTaker from '../churest/TagTaker';
 import { movingAtom } from '@/atoms/inp';
+import FinishModal from '../Game1/FinishModal';
 
 export default function Modals() {
   const id = useRecoilValue(loginAtom).id;
@@ -51,6 +53,7 @@ export default function Modals() {
   const [isDonateOpen, setIsDonateOpen] = useRecoilState(donationModalAtom); // 세계수 기부 현황 모달
   const [isRewardOpen, setMyRewardModal] = useRecoilState(myRewardModal); // 세계수 기부 현황 모달
   const [isTutorialOpen, setIsTutorialOpen] = useRecoilState(tutorialAtom); //  튜토리얼 모달
+  const [isGameFinshOpen, setIsGameFinishOpen] = useRecoilState(gameFinishAtom); //게임 종료 모달
 
   const setCharMove = useSetRecoilState(movingAtom);
   useEffect(() => {
@@ -205,6 +208,7 @@ export default function Modals() {
           }
         />
       )}
+      {isGameFinshOpen.isModal && <ModalBlackBg modal={<FinishModal />} />}
     </div>
   );
 }
