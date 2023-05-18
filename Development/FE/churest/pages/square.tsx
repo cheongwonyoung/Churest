@@ -20,7 +20,7 @@ export default function Square() {
       )}
       <div className="three-container">
         <Navbar types="square" />
-        <Canvas camera={{ position: [8, 6, 8] }} shadows>
+        <Canvas shadows>
           <Square3D />
         </Canvas>
       </div>
