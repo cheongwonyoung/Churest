@@ -5,6 +5,7 @@ import { getChuworld } from '@/apis/chuworld';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
 import Navbar from '@/components/common/Navbar';
+import { Canvas } from '@react-three/fiber';
 
 export default function Chuworld() {
   const memberId = useRecoilValue(loginAtom).id;
@@ -17,7 +18,8 @@ export default function Chuworld() {
   return (
     <div className="root">
       <Navbar types="chuworld" />
-      {data && <ChuWorldList data={data.data} />}
+      <Canvas shadows>{data && <ChuWorldList data={data.data} />}</Canvas>
+
       <style jsx>
         {`
           .root {

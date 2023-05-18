@@ -69,7 +69,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
-          <AlarmRoot fcmToken={fcmToken} message={notice} />
+          <AlarmRoot fcmToken={fcmToken} />
           <Modals />
           <Component {...pageProps} />{' '}
           <style jsx global>

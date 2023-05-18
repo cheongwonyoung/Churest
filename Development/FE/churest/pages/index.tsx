@@ -29,22 +29,27 @@ export default function Home() {
             height: 100vh;
             position: relative;
             overflow: hidden;
-            background: conic-gradient(
+             {
+              /* background: conic-gradient(
               from 0deg at 50% 50%,
               rgba(254, 255, 190, 0) 0deg,
-              rgba(253, 255, 138, 0.99) 170.63deg,
+              rgba(255, 229, 126, 0.752) 170.63deg,
               rgba(254, 255, 190, 0) 360deg
-            );
+            ); */
+            }
+            background-image: url('https://images.pexels.com/photos/627823/pexels-photo-627823.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;
             cursor: pointer;
+            text-align: center;
           }
           .login-text {
             position: absolute;
             left: -84px;
-            top: 100px;
+            top: 15%;
             font-weight: bold;
             text-align: center;
-            font-size: 500px;
-            color: #23225b;
+            font-size: 29vw;
+            color: #4a498e;
           }
           .button-box {
             position: absolute;

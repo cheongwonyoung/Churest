@@ -33,7 +33,7 @@ export default function Redirect() {
           avatarId: data.data.avatarId,
           nickname: data.data.nickname,
         });
-        router.push('/square/');
+        router.push(`/churest/${data.data.memberId}`);
       }
     },
     onError(err) {
@@ -44,5 +44,7 @@ export default function Redirect() {
   useEffect(() => {
     if (typeof code === 'string') refetch();
   }, [code, refetch]);
+  if (isLoading) return <Loading />;
+
   return <Loading />;
 }

@@ -12,16 +12,6 @@ import Swal from 'sweetalert2';
 import { loginAtom } from '@/atoms/login';
 
 export default function SignUpPage() {
-  // const [fcmToken, setFcmToken] = useState('');
-  // useEffect(() => {
-  //   async function getMessageToken() {
-  //     const token = await getFcm();
-  //     console.log('토쿠토큰');
-  //     setFcmToken(token);
-  //   }
-  //   getMessageToken();
-  // }, []);
-
   // 회원가입 입력 단계
   const [page, setPage] = useState(0);
   const plusPage = () => {
@@ -109,13 +99,8 @@ export default function SignUpPage() {
   };
 
   const signUpSubmit = () => {
-    console.log('서브밋 시작');
-
     const avatarId = pickedAvatar.replace(/[^0-9]/g, '');
     const birdId = pickedBird.replace(/[^0-9]/g, '');
-    console.log('변환 완' + avatarId + ' ' + birdId);
-    console.log(pickedAvatar + ' ' + pickedBird);
-
     let joinInfo = {
       avatarId: Number(avatarId),
       birdId: Number(birdId),
@@ -131,8 +116,6 @@ export default function SignUpPage() {
 
   const goSignUp = useMutation((joinInfo: any) => signUp(joinInfo), {
     onSuccess(data) {
-      console.log('회원가입성공');
-      console.log(data.data);
       setUserInfo({
         ...userInfo,
         avatarId: data.data.avatarId,
