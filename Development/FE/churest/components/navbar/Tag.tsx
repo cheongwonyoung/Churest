@@ -90,7 +90,7 @@ export default function Tag({ memberId }: Props) {
                 className="center"
               >
                 {data &&
-                  data!.data.map((item: any, idx: number) => {
+                  data!.data.reverse().map((item: any, idx: number) => {
                     return (
                       <SwiperSlide
                         key={idx}

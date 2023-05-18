@@ -5,6 +5,8 @@ import CharacterGame1 from './CharacterGame1';
 import BirdGame1 from './BirdGame1';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { gameFinishAtom } from '@/atoms/modal';
+import * as THREE from 'three';
+import { useThree } from '@react-three/fiber';
 
 type Props = {
   startNum: number;
@@ -20,6 +22,24 @@ export default function Game13D({ startNum, resetStart }: Props) {
       resetStart();
     }
   }, [finishModal.win]);
+
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1.4);
+  const gogo = useThree();
+
+  useEffect(() => {
+    directionalLight.position.set(20, 30, 16);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.mapSize.x = 4 * 1024; // default
+    directionalLight.shadow.mapSize.y = 4 * 1024; // defaultw
+    directionalLight.shadow.camera.top = 40;
+    directionalLight.shadow.camera.bottom = -40;
+    directionalLight.shadow.camera.left = -40;
+    directionalLight.shadow.camera.right = 40;
+    directionalLight.shadow.camera.near = 0.5; // default
+    directionalLight.shadow.camera.far = 500; // default
+    directionalLight.shadow.bias = 0.0001;
+    gogo.scene.add(directionalLight);
+  }, []);
 
   return (
     <Suspense>
