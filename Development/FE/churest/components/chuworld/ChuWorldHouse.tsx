@@ -1,4 +1,4 @@
-import { Html } from '@react-three/drei';
+import { Html, Text } from '@react-three/drei';
 import { useRouter } from 'next/router';
 import { House1 } from '../3DFiles/House/House_1';
 import { House2 } from '../3DFiles/House/House_2';
@@ -31,40 +31,40 @@ export default function ChuWorldHouse({
   const house = () => {
     switch (myInfo.houseId) {
       case 1:
-        return <House1 position={position} rotation={[0, -0.3, 0]} />;
+        return <House1 rotation={[0, -0.3, 0]} />;
       case 2:
-        return <House2 position={position} rotation={[0, -0.3, 0]} />;
+        return <House2 rotation={[0, -0.3, 0]} />;
       case 3:
-        return <House3 position={position} rotation={[0, -0.3, 0]} />;
+        return <House3 rotation={[0, -0.3, 0]} />;
       case 4:
-        return <House4 position={position} rotation={[0, -0.3, 0]} />;
+        return <House4 rotation={[0, -0.3, 0]} />;
       case 5:
-        return <House5 position={position} rotation={[0, -0.3, 0]} />;
+        return <House5 rotation={[0, -0.3, 0]} />;
       case 6:
-        return <House5 position={position} rotation={[0, -0.3, 0]} />;
+        return <House5 rotation={[0, -0.3, 0]} />;
     }
   };
 
   return (
     <>
-      <></>
-      <mesh onClick={() => router.push('/churest/' + myInfo.memberId)}>
-        <mesh position={bubble_position}>
-          <Html zIndexRange={[10, 0]}>
-            <div className="text-box">
-              <Image
-                src={images.chuworld_bubble_img}
-                alt=""
-                width={300}
-                height={280}
-                style={{ position: 'absolute' }}
-              />
-              <p className="text">{myInfo.nickname}</p>
-            </div>
-          </Html>
-        </mesh>
+      <group
+        position={position}
+        onClick={() => router.push('/churest/' + myInfo.memberId)}
+      >
+        <Html position={[0, 5, 0]} zIndexRange={[10, 0]}>
+          <div className="text-box">
+            <Image
+              src={images.chuworld_bubble_img}
+              alt=""
+              width={300}
+              height={280}
+              style={{ position: 'absolute' }}
+            />
+            <p className="text">{myInfo.nickname}</p>
+          </div>
+        </Html>
         {house()}
-      </mesh>
+      </group>
 
       <style jsx>{`
         .text-box {

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import * as THREE from 'three';
 
 export default function ChuWorldLight() {
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
   const gogo = useThree();
   useEffect(() => {
     directionalLight.position.set(0, 30, 8);
@@ -19,7 +19,7 @@ export default function ChuWorldLight() {
     directionalLight.shadow.radius = 100;
     gogo.scene.add(directionalLight);
   }, []);
-  console.log(directionalLight);
+  // console.log(directionalLight);
 
   return <></>;
 }
