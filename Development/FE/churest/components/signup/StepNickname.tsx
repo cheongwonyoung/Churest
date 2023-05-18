@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { isCheckedNickname } from '@/apis/mypage';
 import Swal from 'sweetalert2';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
 
 type Props = {
   getNickname(i: any): void;

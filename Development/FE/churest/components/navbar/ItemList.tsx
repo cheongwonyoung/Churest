@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from 'react-query';
-import internal from 'stream';
 import {
   getShopBirdList,
   getBirdHouseList,
@@ -14,11 +13,12 @@ import {
   modifyMyBirdHouse,
   modifyMyHouse,
 } from '@/apis/shop';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { openShopAtom, newBirdAtom } from '@/atoms/modal';
 import Swal from 'sweetalert2';
-import { useRouter } from 'next/router';
-import { getForest } from '@/apis/churest';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
+import { forestAtom } from '@/atoms/inp';
 
 type Props = {
   itemCategoryName: string;
@@ -27,7 +27,6 @@ type Props = {
 
 export default function ItemList({ itemCategoryName, memberId }: Props) {
   const [coin, setCoin] = useState(0);
-
   const [haveBirdItem, setHaveBirdItem] = useState(Array);
   const [haveBirdHouseItem, setHaveBirdHouseItem] = useState(Array);
   const [haveHouseItem, setHaveHouseItem] = useState(Array);
@@ -35,27 +34,23 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
   const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
 
-  const forestId = useRouter().query.id;
-  const { refetch: getForestInfo } = useQuery(
-    ['tree', forestId],
-    () => getForest(forestId),
-    {
-      enabled: false,
-    }
-  );
+  const setTiming = useSetRecoilState(forestAtom);
+  const getForestInfo = () => {
+    setTiming((prev) => !prev);
+  };
 
   const { refetch: refetchBird } = useQuery(
     'birds',
     () => getShopBirdList(Number(memberId)),
     {
       onSuccess(data) {
-        console.log(data.data.birds);
+        // console.log(data.data.birds);
         setHaveBirdItem(data.data.birds);
         setCoin(data.data.coin);
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -65,13 +60,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     () => getBirdHouseList(Number(memberId)),
     {
       onSuccess(data) {
-        console.log(data.data.birdHouses);
+        // console.log(data.data.birdHouses);
         setHaveBirdHouseItem(data.data.birdHouses);
         setCoin(data.data.coin);
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -81,13 +76,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     () => getHouseList(Number(memberId)),
     {
       onSuccess(data) {
-        console.log(data.data);
+        // console.log(data.data);
         setHaveHouseItem(data.data.houses);
         setCoin(data.data.coin);
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -101,15 +96,15 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { birdId: number; memberId: number }) => getNewBird(info),
     {
       onSuccess: (data) => {
-        console.log('새 구입 성공');
-        console.log(data.data);
+        // console.log('새 구입 성공');
+        // console.log(data.data);
 
         setIsShopOpen({ isModal: false }); // 상점 창 닫기
         setIsNewBirdOpen({ isModal: true, bird: data.data });
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -118,13 +113,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { birdHouseId: number; memberId: number }) => getNewBirdHouse(info),
     {
       onSuccess: (data) => {
-        console.log('새 집 구입 성공');
-        console.log(data.data);
+        // console.log('새 집 구입 성공');
+        // console.log(data.data);
         refetchBirdHouse();
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -133,13 +128,13 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { houseId: number; memberId: number }) => getNewHouse(info),
     {
       onSuccess: (data) => {
-        console.log('집 구입 성공');
-        console.log(data.data);
+        // console.log('집 구입 성공');
+        // console.log(data.data);
         refetchHouse();
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -148,14 +143,14 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { birdId: number; memberId: number }) => modifyMyBird(info),
     {
       onSuccess: (data) => {
-        console.log('새 변경 성공');
-        console.log(data.data);
+        // console.log('새 변경 성공');
+        // console.log(data.data);
         getForestInfo();
         refetchBird();
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -164,14 +159,14 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { houseId: number; memberId: number }) => modifyMyBirdHouse(info),
     {
       onSuccess: (data) => {
-        console.log('새 집 변경 성공');
-        console.log(data.data);
+        // console.log('새 집 변경 성공');
+        // console.log(data.data);
         getForestInfo();
         refetchBirdHouse();
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -180,14 +175,14 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { houseId: number; memberId: number }) => modifyMyHouse(info),
     {
       onSuccess: (data) => {
-        console.log('집 변경 성공');
-        console.log(data.data);
+        // console.log('집 변경 성공');
+        // console.log(data.data);
         getForestInfo();
         refetchHouse();
       },
       onError: (error) => {
-        console.log('에러다');
-        console.log(error);
+        // console.log('에러다');
+        // console.log(error);
       },
     }
   );
@@ -195,9 +190,16 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   const handleItem = (e: any) => {
     if (e.isOwn) {
       if (!e.isUsed) {
-        const name = e.name + '로 변경하시겠습니까?';
+        let msg;
+
+        if (itemCategoryName == 'bird') {
+          msg = e.name + '로 변경하시겠습니까?';
+        } else {
+          msg = e.name + '으로 변경하시겠습니까?';
+        }
+        // const name = e.name + '';
         Swal.fire({
-          title: name,
+          title: msg,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#51da93',
@@ -216,18 +218,17 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
                 modifyHouse.mutate({ houseId: e.id, memberId: memberId });
                 break;
             }
-            console.log('변경 완료');
+            // console.log('변경 완료');
           } else {
-            console.log('변경 취소');
+            // console.log('변경 취소');
           }
         });
       }
     } else {
       if (coin >= e.price) {
-        console.log('살거고 살 수 있음');
-
-        console.log(e.name);
-        console.log(typeof e.name);
+        // console.log('살거고 살 수 있음');
+        // console.log(e.name);
+        // console.log(typeof e.name);
 
         let name = '';
         if (itemCategoryName == 'bird') {
@@ -255,9 +256,9 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
                 buyHouse.mutate({ houseId: e.id, memberId: memberId });
                 break;
             }
-            console.log('구매 완료');
+            // console.log('구매 완료');
           } else {
-            console.log('구매 취소');
+            // console.log('구매 취소');
           }
         });
       } else {
@@ -274,7 +275,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
 
   const structure = () => {
     if (itemCategoryName == 'bird') {
-      console.log(haveBirdItem);
+      // console.log(haveBirdItem);
       return haveBirdItem;
     } else if (itemCategoryName == 'nest') {
       return haveBirdHouseItem;

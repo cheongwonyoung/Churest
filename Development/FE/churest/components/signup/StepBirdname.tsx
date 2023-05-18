@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { isCheckedBirdNickname } from '@/apis/mypage';
 import { useQuery } from 'react-query';
 import Swal from 'sweetalert2';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
 
 type Props = {
   handlePickedBird(i: any): void;

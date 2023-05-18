@@ -24,7 +24,7 @@ export default function ItemShop({ memberId }: Props) {
     console.log(item);
     setItemCategoryName(item);
   };
-  
+
   const itemTitle = (
     <div className="tab-container">
       {itemNames.map((item) => (
@@ -49,7 +49,7 @@ export default function ItemShop({ memberId }: Props) {
           display: flex;
           justify-content: space-between;
           text-align: center;
-          gap:5px;
+          gap: 5px;
         }
         .category-btn {
           cursor: pointer;

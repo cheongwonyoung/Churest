@@ -3,11 +3,12 @@ import { useEffect } from 'react';
 import { useQuery, useMutation } from 'react-query';
 import moment from 'moment';
 import Image from 'next/image';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import { openAlarmAtom } from '@/atoms/modal';
 import { getAlarm, checkedAlarm } from '@/apis/alarm';
 import { useRouter } from 'next/router';
 import { myTreeAtom } from '@/atoms/modal';
+import { loginAtom } from '@/atoms/login';
 
 type Props = {
   memberId: number;
@@ -28,7 +29,6 @@ type Notice = {
 
 export default function Notice({ memberId }: Props) {
   const router = useRouter();
-
   // 모달 관련
   const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
   const type = 'tagged';
@@ -64,7 +64,7 @@ export default function Notice({ memberId }: Props) {
             />
             <div>알림함</div>
           </div>
-
+          {data && data?.data.length === 0 && <div>알림이 없습니다!</div>}
           {data ? (
             data.data.map((notice: Notice, idx: number) => {
               return notice.toMember === notice.fromMember ? (
@@ -142,7 +142,7 @@ export default function Notice({ memberId }: Props) {
               );
             })
           ) : (
-            <div>알림이 없어요!</div>
+            <div>알림이 없습니다!</div>
           )}
         </div>
       </div>

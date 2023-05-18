@@ -30,11 +30,11 @@ export default function StepAvatart({
         </div>
       </div>
       <style jsx>{`
-        .avatar-container{
+        .avatar-container {
           padding-top: 30px;
           padding-bottom: 30px;
-        } 
-        `}</style>
+        }
+      `}</style>
     </>
   );
 }

@@ -28,7 +28,7 @@ export default function BirdItem({
         <Image id={Bird} src={images[Bird]} alt="" width={130} height={120} />
       </div>
       <style jsx>{`
-      .signup-item {
+        .signup-item {
           width: 200px;
           height: 250px;
           display: flex;
