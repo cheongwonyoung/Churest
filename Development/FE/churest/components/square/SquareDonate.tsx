@@ -34,11 +34,7 @@ export default function SquareDonate({ memberId }: Props) {
       <div className="blue-clay" style={{ width: '700px' }}>
         <div className="content-container">
           {/* 기부 현황 보기 */}
-          <div className="title">
-            여러분들이 키운 소중한 나무는 프로젝트가 끝나면
-          </div>
-          <div className="title">산불 피해 지역에 기부됩니다.</div>
-
+          <div className="title">츄레스트에서 이만큼이나 키웠어요</div>
           <div className="item-container">
             <div className="side">
               <p>우리가 다같이 키운 나무</p>
@@ -83,7 +79,7 @@ export default function SquareDonate({ memberId }: Props) {
         }
         .title {
           font-weight: bold;
-          font-size: 20px;
+          font-size: 25px;
           margin: 5%;
           text-align: center;
         }

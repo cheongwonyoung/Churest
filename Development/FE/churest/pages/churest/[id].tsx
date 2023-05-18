@@ -9,22 +9,22 @@ import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
 import { images } from '@/public/assets/images';
 import Image from 'next/image';
-// import { useMutation } from 'react-query';
-// import { updateFcm } from '@/apis/mypage';
+import { useMutation } from 'react-query';
+import { updateFcm } from '@/apis/mypage';
 
 export default function Garden() {
   const memberId = useRecoilValue(loginAtom).id;
-  // const getFcmToken = useRecoilValue(loginAtom).fcmToken;
-  // const changeFcm = useMutation(
-  //   (info: { fcm: string; memberId: number }) => updateFcm(info),
-  //   {
-  //     onSuccess(data) {
-  //       console.log('수수수수수정와놔노아노안료');
-  //       console.log(getFcmToken);
-  //       console.log(data);
-  //     },
-  //   }
-  // );
+  const getFcmToken = useRecoilValue(loginAtom).fcmToken;
+  const changeFcm = useMutation(
+    (info: { fcm: string; memberId: number }) => updateFcm(info),
+    {
+      onSuccess(data) {
+        console.log('수수수수수정와놔노아노안료');
+        console.log(getFcmToken);
+        console.log(data);
+      },
+    }
+  );
   const isSpace = useRecoilValue(spaceModalAtom);
   const router = useRouter();
   const churestId = Number(router.query.id);
@@ -50,13 +50,13 @@ export default function Garden() {
 
   const [isTutorialOpen, setIsTutorialOpen] = useRecoilState(tutorialAtom);
 
-  // useEffect(() => {
-  //   const info = {
-  //     fcm: getFcmToken,
-  //     memberId: memberId,
-  //   };
-  //   changeFcm.mutate(info);
-  // }, [getFcmToken]);
+  useEffect(() => {
+    const info = {
+      fcm: getFcmToken,
+      memberId: memberId,
+    };
+    changeFcm.mutate(info);
+  }, [getFcmToken]);
 
   return (
     <div className="gogo">
