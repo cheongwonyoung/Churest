@@ -177,7 +177,7 @@ churest
 
 ## 📑 프로젝트 결과물
 
-[포팅 메뉴얼]()
+[포팅 메뉴얼](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/exec/%ED%8F%AC%ED%8C%85%EB%A7%A4%EB%89%B4%EC%96%BC.pdf)
 
 [중간 발표 자료 ppt](https://lab.ssafy.com/s08-final/S08P31A505/-/blob/main/docs/A505_%EC%A4%91%EA%B0%84%EB%B0%9C%ED%91%9C.pptx)
 
