@@ -25,11 +25,9 @@ export default function Carousel({ cardType, info, refetch }: Props) {
   const setMyRewardModal = useSetRecoilState(myRewardModal);
 
   const showReward = (treeInfo: {}) => {
-    console.log('나무 정보보여주는 검정 모달');
     setMyRewardModal({ isModal: true, treeInfo: treeInfo });
   };
 
-  // console.log('인포다인마', info);
   return (
     <>
       <div>

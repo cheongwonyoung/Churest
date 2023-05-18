@@ -55,7 +55,6 @@ export default function Square3D() {
   const setIsDonateOpen = useSetRecoilState(donationModalAtom);
 
   const clickDonate = () => {
-    console.log('기부 현황 보기');
     setIsDonateOpen({ isModal: true });
   };
   const [readyModal, setReadyModal] = useRecoilState(spaceModalAtom);

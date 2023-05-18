@@ -44,14 +44,10 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     () => getShopBirdList(Number(memberId)),
     {
       onSuccess(data) {
-        // console.log(data.data.birds);
         setHaveBirdItem(data.data.birds);
         setCoin(data.data.coin);
       },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 
@@ -60,14 +56,10 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     () => getBirdHouseList(Number(memberId)),
     {
       onSuccess(data) {
-        // console.log(data.data.birdHouses);
         setHaveBirdHouseItem(data.data.birdHouses);
         setCoin(data.data.coin);
       },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 
@@ -76,14 +68,10 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     () => getHouseList(Number(memberId)),
     {
       onSuccess(data) {
-        // console.log(data.data);
         setHaveHouseItem(data.data.houses);
         setCoin(data.data.coin);
       },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
   useEffect(() => {
@@ -96,16 +84,10 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { birdId: number; memberId: number }) => getNewBird(info),
     {
       onSuccess: (data) => {
-        // console.log('새 구입 성공');
-        // console.log(data.data);
-
         setIsShopOpen({ isModal: false }); // 상점 창 닫기
         setIsNewBirdOpen({ isModal: true, bird: data.data });
       },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 
@@ -113,14 +95,9 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { birdHouseId: number; memberId: number }) => getNewBirdHouse(info),
     {
       onSuccess: (data) => {
-        // console.log('새 집 구입 성공');
-        // console.log(data.data);
         refetchBirdHouse();
       },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 
@@ -128,14 +105,9 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { houseId: number; memberId: number }) => getNewHouse(info),
     {
       onSuccess: (data) => {
-        // console.log('집 구입 성공');
-        // console.log(data.data);
         refetchHouse();
       },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 
@@ -143,15 +115,10 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { birdId: number; memberId: number }) => modifyMyBird(info),
     {
       onSuccess: (data) => {
-        // console.log('새 변경 성공');
-        // console.log(data.data);
         getForestInfo();
         refetchBird();
       },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 
@@ -159,15 +126,10 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { houseId: number; memberId: number }) => modifyMyBirdHouse(info),
     {
       onSuccess: (data) => {
-        // console.log('새 집 변경 성공');
-        // console.log(data.data);
         getForestInfo();
         refetchBirdHouse();
       },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 
@@ -175,15 +137,10 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
     (info: { houseId: number; memberId: number }) => modifyMyHouse(info),
     {
       onSuccess: (data) => {
-        // console.log('집 변경 성공');
-        // console.log(data.data);
         getForestInfo();
         refetchHouse();
       },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 
@@ -197,7 +154,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
         } else {
           msg = e.name + '으로 변경하시겠습니까?';
         }
-        // const name = e.name + '';
+
         Swal.fire({
           title: msg,
           icon: 'warning',
@@ -218,18 +175,12 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
                 modifyHouse.mutate({ houseId: e.id, memberId: memberId });
                 break;
             }
-            // console.log('변경 완료');
           } else {
-            // console.log('변경 취소');
           }
         });
       }
     } else {
       if (coin >= e.price) {
-        // console.log('살거고 살 수 있음');
-        // console.log(e.name);
-        // console.log(typeof e.name);
-
         let name = '';
         if (itemCategoryName == 'bird') {
           name = e.name + '를 구매하시겠습니까?';
@@ -256,9 +207,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
                 buyHouse.mutate({ houseId: e.id, memberId: memberId });
                 break;
             }
-            // console.log('구매 완료');
           } else {
-            // console.log('구매 취소');
           }
         });
       } else {
@@ -275,7 +224,6 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
 
   const structure = () => {
     if (itemCategoryName == 'bird') {
-      // console.log(haveBirdItem);
       return haveBirdItem;
     } else if (itemCategoryName == 'nest') {
       return haveBirdHouseItem;

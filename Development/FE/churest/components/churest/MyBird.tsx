@@ -28,14 +28,10 @@ export default function MyBird() {
     () => getMyBirdsList(Number(memberId)),
     {
       onSuccess() {
-        // setMyBirds([...data.data]);
-        // console.log(data.data);
         let num = data?.data.length;
         setLength(num / 2);
       },
-      onError: (error) => {
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 

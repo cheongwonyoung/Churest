@@ -34,19 +34,13 @@ export default function MyPage({ myPageId }: Props) {
     'mypage',
     () => getMyInfo(Number(myPageId)),
     {
-      onSuccess(data) {
-        // console.log('마이페이지 > >', data.data);
-      },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onSuccess(data) {},
+      onError: (error) => {},
     }
   );
 
   useEffect(() => {
     refetch();
-    // console.log('처음');
   }, []);
 
   return (

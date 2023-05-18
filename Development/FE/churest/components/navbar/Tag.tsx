@@ -34,12 +34,9 @@ export default function Tag({ memberId }: Props) {
     () => getTaggedTree(Number(memberId)),
     {
       onSuccess(data) {
-        console.log(...data.data);
         setMyTags([...data.data]);
       },
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: (error) => {},
       staleTime: 60 * 1000,
     }
   );

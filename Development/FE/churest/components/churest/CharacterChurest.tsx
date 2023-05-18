@@ -125,7 +125,6 @@ export default function CharacterChurest({
 
   const controlRef = useRef<any>();
   useEffect(() => {
-    console.log(isSelect);
     if (isSelect) {
       camera.position.y = 43;
       camera.position.z = 0;

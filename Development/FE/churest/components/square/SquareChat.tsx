@@ -32,9 +32,7 @@ export default memo(function SquareChat() {
         //  입장하였습니다. json_body로 받기 위해서 추가함
         sendEnterMessage(nickname);
       },
-      onWebSocketError: (err) => {
-        console.log(err);
-      },
+      onWebSocketError: (err) => {},
     });
     client.current.activate(); // 클라이언트 활성화
   };

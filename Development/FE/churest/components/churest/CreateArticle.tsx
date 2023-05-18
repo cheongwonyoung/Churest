@@ -89,8 +89,6 @@ export default function CreateArticle({ treeId }: Props) {
 
   const { mutate: submit } = useMutation((info: any) => goCreateArticle(info), {
     onSuccess(data, variables, context) {
-      // console.log('성공');
-      // console.log(data);
       getForestInfo();
       setIsCreate((prev) => {
         return { ...prev, isModal: false, isSelect: false };
@@ -106,18 +104,12 @@ export default function CreateArticle({ treeId }: Props) {
       });
       //  refetch();
     },
-    onError(error, variables, context) {
-      // console.log('넌 실패밖에 모르는 하남자야');
-      // console.log(error);
-      // console.log(variables);
-    },
+    onError(error, variables, context) {},
   });
 
   const spot = isCreate.spot;
   const memberId = useRecoilValue(loginAtom).id;
   const createArticle = () => {
-    // console.log('추억 심기 클릭');
-
     if (data.title == '') {
       //  제목 필수
       // titleRef.current.focus();
@@ -164,7 +156,6 @@ export default function CreateArticle({ treeId }: Props) {
         date: data.date,
         treeId,
       };
-      // console.log(treeId);
       formData.append('writeInfo', JSON.stringify(writeInfo));
       submit({ formData });
     }

@@ -24,9 +24,7 @@ export default function SquareDonate({ memberId }: Props) {
       setMyDonateTree(data.data.myDonateTreeCount);
       setTotalDonateTree(data.data.totalDonateTreeCount);
     },
-    onError: (error) => {
-      console.log(error);
-    },
+    onError: (error) => {},
   });
 
   return (

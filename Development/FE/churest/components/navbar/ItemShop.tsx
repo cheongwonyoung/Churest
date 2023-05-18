@@ -21,7 +21,6 @@ export default function ItemShop({ memberId }: Props) {
   };
 
   const handleShowedItem = (item: any) => {
-    console.log(item);
     setItemCategoryName(item);
   };
 

@@ -14,7 +14,6 @@ export default function NewBird() {
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
   const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
 
-  // console.log(bird.bird);
   const [name, setName] = useState('');
   const handleName = (e: any) => {
     setName(e.target.value);
@@ -28,7 +27,6 @@ export default function NewBird() {
     () => modifyMyBird({ memberBirdId: bird.memberBirdId, nickname: name }),
     {
       onSuccess: (data) => {
-        // console.log(data.data);
         const alertMsg =
           data.data.bird.name +
           '야!\n너의 이름은 ' +

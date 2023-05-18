@@ -28,7 +28,6 @@ export default function ImgUploader({ addFiles, files, deleteImage }: Props) {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () => files.forEach((file) => URL.revokeObjectURL(file?.preview));
   }, []);
-  // console.log('file이당!!', files);
   return (
     <section className="container">
       <div {...getRootProps({ className: 'dropzone' })}>

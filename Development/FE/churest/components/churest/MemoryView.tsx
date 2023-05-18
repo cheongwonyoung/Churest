@@ -38,19 +38,13 @@ export default function MemoryView({ boardId }: Props) {
           showAlert("'" + data?.data.title + "'이 성장했습니다.");
           getForestInfo();
         }
-        // console.log(boardId + '번 책 열기 성공');
-        // console.log(data.data);
         setTagList(data?.data.tagList);
       },
-      onError(error) {
-        // console.log('에러다! ');
-        // console.log(error);
-      },
+      onError(error) {},
     }
   );
 
   const clickWatering = () => {
-    // console.log(boardId + '물줄게');
     watering.mutate({ boardId, memberId });
   };
 
@@ -64,9 +58,7 @@ export default function MemoryView({ boardId }: Props) {
       wateringTree(info.boardId, info.memberId),
     {
       onSuccess: (wateringResult) => {
-        // console.log('물주기성공');
         getArticle();
-        // console.log(wateringResult);
         if (wateringResult?.data.reward == true) {
           showAlert("'" + data?.data.title + "'이 나무로 성장했습니다.");
           getForestInfo();
@@ -186,8 +178,6 @@ export default function MemoryView({ boardId }: Props) {
                   priority
                   width={58}
                   height={50}
-                  // fill
-                  // style={{ objectFit: 'fit' }}
                 ></Image>
               </div>
             </div>

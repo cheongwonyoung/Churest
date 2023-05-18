@@ -35,7 +35,6 @@ export default function Letter({ refetch, closeModal }: Props) {
     }) => writeLetter(writeInfo),
     {
       onSuccess: (data) => {
-        // console.log('방명록 작성 성공');
         refetch();
         Swal.fire({
           position: 'center',
@@ -45,13 +44,8 @@ export default function Letter({ refetch, closeModal }: Props) {
           timer: 1000,
         });
         closeModal();
-        // console.log(data.data);
-        // navigate
       },
-      onError: (error) => {
-        // console.log('방명록 에러다');
-        // console.log(error);
-      },
+      onError: (error) => {},
     }
   );
 

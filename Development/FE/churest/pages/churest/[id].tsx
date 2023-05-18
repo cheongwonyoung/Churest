@@ -18,11 +18,7 @@ export default function Garden() {
   const changeFcm = useMutation(
     (info: { fcm: string; memberId: number }) => updateFcm(info),
     {
-      onSuccess(data) {
-        console.log('수수수수수정와놔노아노안료');
-        console.log(getFcmToken);
-        console.log(data);
-      },
+      onSuccess(data) {},
     }
   );
   const isSpace = useRecoilValue(spaceModalAtom);

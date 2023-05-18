@@ -24,8 +24,6 @@ export default function Redirect() {
       }
       // 가입자일 때
       else {
-        console.log('데이터', data.data);
-
         setMyInfo({
           ...myInfo,
           id: data.data.memberId,
@@ -36,9 +34,7 @@ export default function Redirect() {
         router.push(`/churest/${data.data.memberId}`);
       }
     },
-    onError(err) {
-      console.log('에러', err);
-    },
+    onError(err) {},
     enabled: false,
   });
   useEffect(() => {

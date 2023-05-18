@@ -19,7 +19,6 @@ export default function ChuWorldLight() {
     directionalLight.shadow.radius = 100;
     gogo.scene.add(directionalLight);
   }, []);
-  // console.log(directionalLight);
 
   return <></>;
 }

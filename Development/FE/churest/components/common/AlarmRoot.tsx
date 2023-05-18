@@ -37,23 +37,17 @@ export default function AlarmRoot() {
       .then((currentToken) => {
         if (currentToken) {
           // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
-          console.log('토큰', currentToken);
+
           setFcm((prev) => {
             return { ...prev, fcmToken: currentToken };
           });
         } else {
-          console.log(
-            'No registration token available. Request permission to generate one.'
-          );
         }
       })
-      .catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
-      });
+      .catch((err) => {});
 
     // 메세지가 수신되면 역시 콘솔에 출력합니다.
     onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
       const noti: any = payload.notification;
       if (payload.notification) {
         Swal.fire({

@@ -23,7 +23,6 @@ export default function TagPicker({
   const { refetch } = useQuery('tags', () => searchFriend(memberId, nickname), {
     enabled: false,
     onSuccess(data) {
-      // console.log(data);
       if (data?.status == 200) {
         setFriends(data?.data);
       } else {

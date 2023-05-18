@@ -17,8 +17,6 @@ type Props = {
 
 export default function TreeInfo({ item }: Props) {
   const IMAGE_ROOT = process.env.NEXT_PUBLIC_IMAGE_ROOT;
-  // console.log('파일명 >>> ' + item.treeInfo);
-  console.log(images['reward_bird_img']);
 
   return (
     <>

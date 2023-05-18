@@ -48,10 +48,7 @@ export default function Bird({ id }: Props) {
 
   useEffect(() => {
     const interverId = setInterval(() => {
-      console.log('점프');
-
       const x = randomNum(-2, 2);
-
       const z = randomNum(-2, 2);
       const y = randomNum(5, 9);
       bird.current?.applyImpulse({

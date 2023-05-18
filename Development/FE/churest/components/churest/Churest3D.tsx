@@ -144,9 +144,7 @@ export default function Churest3D({ autoView, resetPosition }: Props) {
     ['tree', memberId],
     () => getForest(memberId),
     {
-      onSuccess(data) {
-        console.log(data);
-      },
+      onSuccess(data) {},
     }
   );
   const spotINfo = spots;
@@ -385,7 +383,6 @@ export default function Churest3D({ autoView, resetPosition }: Props) {
                               if (e.colliderObject?.name == 'character') {
                                 setTreeId(tree.boardId);
                                 setReadyModal('myTree');
-                                console.log(tree.boardId + '에게 다가갔떠');
                               }
                             }}
                             onIntersectionExit={(e) => {

@@ -21,7 +21,6 @@ export default function ChuWorldList({ data }: Props) {
   const [possible, setPossible] = useState(true);
   const step = useRef(0);
   const wheelAction = (e: any) => {
-    console.log(e.deltaY, step);
     if (e.deltaY < 0 && step.current < 5 && step.current > 0) {
       step.current = step.current - 1;
     } else if (e.deltaY > 0 && step.current >= 0 && step.current < 4) {

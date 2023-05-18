@@ -19,20 +19,8 @@ export default function LetterBox() {
     'myLetters',
     () => getLetterList(churestId),
     {
-      onSuccess(data) {
-        // console.log('hi');
-        // console.log(data.data.length);
-        // if (data.data.length == 0) {
-        //   if (memberId == churestId) {
-        //     showAlert('편지가 아직 없어요');
-        //     closeModal();
-        //   }
-        // }
-      },
-      onError: (error) => {
-        // console.log('에러다');
-        // console.log(error);
-      },
+      onSuccess(data) {},
+      onError: (error) => {},
     }
   );
 

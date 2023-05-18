@@ -28,15 +28,8 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
     (deleteInfo: { fromMemberId: number; guestBookId: number }) =>
       deleteLetter(deleteInfo),
     {
-      onSuccess: (data) => {
-        // console.log('성공 in mutation success');
-        // console.log(data);
-        // refetch();
-        // navigate("/방명록");
-      },
-      onError: (error) => {
-        // console.log(error);
-      },
+      onSuccess: (data) => {},
+      onError: (error) => {},
     }
   );
   const goDeleteArticle = async (letter: any) => {
@@ -59,14 +52,12 @@ export default function LetterSlide({ letters, refetch, closeModal }: Props) {
         goDeleteArticle(letter);
         refetch();
       } else {
-        // console.log('삭제 취소');
       }
     });
   };
 
   const [viewMode, setViewMode] = useState(true);
   const handleModal = () => {
-    // closeModal();
     setViewMode(false);
   };
 
