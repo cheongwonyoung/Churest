@@ -1,5 +1,7 @@
 import { BsFillSendFill } from 'react-icons/bs';
-import { KeyboardEvent } from 'react';
+import { KeyboardEvent, useEffect, useRef } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { movingAtom } from '@/atoms/inp';
 type Props = {
   message: string;
   changeMsg(e: any): void;
@@ -17,14 +19,33 @@ export default function SquareChatInp({
     }
   };
 
+  const setIsMoving = useSetRecoilState(movingAtom);
+
+  const focusChat = (e: any) => {
+    if (e.code == 'Enter') {
+      const chatInp = document.getElementById('chatInp');
+      chatInp?.focus();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', focusChat);
+    return () => {
+      document.removeEventListener('keydown', focusChat);
+    };
+  });
+
   return (
     <div className="inp-box">
       <input
         type="text"
         className="chat-inp"
+        id="chatInp"
         value={message}
         onChange={changeMsg}
         onKeyDown={onKeyDown}
+        onFocus={() => setIsMoving(true)}
+        onBlur={() => setIsMoving(false)}
       />
 
       <button className="chat-btn" onClick={() => sendMessage(message)}>
@@ -32,13 +53,12 @@ export default function SquareChatInp({
       </button>
       <style jsx>{`
         .inp-box {
-          width: 500px;
           display: flex;
           justify-content: space-between;
           margin-top: 12px;
         }
         .chat-inp {
-          width: 438px;
+          width: 400px;
           height: 38px;
           border: none;
           backdrop-filter: blur(5px);
@@ -53,6 +73,7 @@ export default function SquareChatInp({
           outline: none;
         }
         .chat-btn {
+          margin-left: 10px;
           border-radius: 10px;
           width: 40px;
           height: 40px;

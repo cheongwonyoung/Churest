@@ -1,9 +1,18 @@
 import { v4 as uuidv4 } from 'uuid';
+import { useRef, useEffect } from 'react';
+
 type Props = {
   messages: any[];
 };
 
 export default function SquareChatList({ messages }: Props) {
+  // 스크롤 맨 아래로 가게 하기
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <div className="chat-list-box">
       {messages?.map((msg) => (
@@ -19,8 +28,7 @@ export default function SquareChatList({ messages }: Props) {
       ))}
       <style jsx>{`
         .chat-list-box {
-          width: 500px;
-          height: 400px;
+          height: 300px;
           background-color: #ebebeb8c;
           border-radius: 30px;
           box-shadow: 0px 3px 3px 0px rgba(209, 209, 209, 0.7),
@@ -41,6 +49,7 @@ export default function SquareChatList({ messages }: Props) {
           margin: 1% 0;
         }
       `}</style>
+      <div ref={bottomRef} />
     </div>
   );
 }

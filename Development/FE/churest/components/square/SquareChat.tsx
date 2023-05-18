@@ -1,11 +1,15 @@
+import { Stomp } from '@stomp/stompjs';
 import { useEffect, useState, useRef, useCallback, memo } from 'react';
+import SockJS from 'sockjs-client';
 import * as StompJS from '@stomp/stompjs';
 import SquareChatInp from './SquareChatInp';
 import { useRecoilValue } from 'recoil';
 import { loginAtom } from '@/atoms/login';
 import SquareChatList from './SquareChatList';
+import Swal from 'sweetalert2';
 
 export default memo(function SquareChat() {
+  // const baseURL = 'ws://localhost:8080/chat/websocket';
   const baseURL = 'ws://k8a505.p.ssafy.io/chat/websocket';
   const nickname = useRecoilValue(loginAtom)!.nickname;
   const client: any = useRef({});
@@ -25,7 +29,6 @@ export default memo(function SquareChat() {
       onConnect: () => {
         setConnected(true);
         subscribe(); // 연결 성공 시 구독하는 로직 실행
-
         //  입장하였습니다. json_body로 받기 위해서 추가함
         sendEnterMessage(nickname);
       },
@@ -57,7 +60,6 @@ export default memo(function SquareChat() {
   }, []);
 
   const sendEnterMessage = (sender: string) => {
-    console.log('입장 메세지 전송 ' + sender);
     client.current.publish({
       destination: '/pub/chat/message',
       body: JSON.stringify({
@@ -70,18 +72,30 @@ export default memo(function SquareChat() {
   };
 
   const sendMessage = (message: string) => {
-    client.current.publish({
-      destination: '/pub/chat/message',
-      body: JSON.stringify({
-        type: 'TALK',
-        roomId,
-        // sender: userId,
-        sender: nickname,
-        message: message,
-      }),
-    });
-    //  메세지 보내고 SquareChatInp 빈칸 만들기
-    setMessage('');
+    if (message.trim().length < 1) {
+      // const chatInp = document.getElementById('chatInp');
+      // chatInp?.blur();
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: '공백은 입력이 불가합니다',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else {
+      client.current.publish({
+        destination: '/pub/chat/message',
+        body: JSON.stringify({
+          type: 'TALK',
+          roomId,
+          // sender: userId,
+          sender: nickname,
+          message: message,
+        }),
+      });
+      //  메세지 보내고 SquareChatInp 빈칸 만들기
+      setMessage('');
+    }
   };
 
   const changeMsg = useCallback((e: any) => {
