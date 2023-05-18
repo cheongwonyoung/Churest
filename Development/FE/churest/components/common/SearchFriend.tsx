@@ -68,7 +68,7 @@ export default function SearchFriend() {
             value={nickname}
             onChange={(e) => handleSearch(e)}
           />
-          <div className="bottom overflow-y-scroll scroll-bar">
+          <div className="bottom overflow-y-scroll scroll-bar center">
             {
               // <div>아무것도없다</div>
 

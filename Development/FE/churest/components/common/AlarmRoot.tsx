@@ -54,8 +54,8 @@ export default function AlarmRoot() {
           position: 'center',
           imageUrl:
             'https://storage.googleapis.com/churest-bucket/project_image/alarm_navbar_img.png',
-          title: noti.title,
-          text: noti.body,
+          title: '알림이 도착했어요!',
+          text: noti.title,
           showConfirmButton: false,
           timer: 1000,
         });

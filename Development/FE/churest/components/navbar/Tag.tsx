@@ -74,7 +74,6 @@ export default function Tag({ memberId }: Props) {
             <div className="gray-text">태그된 추억이 아직 없습니다.</div>
           ) : (
             <div style={{ width: '300px' }}>
-              {/* <Carousel cardType={cardType} info={tagList}></Carousel> */}
               <Swiper
                 effect={'coverflow'}
                 grabCursor={true}
@@ -154,6 +153,12 @@ export default function Tag({ memberId }: Props) {
             justify-content: center;
             align-items: center;
             margin-top: 20px;
+            cursor: pointer;
+          }
+          .tag-box:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s;
+            cursor: pointer;
           }
           .take-btn {
             margin-top: 17px;

@@ -89,6 +89,10 @@ export default function SquareChatInp({
             inset 0px -1px 8px 0px rgba(145, 145, 145, 0.9),
             inset 0px 11px 28px 0px rgb(255, 255, 255, 0.4);
         }
+        .chat-btn:hover {
+          transform: scale(1.05);
+          cursor: pointer;
+        }
       `}</style>
     </div>
   );

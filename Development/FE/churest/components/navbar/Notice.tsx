@@ -64,9 +64,9 @@ export default function Notice({ memberId }: Props) {
             />
             <div>알림함</div>
           </div>
-          <div className="scroll-bar">
+          <div className="scroll-bar center">
             {data && data?.data.length === 0 && (
-              <div style={{ textAlign: 'center' }}>알림이 없습니다!</div>
+              <div style={{ textAlign: 'center' }}>알림이 없습니다.</div>
             )}
             {data ? (
               data.data.map((notice: Notice, idx: number) => {
@@ -146,7 +146,7 @@ export default function Notice({ memberId }: Props) {
               })
             ) : (
               <>
-                <div>알림이 없습니다!</div>
+                <div>알림이 없습니다.</div>
               </>
             )}
           </div>
@@ -172,6 +172,7 @@ export default function Notice({ memberId }: Props) {
             box-shadow: -5px -5px 10px #f1f1f1,
               5px 5px 10px rgba(166, 171, 189, 0.29);
             border-radius: 10px;
+            align-items: center;
           }
           .notice-item:hover {
             transform: scale(1.05);
