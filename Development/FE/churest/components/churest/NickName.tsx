@@ -11,18 +11,19 @@ type Props = {
   nickname: string;
   myPageId: number;
   refetch: any;
+  handleNickname(e: any): void;
 };
 
-export default function NickName({ nickname, myPageId, refetch }: Props) {
+export default function NickName({
+  nickname,
+  myPageId,
+  refetch,
+  handleNickname,
+}: Props) {
   const router = useRouter();
   const memberId = useRecoilValue(loginAtom).id;
   const churestId = Number(router.query.id);
   const [canInput, setInput] = useState(true);
-  const [whatNickname, setWhatNickname] = useState(nickname);
-
-  const handleNickname = (e: any) => {
-    setWhatNickname(e.target.value);
-  };
 
   // 버튼 클릭 시 input 창으로 변경하는 함수
   const changeReadOnly = () => {
@@ -42,7 +43,7 @@ export default function NickName({ nickname, myPageId, refetch }: Props) {
   );
 
   const submitForm = () => {
-    if (whatNickname.trim().length < 1) {
+    if (nickname.trim().length < 1) {
       Swal.fire({
         position: 'center',
         icon: 'warning',
@@ -53,7 +54,7 @@ export default function NickName({ nickname, myPageId, refetch }: Props) {
     } else {
       const info = {
         memberId: memberId,
-        nickname: whatNickname,
+        nickname: nickname,
       };
       canInputMessage.mutate(info);
     }
@@ -88,7 +89,7 @@ export default function NickName({ nickname, myPageId, refetch }: Props) {
           <input
             id="nickname"
             type="text"
-            value={whatNickname}
+            value={nickname}
             onChange={(e) => handleNickname(e)}
             readOnly={canInput}
             maxLength={6}

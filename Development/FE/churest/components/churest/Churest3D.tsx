@@ -26,7 +26,6 @@ import { Rock2 } from '../3DFiles/Rock/Rock2';
 import { Rock3 } from '../3DFiles/Rock/Rock3';
 import { Rock4 } from '../3DFiles/Rock/Rock4';
 import { Rock5 } from '../3DFiles/Rock/Rock5';
-import { RedFlower } from '../3DFiles/Flowers/RedFlower';
 import { WhiteFlower } from '../3DFiles/Flowers/WhiteFlower';
 import { BlueFlower } from '../3DFiles/Flowers/BlueFlower';
 import { OrangeFlower } from '../3DFiles/Flowers/OrangeFlower';
@@ -39,13 +38,9 @@ import { spots } from '@/utils/spots';
 import { BirdHouses, Houses, Trees } from './Options';
 import Bird from './Bird';
 import { Tile } from '../3DFiles/Tile';
-import { clickedName } from '@/atoms/modal';
 import { ChurestMap } from '../3DFiles/ChurestMapLast';
-import Swal from 'sweetalert2';
 import { forestAtom } from '@/atoms/inp';
-import { TFlower_1 } from '../3DFiles/Flowers/TFlower_1';
 import TileFlower from './TileFlower';
-import Loader3D from '../common/Loader3D';
 
 export const Controls = {
   forward: 'forward',
