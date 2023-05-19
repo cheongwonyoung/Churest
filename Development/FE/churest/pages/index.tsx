@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 import { Inter } from 'next/font/google';
 import RotatingEarth from '@/components/login/RotatingEarth';
 import { ImBubble } from 'react-icons/im';
+import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,7 +15,18 @@ export default function Home() {
   const loginKakao = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
-
+  const showAlert = (text: string) => {
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: text,
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  };
+  useEffect(() => {
+    showAlert('좌측 상단의 알림 허용 버튼을 눌러주세요.');
+  });
   return (
     <div className="login">
       <p className="login-text">Churest</p>

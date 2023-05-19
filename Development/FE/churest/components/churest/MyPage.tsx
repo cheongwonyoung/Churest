@@ -2,12 +2,8 @@ import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import Carousel from '../common/Carousel';
 import { getMyInfo } from '@/apis/mypage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { openMyPageAtom } from '@/atoms/modal';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { loginAtom } from '@/atoms/login';
-import { useRouter } from 'next/router';
 import NickName from './NickName';
 
 type Props = {
@@ -19,25 +15,21 @@ type MyPageInfo = {
 };
 
 export default function MyPage({ myPageId }: Props) {
-  const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
-  const closeModal = () => {
-    setIsMyPageOpen({ isModal: false, myPageId: myPageId });
-  };
-
   const cardType = 'mypage';
-  let memberId = useRecoilValue(loginAtom).id;
-  // 방문 츄레스트 id
-  const router = useRouter();
-  const churestId = Number(router.query.id);
-
+  const [nickname, setNickname] = useState('');
+  const handleNickname = (e: any) => {
+    setNickname(e.target.value);
+  };
   const { data, refetch } = useQuery(
     'mypage',
     () => getMyInfo(Number(myPageId)),
     {
-      onSuccess(data) {},
-      onError: (error) => {},
+      onSuccess(data) {
+        setNickname(data.data.member.nickname);
+      },
     }
   );
+  console.log(data?.data);
 
   useEffect(() => {
     refetch();
@@ -46,7 +38,6 @@ export default function MyPage({ myPageId }: Props) {
   return (
     <>
       <div>
-        {/* {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
         <div className="blue-clay mypage-container">
           <div className="modal-title">
             <Image
@@ -70,7 +61,8 @@ export default function MyPage({ myPageId }: Props) {
               </div>
               <div className="nickname-box">
                 <NickName
-                  nickname={data?.data.member && data.data.member.nickname}
+                  handleNickname={handleNickname}
+                  nickname={nickname}
                   refetch={refetch}
                   myPageId={myPageId}
                 ></NickName>
