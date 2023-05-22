@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$USER_HOME$/!!!!!!!!!!!1CHUREST!!!!!!!!!!!/!/!/S08P31A505/Development/BE/churest" />
     <file type="web" url="file://$PROJECT_DIR$/churest" />
-    <file type="web" url="file://$PROJECT_DIR$/../../../../!!!!!!!!!!!1CHUREST!!!!!!!!!!!!/!/S08P31A505/Development/BE/churest" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectType">
+    <option name="id" value="jpab" />
+  </component>
 </project>
