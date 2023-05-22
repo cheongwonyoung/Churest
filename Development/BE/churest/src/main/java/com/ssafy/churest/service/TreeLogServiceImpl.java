@@ -22,6 +22,7 @@ public class TreeLogServiceImpl implements TreeLogService {
     private final TreeLogRepository treeLogRepository;
     private final BoardRepository boardRepository;
     private final TagRepository tagRepository;
+    private final MemberBoardRepository memberBoardRepository;
     private final FCMNotificationService fcmNotificationService;
     private static final int TREE_CRITERIA_SCORE = 16;
     private final NoticeRepository noticeRepository;
@@ -56,9 +57,9 @@ public class TreeLogServiceImpl implements TreeLogService {
 
         if(!recentTreeLog.getBoard().isPayed() && recentTreeLog.getScore() >= TREE_CRITERIA_SCORE) {
             // 나를 제외한 사람들
-            List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
-
-//            알림 전송
+//            List<Member> memberList = tagRepository.findAllByBoard_BoardId(boardId).stream().map(tag -> tag.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+            List<Member> memberList = memberBoardRepository.findAllByBoard_BoardId(boardId).stream().map(board1 -> board1.getMember().rewardCoinAndTree()).collect(Collectors.toList());
+            //            알림 전송
             for(int i=0; i<memberList.size(); i++){
                 Member member = memberList.get(i);
                 Board board = boardRepository.findByBoardId(boardId);

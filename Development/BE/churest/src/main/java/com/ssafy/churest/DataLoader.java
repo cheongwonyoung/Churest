@@ -54,10 +54,10 @@ public class DataLoader implements CommandLineRunner {
         addBirds();
         addHouses();
         addBirdHouses();
-        addMember();
         addTree();
-        addBoard();
-        addGuestBook();
+//        addMember();
+//        addBoard();
+//        addGuestBook();
     }
 
     private void addGuestBook() {
@@ -82,8 +82,8 @@ public class DataLoader implements CommandLineRunner {
         List<BirdHouse> birdHouseList = new ArrayList<>();
 
         BirdHouse birdHouse1 = BirdHouse.builder().name("그린").description("싱그러운 나뭇잎들이 느껴지는 새집").price(0).build();
-        BirdHouse birdHouse2 = BirdHouse.builder().name("블루").description("넓고 푸른 하늘 느낌의 새집").price(100).build();
-        BirdHouse birdHouse3 = BirdHouse.builder().name("레드").description("강렬하고 정열적인 느낌의 새집").price(100).build();
+        BirdHouse birdHouse2 = BirdHouse.builder().name("블루").description("넓고 푸른 하늘 느낌의 새집").price(30).build();
+        BirdHouse birdHouse3 = BirdHouse.builder().name("레드").description("강렬하고 정열적인 느낌의 새집").price(50).build();
 
         birdHouseList.add(birdHouse1);
         birdHouseList.add(birdHouse2);
@@ -96,11 +96,11 @@ public class DataLoader implements CommandLineRunner {
         List<House> houseList = new ArrayList<>();
 
         House house1 = House.builder().name("오두막").description("낮고 아늑한 느낌의 오두막").price(0).build();
-        House house2 = House.builder().name("마법사집").description("튼튼한 중세 마법사집").price(0).build();
-        House house3 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(100).build();
-        House house4 = House.builder().name("산타집").description("앙증맞은 산타집").price(100).build();
-        House house5 = House.builder().name("2층집").description("포근한 2층집").price(0).build();
-        House house6 = House.builder().name("텐트집").description("작고 귀여운 텐트집").price(100).build();
+        House house2 = House.builder().name("마법사집").description("튼튼한 중세 마법사집").price(100).build();
+        House house3 = House.builder().name("버섯집").description("동글동글 귀여운 버섯집").price(150).build();
+        House house4 = House.builder().name("산타집").description("앙증맞은 산타집").price(200).build();
+        House house5 = House.builder().name("2층집").description("포근한 2층집").price(100).build();
+        House house6 = House.builder().name("텐트집").description("작고 귀여운 텐트집").price(50).build();
 
         houseList.add(house1);
         houseList.add(house2);
@@ -128,7 +128,7 @@ public class DataLoader implements CommandLineRunner {
         Bird bird6 = Bird.builder().name("올빼미")
                 .description("저는 고목나무에 둥지를 틀고 먹이를 구하고 왔는데 집이 사라졌어요. 알고보니 사람들이 제 나무를 밀었던 거예요. 저는 어디로 가야하죠?").price(50).build();
         Bird bird7 = Bird.builder().name("뱁새")
-                .description("저는 작고 귀여운 매력의 뱁새예요. 츄레스트의 마스코트로 친구들을 지키고 있어요.").price(50).build();
+                .description("저는 작고 귀여운 매력의 뱁새예요. 츄레스트의 마스코트로 친구들을 지키고 있어요.").price(100).build();
 
         birdList.add(bird1);
         birdList.add(bird2);
@@ -271,6 +271,15 @@ public class DataLoader implements CommandLineRunner {
         Tree tree5 = Tree.builder().name("은행나무").description("저는 흔하게 볼 수 있지만 사실 멸종위기종이에요. 자주 보는 건 야생 나무가 아닌 모두 인간의 손을 거친 나무랍니다. 어린 나무가 종자를 맺기까지는 30년의 긴 시간이 걸려 야생 번식이 매우 어렵고 종자가 크고 무거워 점차 사라지고 있어요.").file("은행나무.jpg").build();
         Tree tree6 = Tree.builder().name("초령목").description("국내에서 자연으로 자란 건 단 3그루만 알려진 희귀 나무예요. 높이가 1m 이하인 어린나무에서 21m에 이르는 큰 나무까지 다양해요. 사람들의 무분별한 채취, 국내에 분포 지역이 극소해 친구들이 사라졌어요.").file("초령목.jpg").build();
         Tree tree7 = Tree.builder().name("분비나무").description("고산지대에서 자라는 사시사철 잎 푸른 나무예요. 높이 25m, 지름 75cm에 달해요. 기후변화에 따른 서식 환경 변화로 인해 주요 서식지인 소백산과 지리산 등에서 사라지고 있다. 소백산에서도 절반이 친구 절반이 없어졌어요.").file("분비나무.jpg").build();
+//        Tree tree1 = Tree.builder().name("비몽사목").description("넣지 말자고 했는데 개발자가 잠이 부족해 깜빡했는지 최종까지 함께 온 나무. 하루에 6시간은 꼭 자자.").file("tree1.jpg").build();
+//        Tree tree2 = Tree.builder().name("도라에몽 물주목").description("도라에몽 주먹과 꼭 닮은 열매를 맺는 나무. 혹시 모른다. 다 자라면 내 소원을 들어줄지도? 주머니 열어.").file("tree2.jpg").build();
+//        Tree tree3 = Tree.builder().name("거들먹거들목").description("사람이 지나갈 때 튀어나온 가지로 몰래 때린다는 소문이 있어 붙여진 이름. 거들먹 거리는 느낌의 양아치 나무.").file("tree3.jpg").build();
+//        Tree tree4 = Tree.builder().name("회오리감자").description("어쩐지 놀이공원 앞에서 많이 본 것 같다. 주변에 가면 달콤 짭짤한 맛이 날 것 같은 회오리 감자 모양의 나무.").file("tree4.jpg").build();
+//        Tree tree5 = Tree.builder().name("커몽커목").description("평범하게 생긴 나무라 사람들이 찾지 않을까 싶어 이름에 힘을 줘보았다. 우리 나무 가까이서 보면 더 귀여운데... 커몬커몬!").file("tree5.jpg").build();
+//        Tree tree6 = Tree.builder().name("에그목니나").description("벚꽃이 피면 사람들이 나무를 발로 자꾸 차서 붙여진 이름. 에구머니나! 우리 나무 차지 마세요!").file("tree6.jpg").build();
+//        Tree tree7 = Tree.builder().name("쥐구목").description("중간에 구멍이 뻥 뚫려 있는 나무. 계속 쳐다 보고 있으면 귀여운 다람쥐가 나온다고 한다. 아닐 수도 있음.").file("tree7.jpg").build();
+//        Tree tree8 = Tree.builder().name("엠씨목").description("사랑니를 닮은 동글동글 귀여운 모양의 나무. 뽑으면 내가 아플 것 같다.").file("tree8.jpg").build();
+//        Tree tree9 = Tree.builder().name("탕수육 부목찍목").description("탕수육 부먹이에요 찍먹이에요? 궁금해요.").file("tree9.jpg").build();
 
         treeList.add(tree1);
         treeList.add(tree2);
@@ -279,6 +288,8 @@ public class DataLoader implements CommandLineRunner {
         treeList.add(tree5);
         treeList.add(tree6);
         treeList.add(tree7);
+//        treeList.add(tree8);
+//        treeList.add(tree9);
 
         treeRepository.saveAllAndFlush(treeList);
     }

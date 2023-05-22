@@ -8,6 +8,7 @@ import java.util.List;
 public interface MemberBoardRepository extends JpaRepository<MemberBoard, Integer> {
 
     List<MemberBoard> findAllByMember_MemberId(int memberId);
+    List<MemberBoard> findAllByBoard_BoardId(int boardId);
 
     MemberBoard findByMember_MemberIdAndBoard_BoardId(int memberId, int boardId);
 
