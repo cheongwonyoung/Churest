@@ -15,8 +15,9 @@ import { updateFcm } from '@/apis/mypage';
 export default function Garden() {
   const memberId = useRecoilValue(loginAtom).id;
   const getFcmToken = useRecoilValue(loginAtom).fcmToken;
+  const token = useRecoilValue(loginAtom).accessToken;
   const changeFcm = useMutation(
-    (info: { fcm: string; memberId: number }) => updateFcm(info),
+    (info: { fcm: string; memberId: number }) => updateFcm(token, info),
     {
       onSuccess(data) {},
     }

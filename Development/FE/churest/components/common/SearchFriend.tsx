@@ -21,6 +21,7 @@ export default function SearchFriend() {
     setIsSearchOpen({ isModal: false });
   };
   const memberId = useRecoilValue(loginAtom).id;
+  const token = useRecoilValue(loginAtom).accessToken;
   const [nickname, setNickname] = useState('');
   const [searchActive, setSearchActive] = useState(false);
   const handleSearch = (e: any) => {
@@ -31,7 +32,7 @@ export default function SearchFriend() {
 
   const goSearchFriends = useMutation(
     (search: { memberId: number; nickname: string }) =>
-      searchFriend(search.memberId, search.nickname),
+      searchFriend(token, search.memberId, search.nickname),
     {
       onSuccess(data) {
         setSearchList(data.data);

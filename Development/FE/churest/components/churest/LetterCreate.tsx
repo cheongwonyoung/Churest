@@ -14,6 +14,7 @@ export default function Letter({ refetch, closeModal }: Props) {
   const fromMemberId = useRecoilValue(loginAtom).id;
   const router = useRouter();
   const toMemberId = Number(router.query.id);
+  const token = useRecoilValue(loginAtom).accessToken;
   const [content, setContent] = useState('');
   const handleLetter = (e: any) => {
     setContent(e.target.value);
@@ -32,7 +33,7 @@ export default function Letter({ refetch, closeModal }: Props) {
       content: string;
       fromMemberId: number;
       toMemberId: number;
-    }) => writeLetter(writeInfo),
+    }) => writeLetter(token, writeInfo),
     {
       onSuccess: (data) => {
         refetch();

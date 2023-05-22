@@ -143,7 +143,6 @@ export default function CharacterChurest({
   const camera = useThree((state) => state.camera);
   const updateCameraTarget = () => {
     camera.position.x = man1.current.translation().x;
-    // camera.position.z = camera.position.z;
     camera.position.z = man1.current.translation().z + 5;
     camera.position.y = man1.current.translation().y + 3;
     cameraTarget.x = man1.current.translation().x;
@@ -222,7 +221,7 @@ export default function CharacterChurest({
 
   return (
     <>
-      <OrbitControls ref={controlRef} enableRotate={false} />
+      <OrbitControls ref={controlRef} enableRotate={!autoView} />
       {!isSelect && (
         <RigidBody
           position={[0, 8, 4]}

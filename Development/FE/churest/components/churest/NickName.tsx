@@ -23,6 +23,7 @@ export default function NickName({
   const router = useRouter();
   const memberId = useRecoilValue(loginAtom).id;
   const churestId = Number(router.query.id);
+  const token = useRecoilValue(loginAtom).accessToken;
   const [canInput, setInput] = useState(true);
 
   // 버튼 클릭 시 input 창으로 변경하는 함수
@@ -33,7 +34,8 @@ export default function NickName({
   };
 
   const canInputMessage = useMutation(
-    (info: { memberId: number; nickname: string }) => modifyNickname(info),
+    (info: { memberId: number; nickname: string }) =>
+      modifyNickname(token, info),
     {
       onSuccess() {
         refetch();

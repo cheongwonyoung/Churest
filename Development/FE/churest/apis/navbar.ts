@@ -1,11 +1,21 @@
 import { instance } from '.';
 
 //  친구 검색
-export const searchFriend = (memberId: number, nickname: string) => {
-    return instance.get(`/forest/search/${nickname}?memberId=${memberId}`);
+export const searchFriend = (token: string, memberId: number, nickname: string) => {
+    const config = {
+        headers: {
+          'Authorization': 'Bearer ' + token, 
+        }, 
+      }; 
+    return instance.get(`/forest/search/${nickname}?memberId=${memberId}`, config);
 };
 
 // 태그 모아보기
-export const getTaggedTree = (memberId: number) => {
-    return instance.get(`/tag/?memberId=${memberId}`);
+export const getTaggedTree = (token: string, memberId: number) => {
+    const config = {
+        headers: {
+          'Authorization': 'Bearer ' + token, 
+        }, 
+      }; 
+    return instance.get(`/tag/?memberId=${memberId}`, config);
 };

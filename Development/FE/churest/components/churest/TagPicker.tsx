@@ -20,16 +20,21 @@ export default function TagPicker({
 }: Props) {
   const [nickname, setNickname] = useState('');
   const memberId = useRecoilValue(loginAtom).id;
-  const { refetch } = useQuery('tags', () => searchFriend(memberId, nickname), {
-    enabled: false,
-    onSuccess(data) {
-      if (data?.status == 200) {
-        setFriends(data?.data);
-      } else {
-        setFriends([]);
-      }
-    },
-  });
+  const token = useRecoilValue(loginAtom).accessToken;
+  const { refetch } = useQuery(
+    'tags',
+    () => searchFriend(token, memberId, nickname),
+    {
+      enabled: false,
+      onSuccess(data) {
+        if (data?.status == 200) {
+          setFriends(data?.data);
+        } else {
+          setFriends([]);
+        }
+      },
+    }
+  );
   useEffect(() => {
     if (nickname.length > 0) {
       refetch();

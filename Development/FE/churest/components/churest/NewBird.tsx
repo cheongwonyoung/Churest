@@ -11,6 +11,7 @@ import { movingAtom } from '@/atoms/inp';
 
 export default function NewBird() {
   const bird = useRecoilValue(newBirdAtom).bird;
+  const token = useRecoilValue(loginAtom).accessToken;
   const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
   const [isNewBirdOpen, setIsNewBirdOpen] = useRecoilState(newBirdAtom);
 
@@ -24,7 +25,8 @@ export default function NewBird() {
   };
 
   const changeName = useMutation(
-    () => modifyMyBird({ memberBirdId: bird.memberBirdId, nickname: name }),
+    () =>
+      modifyMyBird(token, { memberBirdId: bird.memberBirdId, nickname: name }),
     {
       onSuccess: (data) => {
         const alertMsg =

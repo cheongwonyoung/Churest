@@ -19,13 +19,14 @@ export default function MyBird() {
   const cardType = 'mybird';
   const router = useRouter();
   const memberId: number = Number(router.query.id);
+  const token = useRecoilValue(loginAtom).accessToken;
 
   // 나의 새 목록
   // const [birdList, setMyBirds] = useState([{}]);
   const [len, setLength] = useState(1);
   const { data, isLoading, isError, refetch } = useQuery(
     'mybirds',
-    () => getMyBirdsList(Number(memberId)),
+    () => getMyBirdsList(token, Number(memberId)),
     {
       onSuccess() {
         let num = data?.data.length;

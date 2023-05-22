@@ -24,9 +24,10 @@ export default function StepBirdname({
   pickedBird,
   birdname,
 }: Props) {
+  const token = useRecoilValue(loginAtom).accessToken;
   const { data, refetch } = useQuery(
     'checkNickName',
-    () => isCheckedBirdNickname(birdname),
+    () => isCheckedBirdNickname(token, birdname),
     {
       onSuccess() {},
     }

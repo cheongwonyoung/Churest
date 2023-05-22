@@ -1,6 +1,6 @@
 import axios from 'axios';
-
 export const instance = axios.create({
+  
   baseURL: 'https://k8a505.p.ssafy.io/api',
   // baseURL: 'http://localhost:8080/api',
   headers: {
@@ -12,3 +12,4 @@ export const instance = axios.create({
 // 'https://storage.googleapis.com/churest-bucket/project_image/';
 
 export const imageUrl = 'https://storage.googleapis.com/churest-bucket/';
+ 

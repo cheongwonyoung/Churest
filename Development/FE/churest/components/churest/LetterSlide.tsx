@@ -22,11 +22,11 @@ type Props = {
 export default function LetterSlide({ letters, refetch, closeModal }: Props) {
   const memberId: number = useRecoilValue(loginAtom).id;
   const churestId = useRouter().query.id;
-
+  const token = useRecoilValue(loginAtom).accessToken;
   // 방명록 삭제
   const deleteArticleItem = useMutation(
     (deleteInfo: { fromMemberId: number; guestBookId: number }) =>
-      deleteLetter(deleteInfo),
+      deleteLetter(token, deleteInfo),
     {
       onSuccess: (data) => {},
       onError: (error) => {},

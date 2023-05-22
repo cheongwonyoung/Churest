@@ -9,7 +9,10 @@ import { Canvas } from '@react-three/fiber';
 
 export default function Chuworld() {
   const memberId = useRecoilValue(loginAtom).id;
-  const { data, refetch } = useQuery('getChu', () => getChuworld(memberId));
+  const token = useRecoilValue(loginAtom).accessToken;
+  const { data, refetch } = useQuery('getChu', () =>
+    getChuworld(token, memberId)
+  );
 
   useEffect(() => {
     refetch();

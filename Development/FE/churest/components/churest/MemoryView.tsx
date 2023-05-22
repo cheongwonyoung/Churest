@@ -25,10 +25,11 @@ type Props = {
 };
 export default function MemoryView({ boardId }: Props) {
   let memberId = useRecoilValue(loginAtom).id;
+  const token = useRecoilValue(loginAtom).accessToken;
   const [tagList, setTagList] = useState<any>([{}]);
   const { data, refetch: getArticle } = useQuery(
     ['myTree', boardId],
-    () => getMyChurest(Number(memberId), Number(boardId)),
+    () => getMyChurest(token, Number(memberId), Number(boardId)),
     {
       onSuccess(data) {
         if (data?.data.treeLogInfoList[0].score == 1) {
@@ -55,7 +56,7 @@ export default function MemoryView({ boardId }: Props) {
 
   const watering = useMutation(
     (info: { boardId: number; memberId: number }) =>
-      wateringTree(info.boardId, info.memberId),
+      wateringTree(token, info.boardId, info.memberId),
     {
       onSuccess: (wateringResult) => {
         getArticle();

@@ -29,9 +29,10 @@ export default function Tag({ memberId }: Props) {
     setIsTagOpen({ isModal: false });
   };
   const userInfo = useRecoilValue(loginAtom);
+  const token = userInfo.accessToken;
   const { data, refetch } = useQuery(
     'mytags',
-    () => getTaggedTree(Number(memberId)),
+    () => getTaggedTree(token, Number(memberId)),
     {
       onSuccess(data) {
         setMyTags([...data.data]);

@@ -21,10 +21,11 @@ export default function StepNickname({
   plusPage,
   nickname,
 }: Props) {
+  const token = useRecoilValue(loginAtom).accessToken;
   // 닉네임 중복체크
   const { data, refetch } = useQuery(
     'checkNickName',
-    () => isCheckedNickname(nickname),
+    () => isCheckedNickname(token, nickname),
     {
       onSuccess() {},
     }

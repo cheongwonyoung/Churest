@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/bird")
-public class BirdController {
+public class BirdController {  
 
     private final BirdService birdService;
 

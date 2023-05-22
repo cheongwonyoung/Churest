@@ -13,11 +13,12 @@ export default function LetterBox() {
   const router = useRouter();
   const churestId = Number(router.query.id);
   const memberId = useRecoilValue(loginAtom).id;
+  const token = useRecoilValue(loginAtom).accessToken;
   // 나의 우편함 편지 목록
   const [showInputModal, setInputModal] = useState(false);
   const { data, refetch } = useQuery(
     'myLetters',
-    () => getLetterList(churestId),
+    () => getLetterList(token, churestId),
     {
       onSuccess(data) {},
       onError: (error) => {},
