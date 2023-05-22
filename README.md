@@ -79,6 +79,69 @@ SSAFY 8기 2학기 자율프로젝트 - 츄레스트
 
 ## 🌳 츄레스트 서비스 화면
 
+### 🌏 입장 화면
+![intro](/uploads/4e89357be79ba200041408ba49bf288e/intro.gif)
+
+
+### 🌱 나의 츄레스트
+
+![churest](/uploads/c7290f6b309a973c7ae02b8d009ad3f7/churest.gif)
+
+![tutorial](/uploads/d513bd8af2ff6b91302f78b910880246/tutorial.PNG)
+
+![mypage](/uploads/46e46b545ff852094b6c8a6b32a9f22a/mypage.gif)
+
+![mybird](/uploads/3b3245178f410ca877014c1109c64e74/mybird.gif)
+
+### ⛺ 추억 관리
+
+![opentree](/uploads/afe743304bd7dc06f19950dd6b79f3cc/opentree.gif)
+
+![tree](/uploads/cc8e58c0aba3431f9d80866c57b3c6fa/tree.gif)
+
+
+### 💵 상점
+
+![shopmain](/uploads/f81a372e1108ecd9a26852e93fdd2eab/shopmain.gif)
+
+![shop](/uploads/0bc8afbc91bf845e1035332592c9352b/shop.gif)
+
+### 🔍 친구 검색
+
+![search](/uploads/8d7d258d230fb1312709f0f9a54cf139/search.gif)
+
+### 🔔 알림함
+
+![alarm](/uploads/b861c535ee073f3d97c65074ed7d1dd3/alarm.gif)
+
+### 🌼 글 모아보기
+
+![tagged](/uploads/d5553c10985a4f10e98fb11a86da6674/tagged.gif)
+
+![taggedtree](/uploads/79ceb9169b5790c6d72251c722ca208b/taggedtree.gif)
+
+
+### 🌲 광장
+
+![square](/uploads/68d53d71b846ac7ddc20eaabf4653f7d/square.gif)
+
+![chatting](/uploads/f7efdb75ca94fe4afea93061c7a2c34b/chatting.gif)
+
+![game](/uploads/783055cffd2c69094696616d606c9a07/game.gif)
+
+
+### ☘ 놀러가기
+
+![chuworld](/uploads/973308e7e4fe129e4f6ad1601239457f/chuworld.gif)
+
+![guestbook](/uploads/52fe222e1ad27ca391483bef0a65f3c5/guestbook.gif)
+
+![guestbookwrite](/uploads/e40b8d1228120b364a1891f163ac51d4/guestbookwrite.gif)
+
+
+
+
+
 ## ⛓ 프로젝트 파일 구조
 
 ### Front-End
