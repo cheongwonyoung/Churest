@@ -2,73 +2,86 @@ import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import Carousel from '../common/Carousel';
 import { getMyInfo } from '@/apis/mypage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { openMyPageAtom } from '@/atoms/modal';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { loginAtom } from '@/atoms/login';
-import { BsPencil } from 'react-icons/bs';
-export default function MyPage() {
-  const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
-  const closeModal = () => {
-    setIsMyPageOpen({ isModal: false });
-  };
+import NickName from './NickName';
 
+type Props = {
+  myPageId: number;
+};
+type MyPageInfo = {
+  member: { memberId: number; nickname: string; avatarId: number };
+  boards: [];
+};
+
+export default function MyPage({ myPageId }: Props) {
   const cardType = 'mypage';
-  const memberId = useRecoilValue(loginAtom).id;
-
-  // 나의 새 목록
-  const [treeList, setMyPage] = useState([{}]);
   const [nickname, setNickname] = useState('');
-  const [avatarId, setAvatarId] = useState(0);
-  useQuery('mypage', () => getMyInfo(Number(memberId)), {
-    onSuccess(data) {
-      setMyPage([...data.data.boards]);
-      setNickname(data.data.member.nickname);
-      setAvatarId(data.data.member.avatarId);
-    },
-    onError: (error) => {
-      console.log('에러다');
-      console.log(error);
-    },
-    staleTime: 60 * 1000,
-  });
+  const handleNickname = (e: any) => {
+    setNickname(e.target.value);
+  };
+  const { data, refetch } = useQuery(
+    'mypage',
+    () => getMyInfo(Number(myPageId)),
+    {
+      onSuccess(data) {
+        setNickname(data.data.member.nickname);
+      },
+    }
+  );
+  console.log(data?.data);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <>
       <div>
-        {/* {isMyPageOpen.isModal && <ModalBlackBg closeModal={closeModal} />} */}
         <div className="blue-clay mypage-container">
-          <div className="modal-title">My Page</div>
+          <div className="modal-title">
+            <Image
+              src={images.mypage_navbar_img}
+              width={35}
+              height={35}
+              alt=""
+            />{' '}
+            마이페이지
+          </div>
           <div className="mypage-content-box">
             <div className="avatar-box">
               {/* <div className="inside-circle center"> */}
               <div className="center">
                 <Image
-                  src={images['avatar_' + avatarId + '_img']}
+                  src={images['avatar_' + data?.data.member.avatarId + '_img']}
                   alt=""
                   width={100}
                   height={160}
                 />
               </div>
               <div className="nickname-box">
-                <div className="center nickname">{nickname}</div>
-                <div className="pencil-icon">
-                  정보 수정하기 <BsPencil />
-                </div>
+                <NickName
+                  handleNickname={handleNickname}
+                  nickname={nickname}
+                  refetch={refetch}
+                  myPageId={myPageId}
+                ></NickName>
               </div>
             </div>
             <div className="mine">
-              {treeList.length == 0 ? (
+              {data?.data.boards.length == 0 ? (
                 <div className="alarm-text">
                   <p>
                     추억이 아직 없습니다.<br></br>츄리를 심어보세요!
                   </p>
                 </div>
               ) : (
-                <div>
+                <div className="memory-container">
                   <div className="memory-title">추억 모아보기</div>
-                  <Carousel cardType={cardType} info={treeList}></Carousel>
+                  <Carousel
+                    cardType={cardType}
+                    info={data?.data.boards && data.data.boards}
+                  ></Carousel>
                 </div>
               )}
             </div>
@@ -78,23 +91,38 @@ export default function MyPage() {
       <style jsx>
         {`
           .mypage-container {
-            width: 600px;
-            height: 460px;
+            width: 650px;
+            height: 480px;
             overflow-x: hidden;
             overflow-y: auto;
             z-index: 50;
           }
           .mine {
+            width: 370px;
             justify-content: center;
             align-items: center;
           }
           .tree-img {
             margin: 0 auto;
           }
-          .nickname {
-            line-height: 50px;
-            font-size: 20px;
+          .memory-title {
+            text-align: center;
+            line-height: 30px;
+            font-size: 18px;
             font-weight: bold;
+          }
+          .memory-container {
+            display: flex;
+            flex-direction: column;
+            justify-items: center;
+            width: 100%;
+            height: 380px;
+          }
+          .mypage-content-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 340px;
           }
           .nickname-box {
             justify-content: center;
@@ -102,32 +130,7 @@ export default function MyPage() {
             gap: 15px;
             margin-top: 30px;
           }
-          .pencil-icon {
-            font-size: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-          }
-          .pencil-icon:hover {
-            transform: scale(1.1);
-            transition: transform 0.5s;
-            cursor: pointer;
-          }
-          .memory-title {
-            text-align: center;
-            line-height: 50px;
-            font-size: 18px;
-            font-weight: bold;
-          }
-          .mypage-content-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 100px;
-          }
           .avatar-box {
-            margin-top: 30px;
           }
           .alarm-text {
             display: flex;

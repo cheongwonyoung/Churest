@@ -1,5 +1,7 @@
 package com.ssafy.churest.dto.resp;
 
+import com.ssafy.churest.entity.Board;
+import com.ssafy.churest.entity.Member;
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,6 +23,22 @@ public class TagResponseDto {
 
         private boolean isTaken;
 
+
+    }
+    @Data
+    @Builder
+    public static class Tag {
+        private int memberId;
+
+        private int avatarId;
+
+        private String nickname;
+
+        public static TagResponseDto.Tag fromEntity(Member member) {
+            return Tag.builder().memberId(member.getMemberId())
+                    .avatarId(member.getAvatarId())
+                    .nickname(member.getNickname()).build();
+        }
 
     }
 }

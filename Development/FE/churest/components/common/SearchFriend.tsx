@@ -6,6 +6,8 @@ import SearchResult from './SearchResult';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { openSearchAtom } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
+import Image from 'next/image';
+import { images } from '@/public/assets/images';
 
 interface ResultType {
   memberId: number;
@@ -33,7 +35,6 @@ export default function SearchFriend() {
     {
       onSuccess(data) {
         setSearchList(data.data);
-        console.log(data.data);
       },
     }
   );
@@ -52,24 +53,41 @@ export default function SearchFriend() {
       <div>
         {/* {isSearchOpen && <ModalBlackBg closeModal={closeModal} />} */}
         <div className="blue-clay modal-container ">
-          <div className="modal-title">친구 검색</div>
+          <div className="modal-title">
+            <Image
+              src={images.search_navbar_img}
+              width={35}
+              height={35}
+              alt=""
+            />{' '}
+            친구 검색
+          </div>
           <input
             placeholder="닉네임을 입력해주세요"
             className="inside-clay"
             value={nickname}
             onChange={(e) => handleSearch(e)}
           />
-          <div className="bottom overflow-y-scroll scroll-bar">
-            <div className="result-item">
-              {searchList.length == 0 ? (
-                // <div>아무것도없다</div>
-                <p style={{ color: 'gray' }}>해당 유저를 찾을 수 없습니다.</p>
-              ) : searchActive == false ? (
-                <p></p>
+          <div className="bottom overflow-y-scroll scroll-bar center">
+            {
+              // <div>아무것도없다</div>
+
+              searchActive == true ? (
+                <div>
+                  {searchList.length == 0 ? (
+                    <p style={{ color: 'gray' }}>
+                      해당 유저를 찾을 수 없습니다.
+                    </p>
+                  ) : (
+                    <div className="search-result">
+                      <SearchResult list={searchList}></SearchResult>
+                    </div>
+                  )}
+                </div>
               ) : (
-                <SearchResult list={searchList}></SearchResult>
-              )}
-            </div>
+                <p></p>
+              )
+            }
           </div>
         </div>
       </div>
@@ -80,23 +98,24 @@ export default function SearchFriend() {
             height: 50%;
             margin-top: 30px;
             overflow-x: hidden;
-            overflow-y: auto;
           }
-
-          .result-item {
+          .search-result {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            {/* flex-direction: column; */}
             justify-content: center;
             align-items: center;
           }
-
-          input {
+          p {
             width: 400px;
+            text-align: center;
+          }
+          input {
+            width: 300px;
             height: 40px;
             outline: 0px;
             border: none;
             text-align: center;
+            margin-top: 10px;
           }
           input::placeholder {
             color: rgba(169, 162, 214, 1);

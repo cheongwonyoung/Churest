@@ -8,7 +8,8 @@ interface login {
   accessToken: string;
   refreshToken: string;
   avatarId: number;
-  nickname: string | null;
+  nickname: string;
+  fcmToken: string;
 }
 
 export const loginAtom = atom<login>({
@@ -19,6 +20,7 @@ export const loginAtom = atom<login>({
     refreshToken: '',
     avatarId: 0,
     nickname: '',
+    fcmToken: '',
   },
   effects_UNSTABLE: [persistAtom],
 });

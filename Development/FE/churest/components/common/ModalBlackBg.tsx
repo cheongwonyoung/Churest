@@ -1,11 +1,23 @@
-import { ReactComponentElement, ReactNode } from 'react';
-
+import { ReactNode, useEffect } from 'react';
 type Props = {
   closeModal?(): void;
   modal?: ReactNode;
 };
 
 export default function ModalBlackBg({ closeModal, modal }: Props) {
+  const escClose = (e: any) => {
+    if (e.code == 'Escape') {
+      closeModal && closeModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', escClose);
+    return () => {
+      document.removeEventListener('keydown', escClose);
+    };
+  });
+
   return (
     <div className="blackBg" onClick={closeModal}>
       <div onClick={(e) => e.stopPropagation()}>{modal}</div>

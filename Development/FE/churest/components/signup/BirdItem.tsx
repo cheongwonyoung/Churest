@@ -14,8 +14,8 @@ export default function BirdItem({
   pickedBird,
 }: Props) {
   const clickStyle = () => {
-    if (Bird === pickedBird) return 'inside-clay';
-    return 'gray-clay';
+    if (Bird === pickedBird) return 'yellow-clay-custom signup-item';
+    return 'gray-clay signup-item';
   };
 
   return (
@@ -25,23 +25,29 @@ export default function BirdItem({
         className={clickStyle()}
         onClick={(e) => handlePickedBird(e)}
       >
-        <Image
-          src={images[Bird]}
-          alt=""
-          width={130}
-          height={110}
-          onClick={(e) => handlePickedBird(e)}
-        />
+        <Image id={Bird} src={images[Bird]} alt="" width={130} height={120} />
       </div>
       <style jsx>{`
-        div {
-          width: 220px;
-          height: 280px;
-          margin: 30px;
+        .signup-item {
+          width: 200px;
+          height: 250px;
           display: flex;
           justify-content: center;
           align-items: center;
-          animation: ani 1s infinite alternate;
+          cursor: pointer;
+        }
+        .yellow-clay-custom {
+          cursor: pointer;
+          border-radius: 20px;
+          background: #fff5e0;
+          box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.1),
+            inset 4px 4px 4px 4px #ffffff,
+            inset 6px 6px 20px 6px rgba(255, 255, 255, 0.7);
+        }
+        .signup-item:hover {
+          background: rgba(175, 186, 206, 0.11);
+          box-shadow: inset -5px -2px 4px #ffffff, inset 3px 3px 10px #bac3df;
+          border-radius: 12px;
         }
       `}</style>
     </>

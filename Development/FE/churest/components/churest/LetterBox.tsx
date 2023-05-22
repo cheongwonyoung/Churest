@@ -1,28 +1,64 @@
 import { getLetterList } from '@/apis/letterbox';
-import { useState } from 'react';
+import { letterBoxAtom } from '@/atoms/modal';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import LetterSlide from './LetterSlide';
+import { useRouter } from 'next/router';
 import { loginAtom } from '@/atoms/login';
-import { useRecoilValue } from 'recoil';
+import Swal from 'sweetalert2';
+import LetterSlide from './LetterSlide';
+import LetterCreate from './LetterCreate';
 
 export default function LetterBox() {
-  const memberId: number = useRecoilValue(loginAtom).id;
+  const router = useRouter();
+  const churestId = Number(router.query.id);
+  const memberId = useRecoilValue(loginAtom).id;
   // 나의 우편함 편지 목록
-  const [letterList, setLetterList] = useState([{}]);
-  useQuery('myLetters', () => getLetterList(Number(memberId)), {
-    onSuccess(data) {
-      setLetterList([...data.data]);
-    },
-    onError: (error) => {
-      console.log('에러다');
-      console.log(error);
-    },
-    staleTime: 60 * 1000,
-  });
+  const [showInputModal, setInputModal] = useState(false);
+  const { data, refetch } = useQuery(
+    'myLetters',
+    () => getLetterList(churestId),
+    {
+      onSuccess(data) {},
+      onError: (error) => {},
+    }
+  );
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  const [isLetterOpen, setIsLetterOpen] = useRecoilState(letterBoxAtom);
+  const closeModal = () => {
+    setIsLetterOpen({ isModal: false });
+  };
+
+  const showAlert = (text: string) => {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: text,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
 
   return (
     <>
-      <LetterSlide letters={letterList}></LetterSlide>
+      {data && data?.data.length === 0 && churestId !== memberId && (
+        <LetterCreate closeModal={closeModal} refetch={refetch}></LetterCreate>
+      )}
+      {data && data?.data.length > 0 && (
+        <LetterSlide
+          letters={data!.data}
+          refetch={refetch}
+          closeModal={closeModal}
+        ></LetterSlide>
+      )}
+      {data &&
+        data?.data.length === 0 &&
+        churestId === memberId &&
+        (showAlert('편지가 아직 없어요'), closeModal())}
       <style jsx>{``}</style>
     </>
   );

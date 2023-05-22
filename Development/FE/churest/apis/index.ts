@@ -7,3 +7,8 @@ export const instance = axios.create({
     'Content-Type': `application/json`,
   },
 });
+
+// export const imageUrl =
+// 'https://storage.googleapis.com/churest-bucket/project_image/';
+
+export const imageUrl = 'https://storage.googleapis.com/churest-bucket/';

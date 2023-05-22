@@ -45,7 +45,6 @@
 //     if (jumpPressed && isFloor) {
 //       // man1.current.resetForces(true);
 //       setIsFloor(false);
-//       console.log(man1.current);
 //       // man1.current.setLinvel({ x: 0, y: 8, z: 0 });
 //       setCharState('Song Jump');
 //     }
@@ -86,7 +85,6 @@
 //   const handleMovement = () => {
 //     jump();
 //     let move = 4;
-//     console.log(isFloor);
 //     if (charState == 'Run') move = 8;
 //     if (isFloor) {
 //       jumpPressed ? moving(move, true) : moving(move, false);
@@ -185,7 +183,7 @@
 //         onCollisionExit={({ other }) => {
 //           if (other.rigidBodyObject?.name.includes('floor2')) {
 //             setIsFloor(false);
-//             console.log('착지');
+//
 //           }
 //         }}
 //         rotation={[0, look, 0]}

@@ -27,6 +27,7 @@ export function House2(props: JSX.IntrinsicElements['group']) {
         material={materials['Material.003']}
         position={[-0.14, 0.86, -0.08]}
         scale={0.39}
+        castShadow
       />
     </group>
   );

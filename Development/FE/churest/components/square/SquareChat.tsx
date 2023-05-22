@@ -3,16 +3,20 @@ import { useEffect, useState, useRef, useCallback, memo } from 'react';
 import SockJS from 'sockjs-client';
 import * as StompJS from '@stomp/stompjs';
 import SquareChatInp from './SquareChatInp';
-// import { subscribe } from 'diagnostics_channel';
+import { useRecoilValue } from 'recoil';
+import { loginAtom } from '@/atoms/login';
+import SquareChatList from './SquareChatList';
+import Swal from 'sweetalert2';
 
 export default memo(function SquareChat() {
-  // const baseURL = 'ws://localhost:8080/api/chat/websocket';
-  const baseURL = 'http://k8a505.p.ssafy.io:8080/api/chat/websocket';
-  // const baseURL = 'http://localhost:8080/api/ws/chat';
+  // const baseURL = 'ws://localhost:8080/chat/websocket';
+  const baseURL = 'ws://k8a505.p.ssafy.io/chat/websocket';
+  const nickname = useRecoilValue(loginAtom)!.nickname;
   const client: any = useRef({});
   const roomId = 1;
-  const [userId, setUserId] = useState('1');
   const [message, setMessage] = useState('');
+  const [connected, setConnected] = useState(false);
+  const [messageList, setMessageList] = useState<{ [key: string]: any }[]>([]);
 
   const connect = () => {
     // 연결할 때
@@ -23,14 +27,12 @@ export default memo(function SquareChat() {
         password: 'password',
       },
       onConnect: () => {
-        // setConnectd(true);
-        console.log('연결댐');
-
+        setConnected(true);
         subscribe(); // 연결 성공 시 구독하는 로직 실행
+        //  입장하였습니다. json_body로 받기 위해서 추가함
+        sendEnterMessage(nickname);
       },
-      onWebSocketError: (err) => {
-        console.log(err);
-      },
+      onWebSocketError: (err) => {},
     });
     client.current.activate(); // 클라이언트 활성화
   };
@@ -38,55 +40,61 @@ export default memo(function SquareChat() {
   const subscribe = () => {
     client.current.subscribe('/sub/chat/room/' + roomId, (body: any) => {
       const json_body = JSON.parse(body.body);
-      console.log(json_body);
-      // setChatList((_chat_list) => [..._chat_list, json_body]);
+      setMessageList((messageList: any[]) => [json_body, ...messageList]);
     });
+  };
+  const disConnect = () => {
+    if (connected) {
+      client.current.deactivate();
+      setConnected(false);
+    }
   };
 
   useEffect(() => {
     connect();
+    return () => {
+      disConnect();
+    };
   }, []);
 
-  const sendMessage = (message: string) => {
+  const sendEnterMessage = (sender: string) => {
     client.current.publish({
       destination: '/pub/chat/message',
       body: JSON.stringify({
-        type: 'TALK',
+        type: 'ENTER',
         roomId,
-        sender: userId,
-        message: message,
+        sender: sender,
+        message: '',
       }),
     });
   };
 
-  // const sock = new SockJS(baseURL);
-  // const ws = Stomp.over(() => {
-  //   return sock;
-  // });
-  // ws.activate();
-  // // ws.reconnect_delay = 5000;
-
-  // const connect = () => {
-  //   ws.connect({}, () => {
-  //     console.log('연결됨');
-  //     ws.subscribe(baseURL + '/sub/chat/room/' + roomId, (message) => {
-  //       const msg = JSON.parse(message.body);
-  //       console.log(msg);
-  //     });
-  //     ws.send(
-  //       baseURL + '/pub/chat/message',
-  //       {},
-  //       JSON.stringify({ type: 'ENTER', roomId, sender: userId })
-  //     );
-  //   });
-  // };
-  // const sendMessage = (message: string) => {
-  //   ws.send(
-  //     baseURL + '/pub/chat/message',
-  //     {},
-  //     JSON.stringify({ type: 'TALK', roomId, sender: userId, message })
-  //   );
-  // };
+  const sendMessage = (message: string) => {
+    if (message.trim().length < 1) {
+      // const chatInp = document.getElementById('chatInp');
+      // chatInp?.blur();
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: '공백은 입력이 불가합니다',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    } else {
+      client.current.publish({
+        destination: '/pub/chat/message',
+        body: JSON.stringify({
+          type: 'TALK',
+          roomId,
+          // sender: userId,
+          sender: nickname,
+          message: message,
+        }),
+      });
+      //  메세지 보내고 SquareChatInp 빈칸 만들기
+      setMessage('');
+    }
+  };
 
   const changeMsg = useCallback((e: any) => {
     setMessage(e.target.value);
@@ -94,27 +102,26 @@ export default memo(function SquareChat() {
 
   return (
     <div>
-      <p>유저ID</p>
-      <input
-        type="text"
-        name=""
-        id=""
-        value={userId}
-        onChange={(e) => {
-          setUserId(e.target.value);
-        }}
-      />
       <p>메시지</p>
-      {/* <input type="text" name="" id="" value={message} onChange={changeMsg} />
-      <button onClick={sendMessage}>메시지 보냉</button> */}
-      <SquareChatInp
-        message={message}
-        changeMsg={changeMsg}
-        sendMessage={sendMessage}
-      />
+      <div className="chat-box">
+        <SquareChatList messages={messageList?.slice(0).reverse()} />
+        <SquareChatInp
+          message={message}
+          changeMsg={changeMsg}
+          sendMessage={sendMessage}
+        />
+      </div>
       <button onClick={() => console.log(client.current.connected)}>
         소켓소켓
       </button>
+      <style jsx>{`
+        .chat-box {
+          position: absolute;
+          bottom: 24px;
+          left: 24px;
+          z-index: 100px;
+        }
+      `}</style>
     </div>
   );
 });

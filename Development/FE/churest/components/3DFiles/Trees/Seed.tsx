@@ -25,14 +25,17 @@ export function Seed(props: JSX.IntrinsicElements['group']) {
         <mesh
           geometry={nodes.원형.geometry}
           material={materials['매테리얼.001']}
+          receiveShadow
         />
         <mesh
           geometry={nodes.원형_1.geometry}
           material={materials['매테리얼.002']}
+          castShadow
         />
         <mesh
           geometry={nodes.원형_2.geometry}
           material={materials['매테리얼.003']}
+          receiveShadow
         />
       </group>
     </group>

@@ -1,7 +1,8 @@
 import Image from 'next/image';
-
+import { useRouter } from 'next/router';
 import { images } from '@/public/assets/images';
-
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { openSearchAtom, clickedName } from '@/atoms/modal';
 type Props = {
   list: ResultType[];
 };
@@ -12,20 +13,27 @@ interface ResultType {
   nickname: string;
 }
 export default function SearchFriend({ list }: Props) {
-  const handleClick = (id: number) => {
-    console.log(id + '숲으로 이동');
-  };
+  const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
+  const [name, setClickedName] = useRecoilState(clickedName);
+  const router = useRouter();
 
   return (
     <>
       {list.map((item: ResultType, idx: number) => (
         <div key={idx}>
-          <div className="container">
+          <div
+            className="container"
+            onClick={() => {
+              setIsSearchOpen({ isModal: false });
+              setClickedName({ name: item.nickname });
+              router.push('/churest/' + item.memberId);
+            }}
+          >
             <div className="gray-clay search-avatar">
               <Image
                 src={images['avatar_' + item.avatarId + '_img']}
-                width={80}
-                height={130}
+                width={65}
+                height={110}
                 alt=""
               ></Image>
             </div>
@@ -43,15 +51,20 @@ export default function SearchFriend({ list }: Props) {
           gap: 15px;
           margin-bottom: 10px;
         }
-        .search-avatar{
-          width: 80px;
-          height: 80px;
+        .container:hover {
+          transform: scale(0.9);
+          transition: transform 0.3s;
+          cursor: pointer;
+        }
+        .search-avatar {
+          width: 70px;
+          height: 70px;
           display: flex;
           justify-content: center;
           border-radius: 50%;
           overflow: hidden;
         }
-        .nickname{
+        .nickname {
           font-weight: bold;
         }
       `}</style>

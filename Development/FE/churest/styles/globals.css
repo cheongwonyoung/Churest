@@ -30,8 +30,8 @@ body {
 }
 
 .modal-container {
-  width: 500px;
-  height: 340px;
+  width: 400px;
+  height: 480px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -40,11 +40,31 @@ body {
   overflow-y: auto;
   z-index: 50;
 }
-.modal-title{
+
+.modal-container-scroll {
+  width: 400px;
+  height: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 50;
+  row-gap: 15px;
+}
+.modal-container-scroll::-webkit-scrollbar {
+  display: none;
+}
+.modal-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  line-height: 60px;
+  line-height: 75px;
   font-size: 20px;
   font-weight: bold;
+  gap: 10px;
 }
 .blue-clay {
   padding: 3%;
@@ -92,9 +112,83 @@ body {
   border: none;
   background: linear-gradient(315deg, #f0ff94 0%, #1eb0e9 100%);
   border-radius: 12px;
+  visibility: visible;
+}
+
+.green-btn:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.disable-btn {
+  cursor: not-allowed;
+  color: white;
+  width: 180px;
+  height: 35px;
+  border: none;
+  background: linear-gradient(315deg, #d3e08180 0%, #1c94c370 100%);
+  border-radius: 12px;
+  font-weight: 600;
 }
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.letter-clay {
+  padding: 3%;
+  background: #ffffff;
+  box-shadow: 24px 24px 48px rgba(131, 154, 215, 0.55),
+    inset -24px -24px 48px #bfd1ff, inset 12px 12px 24px #eff3ff;
+  border-radius: 5px;
+}
+
+/* 카드 뒤집기 효과 */
+.flip-card {
+  /* width: 200px; */
+  height: 300px;
+  position: relative;
+  perspective: 1100px;
+  cursor: pointer;
+}
+
+.card {
+  /* width: 100%; */
+  position: relative;
+  transition: 0.4s;
+  transform-style: preserve-3d;
+}
+
+.front,
+.back {
+  width: 270px;
+  height: 300px;
+  position: absolute;
+  backface-visibility: hidden;
+  margin: auto;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.flip-card:hover .card {
+  transform: rotateY(180deg);
+}
+
+@keyframes flying {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 8px);
+  }
+}
+
+/* .swiper {
+  width: 500px; 
+}
+
+.swiper-wrapper {
+  width: 500px; 
+} */

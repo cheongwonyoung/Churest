@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import NextBtn from './NextBtn';
 import { images } from '@/public/assets/images';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { isCheckedBirdNickname } from '@/apis/mypage';
+import { useQuery } from 'react-query';
+import Swal from 'sweetalert2';
+import { loginAtom } from '@/atoms/login';
+import { useRecoilValue } from 'recoil';
 
 type Props = {
   handlePickedBird(i: any): void;
@@ -18,11 +23,33 @@ export default function StepBirdname({
   signUpSubmit,
   pickedBird,
   birdname,
-  plusPage,
 }: Props) {
-  console.log('고른 새는');
-  console.log(pickedBird);
+  const { data, refetch } = useQuery(
+    'checkNickName',
+    () => isCheckedBirdNickname(birdname),
+    {
+      onSuccess() {},
+    }
+  );
 
+  useEffect(() => {
+    refetch();
+  }, [birdname]);
+
+  // 엔터 감지
+  const onKeyPress = (e: any) => {
+    if (e.key == 'Enter' || e.key == 13) {
+      if (birdname.length == 0 || data?.data) {
+        Swal.fire({
+          position: 'top',
+          icon: 'warning',
+          title: '닉네임을 확인해주세요',
+          showConfirmButton: false,
+          timer: 500,
+        });
+      } else signUpSubmit();
+    }
+  };
   return (
     <>
       <div>
@@ -31,13 +58,34 @@ export default function StepBirdname({
         </div>
         <input
           placeholder="새의 이름을 입력해주세요 (최대 6자)"
-          className="inside-clay"
+          className="gray-clay"
           value={birdname}
+          maxLength={6}
+          minLength={1}
           onChange={(e) => getBirdname(e)}
+          onKeyUp={onKeyPress}
         />
+
+        <div
+          className={
+            data?.data && birdname.length != 0
+              ? 'show-div check-alert center'
+              : 'hidden check-alert center'
+          }
+        >
+          중복된 닉네임입니다
+        </div>
         <div className="center">
-          {pickedBird && (
-            <NextBtn comment={'회원가입 완료하기'} logic={signUpSubmit} />
+          {pickedBird && !data?.data && birdname.length != 0 ? (
+            <NextBtn comment={"LET'S GO"} type={'show'} logic={signUpSubmit} />
+          ) : data?.data || birdname.length == 0 ? (
+            <NextBtn
+              comment={"LET'S GO"}
+              type={'disalbe'}
+              logic={signUpSubmit}
+            />
+          ) : (
+            <></>
           )}
         </div>
       </div>
@@ -48,17 +96,22 @@ export default function StepBirdname({
           outline: 0px;
           border: none;
           text-align: center;
-          margin: 30px;
-        }
-        input::placeholder {
-          color: rgba(169, 162, 214, 1);
-          font-size: 16px;
-          line-height: 40px;
+          margin: 50px 0 5px 0;
         }
         input:focus {
-          outline: none;
-          border-color: #ff97d3;
-          box-shadow: inset 0 1px 4px #c7daff, 0 0 20px 2px #c7daff;
+          background: rgba(175, 186, 206, 0.11);
+          box-shadow: inset -5px -2px 4px #ffffff, inset 3px 3px 10px #bac3df;
+          border-radius: 20px;
+        }
+        .check-alert {
+          color: red;
+          height: 50px;
+        }
+        .show-div {
+          visibility: visible;
+        }
+        .hidden {
+          visibility: hidden;
         }
         .img {
           animation: flying 1s infinite alternate;

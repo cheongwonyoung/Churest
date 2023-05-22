@@ -34,6 +34,9 @@ export default function AvatarList({
         .container {
           display: grid;
           grid-template-columns: 1fr 1fr 1fr;
+          gap: 20px;
+          margin-bottom: 20px;
+          margin-top: 20px;
         }
       `}</style>
     </>

@@ -1,5 +1,4 @@
 import { loginAtom } from '@/atoms/login';
-import Link from 'next/link';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import NavbarButton from './NavbarButton';
 import {
@@ -7,38 +6,69 @@ import {
   openMyPageAtom,
   openSearchAtom,
   openTagAtom,
-  openShopAtom
+  openShopAtom,
 } from '@/atoms/modal';
+import { useRouter } from 'next/router';
 
-export default function Navbar() {
+type Props = {
+  types: string;
+};
+export default function Navbar({ types }: Props) {
   const id = useRecoilValue(loginAtom).id;
-  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom); 
+  // square , chuworld, churest
+  const router = useRouter();
+  const params = Number(router.query.id);
+
   const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
   const [isTagOpen, setIsTagOpen] = useRecoilState(openTagAtom);
   const [isSearchOpen, setIsSearchOpen] = useRecoilState(openSearchAtom);
   const [isMyPageOpen, setIsMyPageOpen] = useRecoilState(openMyPageAtom);
+  const [isShopOpen, setIsShopOpen] = useRecoilState(openShopAtom);
 
   return (
     <div className="navbarContainer">
-      <div
-      onClick={() => {
-        setIsShopOpen({ isModal: true }) 
-      }}> 
-        <NavbarButton image="shop_navbar_img" title="상점" />   
-      </div>
-
-      <Link href={'/churest/' + id} style={{ color: 'black', textDecoration: 'none' }}>
-        <NavbarButton image="garden_navbar_img" title="광장" />
-      </Link>
-
+      {/* 0. 상점  */}
       <div
         onClick={() => {
-          setIsAlarmOpen({ isModal: true });
+          setIsShopOpen({ isModal: true });
         }}
       >
-        <NavbarButton image="alarm_navbar_img" title="알림함" />
+        <NavbarButton image="shop_navbar_img" title="상점" />
       </div>
 
+      {/* 1. 광장  */}
+      {types == 'square' ? null : (
+        <div
+          onClick={() => {
+            router.push('/square');
+          }}
+        >
+          <NavbarButton image="garden_navbar_img" title="광장" />
+        </div>
+      )}
+
+      {/* 2. 마이츄레스트 , 단 내 츄레스트일 때는 안보이게  */}
+      {types == 'churest' ? (
+        params !== id && (
+          <div
+            onClick={() => {
+              router.push('/churest/' + id);
+            }}
+          >
+            <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
+          </div>
+        )
+      ) : (
+        <div
+          onClick={() => {
+            router.push('/churest/' + id);
+          }}
+        >
+          <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
+        </div>
+      )}
+
+      {/* 3. 친구 검색  */}
       <div
         onClick={() => {
           setIsSearchOpen({ isModal: true });
@@ -47,6 +77,28 @@ export default function Navbar() {
         <NavbarButton image="search_navbar_img" title="친구 검색" />
       </div>
 
+      {/* 4. 알림함  */}
+      <div
+        onClick={() => {
+          setIsAlarmOpen({ isModal: true });
+        }}
+      >
+        <NavbarButton image="alarm_navbar_img" title="알림함" />
+      </div>
+      {/* <div
+        onClick={() => {
+          setIsAlarmOpen({ isModal: true });
+        }}
+      >
+        {data?.data.length ? (
+          <NavbarButton image="alarm_navbar_img" title="알림함" />
+        ) : (
+          // 여기에 그 ping 한 머시기
+          <NavbarButton image="alarm_navbar_img" title="알림" />
+        )}
+      </div> */}
+
+      {/* 5. 태그 모아보기  */}
       <div
         onClick={() => {
           setIsTagOpen({ isModal: true });
@@ -55,21 +107,26 @@ export default function Navbar() {
         <NavbarButton image="tag_navbar_img" title="태그 모아보기" />
       </div>
 
-      <Link href={'/churest/' + id} style={{ color: 'black', textDecoration: 'none' }}>
-        <NavbarButton image="churest_navbar_img" title="마이 츄레스트" />
-      </Link>
-
+      {/* 6. 마이페이지    */}
       <div
         onClick={() => {
-          setIsMyPageOpen({ isModal: true });
+          setIsMyPageOpen({ isModal: true, myPageId: id });
         }}
       >
         <NavbarButton image="mypage_navbar_img" title="마이페이지" />
       </div>
 
-      <Link href={'/chuworld/' + id} style={{ color: 'black', textDecoration: 'none' }}>
-        <NavbarButton image="chuworld_navbar_img" title="츄월드" />
-      </Link>
+      {/* 7. 츄월드  */}
+      {types == 'chuworld' ? null : (
+        <div
+          onClick={() => {
+            router.push('/chuworld');
+          }}
+        >
+          <NavbarButton image="chuworld_navbar_img" title="츄월드" />
+        </div>
+      )}
+
       <style jsx>
         {`
           .navbarContainer {
