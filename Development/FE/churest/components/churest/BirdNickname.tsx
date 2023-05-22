@@ -37,7 +37,8 @@ export default function BirdNickname({
   };
 
   const canInputMessage = useMutation(
-    (info: { memberBirdId: number; nickname: string }) => modifyMyBird(info),
+    (info: { memberBirdId: number; nickname: string }) =>
+      modifyMyBird(token, info),
     {
       onSuccess() {
         refetch();

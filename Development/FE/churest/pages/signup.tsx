@@ -114,7 +114,7 @@ export default function SignUpPage() {
 
   const [userInfo, setUserInfo] = useRecoilState(loginAtom);
 
-  const goSignUp = useMutation((joinInfo: any) => signUp(joinInfo), {
+  const goSignUp = useMutation((joinInfo: any) => signUp(token, joinInfo), {
     onSuccess(data) {
       setUserInfo({
         ...userInfo,

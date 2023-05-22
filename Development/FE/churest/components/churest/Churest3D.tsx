@@ -55,15 +55,6 @@ type Props = {
   resetPosition: boolean;
 };
 export default function Churest3D({ autoView, resetPosition }: Props) {
-  // const [name, setClickedName] = useRecoilState(clickedName);
-  // const showAlert = () => {
-  //   Swal.fire({
-  //     title: name.name + '의 츄레스트',
-  //     position: 'center',
-  //     showConfirmButton: false,
-  //     timer: 1000,
-  //   });
-  // };
 
   let loginId = useRecoilValue(loginAtom).id;
   // 방문 츄레스트 id
@@ -134,10 +125,11 @@ export default function Churest3D({ autoView, resetPosition }: Props) {
         return;
     }
   };
+  const token = useRecoilValue(loginAtom).accessToken; 
   const memberId = useRouter().query.id;
   const { data, refetch } = useQuery(
     ['tree', memberId],
-    () => getForest(memberId),
+    () => getForest(token, memberId),
     {
       onSuccess(data) {},
     }

@@ -15,11 +15,12 @@ export default function SquareDonate({ memberId }: Props) {
   const [isDonateOpen, setIsDonateOpen] = useRecoilState(donationModalAtom);
   const [myDonateTree, setMyDonateTree] = useState(0);
   const [totalDonateTree, setTotalDonateTree] = useState(0);
+  const token = useRecoilValue(loginAtom).accessToken;
   const clickCloseButton = () => {
     setIsDonateOpen({ isModal: false });
   };
 
-  useQuery('donate', () => getDonateInfo(Number(memberId)), {
+  useQuery('donate', () => getDonateInfo(token, Number(memberId)), {
     onSuccess(data) {
       setMyDonateTree(data.data.myDonateTreeCount);
       setTotalDonateTree(data.data.totalDonateTreeCount);

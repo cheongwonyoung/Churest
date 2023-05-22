@@ -26,6 +26,7 @@ type Props = {
 };
 
 export default function ItemList({ itemCategoryName, memberId }: Props) {
+  const token = useRecoilValue(loginAtom).accessToken;
   const [coin, setCoin] = useState(0);
   const [haveBirdItem, setHaveBirdItem] = useState(Array);
   const [haveBirdHouseItem, setHaveBirdHouseItem] = useState(Array);
@@ -41,7 +42,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
 
   const { refetch: refetchBird } = useQuery(
     'birds',
-    () => getShopBirdList(Number(memberId)),
+    () => getShopBirdList(token, Number(memberId)),
     {
       onSuccess(data) {
         setHaveBirdItem(data.data.birds);
@@ -53,7 +54,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
 
   const { refetch: refetchBirdHouse } = useQuery(
     'birdhouses',
-    () => getBirdHouseList(Number(memberId)),
+    () => getBirdHouseList(token, Number(memberId)),
     {
       onSuccess(data) {
         setHaveBirdHouseItem(data.data.birdHouses);
@@ -65,7 +66,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
 
   const { refetch: refetchHouse } = useQuery(
     'houses',
-    () => getHouseList(Number(memberId)),
+    () => getHouseList(token, Number(memberId)),
     {
       onSuccess(data) {
         setHaveHouseItem(data.data.houses);
@@ -81,7 +82,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   }, []);
 
   const buyBird = useMutation(
-    (info: { birdId: number; memberId: number }) => getNewBird(info),
+    (info: { birdId: number; memberId: number }) => getNewBird(token, info),
     {
       onSuccess: (data) => {
         setIsShopOpen({ isModal: false }); // 상점 창 닫기
@@ -92,7 +93,8 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   );
 
   const buyBirdHouse = useMutation(
-    (info: { birdHouseId: number; memberId: number }) => getNewBirdHouse(info),
+    (info: { birdHouseId: number; memberId: number }) =>
+      getNewBirdHouse(token, info),
     {
       onSuccess: (data) => {
         refetchBirdHouse();
@@ -102,7 +104,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   );
 
   const buyHouse = useMutation(
-    (info: { houseId: number; memberId: number }) => getNewHouse(info),
+    (info: { houseId: number; memberId: number }) => getNewHouse(token, info),
     {
       onSuccess: (data) => {
         refetchHouse();
@@ -112,7 +114,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   );
 
   const modifyBird = useMutation(
-    (info: { birdId: number; memberId: number }) => modifyMyBird(info),
+    (info: { birdId: number; memberId: number }) => modifyMyBird(token, info),
     {
       onSuccess: (data) => {
         getForestInfo();
@@ -123,7 +125,8 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   );
 
   const modifyBirdHouse = useMutation(
-    (info: { houseId: number; memberId: number }) => modifyMyBirdHouse(info),
+    (info: { houseId: number; memberId: number }) =>
+      modifyMyBirdHouse(token, info),
     {
       onSuccess: (data) => {
         getForestInfo();
@@ -134,7 +137,7 @@ export default function ItemList({ itemCategoryName, memberId }: Props) {
   );
 
   const modifyHouse = useMutation(
-    (info: { houseId: number; memberId: number }) => modifyMyHouse(info),
+    (info: { houseId: number; memberId: number }) => modifyMyHouse(token, info),
     {
       onSuccess: (data) => {
         getForestInfo();

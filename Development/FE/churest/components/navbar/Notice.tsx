@@ -29,6 +29,7 @@ type Notice = {
 
 export default function Notice({ memberId }: Props) {
   const router = useRouter();
+  const token = useRecoilValue(loginAtom).accessToken;
   // 모달 관련
   const [isAlarmOpen, setIsAlarmOpen] = useRecoilState(openAlarmAtom);
   const type = 'tagged';
@@ -38,18 +39,23 @@ export default function Notice({ memberId }: Props) {
   const setIsMyTreeOpen = useSetRecoilState(myTreeAtom);
 
   // 알림 GET
-  const { data, refetch } = useQuery('getNotice', () => getAlarm(memberId));
+  const { data, refetch } = useQuery('getNotice', () =>
+    getAlarm(token, memberId)
+  );
 
   useEffect(() => {
     refetch();
   }, []);
 
   // 읽은 알람 checked
-  const isChecked = useMutation((noticeId: number) => checkedAlarm(noticeId), {
-    onSuccess: (data) => {
-      refetch();
-    },
-  });
+  const isChecked = useMutation(
+    (noticeId: number) => checkedAlarm(token, noticeId),
+    {
+      onSuccess: (data) => {
+        refetch();
+      },
+    }
+  );
 
   return (
     <>
@@ -64,90 +70,90 @@ export default function Notice({ memberId }: Props) {
             />
             <div>알림함</div>
           </div>
-            {data && data?.data.length === 0 && (
-              <div style={{ textAlign: 'center' }}>알림이 없습니다.</div>
-            )}
-            {data ? (
-              data.data.map((notice: Notice, idx: number) => {
-                return notice.toMember === notice.fromMember ? (
-                  // 나무 다 자랐을 때
-                  <div
-                    key={idx}
-                    className="notice-item"
-                    onClick={() => {
-                      setIsAlarmOpen({ isModal: false });
-                      // router.push('/churest/' + notice.fromMember);
-                      setIsMyTreeOpen({
-                        isModal: true,
-                        boardId: notice.board,
-                      });
-                      isChecked.mutate(notice.noticeId);
-                    }}
-                  >
-                    <div className="image">
-                      <div className="notice-profile center">
-                        <Image
-                          src={images['tree_' + notice.treeId + '_img']}
-                          alt=""
-                          width={50}
-                          height={75}
-                        />
-                      </div>
-                    </div>
-                    <div className="item">
-                      <div className="notice-content">
-                        <p>추억{notice.content}</p>
-                      </div>
-                      <div className="item-date">
-                        {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
-                      </div>
+          {data && data?.data.length === 0 && (
+            <div style={{ textAlign: 'center' }}>알림이 없습니다.</div>
+          )}
+          {data ? (
+            data.data.map((notice: Notice, idx: number) => {
+              return notice.toMember === notice.fromMember ? (
+                // 나무 다 자랐을 때
+                <div
+                  key={idx}
+                  className="notice-item"
+                  onClick={() => {
+                    setIsAlarmOpen({ isModal: false });
+                    // router.push('/churest/' + notice.fromMember);
+                    setIsMyTreeOpen({
+                      isModal: true,
+                      boardId: notice.board,
+                    });
+                    isChecked.mutate(notice.noticeId);
+                  }}
+                >
+                  <div className="image">
+                    <div className="notice-profile center">
+                      <Image
+                        src={images['tree_' + notice.treeId + '_img']}
+                        alt=""
+                        width={50}
+                        height={75}
+                      />
                     </div>
                   </div>
-                ) : (
-                  // 추억에 태그 당했을 때
-                  <div
-                    key={idx}
-                    className="notice-item"
-                    onClick={() => {
-                      setIsAlarmOpen({ isModal: false });
-                      // router.push('/churest/' + notice.fromMember);
-                      setIsMyTreeOpen({
-                        isModal: true,
-                        boardId: notice.board,
-                      });
-                      isChecked.mutate(notice.noticeId);
-                    }}
-                  >
-                    <div className="image">
-                      <div className="notice-profile">
-                        <Image
-                          src={images['avatar_' + notice.avatar + '_img']}
-                          alt=""
-                          width={50}
-                          height={75}
-                        />
-                      </div>
+                  <div className="item">
+                    <div className="notice-content">
+                      <p>추억{notice.content}</p>
                     </div>
+                    <div className="item-date">
+                      {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                // 추억에 태그 당했을 때
+                <div
+                  key={idx}
+                  className="notice-item"
+                  onClick={() => {
+                    setIsAlarmOpen({ isModal: false });
+                    // router.push('/churest/' + notice.fromMember);
+                    setIsMyTreeOpen({
+                      isModal: true,
+                      boardId: notice.board,
+                    });
+                    isChecked.mutate(notice.noticeId);
+                  }}
+                >
+                  <div className="image">
+                    <div className="notice-profile">
+                      <Image
+                        src={images['avatar_' + notice.avatar + '_img']}
+                        alt=""
+                        width={50}
+                        height={75}
+                      />
+                    </div>
+                  </div>
 
-                    <div className="item">
-                      <div className="notice-content">
-                        <p>
-                          {notice.fromMemberName}
-                          {notice.content}
-                        </p>
-                      </div>
-                      <div className="item-date">
-                        {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
-                      </div>
+                  <div className="item">
+                    <div className="notice-content">
+                      <p>
+                        {notice.fromMemberName}
+                        {notice.content}
+                      </p>
+                    </div>
+                    <div className="item-date">
+                      {moment(notice.createdTime).format('YYYY년 MM월 DD일')}
                     </div>
                   </div>
-                );
-              })
-            ) : (
-              <>
-                <div>알림이 없습니다.</div>
-              </>
-            )}
+                </div>
+              );
+            })
+          ) : (
+            <>
+              <div>알림이 없습니다.</div>
+            </>
+          )}
         </div>
       </div>
 

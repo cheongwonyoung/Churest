@@ -5,6 +5,8 @@ import { getMyInfo } from '@/apis/mypage';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import NickName from './NickName';
+import { useRecoilValue } from 'recoil';
+import { loginAtom } from '@/atoms/login';
 
 type Props = {
   myPageId: number;
@@ -20,9 +22,10 @@ export default function MyPage({ myPageId }: Props) {
   const handleNickname = (e: any) => {
     setNickname(e.target.value);
   };
+  const token = useRecoilValue(loginAtom).accessToken;
   const { data, refetch } = useQuery(
     'mypage',
-    () => getMyInfo(Number(myPageId)),
+    () => getMyInfo(token, Number(myPageId)),
     {
       onSuccess(data) {
         setNickname(data.data.member.nickname);

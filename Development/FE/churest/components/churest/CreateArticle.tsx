@@ -83,29 +83,33 @@ export default function CreateArticle({ treeId }: Props) {
 
   const forestId = useRouter().query.id;
   const setTiming = useSetRecoilState(forestAtom);
+  const token = useRecoilValue(loginAtom).accessToken;
   const getForestInfo = () => {
     setTiming((prev) => !prev);
   };
 
-  const { mutate: submit } = useMutation((info: any) => goCreateArticle(info), {
-    onSuccess(data, variables, context) {
-      getForestInfo();
-      setIsCreate((prev) => {
-        return { ...prev, isModal: false, isSelect: false };
-      });
-      // closeModal();
-      // changeToSelect();
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: '추억 나무 심기 완료',
-        showConfirmButton: false,
-        timer: 1000,
-      });
-      //  refetch();
-    },
-    onError(error, variables, context) {},
-  });
+  const { mutate: submit } = useMutation(
+    (info: any) => goCreateArticle(token, info),
+    {
+      onSuccess(data, variables, context) {
+        getForestInfo();
+        setIsCreate((prev) => {
+          return { ...prev, isModal: false, isSelect: false };
+        });
+        // closeModal();
+        // changeToSelect();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: '추억 나무 심기 완료',
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        //  refetch();
+      },
+      onError(error, variables, context) {},
+    }
+  );
 
   const spot = isCreate.spot;
   const memberId = useRecoilValue(loginAtom).id;

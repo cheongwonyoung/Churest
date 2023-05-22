@@ -15,6 +15,7 @@ export default function TagTaker() {
   };
   const { mutate } = useMutation(
     (data: {
+      token: string;
       boardId: number;
       memberId: number;
       locationInfo: {
@@ -40,6 +41,7 @@ export default function TagTaker() {
 
   const goTake = () => {
     const data = {
+      token: userInfo.accessToken,
       boardId: article.boardId,
       memberId: userInfo.id,
       locationInfo: {
