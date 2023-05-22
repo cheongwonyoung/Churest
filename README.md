@@ -121,15 +121,6 @@ SSAFY 8기 2학기 자율프로젝트 - 츄레스트
 ![taggedtree](/uploads/79ceb9169b5790c6d72251c722ca208b/taggedtree.gif)
 
 
-### 🌲 광장
-
-![square](/uploads/68d53d71b846ac7ddc20eaabf4653f7d/square.gif)
-
-![chatting](/uploads/f7efdb75ca94fe4afea93061c7a2c34b/chatting.gif)
-
-![game](/uploads/783055cffd2c69094696616d606c9a07/game.gif)
-
-
 ### ☘ 놀러가기
 
 ![chuworld](/uploads/973308e7e4fe129e4f6ad1601239457f/chuworld.gif)
@@ -138,6 +129,15 @@ SSAFY 8기 2학기 자율프로젝트 - 츄레스트
 
 ![guestbookwrite](/uploads/e40b8d1228120b364a1891f163ac51d4/guestbookwrite.gif)
 
+
+
+### 🌲 광장
+
+![square](/uploads/68d53d71b846ac7ddc20eaabf4653f7d/square.gif)
+
+![chatting](/uploads/f7efdb75ca94fe4afea93061c7a2c34b/chatting.gif)
+
+![game](/uploads/783055cffd2c69094696616d606c9a07/game.gif)
 
 
 
