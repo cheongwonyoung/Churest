@@ -1,8 +1,8 @@
 import { Canvas } from '@react-three/fiber';
 import { useEffect, useState } from 'react';
 import Churest3D from '@/components/churest/Churest3D';
-import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
-import { createArticleAtom, spaceModalAtom, tutorialAtom } from '@/atoms/modal';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { spaceModalAtom, tutorialAtom } from '@/atoms/modal';
 import Navbar from '@/components/common/Navbar';
 import MemoryButton from '@/components/churest/MemoryButton';
 import { loginAtom } from '@/atoms/login';
@@ -25,26 +25,8 @@ export default function Garden() {
   const isSpace = useRecoilValue(spaceModalAtom);
   const router = useRouter();
   const churestId = Number(router.query.id);
-
   const [autoView, setAutoView] = useState(true);
-
-  // const [selectSpot, setSelectSpot] = useState(false);
-  // const setIsSelect = useSetRecoilState(createArticleAtom);
-  // const changeToSelect = () => {
-  //   setSelectSpot((prev) => !prev);
-  //   setIsSelect((prev) => {
-  //     return { ...prev, isSelect: true };
-  //   });
-  // };
-  // const isSelect = useRecoilValue(createArticleAtom).isSelect;
-  // useEffect(() => {
-  //   if (isSelect == false) {
-  //     setSelectSpot(false);
-  //   }
-  // }, [isSelect]);
-
   const [resetPosition, setResetPosition] = useState(true);
-
   const [isTutorialOpen, setIsTutorialOpen] = useRecoilState(tutorialAtom);
 
   useEffect(() => {

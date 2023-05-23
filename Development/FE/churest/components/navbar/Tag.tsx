@@ -1,17 +1,14 @@
-import Carousel from '../common/Carousel';
 import { getTaggedTree } from '@/apis/navbar';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState, useSetRecoilState, useRecoilValue } from 'recoil';
 import { openTagAtom } from '@/atoms/modal';
-import SwiperCore, { EffectCoverflow, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import { images } from '@/public/assets/images';
 import Image from 'next/image';
 import moment from 'moment';
-import ModalBlackBg from '../common/ModalBlackBg';
 import { createArticleAtom } from '@/atoms/modal';
 import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';

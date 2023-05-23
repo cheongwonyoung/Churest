@@ -3,11 +3,10 @@ import Image from 'next/image';
 import { images } from '@/public/assets/images';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { openShopAtom, newBirdAtom } from '@/atoms/modal';
 import Swal from 'sweetalert2';
 import { loginAtom } from '@/atoms/login';
-import { movingAtom } from '@/atoms/inp';
 
 export default function NewBird() {
   const bird = useRecoilValue(newBirdAtom).bird;

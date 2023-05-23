@@ -1,4 +1,4 @@
-import { Html, Text } from '@react-three/drei';
+import { Html } from '@react-three/drei';
 import { useRouter } from 'next/router';
 import { House1 } from '../3DFiles/House/House_1';
 import { House2 } from '../3DFiles/House/House_2';

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BiImageAdd } from 'react-icons/bi';
 import { v4 as uuidv4 } from 'uuid';

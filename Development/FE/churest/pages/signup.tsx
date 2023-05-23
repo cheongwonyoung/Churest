@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-// import StepFaceResult from '../components/signUp/StepFaceResult';
+import { useState } from 'react';
 import { signUp } from '@/apis/login';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useMutation } from 'react-query';
 import router from 'next/router';
 import StepAvatar from '@/components/signup/StepAvatar';

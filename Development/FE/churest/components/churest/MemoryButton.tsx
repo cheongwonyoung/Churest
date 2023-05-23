@@ -3,10 +3,6 @@ import { images } from '@/public/assets/images';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { createArticleAtom, spaceModalAtom } from '@/atoms/modal';
 
-// type Props = {
-//   selectSpot: any;
-//   changeToSelect: any;
-// };
 export default function MemoryButton() {
   const [isSelect, setIsSelct] = useRecoilState(createArticleAtom);
   const setIsSpace = useSetRecoilState(spaceModalAtom);

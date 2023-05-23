@@ -1,6 +1,6 @@
 import { gameFinishAtom } from '@/atoms/modal';
 import { useRouter } from 'next/router';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 export default function FinishModal() {
   const [winner, setWinner] = useRecoilState(gameFinishAtom);

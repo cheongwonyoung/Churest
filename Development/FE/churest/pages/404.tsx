@@ -5,12 +5,11 @@ import { OrbitControls } from '@react-three/drei';
 export default function Custom404() {
   return (
     <div className="container">
-      {/* <div> */}
       <Canvas shadows camera={{ position: [0, 0, 10] }}>
         <mesh receiveShadow castShadow>
           <Error404 rotation={[0, -Math.PI / 2, 0]} />
         </mesh>
-        {/* <OrbitControls /> */}
+
         <orthographicCamera />
         <ambientLight intensity={0.2} />
         <directionalLight

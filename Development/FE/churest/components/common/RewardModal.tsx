@@ -1,4 +1,4 @@
-import { ReactComponentElement, ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 type Props = {
   closeModal(): void;

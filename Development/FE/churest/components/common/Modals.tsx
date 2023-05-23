@@ -26,7 +26,6 @@ import LetterBox from '../churest/LetterBox';
 import MyBird from '../churest/MyBird';
 import ItemShop from '@/components/navbar/ItemShop';
 import NewBird from '../churest/NewBird';
-import CreateArticle from '../churest/CreateArticle';
 import MemoryView from '../churest/MemoryView';
 import CreateBoox from '../churest/CreateBoox';
 import SquareDonate from '../square/SquareDonate';

@@ -6,8 +6,6 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import moment from 'moment';
 import Image from 'next/image';
-import BirdNickname from '../churest/BirdNickname';
-import TreeInfo from '../churest/TreeInfo';
 import { myRewardModal } from '@/atoms/modal';
 import { useSetRecoilState } from 'recoil';
 
@@ -20,10 +18,7 @@ type Props = {
 };
 
 export default function Carousel({ cardType, info, refetch }: Props) {
-  const IMAGE_ROOT = process.env.NEXT_PUBLIC_IMAGE_ROOT;
-
   const setMyRewardModal = useSetRecoilState(myRewardModal);
-
   const showReward = (treeInfo: {}) => {
     setMyRewardModal({ isModal: true, treeInfo: treeInfo });
   };

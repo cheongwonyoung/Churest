@@ -1,7 +1,6 @@
 import { searchFriend } from '@/apis/navbar';
 import { useState, useEffect } from 'react';
 import { useMutation } from 'react-query';
-// import ModalBlackBg from './ModalBlackBg';
 import SearchResult from './SearchResult';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { openSearchAtom } from '@/atoms/modal';
