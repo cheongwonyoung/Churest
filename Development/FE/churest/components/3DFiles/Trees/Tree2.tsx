@@ -86,4 +86,4 @@ export function Tree2(props: JSX.IntrinsicElements['group']) {
     </group>
   );
 }
-useGLTF.preload(glbs.tree_2_glb);
+// useGLTF.preload(glbs.tree_2_glb);

@@ -44,4 +44,4 @@ export function OrangeFlower(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.flower_orange_glb);
+// useGLTF.preload(glbs.flower_orange_glb);

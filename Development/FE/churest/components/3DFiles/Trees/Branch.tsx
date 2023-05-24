@@ -33,4 +33,4 @@ export function Branch(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.branch_glb);
+// useGLTF.preload(glbs.branch_glb);

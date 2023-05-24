@@ -152,4 +152,4 @@ export function TFlower_2(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.t_flower_2_glb);
+// useGLTF.preload(glbs.t_flower_2_glb);

@@ -55,4 +55,4 @@ export function GrassFlower(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.flower_grass_glb);
+// useGLTF.preload(glbs.flower_grass_glb);

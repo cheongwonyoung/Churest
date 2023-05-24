@@ -33,4 +33,4 @@ export function WhiteFlower(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.flower_white_glb);
+// useGLTF.preload(glbs.flower_white_glb);

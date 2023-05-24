@@ -128,4 +128,4 @@ export function BlueFlower(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.flower_blue_glb);
+// useGLTF.preload(glbs.flower_blue_glb);

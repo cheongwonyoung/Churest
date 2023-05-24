@@ -32,4 +32,4 @@ export function Rock5(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.rock_5_glb);
+// useGLTF.preload(glbs.rock_5_glb);

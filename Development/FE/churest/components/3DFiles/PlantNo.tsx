@@ -39,4 +39,4 @@ export function PlantNo(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.plant_no_glb);
+// useGLTF.preload(glbs.plant_no_glb);

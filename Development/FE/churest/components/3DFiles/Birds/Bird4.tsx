@@ -75,4 +75,4 @@ export function Bird4(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.bird_4_glb);
+// useGLTF.preload(glbs.bird_4_glb);

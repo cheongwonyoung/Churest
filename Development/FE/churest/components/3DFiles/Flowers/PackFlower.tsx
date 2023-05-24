@@ -64,4 +64,4 @@ export function PackFlower(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.flower_pack_glb);
+// useGLTF.preload(glbs.flower_pack_glb);

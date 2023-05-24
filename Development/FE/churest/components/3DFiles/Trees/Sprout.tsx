@@ -51,4 +51,4 @@ export function Sprout(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.sprout_glb);
+// useGLTF.preload(glbs.sprout_glb);
