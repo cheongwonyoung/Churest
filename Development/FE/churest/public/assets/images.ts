@@ -121,13 +121,14 @@ export const images: Images = {
   pin_home_img:
     'https://storage.googleapis.com/churest-bucket/project_image/pin_home.png',
   pin_focus_img:
-    'https://storage.googleapis.com/churest-bucket/project_image/pin_navbar_img.png',
+    // 'https://storage.googleapis.com/churest-bucket/project_image/pin_navbar_img.png',
+
+    'https://storage.googleapis.com/churest-bucket/project_image/webp_image_pin_navbar_img.webp',
   sprout_img:
     'https://storage.googleapis.com/churest-bucket/project_image/sprout_img.png',
   branch_img:
     'https://storage.googleapis.com/churest-bucket/project_image/branch_img.png',
-  loading: 
-    'https://storage.googleapis.com/churest-bucket/bird_fly.gif',
+  loading: 'https://storage.googleapis.com/churest-bucket/bird_fly.gif',
   tutorial_img:
     'https://storage.googleapis.com/churest-bucket/project_image/tutorial.png',
   reward_icon_img:
