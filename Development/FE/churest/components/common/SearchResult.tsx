@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { images } from '@/public/assets/images';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { openSearchAtom, clickedName } from '@/atoms/modal';
 type Props = {
   list: ResultType[];

@@ -40,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                  .antMatchers("/api/member/login", "/api/member/token", "/chat/**", "/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**","/swagger-ui/**")
-                 .anonymous()
+//                 .anonymous()
+                .permitAll()
 //               .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and().cors().configurationSource(corsConfigurationSource())

@@ -4,7 +4,6 @@ import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from 'react-icons/md';
-import { useState } from 'react';
 
 type Props = {
   plusStep(): void;

@@ -1,6 +1,5 @@
 import { images } from '@/public/assets/images';
 import Image from 'next/image';
-import { Html } from '@react-three/drei';
 
 export default function Loading() {
   return (

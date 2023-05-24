@@ -3,7 +3,7 @@ import { RigidBody } from '@react-three/rapier';
 import { useEffect, useState } from 'react';
 import { PlantNo } from '../3DFiles/PlantNo';
 import { PlantOk } from '../3DFiles/PlantOk';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { createArticleAtom } from '@/atoms/modal';
 
 type Props = {

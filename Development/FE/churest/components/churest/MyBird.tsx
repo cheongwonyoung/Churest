@@ -16,7 +16,6 @@ import { loginAtom } from '@/atoms/login';
 import { useRecoilValue } from 'recoil';
 
 export default function MyBird() {
-  const cardType = 'mybird';
   const router = useRouter();
   const memberId: number = Number(router.query.id);
   const token = useRecoilValue(loginAtom).accessToken;

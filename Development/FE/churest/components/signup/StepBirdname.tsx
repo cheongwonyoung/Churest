@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import NextBtn from './NextBtn';
 import { images } from '@/public/assets/images';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { isCheckedBirdNickname } from '@/apis/mypage';
 import { useQuery } from 'react-query';
 import Swal from 'sweetalert2';

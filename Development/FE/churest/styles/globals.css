@@ -16,12 +16,14 @@ body {
   src: url('../public/assets/MICEGothic Bold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap; 
 }
 @font-face {
   font-family: 'MICEGothic';
   src: url('../public/assets/MICEGothic.woff') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap; 
 }
 
 .gogo {

@@ -1,11 +1,9 @@
-import Churest3D from '@/components/churest/Churest3D';
 import SquareBox from '@/components/square/SquareBox';
 import { Canvas } from '@react-three/fiber';
 import Navbar from '@/components/common/Navbar';
 import Square3D from '@/components/square/Square3D';
 import { spaceModalAtom } from '@/atoms/modal';
 import { useRecoilValue } from 'recoil';
-import { useEffect } from 'react';
 export default function Square() {
   const isSpace = useRecoilValue(spaceModalAtom);
 

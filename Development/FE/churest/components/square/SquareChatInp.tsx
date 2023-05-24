@@ -1,5 +1,5 @@
 import { BsFillSendFill } from 'react-icons/bs';
-import { KeyboardEvent, useEffect, useRef } from 'react';
+import { KeyboardEvent, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { movingAtom } from '@/atoms/inp';
 type Props = {

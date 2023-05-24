@@ -1,7 +1,6 @@
 import { images } from '@/public/assets/images';
 import Image from 'next/image';
 import css from 'styled-jsx/css';
-import Link from 'next/link';
 type Props = {
   image: string;
   title: string;

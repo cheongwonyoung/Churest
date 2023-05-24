@@ -3,10 +3,9 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { loginAtom } from '@/atoms/login';
 import { useRouter } from 'next/router';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
-import { movingAtom } from '@/atoms/inp';
 
 type Props = { refetch: any; closeModal: any };
 
