@@ -86,4 +86,4 @@ export function Bird7(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.bird_7_glb);
+// useGLTF.preload(glbs.bird_7_glb);

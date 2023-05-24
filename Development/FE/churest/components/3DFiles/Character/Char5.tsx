@@ -382,4 +382,4 @@ export function Char5({ isMoving, charState }: Props) {
   );
 }
 
-useGLTF.preload(glbs.char_5_glb);
+// useGLTF.preload(glbs.char_5_glb);

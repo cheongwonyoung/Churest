@@ -38,4 +38,4 @@ export function PlantOk(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.plant_ok_glb);
+// useGLTF.preload(glbs.plant_ok_glb);

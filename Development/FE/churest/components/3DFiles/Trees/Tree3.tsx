@@ -33,4 +33,4 @@ export function Tree3(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.tree_3_glb);
+// useGLTF.preload(glbs.tree_3_glb);

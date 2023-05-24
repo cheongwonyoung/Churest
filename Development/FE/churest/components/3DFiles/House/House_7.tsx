@@ -32,4 +32,4 @@ export function Model(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload('/house_7.glb');
+// useGLTF.preload('/house_7.glb');

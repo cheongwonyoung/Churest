@@ -43,4 +43,4 @@ export function House1(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.house_1_glb);
+// useGLTF.preload(glbs.house_1_glb);

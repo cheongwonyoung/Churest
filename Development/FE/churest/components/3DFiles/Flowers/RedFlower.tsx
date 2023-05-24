@@ -29,4 +29,4 @@ export function RedFlower(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.flower_red_glb);
+// useGLTF.preload(glbs.flower_red_glb);

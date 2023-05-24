@@ -33,4 +33,4 @@ export function Mountain(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.mountain_glb);
+// useGLTF.preload(glbs.mountain_glb);

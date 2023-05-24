@@ -62,4 +62,4 @@ export function Game1Map(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.game_1_map_glb);
+// useGLTF.preload(glbs.game_1_map_glb);

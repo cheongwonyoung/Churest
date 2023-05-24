@@ -42,4 +42,4 @@ export function Seed(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.seed_glb);
+// useGLTF.preload(glbs.seed_glb);

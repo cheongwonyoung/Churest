@@ -58,4 +58,4 @@ export function BirdHouse3(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.birdhouse_3_glb);
+// useGLTF.preload(glbs.birdhouse_3_glb);

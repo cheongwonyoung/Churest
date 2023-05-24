@@ -37,4 +37,4 @@ export function PinkFlower(props: JSX.IntrinsicElements['group']) {
   );
 }
 
-useGLTF.preload(glbs.flower_pink_glb);
+// useGLTF.preload(glbs.flower_pink_glb);
