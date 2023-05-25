@@ -93,9 +93,6 @@ SSAFY 8기 2학기 자율프로젝트 - 츄레스트
 ![churest](/exec/images/churest.gif)
 
 
-![tutorial](/exec/images/tutorial.png)
-
-
 ![mypage](/exec/images/mypage.gif)
 
 
